@@ -12,6 +12,8 @@ namespace Dtol.dtol
         public string Remark { get; set; }
         public string RightsName { get; set; }
         public string ParentId { get; set; }
-        public virtual ICollection<User_Rights> SMUserRights{ get; set; }
+        public virtual ICollection<User_Rights> SMUser_Rights{ get; set; }
+
+        public virtual ICollection<User_Info> SMUser_Info { get; set; }
     }
 }

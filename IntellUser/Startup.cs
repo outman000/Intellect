@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Dtol;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace IntellUser
 {
@@ -47,6 +49,27 @@ namespace IntellUser
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                        {
+                            Title = "东疆智慧后勤用户管理接口文档",
+                            Description = "用户管理模块接口",
+                            Contact = new Contact
+                            {
+                                Name = "张祎荻",
+                                Email = "479663032@qq.com",
+                            },
+                            Version = "v1"
+                        });
+                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
+                var xmlPath = Path.Combine(basePath, "IntellUser.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
+
+            // 为 Swagger JSON and UI设置xml文档注释路径
+        
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -62,6 +85,34 @@ namespace IntellUser
             {
                 app.UseHsts();
             }
+
+
+            //允许所有的域
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            // app.UseHttpsRedirection();
+
+            //，启用中间件为生成的 JSON 文档和 Swagger UI 提供服务
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "用户管理文档 V1");
+                c.RoutePrefix = string.Empty;
+            });
+
+
+
+
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
