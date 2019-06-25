@@ -6,7 +6,7 @@ using ViewModel.UserViewModel;
 
 namespace IntellUser.InterFace
 {
-    interface LoginInterface
+    public interface LoginInterface
     {
         LoginViewModel Login_Valid();
     }

@@ -16,6 +16,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 using IntellUser.CLassService;
 using IntellUser.InterFace;
+using IntellUser.BaseClass;
 
 namespace IntellUser
 {
@@ -31,7 +32,8 @@ namespace IntellUser
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             Configuration.GetConnectionString("SqlServerConnection");
+            EFBaseClass.connection = Configuration.GetConnectionString("SqlServerConnection");
+          
             var sss = Configuration["tools"];
             //这里注入是为了用ef框架，在control里面就不在就不注入了
             services.AddDbContext<DtolContext>(options =>

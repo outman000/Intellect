@@ -1,5 +1,6 @@
 ﻿using Dtol.dtol;
 using IntellUser.BaseClass;
+using IntellUser.InterFace;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using ViewModel.UserViewModel;
 
 namespace IntellUser.CLassService
 {
-    public class LoginService:EFBaseClass
+    public class LoginService:EFBaseClass, LoginInterface
     {
         public LoginViewModel Login_Valid()
         {
@@ -21,7 +22,7 @@ namespace IntellUser.CLassService
             }
           
 
-            return;
+            return null;
 
         }
 
