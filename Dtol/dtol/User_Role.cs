@@ -12,8 +12,15 @@ namespace Dtol.dtol
         public string Remark { get; set; }
         public string RightsName { get; set; }
         public string ParentId { get; set; }
-        public virtual ICollection<User_Rights> SMUser_Rights{ get; set; }
+        public string RoleType { get; set; }
+        public string RoleCode { get; set; }
+        public string Status { get; set; }
+        public DateTime? Createdate { get; set; }
+        public DateTime? UpdateTime { get; set; }
+        public DateTime? Level { get; set; }
 
-        public virtual ICollection<User_Info> SMUser_Info { get; set; }
+        public virtual ICollection<User_Relate_Role_Right> User_Relate_Role_Right { get; set; }
+
+        public virtual ICollection<User_Relate_Info_Role> User_Relate_Info_Role { get; set; }
     }
 }

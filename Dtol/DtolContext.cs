@@ -19,25 +19,24 @@ namespace Dtol
         }
 
         //连接复原
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder
-                .UseSqlServer(
-                    @"Server=(localdb)\mssqllocaldb;Database=EFMiscellanous.ConnectionResiliency;Trusted_Connection=True;ConnectRetryCount=0",
-                    options => options.EnableRetryOnFailure());
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+            
+        //    optionsBuilder
+        //        .UseSqlServer(
+        //            @"Server = DESKTOP - QEJHC80\\SQL2014; Database = User_DateBase; Trusted_Connection = True;ConnectRetryCount=0",
+        //            options => options.EnableRetryOnFailure());
 
 
-        }
+        //}
 
 
         public DbSet<User_Info> user_Info { get; set; }
         public DbSet<User_Rights> user_Rights { get; set; }
         public DbSet<User_Role> user_Role { get; set; }
-
-
-
-
-
+        public DbSet<User_Relate_Role_Right> user_Relate_Role_Right { get; set; }
+        public DbSet<User_Relate_Info_Role> user_Relate_Info_Role { get; set; }
+        public DbSet<User_Depart>user_Depart { get; set; }
 
     }
 }

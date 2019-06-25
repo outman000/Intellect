@@ -14,6 +14,8 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
+using IntellUser.CLassService;
+using IntellUser.InterFace;
 
 namespace IntellUser
 {
@@ -48,6 +50,10 @@ namespace IntellUser
                     })
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 });
+
+
+
+            services.AddScoped<LoginInterface, LoginService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dtol.dtol
 {
-    class User_Depart
+    public class User_Depart
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,8 +12,7 @@ namespace Dtol.dtol
         public string Code { get; set; }
         public string Remark { get; set; }
         public int? Sort { get; set; }
-
-        public List<User_Info> ProductCategorys { get; set; }
+        public List<User_Info> User_Info { get; set; }
 
     }
 }

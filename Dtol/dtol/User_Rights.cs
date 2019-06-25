@@ -14,7 +14,7 @@ namespace Dtol.dtol
         public int? Sort { get; set; }
         public string ParentId { get; set; }
         public string Type { get; set; }
-        public virtual ICollection<User_Rights> SMUser_Rights { get; set; }
+        public virtual ICollection<User_Relate_Role_Right> User_Relate_Role_Right { get; set; }
 
     }
 }

@@ -6,7 +6,7 @@ namespace Dtol.dtol
 {
      public partial class User_Info
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
         public string UserPwd { get; set; }
         public string RoleNames { get; set; }
@@ -65,6 +65,10 @@ namespace Dtol.dtol
         public string RoleIdNiwen { get; set; }
         public string DzbId { get; set; }
         public int? OrderId { get; set; }
-        public virtual ICollection<User_Role> SMUserRoles { get; set; }
+
+        public String status { get; set; }
+        public virtual ICollection<User_Relate_Info_Role> User_Relate_Info_Role { get; set; }
+
+        public User_Depart User_Depart { get; set; }
     }
 }
