@@ -22,9 +22,10 @@ namespace IntellUser
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            //register config file 
+            Configuration = setConfig(env, "appsettings.json");
         }
 
         public IConfiguration Configuration { get; }
@@ -124,6 +125,19 @@ namespace IntellUser
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+
+
+
+        public IConfiguration setConfig(IHostingEnvironment env, String config)
+        {
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile(config, optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            .AddEnvironmentVariables();
+            return builder.Build();
         }
     }
 }
