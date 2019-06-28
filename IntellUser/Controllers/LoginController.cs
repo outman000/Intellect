@@ -34,6 +34,7 @@ namespace IntellUser.Controllers
         /// </summary>
         /// <remarks>绝对正确</remarks>
         /// <returns></returns>
+        
         [HttpPost]
         public ActionResult UserLoginAbsolute()
         {
