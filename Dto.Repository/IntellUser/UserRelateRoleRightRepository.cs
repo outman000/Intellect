@@ -1,5 +1,6 @@
 ﻿using Dto.IRepository.IntellUser;
 using Dtol;
+using Dtol.dtol;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,34 +9,33 @@ using System.Text;
 
 namespace Dto.Repository.IntellUser
 {
-    class  Repository<TEntity> : IRepository<TEntity> where TEntity : class
-
+    class UserRelateRoleRightRepository : IUserRelateRoleRightRepository
     {
         protected readonly DtolContext Db;
-        protected readonly DbSet<TEntity> DbSet;
+        protected readonly DbSet<User_Relate_Role_Right> DbSet;
 
-        public Repository(DtolContext context)
+        public UserRelateRoleRightRepository(DtolContext context)
         {
             Db = context;
-            DbSet = Db.Set<TEntity>();
+            DbSet = Db.Set<User_Relate_Role_Right>();
         }
 
-        public virtual void Add(TEntity obj)
+        public virtual void Add(User_Relate_Role_Right obj)
         {
             DbSet.Add(obj);
         }
 
-        public virtual TEntity GetById(Guid id)
+        public virtual User_Relate_Role_Right GetById(Guid id)
         {
             return DbSet.Find(id);
         }
 
-        public virtual IQueryable<TEntity> GetAll()
+        public virtual IQueryable<User_Relate_Role_Right> GetAll()
         {
             return DbSet;
         }
 
-        public virtual void Update(TEntity obj)
+        public virtual void Update(User_Relate_Role_Right obj)
         {
             DbSet.Update(obj);
         }
@@ -56,5 +56,8 @@ namespace Dto.Repository.IntellUser
             GC.SuppressFinalize(this);
         }
 
+ 
+
+     
     }
 }
