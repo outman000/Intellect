@@ -28,7 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dto.IRepository\Dto.IRepository.csproj" />
+    <ProjectReference Include="..\Dto.IService\Dto.IService.csproj" />
+    <ProjectReference Include="..\Dto.Repository\Dto.Repository.csproj" />
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
+    <ProjectReference Include="..\Service\Dto.Service.csproj" />
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 

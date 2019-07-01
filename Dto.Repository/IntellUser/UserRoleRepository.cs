@@ -1,11 +1,11 @@
-﻿using Dto.IRepository.IntellUser;
-using Dtol;
+﻿using Dtol;
 using Dtol.dtol;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dto.IRepository.IntellUser;
 
 namespace Dto.Repository.IntellUser
 {

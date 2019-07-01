@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Dto.IService.IntellUser
 {
-    class IService
+    public interface IBaseService
     {
+
+
+
     }
 }

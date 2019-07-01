@@ -8,6 +8,6 @@ namespace Dto.IRepository.IntellUser
 {
     public interface IUserInfoRepository : IRepository<User_Info>
     {
-
+        
     }
 }

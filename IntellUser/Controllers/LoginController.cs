@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IntellUser.InterFace;
+using Dto.IService.IntellUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.UserViewModel;
@@ -12,20 +12,24 @@ namespace IntellUser.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly LoginInterface _loginInterface;
-        public LoginController(LoginInterface loginInterface)
+        private readonly ILoginService _ILoginService;
+        public LoginController(ILoginService  loginService)
         {
-            _loginInterface = loginInterface;
+            _ILoginService = loginService;
 
         }
         /// <summary>
         /// 正式登陆方法
         /// </summary>
-        /// <param name="obj">用户名和密码</param>
+        /// <param name="loginViewModel">用户名和密码</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult UserLogin([FromBody] LoginViewModel obj)
+        public ActionResult UserLogin([FromBody] LoginViewModel loginViewModel)
         {
+          
+            _ILoginService.Login_Valide();
+
+
             return Ok();
         }
 

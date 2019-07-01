@@ -14,9 +14,11 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
-using IntellUser.CLassService;
-using IntellUser.InterFace;
+//using IntellUser.CLassService;
+
 using IntellUser.BaseClass;
+using Dto.IService.IntellUser;
+using Dto.Service.IntellUser;
 
 namespace IntellUser
 {
@@ -56,7 +58,22 @@ namespace IntellUser
 
 
 
-            services.AddScoped<LoginInterface, LoginService>();
+           // services.AddScoped<LoginInterface, LoginService>();
+
+            services.AddScoped<ILoginService, LoginService>();
+            //automapper服务
+            //Mapper.Initialize(cfg =>
+
+            //{
+
+            //   cfg.AddProfile<CustomProfile>();
+
+            //});
+
+            // services.AddScoped<LoginInterface, LoginService>();
+
+
+
 
             services.AddSwaggerGen(c =>
             {
