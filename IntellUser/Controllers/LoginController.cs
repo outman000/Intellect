@@ -27,11 +27,12 @@ namespace IntellUser.Controllers
         public ActionResult UserLogin([FromBody] LoginViewModel loginViewModel)
         {
           
-            _ILoginService.Login_Valide();
+            _ILoginService.Login_Valide(loginViewModel);
 
 
             return Ok();
         }
+
 
         /// <summary>
         /// 登录

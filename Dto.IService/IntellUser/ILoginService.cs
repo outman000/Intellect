@@ -9,6 +9,6 @@ namespace Dto.IService.IntellUser
     {
          void Login_Valide(LoginViewModel loginViewModel);
 
-         void User_Add(UserAddViewModel userAddViewModel);
+        
     }
 }
