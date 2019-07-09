@@ -93,18 +93,14 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-
         public ActionResult Manage_User_Delete(UserDeleteViewModel userDeleteViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _userService.User_Delete(userDeleteViewModel);
-                return Ok();
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
+            var a = userDeleteViewModel;
+            //_userService.User_Delete(userDeleteViewModel);
+
+            return Ok();
+         
+          
         }
 
         /// <summary>

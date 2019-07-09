@@ -6,5 +6,6 @@ namespace ViewModel.UserViewModel.RequsetModel
 {
    public partial  class UserDeleteViewModel
     {
+       public  List<int> DeleleIdList;
     }
 }

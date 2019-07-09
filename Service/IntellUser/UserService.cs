@@ -34,7 +34,6 @@ namespace Dto.Service.IntellUser
         {
             IQueryable<User_Info>  Queryable_UserInfo =_IUserInfoRepository
                                                         .GetInfoByUserid(userValideRepeat.UserId);
-
             return (Queryable_UserInfo.Count() > 0 && Queryable_UserInfo.Count() == 1) ?
                    true : false;
         }
