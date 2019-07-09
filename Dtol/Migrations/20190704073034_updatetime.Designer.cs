@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20190704073034_updatetime")]
+    partial class updatetime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,6 +119,8 @@ namespace Dtol.Migrations
                     b.Property<string>("Levels");
 
                     b.Property<string>("MaritalStatus");
+
+                    b.Property<int>("MasterId");
 
                     b.Property<string>("MobileCall");
 

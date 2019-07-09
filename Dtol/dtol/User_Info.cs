@@ -53,7 +53,8 @@ namespace Dtol.dtol
         public string JobPerformance { get; set; }
         public string AwardAndPunish { get; set; }
         public DateTime? AddDate { get; set; }
-        public int MasterId { get; set; }
+        public DateTime? updateDate { get; set; }
+
         public string Remark { get; set; }
         public string Email { get; set; }
         public string DeptLeaderId { get; set; }

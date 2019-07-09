@@ -1,9 +1,8 @@
 ﻿
 using Dto.IRepository.IntellUser;
 using Dto.IService.IntellUser;
-
 using System;
-using ViewModel.UserViewModel;
+using ViewModel.UserViewModel.RequsetModel;
 
 namespace Dto.Service.IntellUser
 {

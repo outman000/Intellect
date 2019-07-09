@@ -10,7 +10,7 @@ using Dto.IRepository.IntellUser;
 
 namespace Dto.Repository.IntellUser
 {
-    class UserInfoRepository : IUserInfoRepository
+    public class UserInfoRepository : IUserInfoRepository
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<User_Info> DbSet;
@@ -56,22 +56,29 @@ namespace Dto.Repository.IntellUser
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
-
-
-
         User_Info IRepository<User_Info>.GetById(Guid id)
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<User_Info> GetInfoByUserid(string userid)
+        {
+            IQueryable<User_Info> user_Infos= DbSet.Where(uid => uid.Equals(userid));
+            return user_Infos;
+        }
+
 
         IQueryable<User_Info> IRepository<User_Info>.GetAll()
         {
             throw new NotImplementedException();
         }
 
+
         public void Update(User_Depart obj)
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

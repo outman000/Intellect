@@ -15,10 +15,12 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 //using IntellUser.CLassService;
-
 using IntellUser.BaseClass;
-using Dto.IService.IntellUser;
-using Dto.Service.IntellUser;
+using AutoMapper;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using System.Reflection;
+using FluentValidation.AspNetCore;
 
 namespace IntellUser
 {
@@ -33,16 +35,18 @@ namespace IntellUser
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            EFBaseClass.connection = Configuration.GetConnectionString("SqlServerConnection");
-          
-            var sss = Configuration["tools"];
-            //这里注入是为了用ef框架，在control里面就不在就不注入了
-            services.AddDbContext<DtolContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
-
+            //EFBaseClass.connection = Configuration.GetConnectionString("SqlServerConnection");
+            var Service = Assembly.Load("Dto.Service");
+            var IService = Assembly.Load("Dto.IService");
+            var IRepository = Assembly.Load("Dto.IRepository");
+            var Repository = Assembly.Load("Dto.Repository");
+            var valitorAssembly = Assembly.Load("ViewModel");
+            #region EFCore
             var connection = Configuration.GetConnectionString("SqlServerConnection");
+            services.AddDbContext<DtolContext>(options =>
+            options.UseSqlServer(connection));
             services.AddDbContext<DtolContext>
                 (options =>
                 {
@@ -55,26 +59,8 @@ namespace IntellUser
                     })
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 });
-
-
-
-           // services.AddScoped<LoginInterface, LoginService>();
-
-            services.AddScoped<ILoginService, LoginService>();
-            //automapper服务
-            //Mapper.Initialize(cfg =>
-
-            //{
-
-            //   cfg.AddProfile<CustomProfile>();
-
-            //});
-
-            // services.AddScoped<LoginInterface, LoginService>();
-
-
-
-
+            #endregion
+            #region Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -92,12 +78,50 @@ namespace IntellUser
                 var xmlPath = Path.Combine(basePath, "IntellUser.xml");
                 c.IncludeXmlComments(xmlPath);
             });
+            #endregion
+            #region AutoMapper
+          
+            services.AddAutoMapper(Service);
+            #endregion
 
-            // 为 Swagger JSON and UI设置xml文档注释路径
-        
+
+            #region mvc服务
+         
+            services.AddMvc()
+                .AddFluentValidation(config => {
+                    config.RegisterValidatorsFromAssembly(valitorAssembly);//程序集注入
+                    config.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            #endregion
+
+            #region AutoFac
+
+            //实例化 AutoFac  容器   
+            var builder = new ContainerBuilder();
+
+        //   builder
+
+           
+            //根据名称约定（数据访问层的接口和实现均以Repository结尾），实现数据访问接口和数据访问实现的依赖
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            builder.RegisterAssemblyTypes(IRepository, Repository)
+              .Where(t => t.Name.EndsWith("Repository"))
+              .AsImplementedInterfaces();
+            //根据名称约定（服务层的接口和实现均以Service结尾），实现服务接口和服务实现的依赖
+            builder.RegisterAssemblyTypes(IService, Service)
+              .Where(t => t.Name.EndsWith("Service"))
+              .AsImplementedInterfaces();
+       
+            //将services填充到Autofac容器生成器中
+            builder.Populate(services);
+            //使用已进行的组件登记创建新容器
+            var ApplicationContainer = builder.Build();
+            #endregion
+            return new AutofacServiceProvider(ApplicationContainer);//第三方IOC接管 core内置DI容器
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,8 +162,7 @@ namespace IntellUser
 
 
 
-
-
+       
             app.UseHttpsRedirection();
             app.UseMvc();
         }

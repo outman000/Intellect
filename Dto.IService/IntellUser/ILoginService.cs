@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ViewModel.UserViewModel;
+using ViewModel.UserViewModel.RequsetModel;
 
 namespace Dto.IService.IntellUser
 {

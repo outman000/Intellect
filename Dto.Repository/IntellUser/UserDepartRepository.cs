@@ -10,7 +10,7 @@ using Dto.IRepository.IntellUser;
 
 namespace Dto.Repository.IntellUser
 {
-    class UserDepartRepository : IUserDepartRepository
+    public class UserDepartRepository : IUserDepartRepository
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<User_Depart> DbSet;
@@ -19,6 +19,7 @@ namespace Dto.Repository.IntellUser
         {
             Db = context;
             DbSet = Db.Set<User_Depart>();
+
         }
 
         public void Add(User_Depart obj)

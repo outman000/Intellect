@@ -9,7 +9,7 @@ using Dto.IRepository.IntellUser;
 
 namespace Dto.Repository.IntellUser
 {
-    class  Repository<TEntity> : IRepository<TEntity> where TEntity : class
+     public class  Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
     {
         protected readonly DtolContext Db;

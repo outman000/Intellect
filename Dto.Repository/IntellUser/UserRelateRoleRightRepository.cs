@@ -10,7 +10,7 @@ using Dto.IRepository.IntellUser;
 
 namespace Dto.Repository.IntellUser
 {
-    class UserRelateRoleRightRepository : IUserRelateRoleRightRepository
+    public class UserRelateRoleRightRepository : IUserRelateRoleRightRepository
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<User_Relate_Role_Right> DbSet;

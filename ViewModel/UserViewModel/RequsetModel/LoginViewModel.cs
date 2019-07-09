@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using ViewModel.PublicViewModel;
 
-namespace ViewModel.UserViewModel
+namespace ViewModel.UserViewModel.RequsetModel
 {
-    public partial class LoginViewModel
+    public partial class LoginViewModel: BaseViewModel
     {
       
         [Required(ErrorMessage = "账号不能为空")]
@@ -16,5 +17,7 @@ namespace ViewModel.UserViewModel
         [StringLength(12, MinimumLength = 6, ErrorMessage = "密码长度应介于6-12个字符之间")]
         [DisplayName("密码")]
         public String Password { get; set; }
+
+        public BaseViewModel baseViewModel; 
     }
 }

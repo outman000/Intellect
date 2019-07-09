@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ViewModel.UserViewModel;
+using ViewModel.UserViewModel.RequsetModel;
 
 namespace IntellUser.InterFace
 {

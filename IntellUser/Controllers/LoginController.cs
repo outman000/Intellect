@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Dto.IService.IntellUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ViewModel.UserViewModel;
+using ViewModel.UserViewModel.RequsetModel;
+
 namespace IntellUser.Controllers
 {
     [Route("UserApi/[controller]/[action]")]
@@ -26,7 +27,15 @@ namespace IntellUser.Controllers
         [HttpPost]
         public ActionResult UserLogin([FromBody] LoginViewModel loginViewModel)
         {
-          
+          if (!ModelState.IsValid)
+          {
+               
+          }
+
+          else
+          {
+            return Content("输入数据通过验证");
+          }
             _ILoginService.Login_Valide(loginViewModel);
 
 
