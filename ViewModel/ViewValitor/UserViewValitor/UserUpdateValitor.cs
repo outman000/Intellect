@@ -1,11 +1,14 @@
 ﻿using FluentValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using ViewModel.UserViewModel.RequsetModel;
 
 namespace ViewModel.ViewValitor.UserViewValitor
 {
-    public class UserAddValitor : AbstractValidator<UserAddViewModel>
+    public class UserUpdateValitor : AbstractValidator<UserUpdateViewModel>
     {
-        public UserAddValitor()
+        public UserUpdateValitor()
         {
             RuleFor(hr_info => hr_info.UserName).NotNull()
                   .WithMessage("用户姓名不能为空")
@@ -26,7 +29,7 @@ namespace ViewModel.ViewValitor.UserViewValitor
 
             RuleFor(hr_info => hr_info.PhoneCall).NotNull()
                    .WithMessage("用户登录账号不能为空")
-                  .Must(phoneCall=>phoneCall.Length== 11)
+                  .Length(11)
                   .WithMessage("手机号码长度必须为11位");
 
 
@@ -49,6 +52,5 @@ namespace ViewModel.ViewValitor.UserViewValitor
                 .WithMessage("上传时间不能为空")
                 ;
         }
-
     }
 }

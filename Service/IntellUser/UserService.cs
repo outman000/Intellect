@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
 
 namespace Dto.Service.IntellUser
@@ -25,7 +26,7 @@ namespace Dto.Service.IntellUser
         public int User_Add(UserAddViewModel userAddViewModel)
         {
 
-            User_Info user_Info  = _IMapper.Map<UserAddViewModel, User_Info>(userAddViewModel);
+            var user_Info  = _IMapper.Map<UserAddViewModel, User_Info>(userAddViewModel);
             _IUserInfoRepository.Add(user_Info);
             return _IUserInfoRepository.SaveChanges();
         }
@@ -34,25 +35,47 @@ namespace Dto.Service.IntellUser
         {
             IQueryable<User_Info>  Queryable_UserInfo =_IUserInfoRepository
                                                         .GetInfoByUserid(userValideRepeat.UserId);
-            return (Queryable_UserInfo.Count() > 0 && Queryable_UserInfo.Count() == 1) ?
+            return (Queryable_UserInfo.Count() < 1) ?
                    true : false;
         }
-
+        //删除用户（一个或者多个）
         public int User_Delete(UserDeleteViewModel  userDeleteViewModel)
         {
-            throw new NotImplementedException();
-        }
+           int DeleteRowsNum = _IUserInfoRepository
+                .DeleteByUseridList(userDeleteViewModel.DeleleIdList);
+            if (DeleteRowsNum == userDeleteViewModel.DeleleIdList.Count)
+            {
+                return DeleteRowsNum;
+            }
+            else
+            {
+                return -1;
+            }
 
-        public void User_Search(UserSearchViewModel  userSearchViewModel)
+        }
+        //查询用户
+        public List<UserSearchMiddlecs> User_Search(UserSearchViewModel  userSearchViewModel)
         {
-            throw new NotImplementedException();
+            List<User_Info> user_Infos=_IUserInfoRepository.SearchInfoByWhere(userSearchViewModel);
+
+            List<UserSearchMiddlecs> userSearches=new List<UserSearchMiddlecs>() ;
+
+            foreach (var item in user_Infos)
+            {
+               var UserSearchMiddlecs= _IMapper.Map<User_Info, UserSearchMiddlecs>(item);
+                userSearches.Add(UserSearchMiddlecs);
+
+            }
+            return userSearches;
         }
 
         public int User_Update(UserUpdateViewModel  userUpdateViewModel)
         {
-            throw new NotImplementedException();
+            var user_Info = _IMapper.Map<UserUpdateViewModel, User_Info>(userUpdateViewModel);
+            _IUserInfoRepository.Update(user_Info);
+            return _IUserInfoRepository.SaveChanges();
         }
 
-     
+      
     }
 }

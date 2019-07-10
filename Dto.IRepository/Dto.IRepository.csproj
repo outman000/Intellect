@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
 namespace Dto.IService.IntellUser
 {
@@ -28,7 +31,7 @@ namespace Dto.IService.IntellUser
         /// 查询用户信息
         /// </summary>
         /// <param name="userSearchViewModel"></param>
-          void User_Search(UserSearchViewModel userSearchViewModel);
+        List<UserSearchMiddlecs> User_Search(UserSearchViewModel userSearchViewModel);
         /// <summary>
         /// 验证用户的唯一性
         /// </summary>

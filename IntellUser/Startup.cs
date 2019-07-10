@@ -59,6 +59,8 @@ namespace IntellUser
                     })
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 });
+
+
             #endregion
             #region Swagger
             services.AddSwaggerGen(c =>
@@ -129,11 +131,12 @@ namespace IntellUser
         {
             if (env.IsDevelopment())
             {
-               // app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseHsts();
+
             }
 
 

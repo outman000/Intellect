@@ -78,7 +78,7 @@ namespace IntellUser.Controllers
             }
             else
             {
-                userValideResRepeat.IsSuccess = true;
+                userValideResRepeat.IsSuccess = false;
                 userValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 userValideResRepeat.baseViewModel.ResponseCode = 400;
                 return BadRequest(userValideResRepeat);
@@ -95,10 +95,26 @@ namespace IntellUser.Controllers
         [HttpPost]
         public ActionResult Manage_User_Delete(UserDeleteViewModel userDeleteViewModel)
         {
-            var a = userDeleteViewModel;
-            //_userService.User_Delete(userDeleteViewModel);
+            UserDeleteResModel userDeleteResModel = new UserDeleteResModel();
+            int DeleteResult= _userService.User_Delete(userDeleteViewModel);
 
-            return Ok();
+            if (DeleteResult > 0)
+            {
+                userDeleteResModel.AddCount = DeleteResult;
+                userDeleteResModel.IsSuccess=true;
+                userDeleteResModel.baseViewModel.Message = "删除成功";
+                userDeleteResModel.baseViewModel.ResponseCode = 200;
+                return Ok(userDeleteResModel);
+            }
+            else
+            {
+                userDeleteResModel.AddCount = -1;
+                userDeleteResModel.IsSuccess = false;
+                userDeleteResModel.baseViewModel.Message = "删除失败";
+                userDeleteResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(userDeleteResModel);
+            }
+
          
           
         }
@@ -109,17 +125,27 @@ namespace IntellUser.Controllers
         /// <param name="userUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
+        [ValidateModel]
         public ActionResult Manage_User_Update(UserUpdateViewModel  userUpdateViewModel)
         {
-            if (ModelState.IsValid)
+            UserUpdateResModel userValideResRepeat = new UserUpdateResModel();
+            int UpdateRowNum = _userService.User_Update(userUpdateViewModel);
+
+            if (UpdateRowNum > 0)
             {
-                _userService.User_Update(userUpdateViewModel);
-                return Ok();
+                userValideResRepeat.IsSuccess = true;
+                userValideResRepeat.AddCount = UpdateRowNum;
+                userValideResRepeat.baseViewModel.Message = "添加成功";
+                userValideResRepeat.baseViewModel.ResponseCode = 200;
+                return Ok(userValideResRepeat);
             }
             else
             {
-                return BadRequest(ModelState);
+                userValideResRepeat.IsSuccess = false;
+                userValideResRepeat.AddCount = 0;
+                userValideResRepeat.baseViewModel.Message = "添加失败";
+                userValideResRepeat.baseViewModel.ResponseCode = 400;
+                return BadRequest(userValideResRepeat);
             }
         }
 
@@ -132,7 +158,14 @@ namespace IntellUser.Controllers
 
         public ActionResult Manage_User_Search(UserSearchViewModel userSearchViewModel)
         {
-            return null;
+            UserSearchResModel userSearchResModel = new UserSearchResModel();
+            var UserSearchResult = _userService.User_Search(userSearchViewModel);
+
+            userSearchResModel.user_Infos = UserSearchResult;
+            userSearchResModel.isSuccess = true;
+            userSearchResModel.baseViewModel.Message="查询成功";
+            userSearchResModel.baseViewModel.ResponseCode = 200;
+            return Ok(userSearchResModel);
         
         }
 

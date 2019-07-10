@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ViewModel.UserViewModel.RequsetModel
+namespace ViewModel.UserViewModel.MiddleModel
 {
-    public partial class UserUpdateViewModel
+    public class UserSearchMiddlecs
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
         public string UserId { get; set; }
         public string UserPwd { get; set; }
