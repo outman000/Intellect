@@ -66,10 +66,9 @@ namespace Dtol.dtol
         public string RoleIdNiwen { get; set; }
         public string DzbId { get; set; }
         public int? OrderId { get; set; }
-
         public String status { get; set; }
         public virtual ICollection<User_Relate_Info_Role> User_Relate_Info_Role { get; set; }
-
+        public int? User_DepartId { get; set; }
         public User_Depart User_Depart { get; set; }
     }
 }
