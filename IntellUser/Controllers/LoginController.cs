@@ -52,7 +52,14 @@ namespace IntellUser.Controllers
         [HttpPost]
         public ActionResult UserLoginAbsolute()
         {
-            return Ok();
+            var tk = new { token = "2728b712288da12fffd103af3bd616ff" };
+            return Ok(
+
+                new {
+                    code="200",
+                    data= tk
+                }
+                );
         }
 
     }

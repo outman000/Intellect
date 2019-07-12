@@ -96,6 +96,8 @@ namespace Dto.Repository.IntellUser
             predicate = predicate.And(p => p.Status.Contains(userRoleSearchViewModel.Status));
             return predicate;
         }
+
+   
         #endregion
     }
 }

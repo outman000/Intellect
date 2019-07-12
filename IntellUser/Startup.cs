@@ -43,8 +43,16 @@ namespace IntellUser
             var IRepository = Assembly.Load("Dto.IRepository");
             var Repository = Assembly.Load("Dto.Repository");
             var valitorAssembly = Assembly.Load("ViewModel");
-            #region EFCore
-            var connection = Configuration.GetConnectionString("SqlServerConnection");
+
+            #region
+
+
+
+     
+
+            #endregion
+                    #region EFCore
+                    var connection = Configuration.GetConnectionString("SqlServerConnection");
             services.AddDbContext<DtolContext>(options =>
             options.UseSqlServer(connection));
             services.AddDbContext<DtolContext>

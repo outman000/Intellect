@@ -12,6 +12,8 @@ namespace Dto.Service.IntellUser
     public class RoleService : IRoleService
     {
         private readonly IUserRoleRepository _IUserRoleRepository;
+        private readonly IUserRelateInfoRoleRepository  _userRelateInfoRoleRepository;
+        private readonly IUserRightsRepository userRightsRepository;
         private readonly IMapper _IMapper;
 
         public RoleService(IUserRoleRepository  userRoleRepository, IMapper mapper)
@@ -19,11 +21,20 @@ namespace Dto.Service.IntellUser
             _IUserRoleRepository = userRoleRepository;
             _IMapper = mapper;
         }
-
-        public int UserRole_Update(UserRoleUpdateViewModel userRoleUpdateViewModel)
+        //给角色分配用户
+        public int User_RoleToUser_Add(RelateRoleToUserAddViewModel relateRoleToUserAddViewModel)
         {
-            throw new System.NotImplementedException();
+            //获取视图集合
+            List<RelateRoleUserAddMiddles> relateUserIdandRoleIdList = relateRoleToUserAddViewModel.RelateUserIdandRoleIdList;
+            //将视图模型和转为领域模型集合
+            List<User_Relate_Info_Role> user_Relate_Role_Rights= _IMapper.Map<List<RelateRoleUserAddMiddles>, List<User_Relate_Info_Role>>(relateUserIdandRoleIdList);
+
+            int AddNum= _userRelateInfoRoleRepository
+                       .RelateRoleToUser(user_Relate_Role_Rights);
+
+            return AddNum;
         }
+
         //添加角色
         public int User_Role_Add(UserRoleAddViewModel  userRoleAddViewModel)
         {
@@ -68,12 +79,15 @@ namespace Dto.Service.IntellUser
             return (Queryable_RoleInfo.Count() < 1) ?
                    true : false;
         }
-
+        //更新角色
         public int User_Role_Update(UserRoleUpdateViewModel userRoleUpdateViewModel)
         {
             var userRole_Info = _IMapper.Map<UserRoleUpdateViewModel, User_Role>(userRoleUpdateViewModel);
             _IUserRoleRepository.Update(userRole_Info);
             return _IUserRoleRepository.SaveChanges();
         }
+
+
+
     }
 }

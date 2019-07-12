@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dto.IRepository.IntellUser;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace Dto.Repository.IntellUser
 {
@@ -56,6 +57,15 @@ namespace Dto.Repository.IntellUser
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
-     
+
+        public int RelateRoleToUser(List<User_Relate_Info_Role> list)
+        {
+            for(int i=0;i< list.Count;i++)
+            {
+                DbSet.Add(list[i]);
+            }
+        
+            return Db.SaveChanges(); 
+        }
     }
 }

@@ -112,7 +112,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_Search(UserRoleSearchViewModel  userRoleSearchViewModel)
+        public ActionResult Manage_UserRole_Search(UserRoleSearchViewModel  userRoleSearchViewModel)
         {
             UserRoleSearchResModel userRoleSearchResModel=new UserRoleSearchResModel();
             var UserRoleSearchResult = _roleService.User_Role_Search(userRoleSearchViewModel);
@@ -132,7 +132,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_Update(UserRoleUpdateViewModel  userRoleUpdateViewModel)
+        public ActionResult Manage_UserRole_Update(UserRoleUpdateViewModel  userRoleUpdateViewModel)
         {
             UserUpdateResModel userUpdateResModel = new UserUpdateResModel();
             int UpdateRowNum = _roleService.User_Role_Update(userRoleUpdateViewModel);
@@ -141,7 +141,7 @@ namespace IntellUser.Controllers
             {
                 userUpdateResModel.IsSuccess = true;
                 userUpdateResModel.AddCount = UpdateRowNum;
-                userUpdateResModel.baseViewModel.Message = "添加成功";
+                userUpdateResModel.baseViewModel.Message = "更新成功";
                 userUpdateResModel.baseViewModel.ResponseCode = 200;
                 return Ok(userUpdateResModel);
             }
@@ -149,11 +149,44 @@ namespace IntellUser.Controllers
             {
                 userUpdateResModel.IsSuccess = false;
                 userUpdateResModel.AddCount = 0;
-                userUpdateResModel.baseViewModel.Message = "添加失败";
+                userUpdateResModel.baseViewModel.Message = "更新失败";
                 userUpdateResModel.baseViewModel.ResponseCode = 400;
                 return BadRequest(userUpdateResModel);
             }
         }
+
+        /// <summary>
+        /// 给角色配置人员
+        /// </summary>
+        /// <param name="relateRoleToUserAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_UserRoleToUser_Add(RelateRoleToUserAddViewModel  relateRoleToUserAddViewModel  )
+        {
+           RelateRoleToUserAddResModel relateRoleToUserAddResModel=new RelateRoleToUserAddResModel();
+            int UpdateRowNum = _roleService.User_RoleToUser_Add(relateRoleToUserAddViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                relateRoleToUserAddResModel.IsSuccess = true;
+                relateRoleToUserAddResModel.AddCount = UpdateRowNum;
+                relateRoleToUserAddResModel.baseViewModel.Message = "角色分配用户成功";
+                relateRoleToUserAddResModel.baseViewModel.ResponseCode = 200;
+                return Ok(relateRoleToUserAddResModel);
+            }
+            else
+            {
+                relateRoleToUserAddResModel.IsSuccess = false;
+                relateRoleToUserAddResModel.AddCount = 0;
+                relateRoleToUserAddResModel.baseViewModel.Message = "角色分配用户失败";
+                relateRoleToUserAddResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(relateRoleToUserAddResModel);
+            }
+        }
+
+
+
 
     }
 }

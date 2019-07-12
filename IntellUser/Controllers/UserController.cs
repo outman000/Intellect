@@ -135,7 +135,7 @@ namespace IntellUser.Controllers
             {
                 userValideResRepeat.IsSuccess = true;
                 userValideResRepeat.AddCount = UpdateRowNum;
-                userValideResRepeat.baseViewModel.Message = "添加成功";
+                userValideResRepeat.baseViewModel.Message = "更新成功";
                 userValideResRepeat.baseViewModel.ResponseCode = 200;
                 return Ok(userValideResRepeat);
             }
@@ -143,7 +143,7 @@ namespace IntellUser.Controllers
             {
                 userValideResRepeat.IsSuccess = false;
                 userValideResRepeat.AddCount = 0;
-                userValideResRepeat.baseViewModel.Message = "添加失败";
+                userValideResRepeat.baseViewModel.Message = "更新失败";
                 userValideResRepeat.baseViewModel.ResponseCode = 400;
                 return BadRequest(userValideResRepeat);
             }
@@ -155,7 +155,6 @@ namespace IntellUser.Controllers
         /// <param name="userSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult Manage_User_Search(UserSearchViewModel userSearchViewModel)
         {
             UserSearchResModel userSearchResModel = new UserSearchResModel();

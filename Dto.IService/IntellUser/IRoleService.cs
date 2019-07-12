@@ -32,7 +32,17 @@ namespace Dto.IService.IntellUser
         /// <param name="userRoleSearchViewModel"></param>
         /// <returns></returns>
         List<UserRoleSearChMiddles> User_Role_Search(UserRoleSearchViewModel userRoleSearchViewModel);
-        int UserRole_Update(UserRoleUpdateViewModel userRoleUpdateViewModel);
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="userRoleUpdateViewModel"></param>
+        /// <returns></returns>
         int User_Role_Update(UserRoleUpdateViewModel userRoleUpdateViewModel);
+        /// <summary>
+        /// 给角色分配用户
+        /// </summary>
+        /// <param name="relateRoleToUserAddViewModel"></param>
+        /// <returns></returns>
+        int User_RoleToUser_Add(RelateRoleToUserAddViewModel relateRoleToUserAddViewModel);
     }
 }
