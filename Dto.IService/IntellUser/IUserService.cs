@@ -35,7 +35,7 @@ namespace Dto.IService.IntellUser
         /// <summary>
         /// 验证用户的唯一性
         /// </summary>
-        /// <param name="userDeleteViewModel"></param>
+        /// <param name="userValideRepeat"></param>
         /// <returns></returns>
         bool User_Single(UserValideRepeat  userValideRepeat);
        

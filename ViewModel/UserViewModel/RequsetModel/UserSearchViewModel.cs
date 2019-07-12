@@ -24,6 +24,7 @@ namespace ViewModel.UserViewModel.RequsetModel
        /// 账号身份0普通身份1临时身份
        /// </summary>
         public string Levels { get; set; }
+    
         //public DateTime? AddDate { get; set; }
     }
 }

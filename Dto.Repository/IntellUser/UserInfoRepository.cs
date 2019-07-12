@@ -110,19 +110,5 @@ namespace Dto.Repository.IntellUser
         #endregion
 
 
-        #region 没实现的
-        IQueryable<User_Info> IRepository<User_Info>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-        User_Info IRepository<User_Info>.GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-        public void Update(User_Depart obj)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
     }
 }
