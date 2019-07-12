@@ -4,11 +4,11 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
-    public  class UserValideRepeat
+    public class UserRoleDeleteViewModel
     {
         /// <summary>
-        /// 登录账号id
+        /// 根据id数组删除【id,id2,id3】
         /// </summary>
-        public string UserId { get; set; }
+        public List<int> DeleleIdList;
     }
 }

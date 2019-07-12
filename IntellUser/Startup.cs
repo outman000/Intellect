@@ -85,8 +85,6 @@ namespace IntellUser
           
             services.AddAutoMapper(Service);
             #endregion
-
-
             #region mvc服务
          
             services.AddMvc()
@@ -97,7 +95,6 @@ namespace IntellUser
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             #endregion
-
             #region AutoFac
 
             //实例化 AutoFac  容器   

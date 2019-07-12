@@ -4,11 +4,11 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
-    public  class UserValideRepeat
+    public class UserRoleSingleViewModel
     {
         /// <summary>
-        /// 登录账号id
+        /// 角色id
         /// </summary>
-        public string UserId { get; set; }
+        public string RoleCode { get; set; }
     }
 }

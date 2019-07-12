@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dto.IRepository.IntellUser;
+using ViewModel.UserViewModel.RequsetModel;
+using System.Linq.Expressions;
+using Dtol.EfCoreExtion;
 
 namespace Dto.Repository.IntellUser
 {
@@ -55,5 +58,44 @@ namespace Dto.Repository.IntellUser
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+
+        public IQueryable<User_Role> GetInfoByRoleCode(string roleCode)
+        {
+            IQueryable<User_Role> user_Infos = DbSet.Where(code => code.RoleCode.Equals(roleCode));
+            return user_Infos;
+        }
+
+        public int DeleteByRoleIdList(List<int> IdList)
+        {
+            int DeleteRowNum = 1;
+            for (int i = 0; i < IdList.Count; i++)
+            {
+                var model = DbSet.Single(w => w.Id == IdList[i]);
+                model.Status = "1";
+                DbSet.Update(model);
+                SaveChanges();
+                DeleteRowNum = i + 1;
+            }
+            return DeleteRowNum;
+        }
+
+        public List<User_Role> SearchRoleInfoByWhere(UserRoleSearchViewModel userRoleSearchViewModel)
+        {
+            //查询条件
+            var predicate = SearchUserRoleWhere(userRoleSearchViewModel);
+            return DbSet.Where(predicate).OrderBy(o => o.Createdate).ToList();
+        }
+
+
+        #region 条件
+        //用户搜索条件
+        private Expression<Func<User_Role, bool>> SearchUserRoleWhere(UserRoleSearchViewModel userRoleSearchViewModel)
+        {
+            var predicate = WhereExtension.True<User_Role>();//初始化where表达式
+            predicate = predicate.And(p => p.RoleName.Contains(userRoleSearchViewModel.RoleName));
+            predicate = predicate.And(p => p.Status.Contains(userRoleSearchViewModel.Status));
+            return predicate;
+        }
+        #endregion
     }
 }
