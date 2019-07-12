@@ -32,5 +32,7 @@ namespace Dto.IService.IntellUser
         /// <param name="userRoleSearchViewModel"></param>
         /// <returns></returns>
         List<UserRoleSearChMiddles> User_Role_Search(UserRoleSearchViewModel userRoleSearchViewModel);
+        int UserRole_Update(UserRoleUpdateViewModel userRoleUpdateViewModel);
+        int User_Role_Update(UserRoleUpdateViewModel userRoleUpdateViewModel);
     }
 }

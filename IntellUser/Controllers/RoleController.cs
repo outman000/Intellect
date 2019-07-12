@@ -124,8 +124,36 @@ namespace IntellUser.Controllers
 
         }
 
-        
 
+        /// <summary>
+        /// 更新角色信息
+        /// </summary>
+        /// <param name="userRoleUpdateViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_User_Update(UserRoleUpdateViewModel  userRoleUpdateViewModel)
+        {
+            UserUpdateResModel userUpdateResModel = new UserUpdateResModel();
+            int UpdateRowNum = _roleService.User_Role_Update(userRoleUpdateViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                userUpdateResModel.IsSuccess = true;
+                userUpdateResModel.AddCount = UpdateRowNum;
+                userUpdateResModel.baseViewModel.Message = "添加成功";
+                userUpdateResModel.baseViewModel.ResponseCode = 200;
+                return Ok(userUpdateResModel);
+            }
+            else
+            {
+                userUpdateResModel.IsSuccess = false;
+                userUpdateResModel.AddCount = 0;
+                userUpdateResModel.baseViewModel.Message = "添加失败";
+                userUpdateResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(userUpdateResModel);
+            }
+        }
 
     }
 }

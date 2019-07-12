@@ -68,7 +68,11 @@ namespace Dto.Service.IntellUser
             }
             return userSearches;
         }
-
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="userUpdateViewModel"></param>
+        /// <returns></returns>
         public int User_Update(UserUpdateViewModel  userUpdateViewModel)
         {
             var user_Info = _IMapper.Map<UserUpdateViewModel, User_Info>(userUpdateViewModel);

@@ -20,8 +20,10 @@ namespace Dto.Service.IntellUser
             _IMapper = mapper;
         }
 
-   
-
+        public int UserRole_Update(UserRoleUpdateViewModel userRoleUpdateViewModel)
+        {
+            throw new System.NotImplementedException();
+        }
         //添加角色
         public int User_Role_Add(UserRoleAddViewModel  userRoleAddViewModel)
         {
@@ -66,7 +68,12 @@ namespace Dto.Service.IntellUser
             return (Queryable_RoleInfo.Count() < 1) ?
                    true : false;
         }
-        
 
+        public int User_Role_Update(UserRoleUpdateViewModel userRoleUpdateViewModel)
+        {
+            var userRole_Info = _IMapper.Map<UserRoleUpdateViewModel, User_Role>(userRoleUpdateViewModel);
+            _IUserRoleRepository.Update(userRole_Info);
+            return _IUserRoleRepository.SaveChanges();
+        }
     }
 }
