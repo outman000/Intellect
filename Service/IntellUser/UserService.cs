@@ -76,6 +76,6 @@ namespace Dto.Service.IntellUser
             return _IUserInfoRepository.SaveChanges();
         }
 
-      
+    
     }
 }

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dto.IRepository.IntellUser;
+using ViewModel.UserViewModel.RequsetModel;
+using System.Linq.Expressions;
+using Dtol.EfCoreExtion;
 
 namespace Dto.Repository.IntellUser
 {
@@ -22,39 +25,78 @@ namespace Dto.Repository.IntellUser
 
         }
 
-        public void Add(User_Depart obj)
+        public virtual void Add(User_Depart obj)
         {
-            throw new NotImplementedException();
+            DbSet.Add(obj);
+        }
+
+        public int DeleteByDepartidList(List<int> IdList)
+        {
+            int DeleteRowNum = 1;
+            for (int i = 0; i < IdList.Count; i++)
+            {
+                var model = DbSet.Single(w => w.Id == IdList[i]);
+
+                DbSet.Remove(model);
+                SaveChanges();
+                DeleteRowNum = i + 1;
+            }
+            return DeleteRowNum;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Db.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public IQueryable<User_Depart> GetAll()
         {
-            throw new NotImplementedException();
+            return DbSet;
         }
-
+        public int SaveChanges()
+        {
+            return Db.SaveChanges();
+        }
         public User_Depart GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return DbSet.Find(id);
+        }
+
+        public IQueryable<User_Depart> GetDepartByCode(string code)
+        {
+            IQueryable<User_Depart> user_Departs = DbSet.Where(uid => uid.Code.Equals(code));
+            return user_Departs;
         }
 
         public void Remove(Guid id)
         {
-            throw new NotImplementedException();
+            DbSet.Remove(DbSet.Find(id));
         }
 
-        public int SaveChanges()
+        public List<User_Depart> SearchDepartByWhere(DepartSearchViewModel departSearchViewModel)
         {
-            throw new NotImplementedException();
+            //查询条件
+            var predicate = SearchDepartWhere(departSearchViewModel);
+            return DbSet.Where(predicate).OrderBy(o => o.Code).ToList();
         }
 
         public void Update(User_Depart obj)
         {
-            throw new NotImplementedException();
+            DbSet.Update(obj);
         }
+        #region 查询条件
+        //根据调价查询用户
+        private Expression<Func<User_Depart, bool>> SearchDepartWhere(DepartSearchViewModel departSearchViewModel)
+        {
+            var predicate = WhereExtension.True<User_Depart>();//初始化where表达式
+            predicate = predicate.And(p => p.Code.Contains(departSearchViewModel.Code));
+            predicate = predicate.And(p => p.Name.Contains(departSearchViewModel.Name));
+            predicate = predicate.And(p => p.ParentId.Contains(departSearchViewModel.ParentId));
+            return predicate;
+        }
+
+
+        #endregion
     }
 }
