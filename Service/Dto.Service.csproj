@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AutoMapper\UserMapper\RoleResponseMapper\" />
+  </ItemGroup>
+
 </Project>
