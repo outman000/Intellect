@@ -83,6 +83,9 @@ namespace Dto.Service.IntellUser
             return _IUserDepartRepository.SaveChanges();
         }
 
-
+        public int Depart_Get_ALLNum()
+        {
+            return _IUserDepartRepository.GetAll().Count();
+        }
     }
 }

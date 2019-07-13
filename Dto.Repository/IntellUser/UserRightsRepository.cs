@@ -83,7 +83,15 @@ namespace Dto.Repository.IntellUser
         public List<User_Rights> SearchRightsByWhere(RightsSearchViewModel rightsSearchViewModel)
         {
             //查询条件
+            int SkipNum = rightsSearchViewModel.pageViewModel.CurrentPageNum * rightsSearchViewModel.pageViewModel.PageSize;
+
+            //查询条件
             var predicate = SearchRightsWhere(rightsSearchViewModel);
+            DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(rightsSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.Sort).ToList();
+            
             return DbSet.Where(predicate).OrderBy(o => o.RightsValue).ToList();
         }
         //根据条件查询权限

@@ -77,7 +77,15 @@ namespace Dto.Repository.IntellUser
         public List<User_Depart> SearchDepartByWhere(DepartSearchViewModel departSearchViewModel)
         {
             //查询条件
+            int SkipNum = departSearchViewModel.pageViewModel.CurrentPageNum * departSearchViewModel.pageViewModel.PageSize;
+
+            //查询条件
             var predicate = SearchDepartWhere(departSearchViewModel);
+            DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(departSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.Sort).ToList();
+          
             return DbSet.Where(predicate).OrderBy(o => o.Code).ToList();
         }
 
