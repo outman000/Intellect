@@ -86,7 +86,7 @@ namespace Dto.Repository.IntellUser
             DbSet.Update(obj);
         }
         #region 查询条件
-        //根据调价查询用户
+        //根据条件查询部门
         private Expression<Func<User_Depart, bool>> SearchDepartWhere(DepartSearchViewModel departSearchViewModel)
         {
             var predicate = WhereExtension.True<User_Depart>();//初始化where表达式

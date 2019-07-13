@@ -5,7 +5,7 @@ using ViewModel.UserViewModel.RequsetModel;
 
 namespace ViewModel.ViewValitor.UserViewValitor
 {
-    public class DepartAddValitor : AbstractValidator<DepartUpdateViewModel>
+    public class DepartAddValitor : AbstractValidator<DepartAddViewModel>
     {
         public DepartAddValitor()
         {
