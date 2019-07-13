@@ -13,14 +13,22 @@ namespace Dto.Service.IntellUser
     {
         private readonly IUserRoleRepository _IUserRoleRepository;
         private readonly IUserRelateInfoRoleRepository  _userRelateInfoRoleRepository;
-        private readonly IUserRightsRepository userRightsRepository;
+        private readonly IUserRightsRepository _userRightsRepository;
         private readonly IMapper _IMapper;
 
-        public RoleService(IUserRoleRepository  userRoleRepository, IMapper mapper)
+        public RoleService(IUserRoleRepository  userRoleRepository,
+                           IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
+                           IUserRightsRepository userRightsRepository,
+                           IMapper mapper)
         {
             _IUserRoleRepository = userRoleRepository;
+            _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
+            _userRightsRepository = userRightsRepository;
+
             _IMapper = mapper;
         }
+
+  
         //给角色分配用户
         public int User_RoleToUser_Add(RelateRoleToUserAddViewModel relateRoleToUserAddViewModel)
         {
@@ -86,7 +94,11 @@ namespace Dto.Service.IntellUser
             _IUserRoleRepository.Update(userRole_Info);
             return _IUserRoleRepository.SaveChanges();
         }
-
+        //获取所有角色
+        public int User_Role_GetAllNum()
+        {
+            return _userRelateInfoRoleRepository.GetAll().Count();
+        }
 
 
     }

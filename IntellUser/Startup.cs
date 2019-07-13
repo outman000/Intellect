@@ -51,7 +51,7 @@ namespace IntellUser
      
 
             #endregion
-                    #region EFCore
+            #region EFCore
                     var connection = Configuration.GetConnectionString("SqlServerConnection");
             services.AddDbContext<DtolContext>(options =>
             options.UseSqlServer(connection));

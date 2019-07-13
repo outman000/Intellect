@@ -12,6 +12,7 @@ namespace ViewModel.UserViewModel.ResponseModel
        public bool isSuccess;
        public List<UserSearchMiddlecs> user_Infos;
        public BaseViewModel baseViewModel;
+        public int TotalNum;
         public UserSearchResModel()
         {
             baseViewModel = new BaseViewModel();

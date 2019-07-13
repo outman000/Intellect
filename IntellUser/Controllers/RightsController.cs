@@ -115,7 +115,7 @@ namespace IntellUser.Controllers
         }
 
         /// <summary>
-        /// 更新部门信息
+        /// 更新权限信息
         /// </summary>
         /// <param name="rightsUpdateViewModel"></param>
         /// <returns></returns>

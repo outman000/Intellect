@@ -159,11 +159,14 @@ namespace IntellUser.Controllers
         {
             UserSearchResModel userSearchResModel = new UserSearchResModel();
             var UserSearchResult = _userService.User_Search(userSearchViewModel);
-
+            var TotalNum = _userService.User_Get_ALLNum();
             userSearchResModel.user_Infos = UserSearchResult;
             userSearchResModel.isSuccess = true;
             userSearchResModel.baseViewModel.Message="查询成功";
             userSearchResModel.baseViewModel.ResponseCode = 200;
+            userSearchResModel.TotalNum = TotalNum;
+
+
             return Ok(userSearchResModel);
         
         }

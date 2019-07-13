@@ -38,7 +38,13 @@ namespace Dto.IService.IntellUser
         /// <param name="userValideRepeat"></param>
         /// <returns></returns>
         bool User_Single(UserValideRepeat  userValideRepeat);
-       
+        /// <summary>
+        /// 获取用户总数
+        /// </summary>
+        /// <returns></returns>
+        int User_Get_ALLNum();
+
+
     }
 }
 

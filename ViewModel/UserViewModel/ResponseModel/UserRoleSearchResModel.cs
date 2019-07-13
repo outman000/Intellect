@@ -11,6 +11,7 @@ namespace ViewModel.UserViewModel.ResponseModel
         public bool isSuccess;
         public List<UserRoleSearChMiddles>  userRoles;
         public BaseViewModel baseViewModel;
+        public int TotalNum;
         public UserRoleSearchResModel()
         {
             baseViewModel = new BaseViewModel();

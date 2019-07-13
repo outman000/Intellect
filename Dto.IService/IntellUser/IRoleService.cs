@@ -44,5 +44,12 @@ namespace Dto.IService.IntellUser
         /// <param name="relateRoleToUserAddViewModel"></param>
         /// <returns></returns>
         int User_RoleToUser_Add(RelateRoleToUserAddViewModel relateRoleToUserAddViewModel);
+
+        /// <summary>
+        /// 获取所有角色
+        /// </summary>
+        /// <returns></returns>
+        int User_Role_GetAllNum();
+
     }
 }

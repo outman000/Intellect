@@ -81,9 +81,13 @@ namespace Dto.Repository.IntellUser
 
         public List<User_Role> SearchRoleInfoByWhere(UserRoleSearchViewModel userRoleSearchViewModel)
         {
+            int skipNum = userRoleSearchViewModel.pageViewModel.CurrentPageNum * userRoleSearchViewModel.pageViewModel.PageSize;
             //查询条件
             var predicate = SearchUserRoleWhere(userRoleSearchViewModel);
-            return DbSet.Where(predicate).OrderBy(o => o.Createdate).ToList();
+            return DbSet.Where(predicate)
+                  .Skip(skipNum)
+                  .Take(userRoleSearchViewModel.pageViewModel.PageSize)
+                  .OrderBy(o => o.Createdate).ToList();
         }
 
 

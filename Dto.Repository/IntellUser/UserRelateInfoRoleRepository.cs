@@ -65,7 +65,7 @@ namespace Dto.Repository.IntellUser
                 DbSet.Add(list[i]);
             }
         
-            return Db.SaveChanges(); 
+            return SaveChanges();
         }
     }
 }

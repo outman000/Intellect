@@ -77,8 +77,16 @@ namespace Dto.Repository.IntellUser
 
         public List<User_Info> SearchInfoByWhere(UserSearchViewModel userSearchViewModel)
         {
+            int SkipNum = userSearchViewModel.pageViewModel.CurrentPageNum * userSearchViewModel.pageViewModel.PageSize;
+
             //查询条件
             var predicate = SearchUserWhere(userSearchViewModel);
+            DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(userSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.AddDate).ToList();
+
+
             return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
         }
 

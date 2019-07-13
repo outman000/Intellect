@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.PublicViewModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
@@ -26,5 +27,13 @@ namespace ViewModel.UserViewModel.RequsetModel
         public string Levels { get; set; }
     
         //public DateTime? AddDate { get; set; }
+        /// <summary>
+        /// 分页
+        /// </summary>
+        public PageViewModel pageViewModel { get; set; }
+        UserSearchViewModel()
+        {
+            pageViewModel = new PageViewModel();
+        }
     }
 }

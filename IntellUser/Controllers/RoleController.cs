@@ -116,10 +116,12 @@ namespace IntellUser.Controllers
         {
             UserRoleSearchResModel userRoleSearchResModel=new UserRoleSearchResModel();
             var UserRoleSearchResult = _roleService.User_Role_Search(userRoleSearchViewModel);
+            var TotalNum = _roleService.User_Role_GetAllNum();
             userRoleSearchResModel.userRoles = UserRoleSearchResult;
             userRoleSearchResModel.isSuccess = true;
             userRoleSearchResModel.baseViewModel.Message = "查询成功";
             userRoleSearchResModel.baseViewModel.ResponseCode = 200;
+            userRoleSearchResModel.TotalNum = TotalNum;
             return Ok(userRoleSearchResModel);
 
         }
