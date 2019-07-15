@@ -154,11 +154,12 @@ namespace IntellUser.Controllers
         {
             RightsSearchResModel rightsSearchResModel = new RightsSearchResModel();
             var RightsSearchResult = _rightsService.Rights_Search(rightsSearchViewModel);
-
+            var TotalNum = _rightsService.Rights_Get_ALLNum();
             rightsSearchResModel.user_Rights = RightsSearchResult;
             rightsSearchResModel.isSuccess = true;
             rightsSearchResModel.baseViewModel.Message = "查询成功";
             rightsSearchResModel.baseViewModel.ResponseCode = 200;
+            rightsSearchResModel.TotalNum = TotalNum;
             return Ok(rightsSearchResModel);
 
         }

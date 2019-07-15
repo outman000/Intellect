@@ -157,11 +157,12 @@ namespace IntellUser.Controllers
         {
             DepartSearchResModel departSearchResModel = new DepartSearchResModel();
             var DepartSearchResult = _departService.Depart_Search(departSearchViewModel);
-
+            var TotalNum = _departService.Depart_Get_ALLNum();
             departSearchResModel.user_Departs= DepartSearchResult;
             departSearchResModel.isSuccess = true;
             departSearchResModel.baseViewModel.Message = "查询成功";
             departSearchResModel.baseViewModel.ResponseCode = 200;
+            departSearchResModel.TotalNum = TotalNum;
             return Ok(departSearchResModel);
 
         }

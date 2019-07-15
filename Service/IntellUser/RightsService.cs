@@ -44,6 +44,11 @@ namespace Dto.Service.IntellUser
             }
         }
 
+        public int Rights_Get_ALLNum()
+        {
+            return _IUserRightsRepository.GetAll().Count();
+        }
+
         //查询权限
         public List<RightsSearchMiddlecs> Rights_Search(RightsSearchViewModel rightsSearchViewModel)
         {

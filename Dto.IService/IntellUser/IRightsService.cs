@@ -38,7 +38,11 @@ namespace Dto.IService.IntellUser
         // /// <param name="rightsSearchViewModel"></param>
         List<RightsSearchMiddlecs> Rights_Search(RightsSearchViewModel rightsSearchViewModel);
 
-
+        /// <summary>
+        /// 获取权限总数
+        /// </summary>
+        /// <returns></returns>
+        int Rights_Get_ALLNum();
 
     }
 }

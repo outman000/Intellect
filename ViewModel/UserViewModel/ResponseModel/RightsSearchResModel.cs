@@ -11,6 +11,7 @@ namespace ViewModel.UserViewModel.ResponseModel
         public bool isSuccess;
         public List<RightsSearchMiddlecs> user_Rights;
         public BaseViewModel baseViewModel;
+        public int TotalNum;
         public RightsSearchResModel()
         {
             baseViewModel = new BaseViewModel();
