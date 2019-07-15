@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
-//using IntellUser.CLassService;
-using IntellUser.BaseClass;
 using AutoMapper;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using System.Reflection;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace IntellUser
 {
@@ -48,11 +45,32 @@ namespace IntellUser
 
 
 
-     
+
 
             #endregion
+
+
+
+
+            //var jwtSettings = new JwtSettings();
+            //Configuration.Bind("JwtSettings", jwtSettings);
+
+            //services.AddAuthentication(option => {
+            //    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddJwtBearer(option => {
+            //    option.TokenValidationParameters = new TokenValidationParameters
+            //    {
+                 
+            //    };
+            //});
+
+
+
+
             #region EFCore
-                    var connection = Configuration.GetConnectionString("SqlServerConnection");
+            var connection = Configuration.GetConnectionString("SqlServerConnection");
             services.AddDbContext<DtolContext>(options =>
             options.UseSqlServer(connection));
             services.AddDbContext<DtolContext>
@@ -143,8 +161,8 @@ namespace IntellUser
             //    app.UseHsts();
 
             //}
-
-
+           // app.UseAuthentication();//启用验证
+           
             //允许所有的域
             app.UseCors(builder =>
             {
