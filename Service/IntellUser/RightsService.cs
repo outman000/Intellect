@@ -15,10 +15,13 @@ namespace Dto.Service.IntellUser
     {
         private readonly IUserRightsRepository _IUserRightsRepository;
         private readonly IMapper _IMapper;
-
-        public RightsService(IUserRightsRepository iuserRightsRepository, IMapper mapper)
+        private readonly IUserRelateRoleRightRepository _userRelateRoleRightRepository;
+        public RightsService(IUserRightsRepository iuserRightsRepository, 
+                IUserRelateRoleRightRepository userRelateRoleRightRepository, 
+                                    IMapper mapper)
         {
             _IUserRightsRepository = iuserRightsRepository;
+            _userRelateRoleRightRepository = userRelateRoleRightRepository;
             _IMapper = mapper;
         }
         //添加权限
@@ -84,7 +87,21 @@ namespace Dto.Service.IntellUser
             _IUserRightsRepository.Update(user_Rights);
             return _IUserRightsRepository.SaveChanges();
         }
+        //根据角色查询权限
+        public List<RightsSearchMiddlecs> Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
+        {
+            List<User_Relate_Role_Right> user_Relate_Right_Roles = _userRelateRoleRightRepository.SearchRightsInfoByRoleWhere(rightsByRoleSearchViewModel);
+            List<RightsSearchMiddlecs> user_rights = new List<RightsSearchMiddlecs>();
 
-     
+            foreach (var item in user_Relate_Right_Roles)
+            {
+                var user_rights_temp = _IMapper.Map<User_Rights, RightsSearchMiddlecs>(item.User_Rights);
+                user_rights.Add(user_rights_temp);
+            }
+            return user_rights;
+
+        }
+
+      
     }
 }

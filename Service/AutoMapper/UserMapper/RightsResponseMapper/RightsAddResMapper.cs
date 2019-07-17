@@ -3,6 +3,7 @@ using Dtol.dtol;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
 
 namespace Dto.Service.AutoMapper.UserMapper.RightsResponseMapper
@@ -15,6 +16,7 @@ namespace Dto.Service.AutoMapper.UserMapper.RightsResponseMapper
         {
             // CreateMap<User_Info, LoginViewModel>();
             CreateMap<RightsAddViewModel, User_Rights>();
+            CreateMap<User_Rights, RightsSearchMiddlecs>();
 
         }
     }

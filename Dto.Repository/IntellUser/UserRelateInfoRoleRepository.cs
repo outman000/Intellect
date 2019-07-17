@@ -82,7 +82,11 @@ namespace Dto.Repository.IntellUser
  
             return SaveChanges();
         }
-
+        /// <summary>
+        /// 根据用户查角色
+        /// </summary>
+        /// <param name="roleByUserSearchViewModel"></param>
+        /// <returns></returns>
         public List<User_Relate_Info_Role> SearchRoleInfoByWhere(RoleByUserSearchViewModel roleByUserSearchViewModel)
         {
             int userid = roleByUserSearchViewModel.UserId;
@@ -90,7 +94,11 @@ namespace Dto.Repository.IntellUser
                 .ToList();
             return queryResult;
         }
-
+        /// <summary>
+        /// 根据角色查用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
         public List<User_Relate_Info_Role> SearchUserInfoByWhere(UserByRoleSearchViewModel userByRoleSearchViewModel)
         {
             int roleid = userByRoleSearchViewModel.RoleId;

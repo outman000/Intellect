@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.UserViewModel.RequsetModel;
+using ViewModel.UserViewModel.ResponseModel;
 
 namespace Dto.IRepository.IntellUser
 {
@@ -22,5 +24,19 @@ namespace Dto.IRepository.IntellUser
         /// <param name="aimRoleId"></param>
         /// <returns></returns>
         int RelateRoleToRightsDel(List<int> list);
+
+        /// <summary>
+        /// 根据权限查角色
+        /// </summary>
+        /// <param name="roleByRightsSearchViewModel"></param>
+        /// <returns></returns>
+        List<User_Relate_Role_Right> SearchRoleInfoByRightsWhere(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
+
+        /// <summary>
+        /// 根据角色查权限
+        /// </summary>
+        /// <param name="rightsByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        List<User_Relate_Role_Right> SearchRightsInfoByRoleWhere(RightsByRoleSearchViewModel rightsByRoleSearchViewModel);
     }
 }

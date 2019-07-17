@@ -149,5 +149,19 @@ namespace Dto.Service.IntellUser
             }
             return user_roles;
         }
+
+        //根据权限查询角色
+        public List<UserRoleSearChMiddles> Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
+        {
+            List<User_Relate_Role_Right> user_Relate_Rights_Roles = _userRelateRoleRightRepository.SearchRoleInfoByRightsWhere(roleByRightsSearchViewModel);
+            List<UserRoleSearChMiddles> user_roles = new List<UserRoleSearChMiddles>();
+
+            foreach (var item in user_Relate_Rights_Roles)
+            {
+                var user_role_temp = _IMapper.Map<User_Role, UserRoleSearChMiddles>(item.User_Role);
+                user_roles.Add(user_role_temp);
+            }
+            return user_roles;
+        }
     }
 }

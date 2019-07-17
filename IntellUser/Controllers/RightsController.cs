@@ -163,6 +163,35 @@ namespace IntellUser.Controllers
             return Ok(rightsSearchResModel);
 
         }
+        /// <summary>
+        /// 根据角色查权限
+        /// </summary>
+        /// <param name="rightsByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
+        {
+            RightsByRoleSearchResModel rightsByRoleSearchResModel = new RightsByRoleSearchResModel();
+            rightsByRoleSearchResModel.userRights = _rightsService.Rights_By_Role_Search(rightsByRoleSearchViewModel);
+
+            if (rightsByRoleSearchResModel.userRights.Count > 0)
+            {
+                rightsByRoleSearchResModel.IsSuccess = true;
+                rightsByRoleSearchResModel.TotalNum = rightsByRoleSearchResModel.userRights.Count;
+                rightsByRoleSearchResModel.baseViewModel.Message = "根据角色查询权限成功";
+                rightsByRoleSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(rightsByRoleSearchResModel);
+            }
+            else
+            {
+                rightsByRoleSearchResModel.IsSuccess = false;
+                rightsByRoleSearchResModel.TotalNum = rightsByRoleSearchResModel.userRights.Count;
+                rightsByRoleSearchResModel.baseViewModel.Message = "根据角色查询权限失败";
+                rightsByRoleSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(rightsByRoleSearchResModel);
+            }
+        }
 
     }
 }

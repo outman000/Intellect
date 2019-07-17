@@ -68,13 +68,18 @@ namespace Dto.IService.IntellUser
         /// <param name="relateRoleToRightDelViewModel"></param>
         /// <returns></returns>
         int User_RoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightDelViewModel);
-
-
         /// <summary>
         /// 根据用户查角色
         /// </summary>
         /// <param name="roleByUserSearchViewModel"></param>
         /// <returns></returns>
         List<UserRoleSearChMiddles>  Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel);
+        /// <summary>
+        /// 根据权限查角色
+        /// </summary>
+        /// <param name="roleByRightsSearchViewModel"></param>
+        /// <returns></returns>
+        List<UserRoleSearChMiddles> Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
+
     }
 }
