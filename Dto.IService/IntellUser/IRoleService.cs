@@ -44,12 +44,42 @@ namespace Dto.IService.IntellUser
         /// <param name="relateRoleToUserAddViewModel"></param>
         /// <returns></returns>
         int User_RoleToUser_Add(RelateRoleToUserAddViewModel relateRoleToUserAddViewModel);
-
+        /// <summary>
+        /// 给角色删除用户
+        /// </summary>
+        /// <param name="relateRoleToUserDelViewModel"></param>
+        /// <returns></returns>
+        int User_RoleToUser_Del(RelateRoleToUserDelViewModel relateRoleToUserDelViewModel);
         /// <summary>
         /// 获取所有角色
         /// </summary>
         /// <returns></returns>
         int User_Role_GetAllNum();
+
+        /// <summary>
+        /// 给角色分配权限
+        /// </summary>
+        /// <param name="relateRoleToRightAddViewModel"></param>
+        /// <returns></returns>
+        int User_RoleToRights_Add(RelateRoleToRightAddViewModel relateRoleToRightAddViewModel);
+        /// <summary>
+        /// 给角色删除权限
+        /// </summary>
+        /// <param name="relateRoleToRightDelViewModel"></param>
+        /// <returns></returns>
+        int User_RoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightDelViewModel);
+        /// <summary>
+        /// 根据用户查角色
+        /// </summary>
+        /// <param name="roleByUserSearchViewModel"></param>
+        /// <returns></returns>
+        List<UserRoleSearChMiddles>  Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel);
+        /// <summary>
+        /// 根据权限查角色
+        /// </summary>
+        /// <param name="roleByRightsSearchViewModel"></param>
+        /// <returns></returns>
+        List<UserRoleSearChMiddles> Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
 
     }
 }

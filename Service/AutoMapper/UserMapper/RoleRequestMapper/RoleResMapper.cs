@@ -15,9 +15,11 @@ namespace Dto.Service.AutoMapper.UserMapper.RoleRequestMapper
         /// </summary>
         public RoleResMapper()
         {
+     
             CreateMap<UserRoleAddViewModel, User_Role>();
             CreateMap<UserRoleUpdateViewModel, User_Role>();
             CreateMap<User_Role, UserRoleSearChMiddles>();
+          
         }
     }
 }

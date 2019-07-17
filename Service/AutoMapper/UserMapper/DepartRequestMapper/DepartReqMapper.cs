@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Dtol.dtol;
+using System.Collections.Generic;
 using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
-using ViewModel.UserViewModel.RequsetModel;
+
 
 namespace Dto.Service.AutoMapper.UserMapper.DepartRequestMapper
 {

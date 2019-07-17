@@ -9,11 +9,11 @@ namespace Dtol.dtol
       
         public int Id { get; set; }
 
-        public int User_Info_ID { get; set; }
+        public int User_InfoId { get; set; }
 
         public User_Info User_Info { get; set; }
 
-        public int User_Role_ID { get; set; }
+        public int User_RoleId { get; set; }
 
         public User_Role User_Role { get; set; }
 

@@ -12,7 +12,11 @@ namespace Dto.Service.AutoMapper.UserMapper.RoleRequestMapper
 
         public RelateRoleMapper()
         {
-            CreateMap<RelateRoleUserAddMiddles, User_Relate_Info_Role>();
+            CreateMap<RelateRoleUserAddMiddlecs, User_Relate_Info_Role>();
+            CreateMap<RelateRoleRightAddMiddlecs, User_Relate_Role_Right>();
+        
+
         }
+        
     }
 }

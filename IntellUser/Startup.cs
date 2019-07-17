@@ -55,14 +55,16 @@ namespace IntellUser
             //var jwtSettings = new JwtSettings();
             //Configuration.Bind("JwtSettings", jwtSettings);
 
-            //services.AddAuthentication(option => {
+            //services.AddAuthentication(option =>
+            //{
             //    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             //    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             //})
-            //.AddJwtBearer(option => {
+            //.AddJwtBearer(option =>
+            //{
             //    option.TokenValidationParameters = new TokenValidationParameters
             //    {
-                 
+
             //    };
             //});
 

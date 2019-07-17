@@ -43,6 +43,11 @@ namespace Dto.IService.IntellUser
         /// </summary>
         /// <returns></returns>
         int Rights_Get_ALLNum();
-
+        /// <summary>
+        /// 根据角色查权限
+        /// </summary>
+        /// <param name="rightsByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        List<RightsSearchMiddlecs> Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel);
     }
 }

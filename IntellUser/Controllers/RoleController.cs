@@ -158,13 +158,13 @@ namespace IntellUser.Controllers
         }
 
         /// <summary>
-        /// 给角色配置人员
+        /// 给角色配置人员 / 给人员配置角色
         /// </summary>
         /// <param name="relateRoleToUserAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_UserRoleToUser_Add(RelateRoleToUserAddViewModel  relateRoleToUserAddViewModel  )
+        public ActionResult Manage_UserRoleToUser_Add(RelateRoleToUserAddViewModel  relateRoleToUserAddViewModel)
         {
            RelateRoleToUserAddResModel relateRoleToUserAddResModel=new RelateRoleToUserAddResModel();
             int UpdateRowNum = _roleService.User_RoleToUser_Add(relateRoleToUserAddViewModel);
@@ -187,8 +187,157 @@ namespace IntellUser.Controllers
             }
         }
 
+        /// <summary>
+        /// 根据角色删除人员 / 根据人员删除角色
+        /// </summary>
+        /// <param name="relateRoleToUserDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_UserRoleToUser_Del(RelateRoleToUserDelViewModel relateRoleToUserDelViewModel)
+        {
+            RelateRoleToRightDelResModel relateRoleToUserDelResModel = new RelateRoleToRightDelResModel();
+            int DeleteRowNum = _roleService.User_RoleToUser_Del(relateRoleToUserDelViewModel);
+
+            if (DeleteRowNum > 0)
+            {
+                relateRoleToUserDelResModel.IsSuccess = true;
+                relateRoleToUserDelResModel.DelCount = DeleteRowNum;
+                relateRoleToUserDelResModel.baseViewModel.Message = "角色删除用户成功";
+                relateRoleToUserDelResModel.baseViewModel.ResponseCode = 200;
+                return Ok(relateRoleToUserDelResModel);
+            }
+            else
+            {
+                relateRoleToUserDelResModel.IsSuccess = false;
+                relateRoleToUserDelResModel.DelCount = 0;
+                relateRoleToUserDelResModel.baseViewModel.Message = "角色删除用户失败";
+                relateRoleToUserDelResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(relateRoleToUserDelResModel);
+            }
+        }
 
 
+        /// <summary>
+        /// 给角色配置权限 
+        /// </summary>
+        /// <param name="relateRoleToRightAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_UserRoleToRight_Add(RelateRoleToRightAddViewModel relateRoleToRightAddViewModel)
+        {
+            RelateRoleToRightAddResModel relateRoleToRightAddResModel = new RelateRoleToRightAddResModel();
+            int AddRowNum = _roleService.User_RoleToRights_Add(relateRoleToRightAddViewModel);
 
+            if (AddRowNum > 0)
+            {
+                relateRoleToRightAddResModel.IsSuccess = true;
+                relateRoleToRightAddResModel.AddCount = AddRowNum;
+                relateRoleToRightAddResModel.baseViewModel.Message = "角色分配权限户成功";
+                relateRoleToRightAddResModel.baseViewModel.ResponseCode = 200;
+                return Ok(relateRoleToRightAddResModel);
+            }
+            else
+            {
+                relateRoleToRightAddResModel.IsSuccess = false;
+                relateRoleToRightAddResModel.AddCount = 0;
+                relateRoleToRightAddResModel.baseViewModel.Message = "角色分配权限失败";
+                relateRoleToRightAddResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(relateRoleToRightAddResModel);
+            }
+        }
+
+        /// <summary>
+        /// 给角色删除权限
+        /// </summary>
+        /// <param name="relateRoleToRightDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_UserRoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightDelViewModel)
+        {
+            RelateRoleToRightDelResModel relateRoleToRightDelResModel = new RelateRoleToRightDelResModel();
+            int DeleteRowNum = _roleService.User_RoleToRight_Del(relateRoleToRightDelViewModel);
+
+            if (DeleteRowNum > 0)
+            {
+                relateRoleToRightDelResModel.IsSuccess = true;
+                relateRoleToRightDelResModel.DelCount = DeleteRowNum;
+                relateRoleToRightDelResModel.baseViewModel.Message = "权限删除用户成功";
+                relateRoleToRightDelResModel.baseViewModel.ResponseCode = 200;
+                return Ok(relateRoleToRightDelResModel);
+            }
+            else
+            {
+                relateRoleToRightDelResModel.IsSuccess = false;
+                relateRoleToRightDelResModel.DelCount = 0;
+                relateRoleToRightDelResModel.baseViewModel.Message = "权限删除用户失败";
+                relateRoleToRightDelResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(relateRoleToRightDelResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 根据用户查角色
+        /// </summary>
+        /// <param name="roleByUserSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel)
+        {
+            RoleByUserSearchResModel roleByUserSearchResModel = new RoleByUserSearchResModel();
+            roleByUserSearchResModel.userRoles = _roleService.Role_By_User_Search(roleByUserSearchViewModel);
+
+            if (roleByUserSearchResModel.userRoles.Count > 0)
+            {
+                roleByUserSearchResModel.IsSuccess = true;
+                roleByUserSearchResModel.TotalNum = roleByUserSearchResModel.userRoles.Count;
+                roleByUserSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
+                roleByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(roleByUserSearchResModel);
+            }
+            else
+            {
+                roleByUserSearchResModel.IsSuccess = false;
+                roleByUserSearchResModel.TotalNum = roleByUserSearchResModel.userRoles.Count;
+                roleByUserSearchResModel.baseViewModel.Message = "根据用户查询角色失败";
+                roleByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(roleByUserSearchResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 根据权限查角色
+        /// </summary>
+        /// <param name="roleByRightsSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
+        {
+            RoleByRightsSearchResModel roleByRightsSearchResModel = new RoleByRightsSearchResModel();
+            roleByRightsSearchResModel.userRoles = _roleService.Role_By_Rights_Search(roleByRightsSearchViewModel);
+
+            if (roleByRightsSearchResModel.userRoles.Count > 0)
+            {
+                roleByRightsSearchResModel.IsSuccess = true;
+                roleByRightsSearchResModel.TotalNum = roleByRightsSearchResModel.userRoles.Count;
+                roleByRightsSearchResModel.baseViewModel.Message = "根据权限查询角色成功";
+                roleByRightsSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(roleByRightsSearchResModel);
+            }
+            else
+            {
+                roleByRightsSearchResModel.IsSuccess = false;
+                roleByRightsSearchResModel.TotalNum = roleByRightsSearchResModel.userRoles.Count;
+                roleByRightsSearchResModel.baseViewModel.Message = "根据权限查询角色失败";
+                roleByRightsSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(roleByRightsSearchResModel);
+            }
+        }
     }
 }

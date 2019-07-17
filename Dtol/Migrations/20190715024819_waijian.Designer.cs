@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20190715024819_waijian")]
+    partial class waijian
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,9 +200,13 @@ namespace Dtol.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("User_RightsId");
+                    b.Property<int?>("User_RightsId");
 
-                    b.Property<int>("User_RoleId");
+                    b.Property<int>("User_Rights_ID");
+
+                    b.Property<int?>("User_RoleId");
+
+                    b.Property<int>("User_Role_ID");
 
                     b.HasKey("Id");
 
@@ -293,13 +299,11 @@ namespace Dtol.Migrations
                 {
                     b.HasOne("Dtol.dtol.User_Rights", "User_Rights")
                         .WithMany("User_Relate_Role_Right")
-                        .HasForeignKey("User_RightsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("User_RightsId");
 
                     b.HasOne("Dtol.dtol.User_Role", "User_Role")
                         .WithMany("User_Relate_Role_Right")
-                        .HasForeignKey("User_RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("User_RoleId");
                 });
 #pragma warning restore 612, 618
         }

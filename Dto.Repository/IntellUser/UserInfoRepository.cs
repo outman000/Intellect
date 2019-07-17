@@ -71,7 +71,12 @@ namespace Dto.Repository.IntellUser
             IQueryable<User_Info> user_Infos = DbSet.Where(uid => uid.UserId.Equals(userid));
             return user_Infos;
         }
-
+        //根据用户主键id查询
+        public User_Info GetInfoByUserid(int id)
+        {
+            User_Info user_Info = DbSet.Single(uid => uid.Id.Equals(id));
+            return user_Info;
+        }
 
         //根据条件查询
 
@@ -103,7 +108,7 @@ namespace Dto.Repository.IntellUser
         }
 
         #region 查询条件
-        //根据调价查询用户
+        //根据条件查询用户
         private Expression<Func<User_Info, bool>> SearchUserWhere(UserSearchViewModel userSearchViewModel)
         {
             var predicate = WhereExtension.True<User_Info>();//初始化where表达式
@@ -111,6 +116,7 @@ namespace Dto.Repository.IntellUser
                 predicate = predicate.And(p => p.UserName.Contains(userSearchViewModel.UserName));
                 predicate = predicate.And(p => p.Levels.Contains(userSearchViewModel.Levels));
                 predicate = predicate.And(p => p.status.Contains(userSearchViewModel.status));
+                predicate = predicate.And(p => p.User_DepartId== userSearchViewModel.User_DepartId);
             return predicate;
         }
 

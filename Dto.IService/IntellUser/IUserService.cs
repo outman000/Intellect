@@ -44,7 +44,19 @@ namespace Dto.IService.IntellUser
         /// <returns></returns>
         int User_Get_ALLNum();
 
-
+        /// <summary>
+        /// 根据部门添加用户
+        /// </summary>
+        /// <param name="userSearchViewModel"></param>
+        /// <returns></returns>
+       int Depart_User_Add(RelateDepartToUserAddViewModel relateDepartToUserAddViewModel);
+       
+        /// <summary>
+        ///根据角色查询用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        List<UserSearchMiddlecs> User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel);
     }
 }
 

@@ -14,6 +14,7 @@ namespace ViewModel.UserViewModel.MiddleModel
         public string Email { get; set; }
         public string status { get; set; }
         public string Levels { get; set; }
+        public int? user_DepartId { get; set; }
         public string WorkExperience { get; set; }
         public DateTime? AddDate { get; set; }
     }
