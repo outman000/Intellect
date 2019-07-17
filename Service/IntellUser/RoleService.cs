@@ -15,33 +15,45 @@ namespace Dto.Service.IntellUser
         private readonly IUserRelateInfoRoleRepository  _userRelateInfoRoleRepository;
         private readonly IUserRightsRepository _userRightsRepository;
         private readonly IMapper _IMapper;
+        private readonly IUserRelateRoleRightRepository _userRelateRoleRightRepository;
 
         public RoleService(IUserRoleRepository  userRoleRepository,
                            IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                            IUserRightsRepository userRightsRepository,
+                           IUserRelateRoleRightRepository userRelateRoleRightRepository,
                            IMapper mapper)
         {
             _IUserRoleRepository = userRoleRepository;
             _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
             _userRightsRepository = userRightsRepository;
-
+            _userRelateRoleRightRepository=userRelateRoleRightRepository;
             _IMapper = mapper;
         }
+        //给角色删除用户
+        public int User_RoleToUser_Del(RelateRoleToUserDelViewModel relateRoleToUserDelViewModel)
+        {
 
-  
-        //给角色分配用户
+
+            int DelNum = _userRelateInfoRoleRepository
+                       .RelateRoleToUserDel(relateRoleToUserDelViewModel.RelateUserIdandRoleIdList);
+
+            return DelNum;
+        }
+
+        //给角色分配用户/给用户分配角色
         public int User_RoleToUser_Add(RelateRoleToUserAddViewModel relateRoleToUserAddViewModel)
         {
             //获取视图集合
-            List<RelateRoleUserAddMiddles> relateUserIdandRoleIdList = relateRoleToUserAddViewModel.RelateUserIdandRoleIdList;
+            List<RelateRoleUserAddMiddlecs> relateUserIdandRoleIdList = relateRoleToUserAddViewModel.RelateUserIdandRoleIdList;
             //将视图模型和转为领域模型集合
-            List<User_Relate_Info_Role> user_Relate_Role_Rights= _IMapper.Map<List<RelateRoleUserAddMiddles>, List<User_Relate_Info_Role>>(relateUserIdandRoleIdList);
+            List<User_Relate_Info_Role> user_Relate_Role_Rights= _IMapper.Map<List<RelateRoleUserAddMiddlecs>, List<User_Relate_Info_Role>>(relateUserIdandRoleIdList);
 
             int AddNum= _userRelateInfoRoleRepository
                        .RelateRoleToUser(user_Relate_Role_Rights);
 
             return AddNum;
         }
+  
 
         //添加角色
         public int User_Role_Add(UserRoleAddViewModel  userRoleAddViewModel)
@@ -100,6 +112,42 @@ namespace Dto.Service.IntellUser
             return _userRelateInfoRoleRepository.GetAll().Count();
         }
 
+        //给角色添加权限
+        public int User_RoleToRights_Add(RelateRoleToRightAddViewModel relateRoleToRightAddViewModel)
+        {
+            //获取视图集合
+            List<RelateRoleRightAddMiddlecs> relateRightIdandRoleIdList = relateRoleToRightAddViewModel.RelateRightIdandRoleIdList;
+            //将视图模型和转为领域模型集合
+            List<User_Relate_Role_Right> Relate_Role_Rights = _IMapper.Map<List<RelateRoleRightAddMiddlecs>, List<User_Relate_Role_Right>>(relateRightIdandRoleIdList);
 
+            int AddNum = _userRelateRoleRightRepository
+                       .RelateRoleToRightsAdd(Relate_Role_Rights);
+
+            return AddNum;
+        }
+
+        //给角色删除权限
+        public int User_RoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightrDelViewModel)
+        {
+
+
+            int DelNum = _userRelateRoleRightRepository
+                       .RelateRoleToRightsDel(relateRoleToRightrDelViewModel.RelateRightIdandRoleIdList);
+
+            return DelNum;
+        }
+        //根据用户查询角色
+        public List<UserRoleSearChMiddles> Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel)
+        {
+            List<User_Relate_Info_Role> user_Relate_Info_Roles = _userRelateInfoRoleRepository.SearchRoleInfoByWhere(roleByUserSearchViewModel);
+            List<UserRoleSearChMiddles> user_roles = new List<UserRoleSearChMiddles>();
+            
+            foreach (var item in user_Relate_Info_Roles)
+            {
+               var user_role_temp=   _IMapper.Map<User_Role, UserRoleSearChMiddles>(item.User_Role);
+                user_roles.Add(user_role_temp);
+            }
+            return user_roles;
+        }
     }
 }

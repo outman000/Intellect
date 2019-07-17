@@ -126,7 +126,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_Update(UserUpdateViewModel  userUpdateViewModel)
+        public ActionResult Manage_User_Update(UserUpdateViewModel userUpdateViewModel)
         {
             UserUpdateResModel userValideResRepeat = new UserUpdateResModel();
             int UpdateRowNum = _userService.User_Update(userUpdateViewModel);
@@ -157,18 +157,87 @@ namespace IntellUser.Controllers
         [HttpPost]
         public ActionResult Manage_User_Search(UserSearchViewModel userSearchViewModel)
         {
-            UserSearchResModel userSearchResModel = new UserSearchResModel();
+           UserSearchResModel userSearchResModel = new UserSearchResModel();
             var UserSearchResult = _userService.User_Search(userSearchViewModel);
-            var TotalNum = _userService.User_Get_ALLNum();
+
+            // var TotalNum = _userService.User_Get_ALLNum();
+            var TotalNum = UserSearchResult.Count;
             userSearchResModel.user_Infos = UserSearchResult;
             userSearchResModel.isSuccess = true;
-            userSearchResModel.baseViewModel.Message="查询成功";
+            userSearchResModel.baseViewModel.Message = "查询成功";
             userSearchResModel.baseViewModel.ResponseCode = 200;
             userSearchResModel.TotalNum = TotalNum;
-
-
             return Ok(userSearchResModel);
-        
+
+        }
+      
+        /// <summary>
+        /// 根据部门 添加/删除 用户
+        /// </summary>
+        /// <param name="relateDepartToUserAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_User_Depart(RelateDepartToUserAddViewModel relateDepartToUserAddViewModel)
+        {
+            RelateDepartToUserAddResModel relateDepartToUserAddResModel = new RelateDepartToUserAddResModel();
+            int UpdateRowNum = _userService.Depart_User_Add(relateDepartToUserAddViewModel);
+            int totalnum = relateDepartToUserAddViewModel.RelateUserIdandDepartIdList.Count;
+            if (UpdateRowNum==totalnum)
+            {
+                relateDepartToUserAddResModel.IsSuccess = true;
+                relateDepartToUserAddResModel.AddCount = UpdateRowNum;
+                relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户成功："+ UpdateRowNum+"条";
+                relateDepartToUserAddResModel.baseViewModel.ResponseCode = 200;
+                return Ok(relateDepartToUserAddResModel);
+            }
+            else if(UpdateRowNum<totalnum)
+            {
+                relateDepartToUserAddResModel.IsSuccess = false;
+                relateDepartToUserAddResModel.AddCount = 0;
+                relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户失败"+ (totalnum-UpdateRowNum) + "条";
+                relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(relateDepartToUserAddResModel);
+            }
+            else
+            {
+                relateDepartToUserAddResModel.IsSuccess = false;
+                relateDepartToUserAddResModel.AddCount = 0;
+                relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户失败" ;
+                relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(relateDepartToUserAddResModel);
+
+            }
+
+        }
+
+        /// <summary>
+        /// 根据角色查用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_Role_By_User_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
+        {
+            UserByRoleSearchResModel userByRoleSearchResModel = new UserByRoleSearchResModel();
+            userByRoleSearchResModel.userInfos = _userService.User_By_Role_Search(userByRoleSearchViewModel);
+
+            if (userByRoleSearchResModel.userInfos.Count > 0)
+            {
+                userByRoleSearchResModel.IsSuccess = true;
+                userByRoleSearchResModel.TotalNum = userByRoleSearchResModel.userInfos.Count;
+                userByRoleSearchResModel.baseViewModel.Message = "根据用户查询成功";
+                userByRoleSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(userByRoleSearchResModel);
+            }
+            else
+            {
+                userByRoleSearchResModel.IsSuccess = false;
+                userByRoleSearchResModel.TotalNum = userByRoleSearchResModel.userInfos.Count;
+                userByRoleSearchResModel.baseViewModel.Message = "根据用户查询失败";
+                userByRoleSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(userByRoleSearchResModel);
+            }
         }
 
 

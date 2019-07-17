@@ -57,8 +57,25 @@ namespace Dto.Repository.IntellUser
             GC.SuppressFinalize(this);
         }
 
- 
+        public int RelateRoleToRightsAdd(List<User_Relate_Role_Right> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                DbSet.Add(list[i]);
+            }
 
-     
+            return SaveChanges();
+        }
+
+        public int RelateRoleToRightsDel(List<int> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                var temp = DbSet.Single(a => a.Id == list[i]);
+                DbSet.Remove(temp);
+            }
+
+            return SaveChanges();
+        }
     }
 }

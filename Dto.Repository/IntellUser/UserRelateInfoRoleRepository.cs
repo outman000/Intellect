@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using Dto.IRepository.IntellUser;
 using ViewModel.UserViewModel.MiddleModel;
+using Dtol.EfCoreExtion;
+using System.Linq.Expressions;
+using ViewModel.UserViewModel.RequsetModel;
 
 namespace Dto.Repository.IntellUser
 {
@@ -66,6 +69,34 @@ namespace Dto.Repository.IntellUser
             }
         
             return SaveChanges();
+        }
+
+        public int RelateRoleToUserDel(List<int> list)
+        {
+            
+            for (int i = 0; i < list.Count; i++)
+            {
+               var temp= DbSet.Single(a => a.Id == list[i]);
+                DbSet.Remove(temp);
+            }
+ 
+            return SaveChanges();
+        }
+
+        public List<User_Relate_Info_Role> SearchRoleInfoByWhere(RoleByUserSearchViewModel roleByUserSearchViewModel)
+        {
+            int userid = roleByUserSearchViewModel.UserId;
+            var queryResult=   DbSet.Where(k => k.User_InfoId==userid).Include(p=>p.User_Role)
+                .ToList();
+            return queryResult;
+        }
+
+        public List<User_Relate_Info_Role> SearchUserInfoByWhere(UserByRoleSearchViewModel userByRoleSearchViewModel)
+        {
+            int roleid = userByRoleSearchViewModel.RoleId;
+            var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info)
+                .ToList();
+            return queryResult;
         }
     }
 }

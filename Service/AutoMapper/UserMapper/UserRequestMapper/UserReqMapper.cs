@@ -18,6 +18,9 @@ namespace Dto.Service.AutoMapper.UserMapper.UserRequestMapper
             CreateMap<UserAddViewModel, User_Info>();
             CreateMap<UserUpdateViewModel, User_Info>();
             CreateMap<User_Info, UserSearchMiddlecs>();
+            CreateMap<RelateDepartUserAddMiddlecs, User_Info>();
+            CreateMap<User_Info, User_Info>();
+
         }
     }
     

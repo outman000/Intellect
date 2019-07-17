@@ -5,11 +5,11 @@ using ViewModel.UserViewModel.MiddleModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
-    public class RelateRoleToUserAddViewModel
+    public class RelateRoleToUserDelViewModel
     {
         /// <summary>
-        /// 用户id集合
+        /// 关系表主键id
         /// </summary>
-        public List<RelateRoleUserAddMiddlecs> RelateUserIdandRoleIdList { get; set; }
+        public List<int> RelateUserIdandRoleIdList   { get; set; }
     }
 }

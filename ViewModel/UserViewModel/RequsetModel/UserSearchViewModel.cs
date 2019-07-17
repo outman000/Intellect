@@ -7,6 +7,11 @@ namespace ViewModel.UserViewModel.RequsetModel
 {
     public partial class UserSearchViewModel
     {
+        
+        /// <summary>
+       /// 用户id
+       /// </summary>
+        public int Id { get; set; }
         /// <summary>
         /// 用户真实姓名
         /// </summary>
@@ -25,7 +30,12 @@ namespace ViewModel.UserViewModel.RequsetModel
        /// 账号身份0普通身份1临时身份
        /// </summary>
         public string Levels { get; set; }
-    
+
+        /// <summary>
+        /// 部门id
+        /// </summary>
+        public int? User_DepartId { get; set; }
+
         //public DateTime? AddDate { get; set; }
         /// <summary>
         /// 分页

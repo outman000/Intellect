@@ -14,6 +14,7 @@ namespace ViewModel.UserViewModel.RequsetModel
         public string Email { get; set; }
         public string status { get; set; }
         public string Levels { get; set; }
+      
         public string WorkExperience { get; set; }
         public DateTime? AddDate { get; set; }
     }
