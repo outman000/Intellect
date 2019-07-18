@@ -41,6 +41,9 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 分页
         /// </summary>
         public PageViewModel pageViewModel { get; set; }
+        /// <summary>
+        /// 构造方法
+        /// </summary>
         UserSearchViewModel()
         {
             pageViewModel = new PageViewModel();
