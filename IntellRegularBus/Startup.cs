@@ -1,28 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-
+using System.Reflection;
+using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using Dtol;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Dtol;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-using System.IO;
-using AutoMapper;
-using Autofac.Extensions.DependencyInjection;
-using Autofac;
-using System.Reflection;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 
-namespace IntellUser
+namespace IntellRegularBus
 {
     public class Startup
     {
+
         public Startup(IHostingEnvironment env)
         {
             //register config file 
@@ -41,35 +43,7 @@ namespace IntellUser
             var Repository = Assembly.Load("Dto.Repository");
             var valitorAssembly = Assembly.Load("ViewModel");
 
-            #region
-
-
-
-
-
-            #endregion
-
-
-
-
-            //var jwtSettings = new JwtSettings();
-            //Configuration.Bind("JwtSettings", jwtSettings);
-
-            //services.AddAuthentication(option =>
-            //{
-            //    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(option =>
-            //{
-            //    option.TokenValidationParameters = new TokenValidationParameters
-            //    {
-
-            //    };
-            //});
-
-
-
+      
 
             #region EFCore
             var connection = Configuration.GetConnectionString("SqlServerConnection");
@@ -94,35 +68,36 @@ namespace IntellUser
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
-                        {
-                            Title = "东疆智慧后勤用户管理接口文档",
-                            Description = "用户管理模块接口",
-                            Contact = new Contact
-                            {
-                                Name = "张祎荻",
-                                Email = "479663032@qq.com",
-                            },
-                            Version = "v1"
-                        });
+                {
+                    Title = "东疆智慧后勤用户管理接口文档",
+                    Description = "用户管理模块接口",
+                    Contact = new Contact
+                    {
+                        Name = "张祎荻",
+                        Email = "479663032@qq.com",
+                    },
+                    Version = "v1"
+                });
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
                 var xmlPath = Path.Combine(basePath, "IntellUser.xml");
                 var xmlPathModel = Path.Combine(basePath, "ViewModel.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(xmlPathModel);
+
             });
             #endregion
             #region AutoMapper
-          
+
             services.AddAutoMapper(Service);
             #endregion
             #region mvc服务
-         
+
             services.AddMvc()
                 .AddFluentValidation(config => {
                     config.RegisterValidatorsFromAssembly(valitorAssembly);//程序集注入
                     config.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
 
-            })
+                })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             #endregion
             #region AutoFac
@@ -130,9 +105,9 @@ namespace IntellUser
             //实例化 AutoFac  容器   
             var builder = new ContainerBuilder();
 
-        //   builder
+            //   builder
 
-           
+
             //根据名称约定（数据访问层的接口和实现均以Repository结尾），实现数据访问接口和数据访问实现的依赖
 
 
@@ -143,7 +118,7 @@ namespace IntellUser
             builder.RegisterAssemblyTypes(IService, Service)
               .Where(t => t.Name.EndsWith("Service"))
               .AsImplementedInterfaces();
-       
+
             //将services填充到Autofac容器生成器中
             builder.Populate(services);
             //使用已进行的组件登记创建新容器
@@ -158,15 +133,15 @@ namespace IntellUser
         {
             //if (env.IsDevelopment())
             //{
-                app.UseDeveloperExceptionPage();
+            app.UseDeveloperExceptionPage();
             //}
             //else
             //{
             //    app.UseHsts();
 
             //}
-           // app.UseAuthentication();//启用验证
-           
+            // app.UseAuthentication();//启用验证
+
             //允许所有的域
             app.UseCors(builder =>
             {
@@ -192,7 +167,7 @@ namespace IntellUser
 
 
 
-       
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }
