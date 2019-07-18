@@ -4,107 +4,22 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20190718061405_Bus")]
+    partial class Bus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Dtol.dtol.Bus_Info", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("AddDate");
-
-                    b.Property<int?>("Bus_LineId");
-
-                    b.Property<string>("CarPlate");
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("DriverName");
-
-                    b.Property<string>("OwnedCompany");
-
-                    b.Property<string>("SeatNum");
-
-                    b.Property<string>("phone");
-
-                    b.Property<string>("status");
-
-                    b.Property<DateTime?>("updateDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Bus_LineId");
-
-                    b.ToTable("bus_Info");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.Bus_Line", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("AddDate");
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("LineName");
-
-                    b.Property<string>("Remark");
-
-                    b.Property<string>("status");
-
-                    b.Property<DateTime?>("updateDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("bus_Line");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.Bus_Station", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("AddDate");
-
-                    b.Property<int?>("Bus_LineId");
-
-                    b.Property<string>("Code");
-
-                    b.Property<DateTime?>("OffWorkDate");
-
-                    b.Property<DateTime?>("OnWorkDate");
-
-                    b.Property<string>("Remark");
-
-                    b.Property<string>("StationName");
-
-                    b.Property<string>("status");
-
-                    b.Property<DateTime?>("updateDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Bus_LineId");
-
-                    b.ToTable("bus_Station");
-                });
 
             modelBuilder.Entity("Dtol.dtol.User_Depart", b =>
                 {
@@ -354,20 +269,6 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("user_Role");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.Bus_Info", b =>
-                {
-                    b.HasOne("Dtol.dtol.Bus_Line", "Bus_Line")
-                        .WithMany()
-                        .HasForeignKey("Bus_LineId");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.Bus_Station", b =>
-                {
-                    b.HasOne("Dtol.dtol.Bus_Line", "Bus_Line")
-                        .WithMany()
-                        .HasForeignKey("Bus_LineId");
                 });
 
             modelBuilder.Entity("Dtol.dtol.User_Info", b =>

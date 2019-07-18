@@ -69,17 +69,17 @@ namespace IntellRegularBus
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "东疆智慧后勤用户管理接口文档",
-                    Description = "用户管理模块接口",
+                    Title = "东疆智慧后勤班车管理接口文档",
+                    Description = "班车管理模块接口",
                     Contact = new Contact
                     {
-                        Name = "张祎荻",
-                        Email = "479663032@qq.com",
+                        Name = "柴健",
+                        Email = "1054254369@qq.com",
                     },
                     Version = "v1"
                 });
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
-                var xmlPath = Path.Combine(basePath, "IntellUser.xml");
+                var xmlPath = Path.Combine(basePath, "IntellRegularBus.xml");
                 var xmlPathModel = Path.Combine(basePath, "ViewModel.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(xmlPathModel);
@@ -160,7 +160,7 @@ namespace IntellRegularBus
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "用户管理文档 V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "班车管理文档 V1");
                 c.RoutePrefix = string.Empty;
             });
 

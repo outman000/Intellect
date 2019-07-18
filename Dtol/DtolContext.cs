@@ -37,6 +37,9 @@ namespace Dtol
         public DbSet<User_Relate_Role_Right> user_Relate_Role_Right { get; set; }
         public DbSet<User_Relate_Info_Role> user_Relate_Info_Role { get; set; }
         public DbSet<User_Depart>user_Depart { get; set; }
+        public DbSet<Bus_Info> bus_Info { get; set; }
+        public DbSet<Bus_Line> bus_Line { get; set; }
+        public DbSet<Bus_Station> bus_Station { get; set; }
 
     }
 }
