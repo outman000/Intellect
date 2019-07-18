@@ -17,7 +17,7 @@ namespace IntellRegularBus.Controllers
     {
 
         private readonly IBusService _busService;
-        private readonly ILineService _lineService;
+      
 
 
         public BusInfoController(IBusService busService)
@@ -33,7 +33,7 @@ namespace IntellRegularBus.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Bus_add(BusAddViewModel busAddViewModel)
+        public ActionResult Manage_Bus_Add(BusAddViewModel busAddViewModel)
         {
             int Bus_Add_Count;
             Bus_Add_Count = _busService.Bus_Add(busAddViewModel);

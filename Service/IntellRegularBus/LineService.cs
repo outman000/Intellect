@@ -22,6 +22,13 @@ namespace Dto.Service.IntellRegularBus
             _IMapper = mapper;
         }
 
+        public int Line_Add(LineAddViewModel lineAddViewModel)
+        {
+            var bus_Line = _IMapper.Map<LineAddViewModel, Bus_Line>(lineAddViewModel);
+            _IBusLineRepository.Add(bus_Line);
+            return _IBusLineRepository.SaveChanges();
+        }
+
         public List<LineSearchMiddlecs> Line_Search(LineSearchViewModel lineSearchViewModel)
         {
             List<Bus_Line> line_Infos = _IBusLineRepository.SearchInfoByLineWhere(lineSearchViewModel);

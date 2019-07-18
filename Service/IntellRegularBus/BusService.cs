@@ -93,6 +93,5 @@ namespace Dto.Service.IntellRegularBus
             return updatenNum;
         }
 
-
     }
 }

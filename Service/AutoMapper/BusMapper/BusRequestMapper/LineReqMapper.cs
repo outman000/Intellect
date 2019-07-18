@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 
 namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
 {
@@ -15,7 +16,7 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
         public LineReqMapper()
         {
             CreateMap<Bus_Line, LineSearchMiddlecs>();
-         
+            CreateMap<LineAddViewModel, Bus_Line>();
 
         }
     }
