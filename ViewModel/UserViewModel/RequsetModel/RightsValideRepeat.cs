@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 权限验证
+    /// </summary>
     public class RightsValideRepeat
     {
         /// <summary>

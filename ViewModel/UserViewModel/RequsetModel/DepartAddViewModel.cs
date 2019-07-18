@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 部门增加视图模型
+    /// </summary>
     public class DepartAddViewModel
     {
         /// <summary>

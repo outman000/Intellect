@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 根据角色删除权限关联关系视图
+    /// </summary>
     public class RelateRoleToRightDelViewModel
     {
         /// <summary>

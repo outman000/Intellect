@@ -4,6 +4,10 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+
+    /// <summary>
+    /// 用户验证
+    /// </summary>
     public  class UserValideRepeat
     {
         /// <summary>

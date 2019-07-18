@@ -5,6 +5,9 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 根据角色查询用户
+    /// </summary>
   public  class UserByRoleSearchViewModel
     {
         /// <summary>

@@ -6,6 +6,10 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+
+    /// <summary>
+    /// 用户增加视图
+    /// </summary>
     public partial class UserAddViewModel
     {
         /// <summary>

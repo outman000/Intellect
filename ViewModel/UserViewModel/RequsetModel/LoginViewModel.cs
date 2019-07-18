@@ -7,6 +7,9 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 登录视图模型
+    /// </summary>
     public partial class LoginViewModel: BaseViewModel
     {
       

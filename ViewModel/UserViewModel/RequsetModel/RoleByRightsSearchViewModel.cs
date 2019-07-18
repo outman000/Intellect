@@ -5,6 +5,9 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 根据权限查询角色视图
+    /// </summary>
     public class RoleByRightsSearchViewModel
     {
         /// <summary>

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 权限增加视图
+    /// </summary>
     public class RightsAddViewModel
     {
         /// <summary>

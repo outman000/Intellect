@@ -4,6 +4,10 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+
+    /// <summary>
+    /// 部门验证
+    /// </summary>
     public class DepartValideRepeat
     {
         /// <summary>

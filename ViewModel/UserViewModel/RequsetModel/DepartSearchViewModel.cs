@@ -5,6 +5,9 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 部门查询视图模型
+    /// </summary>
     public class DepartSearchViewModel
     {     
         /// <summary>

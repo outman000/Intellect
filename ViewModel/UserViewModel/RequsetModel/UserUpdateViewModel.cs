@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
+    /// <summary>
+    /// 用户更新视图
+    /// </summary>
     public partial class UserUpdateViewModel
     {
         /// <summary>
