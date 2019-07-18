@@ -4,7 +4,7 @@ using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.PublicViewModel;
 
-namespace ViewModel.BusViewModel.ResponseModel.BusInfoViewModel
+namespace ViewModel.BusViewModel.ResponseModel.BusInfoResModel
 {
     /// <summary>
     /// 班车查询返回视图

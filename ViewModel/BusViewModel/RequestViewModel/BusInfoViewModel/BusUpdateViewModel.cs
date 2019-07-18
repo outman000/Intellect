@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ViewModel.PublicViewModel;
 
 namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
 {
-    /// <summary>
-    /// 班车信息查询
-    /// </summary>
-    public class BusSearchViewModel
+   public class BusUpdateViewModel
     {
-
         /// <summary>
-        /// 班车id
+        /// 班车Id
         /// </summary>
         public int Id { get; set; }
         /// <summary>
@@ -43,17 +38,9 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// 车辆所属公司
         /// </summary>
         public string OwnedCompany { get; set; }
-     
         /// <summary>
-        /// 分页
+        /// 线路Id   ---外键
         /// </summary>
-        public PageViewModel pageViewModel { get; set; }
-        /// <summary>
-        /// 构造方法
-        /// </summary>
-        BusSearchViewModel()
-        {
-            pageViewModel = new PageViewModel();
-        }
+        public int? Bus_LineId { get; set; }
     }
 }

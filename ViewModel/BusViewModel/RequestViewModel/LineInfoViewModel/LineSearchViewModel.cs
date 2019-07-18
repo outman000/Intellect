@@ -6,44 +6,35 @@ using ViewModel.PublicViewModel;
 namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
 {
     /// <summary>
-    /// 班车信息查询
+    /// 班车线路信息查询
     /// </summary>
-    public class BusSearchViewModel
+    public class LineSearchViewModel
     {
-
+     
         /// <summary>
-        /// 班车id
+        /// 线路名称
         /// </summary>
-        public int Id { get; set; }
+        public string LineName { get; set; }
         /// <summary>
-        /// 司机姓名
-        /// </summary>
-        public string DriverName { get; set; }
-        /// <summary>
-        /// 司机手机
-        /// </summary>
-        public string phone { get; set; }
-        /// <summary>
-        /// 车辆标识
-        /// </summary>
-        public string Code { get; set; }
-        /// <summary>
-        /// 车牌
-        /// </summary>
-        public string CarPlate { get; set; }
-        /// <summary>
-        /// 状态  0-启用 1-禁用
+        /// 状态 0-启用  1-禁用
         /// </summary>
         public string status { get; set; }
         /// <summary>
-        /// 车座数量
+        /// 线路标识
         /// </summary>
-        public string SeatNum { get; set; }
+        public string Code { get; set; }
         /// <summary>
-        /// 车辆所属公司
+        /// 线路描述
         /// </summary>
-        public string OwnedCompany { get; set; }
-     
+        public string Remark { get; set; }
+        /// <summary>
+        /// 增加时间
+        /// </summary>
+        public DateTime? AddDate { get; set; }
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime? updateDate { get; set; }
         /// <summary>
         /// 分页
         /// </summary>
@@ -51,7 +42,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        BusSearchViewModel()
+        LineSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel
+namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
  {    
     
        /// <summary>

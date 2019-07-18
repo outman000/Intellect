@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 
 namespace Dto.IRepository.IntellRegularBus
 {
@@ -14,7 +14,7 @@ namespace Dto.IRepository.IntellRegularBus
         //根据班车主键id查询
         Bus_Info GetInfoByUserid(int id);
         //批量删除
-        int DeleteByBusidList(List<int> IdList);
+        int DeleteByBusIdList(List<int> IdList);
         // 根据条件查班车
         List<Bus_Info> SearchInfoByWhere(BusSearchViewModel busSearchViewModel);
     }

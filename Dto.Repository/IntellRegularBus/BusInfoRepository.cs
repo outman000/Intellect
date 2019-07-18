@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 
 namespace Dto.Repository.IntellRegularBus
 {
@@ -106,7 +106,7 @@ namespace Dto.Repository.IntellRegularBus
             GC.SuppressFinalize(this);
         }
 
-        #region 查询条件
+
         //根据条件查询班车
         private Expression<Func<Bus_Info, bool>> SearchUserWhere(BusSearchViewModel busSearchViewModel)
         {
@@ -119,12 +119,22 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
 
-        public int DeleteByBusidList(List<int> IdList)
+        public int DeleteByBusIdList(List<int> IdList)
         {
-            throw new NotImplementedException();
+
+            int DeleteRowNum = 1;
+            for (int i = 0; i < IdList.Count; i++)
+            {
+                var model = DbSet.Single(w => w.Id == IdList[i]);
+
+                DbSet.Remove(model);
+                SaveChanges();
+                DeleteRowNum = i + 1;
+            }
+            return DeleteRowNum;
         }
 
 
-        #endregion
+        
     }
-}
+ }

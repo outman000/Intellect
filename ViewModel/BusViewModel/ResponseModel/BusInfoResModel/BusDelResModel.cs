@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using ViewModel.PublicViewModel;
 
-namespace ViewModel.BusViewModel.ResponseModel.BusInfoViewModel
+namespace ViewModel.BusViewModel.ResponseModel.BusInfoResModel
 {
-    public class BusAddResModel
+    public class BusDelResModel
     {
-        public BusAddResModel()
+        public BusDelResModel()
         {
             baseViewModel = new BaseViewModel();
 
         }
 
         public bool IsSuccess;
-        public int AddCount;
+        public int DelCount;
 
         public BaseViewModel baseViewModel;
     }
