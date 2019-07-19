@@ -102,7 +102,8 @@ namespace Dto.Service.IntellUser
         //更新角色
         public int User_Role_Update(UserRoleUpdateViewModel userRoleUpdateViewModel)
         {
-            var userRole_Info = _IMapper.Map<UserRoleUpdateViewModel, User_Role>(userRoleUpdateViewModel);
+            var user_Role = _IUserRoleRepository.GetInfoByRoleid(userRoleUpdateViewModel.Id);
+            var userRole_Info = _IMapper.Map<UserRoleUpdateViewModel, User_Role>(userRoleUpdateViewModel, user_Role);
             _IUserRoleRepository.Update(userRole_Info);
             return _IUserRoleRepository.SaveChanges();
         }

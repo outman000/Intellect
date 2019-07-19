@@ -28,7 +28,11 @@ namespace Dto.Repository.IntellRegularBus
         {
             DbSet.Add(obj);
         }
-
+        /// <summary>
+        /// 根据id列表删
+        /// </summary>
+        /// <param name="IdList"></param>
+        /// <returns></returns>
         public int DeleteByLineIdList(List<int> IdList)
         {
             int DeleteRowNum = 1;
@@ -66,7 +70,7 @@ namespace Dto.Repository.IntellRegularBus
             return line_Infos;
         }
 
-        public Bus_Line GetInfoByUserid(int id)
+        public Bus_Line GetInfoByLineId(int id)
         {
 
             Bus_Line line_Info = DbSet.Single(uid => uid.Id.Equals(id));
@@ -97,14 +101,7 @@ namespace Dto.Repository.IntellRegularBus
 
             return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
         }
-
-        public List<Bus_Line>  SearchBusByLineWhere (LineSearchViewModel lineSearchViewModel)
-        {
-            //查询条件
-            var predicate = SearchLineWhere(lineSearchViewModel);
-            DbSet.Where(predicate);
-            return DbSet.ToList();
-        }
+      
 
         public void Update(Bus_Line obj)
         {
@@ -117,9 +114,12 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(p => p.Code.Contains(lineSearchViewModel.Code));
             predicate = predicate.And(p => p.LineName.Contains(lineSearchViewModel.LineName));
             predicate = predicate.And(p => p.status.Contains(lineSearchViewModel.status));
-
+            predicate = predicate.And(p => p.Id==lineSearchViewModel.Id);
 
             return predicate;
         }
+
+     
+     
     }
 }

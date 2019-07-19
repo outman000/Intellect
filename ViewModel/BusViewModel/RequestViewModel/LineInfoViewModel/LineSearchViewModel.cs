@@ -10,7 +10,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
     /// </summary>
     public class LineSearchViewModel
     {
-     
+
+        /// <summary>
+        /// 线路id
+        /// </summary>
+        public int Id { get; set; }
         /// <summary>
         /// 线路名称
         /// </summary>
@@ -31,10 +35,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// 增加时间
         /// </summary>
         public DateTime? AddDate { get; set; }
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public DateTime? updateDate { get; set; }
+        
         /// <summary>
         /// 分页
         /// </summary>

@@ -74,8 +74,9 @@ namespace Dto.Service.IntellUser
         //更新用户
         public int User_Update(UserUpdateViewModel userUpdateViewModel)
         {
-            var user_Info = _IMapper.Map<UserUpdateViewModel, User_Info>(userUpdateViewModel);
-            _IUserInfoRepository.Update(user_Info);
+            var user_Info = _IUserInfoRepository.GetInfoByUserid(userUpdateViewModel.Id);
+            var user_Info_update = _IMapper.Map<UserUpdateViewModel, User_Info>(userUpdateViewModel, user_Info);
+            _IUserInfoRepository.Update(user_Info_update);
             return _IUserInfoRepository.SaveChanges();
         }
 

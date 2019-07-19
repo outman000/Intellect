@@ -15,6 +15,7 @@ namespace Dto.IRepository.IntellUser
         int DeleteByRightsidList(List<int> IdList);
         //
         List<User_Rights> SearchRightsByWhere(RightsSearchViewModel rightsSearchViewModel);
-
+        //根据主键id查询
+        User_Rights GetInfoByRightId(int id);
     }
 }

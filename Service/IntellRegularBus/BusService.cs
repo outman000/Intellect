@@ -4,8 +4,10 @@ using Dto.IService.IntellRegularBus;
 using Dtol.dtol;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 
 namespace Dto.Service.IntellRegularBus
@@ -53,16 +55,7 @@ namespace Dto.Service.IntellRegularBus
             _IBusInfoRepository.Update(bus_Info);
             return _IBusInfoRepository.SaveChanges();
         }
-        //根据线路更新班车
-        public int Bus_By_Line_Update(int id , int Bus_LineId)
-        {
-            LineByBusAddMiddlecs lineByBusAddMiddlecs = new LineByBusAddMiddlecs();
-            lineByBusAddMiddlecs.Id = id;
-            lineByBusAddMiddlecs.Bus_LineId = Bus_LineId;
-            Bus_Info bus_Info = _IMapper.Map<LineByBusAddMiddlecs, Bus_Info>(lineByBusAddMiddlecs);
-            _IBusInfoRepository.Update(bus_Info);
-            return _IBusInfoRepository.SaveChanges();
-        }
+
 
 
         //删除班车（一个或者多个）
@@ -84,14 +77,72 @@ namespace Dto.Service.IntellRegularBus
         //给班车添加线路
         public int Bus_To_Line_Add(LineByBusAddViewModel lineByBusAddViewModel)
         {
-            //获取视图集合
-            LineNameMiddlecs lineNameMiddlecs= _IMapper.Map<LineByBusAddViewModel, LineNameMiddlecs>(lineByBusAddViewModel);
-            LineSearchViewModel lineSearchViewModel = _IMapper.Map<LineNameMiddlecs, LineSearchViewModel>(lineNameMiddlecs);
-            List<Bus_Line> Line_Info=_IBusLineRepository.SearchBusByLineWhere(lineSearchViewModel);
-            int Bus_LineId = Line_Info[0].Id;
-            int updatenNum = Bus_By_Line_Update(lineByBusAddViewModel.Busid, Bus_LineId);
-            return updatenNum;
+            var bus_Info = _IBusInfoRepository.GetById(lineByBusAddViewModel.Id);
+            var bus_Info_update=  _IMapper.Map<LineByBusAddViewModel, Bus_Info>(lineByBusAddViewModel, bus_Info);
+            _IBusInfoRepository.Update(bus_Info_update);
+            return _IBusInfoRepository.SaveChanges();
         }
 
+        public bool Bus_Single(BusValideRepeat busValideRepeat)
+        {
+            IQueryable<Bus_Info> Queryable_UserDepart = _IBusInfoRepository
+                                                                 .GetInfoByBusId(busValideRepeat.Code);
+            return (Queryable_UserDepart.Count() < 1) ?
+                   true : false;
+        }
+
+        public int Bus_Get_ALLNum()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 根据线路添加班车
+        /// </summary>
+        /// <param name="busByLineAddViewModel"></param>
+        /// <returns></returns>
+        public int Line_To_Bus_Add(BusByLineAddViewModel busByLineAddViewModel)
+        {
+
+            var busList = busByLineAddViewModel.relateBusIdAndLineIdList;//班车id和线路id列表
+
+            for (int i = 0; i < busList.Count; i++)
+            {
+                var bus_info = _IBusInfoRepository.GetInfoByBusId(busList[i].Id);
+                var bus_info_update = _IMapper.Map<RelateBusLineAddMiddlecs, Bus_Info>(busList[i], bus_info);
+                _IBusInfoRepository.Update(bus_info_update);
+            }   
+            return _IBusInfoRepository.SaveChanges();
+        }
+        /// <summary>
+        /// 根据线路查班车
+        /// </summary>
+        /// <param name="busByLineSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Info> Bus_By_Line_Search(BusByLineSearchViewModel busByLineSearchViewModel)
+        {
+            List<Bus_Info> Bus_Relate_Line= _IBusInfoRepository.SearchBusInfoByLineWhere(busByLineSearchViewModel);
+
+          
+            return Bus_Relate_Line;
+        }
+        /// <summary>
+        /// 根据班车查询线路
+        /// </summary>
+        /// <param name="lineByBusSearchViewModel"></param>
+        /// <returns></returns>
+        public List<LineSearchMiddlecs> Line_By_Bus_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
+        {
+            List<Bus_Info> Bus_Relate_Line = _IBusInfoRepository.SearchLineInfoByBusWhere(lineByBusSearchViewModel);
+            List<LineSearchMiddlecs> line_infos = new List<LineSearchMiddlecs>();
+            foreach (var item in Bus_Relate_Line)
+            {
+                var user_info_temp = _IMapper.Map<Bus_Line, LineSearchMiddlecs>(item.Bus_Line);
+                line_infos.Add(user_info_temp);
+            }
+            return line_infos;
+        
+        }
+
+       
     }
 }

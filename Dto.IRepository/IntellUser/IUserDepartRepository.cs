@@ -16,5 +16,7 @@ namespace Dto.IRepository.IntellUser
         //批量删除
         int DeleteByDepartidList(List<int> IdList);
         List<User_Depart> SearchDepartByWhere(DepartSearchViewModel departSearchViewModel);
+        //根据主键id查询
+        User_Depart GetInfoByDepartid(int id);
     }
 }

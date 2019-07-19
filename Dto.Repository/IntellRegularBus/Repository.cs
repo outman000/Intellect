@@ -56,6 +56,6 @@ namespace Dto.Repository.IntellRegularBus
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
-
-    }
+      
+     }
 }

@@ -58,7 +58,11 @@ namespace Dto.Repository.IntellUser
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
-
+        public User_Role GetInfoByRoleid(int id)
+        {
+            User_Role user_role = DbSet.Single(uid => uid.Id.Equals(id));
+            return user_role;
+        }
         public IQueryable<User_Role> GetInfoByRoleCode(string roleCode)
         {
             IQueryable<User_Role> user_Infos = DbSet.Where(code => code.RoleCode.Equals(roleCode));

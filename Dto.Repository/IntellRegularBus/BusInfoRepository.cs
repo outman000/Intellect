@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 
 namespace Dto.Repository.IntellRegularBus
@@ -48,7 +50,7 @@ namespace Dto.Repository.IntellRegularBus
             DbSet.Remove(DbSet.Find(id));
         }
 
-        public int DeleteByUseridList(List<int> IdList)
+        public int DeleteByBusIdList(List<int> IdList)
         {
             int DeleteRowNum = 1;
             for (int i = 0; i < IdList.Count; i++)
@@ -65,13 +67,13 @@ namespace Dto.Repository.IntellRegularBus
         }
 
 
-        public IQueryable<Bus_Info> GetInfoByUserid(string busid)
+        public IQueryable<Bus_Info> GetInfoByBusId(string busid)
         {
             IQueryable<Bus_Info> bus_Infos = DbSet.Where(uid => uid.Code.Equals(busid));
             return bus_Infos;
         }
         //根据班车主键id查询
-        public Bus_Info GetInfoByUserid(int id)
+        public Bus_Info GetInfoByBusId(int id)
         {
             Bus_Info bus_Info = DbSet.Single(uid => uid.Id.Equals(id));
             return bus_Info;
@@ -119,22 +121,37 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
 
-        public int DeleteByBusIdList(List<int> IdList)
+        public Bus_Info GetById(int id)
         {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 根据线路查班车
+        /// </summary>
+        /// <param name="busByLineSearchViewModel"></param>
+        /// <returns></returns>
 
-            int DeleteRowNum = 1;
-            for (int i = 0; i < IdList.Count; i++)
-            {
-                var model = DbSet.Single(w => w.Id == IdList[i]);
-
-                DbSet.Remove(model);
-                SaveChanges();
-                DeleteRowNum = i + 1;
-            }
-            return DeleteRowNum;
+        public List<Bus_Info> SearchBusInfoByLineWhere(BusByLineSearchViewModel busByLineSearchViewModel)
+        {
+            int lineid = busByLineSearchViewModel.Bus_LineId;
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid).ToList();
+            return queryResult;
         }
 
+        /// <summary>
+        /// 根据班车查线路
+        /// </summary>
+        /// <param name="lineByBusSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Info> SearchLineInfoByBusWhere(LineByBusSearchViewModel lineByBusSearchViewModel)
+        {
 
-        
+            int BusId = lineByBusSearchViewModel.id;
+            var queryResult = DbSet.Where(k => k.Id == BusId).Include(p => p.Bus_Line).ToList();
+
+            return queryResult.ToList();
+        }
+
+      
     }
  }

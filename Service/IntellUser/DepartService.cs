@@ -78,8 +78,9 @@ namespace Dto.Service.IntellUser
         //更新部门信息
         public int Depart_Update(DepartUpdateViewModel  departUpdateViewModel)
         {
-            var user_Depart = _IMapper.Map<DepartUpdateViewModel, User_Depart>(departUpdateViewModel);
-            _IUserDepartRepository.Update(user_Depart);
+            var user_Depart = _IUserDepartRepository.GetInfoByDepartid(departUpdateViewModel.Id);
+            var user_Depart_Update = _IMapper.Map<DepartUpdateViewModel, User_Depart>(departUpdateViewModel, user_Depart);
+            _IUserDepartRepository.Update(user_Depart_Update);
             return _IUserDepartRepository.SaveChanges();
         }
 

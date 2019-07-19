@@ -29,7 +29,11 @@ namespace Dto.Repository.IntellUser
         {
             DbSet.Add(obj);
         }
-
+        public User_Depart GetInfoByDepartid(int id)
+        {
+            User_Depart user_depart = DbSet.Single(uid => uid.Id.Equals(id));
+            return user_depart;
+        }
         public int DeleteByDepartidList(List<int> IdList)
         {
             int DeleteRowNum = 1;

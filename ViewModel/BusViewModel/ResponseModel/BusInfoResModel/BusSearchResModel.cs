@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 using ViewModel.PublicViewModel;
 
 namespace ViewModel.BusViewModel.ResponseModel.BusInfoResModel

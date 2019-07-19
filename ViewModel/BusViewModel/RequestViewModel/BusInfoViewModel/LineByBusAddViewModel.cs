@@ -8,13 +8,13 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
     public class LineByBusAddViewModel
     {
         /// <summary>
-        /// 线路名称
+        /// 线路id
         /// </summary>
-        public string LineName { get; set; }
+        public int Bus_LineId { get; set; }
         /// <summary>
         /// 班车id
         /// </summary>
-        public int Busid { get; set; }
+        public int Id { get; set; }
       
     }
 }

@@ -59,7 +59,12 @@ namespace Dto.Repository.IntellUser
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+        public User_Rights GetInfoByRightId(int id)
+        {
+            User_Rights user_right = DbSet.Single(uid => uid.Id.Equals(id));
+            return user_right;
 
+        }
         public IQueryable<User_Rights> GetRightsByValue(string RightsValue)
         {
             IQueryable<User_Rights> user_Rights = DbSet.Where(uid => uid.RightsValue.Equals(RightsValue));

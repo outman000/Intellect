@@ -11,7 +11,6 @@ namespace ViewModel.BusViewModel.MiddleModel
         public string status { get; set; }
         public string Code { get; set; }
         public string Remark { get; set; }
-        public DateTime? AddDate { get; set; }
-        public DateTime? updateDate { get; set; }
+
     }
 }

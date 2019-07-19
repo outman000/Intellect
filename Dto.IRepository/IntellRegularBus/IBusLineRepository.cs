@@ -12,12 +12,12 @@ namespace Dto.IRepository.IntellRegularBus
         //根据线路标识查询
         IQueryable<Bus_Line> GetInfoByLineid(string lineid);
         //根据线路主键id查询
-        Bus_Line GetInfoByUserid(int id);
+        Bus_Line GetInfoByLineId(int id);
         //批量删除
         int DeleteByLineIdList(List<int> IdList);
         // 根据条件查线路
         List<Bus_Line> SearchInfoByLineWhere(LineSearchViewModel lineSearchViewModel);
-        // 根据线路名称查线路
-        List<Bus_Line> SearchBusByLineWhere(LineSearchViewModel lineSearchViewModel);
+     
+
     }
 }

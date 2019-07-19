@@ -83,8 +83,9 @@ namespace Dto.Service.IntellUser
         //更新权限信息
         public int Rights_Update(RightsUpdateViewModel rightsUpdateViewModel)
         {
-            var user_Rights = _IMapper.Map<RightsUpdateViewModel, User_Rights>(rightsUpdateViewModel);
-            _IUserRightsRepository.Update(user_Rights);
+            var user_Rights = _IUserRightsRepository.GetInfoByRightId(rightsUpdateViewModel.Id);
+            var user_Rights_Update = _IMapper.Map<RightsUpdateViewModel, User_Rights>(rightsUpdateViewModel, user_Rights);
+            _IUserRightsRepository.Update(user_Rights_Update);
             return _IUserRightsRepository.SaveChanges();
         }
         //根据角色查询权限
