@@ -20,12 +20,13 @@ namespace IntellRegularBus.Controllers
     {
 
         private readonly IBusService _busService;
-      
+        private readonly IStationService _stationService;
 
 
-        public BusInfoController(IBusService busService)
+        public BusInfoController(IBusService busService, IStationService stationService)
         {
             _busService = busService;
+            _stationService= stationService;
 
         }
         /// <summary>
@@ -210,7 +211,7 @@ namespace IntellRegularBus.Controllers
             {
                 busByLineAddResModel.IsSuccess = true;
                 busByLineAddResModel.AddCount = UpdateRowNum;
-                busByLineAddResModel.baseViewModel.Message = "根据班车添加/取消线路成功";
+                busByLineAddResModel.baseViewModel.Message = "根据线路添加/取消班车成功";
                 busByLineAddResModel.baseViewModel.ResponseCode = 200;
                 return Ok(busByLineAddResModel);
             }
@@ -218,7 +219,7 @@ namespace IntellRegularBus.Controllers
             {
                 busByLineAddResModel.IsSuccess = false;
                 busByLineAddResModel.AddCount = 0;
-                busByLineAddResModel.baseViewModel.Message = "根据班车添加/取消线路失败";
+                busByLineAddResModel.baseViewModel.Message = "根据线路添加/取消班车失败";
                 busByLineAddResModel.baseViewModel.ResponseCode = 400;
                 return BadRequest(busByLineAddResModel);
 
@@ -227,7 +228,7 @@ namespace IntellRegularBus.Controllers
         }
 
         /// <summary>
-        /// 根据线路查班车 
+        /// 根据线路查班车  /  根据站点查班车 
         /// </summary>
         /// <param name="busByLineSearchViewModel"></param>
         /// <returns></returns>
@@ -257,13 +258,15 @@ namespace IntellRegularBus.Controllers
         }
 
 
+      
+
         /// <summary>
         /// 根据班车查线路
         /// </summary>
         /// <param name="lineByBusSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Bus_Line_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
+        public ActionResult Manage_Bus_Station_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
         {
             LineByBusSearchResModel lineByBusSearchResModel = new LineByBusSearchResModel();
             lineByBusSearchResModel.line_Infos = _busService.Line_By_Bus_Search(lineByBusSearchViewModel);
@@ -286,5 +289,8 @@ namespace IntellRegularBus.Controllers
             }
 
         }
+
+
+       
     }
 }

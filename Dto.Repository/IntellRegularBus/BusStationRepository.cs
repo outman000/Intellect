@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel;
 
 namespace Dto.Repository.IntellRegularBus
@@ -130,8 +131,34 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(p => p.Code.Contains(stationSearchViewModel.Code));
             predicate = predicate.And(p => p.StationName.Contains(stationSearchViewModel.StationName));
             predicate = predicate.And(p => p.status.Contains(stationSearchViewModel.status));
-            predicate = predicate.And(p => p.Id==stationSearchViewModel.Id);
+         
             return predicate;
         }
+
+        /// <summary>
+        /// 根据站点查线路
+        /// </summary>
+        /// <param name="lineByBusSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Station> SearchLineInfoByStationWhere(LineByStationViewModel lineByStationViewModel)
+        {
+            int StationId = lineByStationViewModel.id;
+            var queryResult = DbSet.Where(k => k.Id == StationId).Include(p => p.Bus_Line).ToList();
+
+            return queryResult.ToList();
+        }
+        /// <summary>
+        /// 根据线路查站点
+        /// </summary>
+        /// <param name="stationByLineSearchViewModel"></param>
+        /// <re
+        public List<Bus_Station> SearchStationInfoByLineWhere(StationByLineSearchViewModel stationByLineSearchViewModel)
+        {
+            int lineid = stationByLineSearchViewModel.Bus_LineId;
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid).ToList();
+            return queryResult;
+        }
+
+       
     }
 }

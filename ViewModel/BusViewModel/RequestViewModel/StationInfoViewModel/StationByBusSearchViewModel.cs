@@ -5,28 +5,17 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
 {
-    /// <summary>
-    /// 站点信息查询
-    /// </summary>
-    public class StationSearchViewModel
+    public class StationByBusSearchViewModel
     {
-       
         /// <summary>
-        /// 站点名称
+        /// 班车id
         /// </summary>
-        public string StationName { get; set; }
+        public int Id { get; set; }
         /// <summary>
-        /// 站点状态
+        /// 线路Id   ---外键
         /// </summary>
-        public string status { get; set; }
-        /// <summary>
-        /// 站点标识
-        /// </summary>
-        public string Code { get; set; }
-        /// <summary>
-        /// 站点描述
-        /// </summary>
-        public string Remark { get; set; }
+        public int? Bus_LineId { get; set; }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -34,10 +23,9 @@ namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        StationSearchViewModel()
+        StationByBusSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }
-
     }
 }

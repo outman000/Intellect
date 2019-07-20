@@ -27,7 +27,7 @@ namespace Dto.Service.IntellRegularBus
         }
         public List<BusSearchMiddlecs> Bus_Search(BusSearchViewModel busSearchViewModel)
         {
-            List<Bus_Info> bus_Infos = _IBusInfoRepository.SearchInfoByWhere(busSearchViewModel);
+            List<Bus_Info> bus_Infos = _IBusInfoRepository.SearchInfoByBusWhere(busSearchViewModel);
 
             List<BusSearchMiddlecs> busSearches = new List<BusSearchMiddlecs>();
 

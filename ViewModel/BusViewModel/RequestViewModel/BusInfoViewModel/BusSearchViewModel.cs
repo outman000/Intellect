@@ -11,10 +11,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
     public class BusSearchViewModel
     {
 
-        /// <summary>
-        /// 班车id
-        /// </summary>
-        public int Id { get; set; }
+     
         /// <summary>
         /// 司机姓名
         /// </summary>
@@ -43,7 +40,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// 车辆所属公司
         /// </summary>
         public string OwnedCompany { get; set; }
-     
+       
         /// <summary>
         /// 分页
         /// </summary>

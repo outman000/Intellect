@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
@@ -55,5 +56,21 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="lineByStationAddViewModel"></param>
         /// <returns></returns>
         int Station_To_Line_Add(LineByStationAddViewModel lineByStationAddViewModel);
+
+        /// <summary>
+        ///根据站点查询线路
+        /// </summary>
+        /// <param name="lineByStationViewModel"></param>
+        /// <returns></returns>
+        List<LineSearchMiddlecs> Line_By_Station_Search(LineByStationViewModel lineByStationViewModel);
+
+        /// <summary>
+        ///根据线路查站点
+        /// </summary>
+        /// <param name="stationByLineSearchViewModel"></param>
+        /// <returns></returns>
+        List<Bus_Station> Bus_By_Line_Search(StationByLineSearchViewModel stationByLineSearchViewModel);
+
+       
     }
 }

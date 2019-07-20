@@ -39,6 +39,9 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public string OwnedCompany { get; set; }
 
-     
+        /// <summary>
+        /// 线路Id   ---外键
+        /// </summary>
+        public int? Bus_LineId { get; set; }
     }
 }

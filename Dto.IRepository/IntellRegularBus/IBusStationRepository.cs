@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel;
 
 namespace Dto.IRepository.IntellRegularBus
@@ -19,5 +20,19 @@ namespace Dto.IRepository.IntellRegularBus
         List<Bus_Station> SearchInfoByWhere(StationSearchViewModel stationSearchViewModel);
         // 根据id查站点
         Bus_Station GetById(int id);
+
+        /// <summary>
+        ///根据站点查询线路
+        /// </summary>
+        /// <param name="lineByStationViewModel"></param>
+        /// <returns></returns>
+        List<Bus_Station> SearchLineInfoByStationWhere(LineByStationViewModel lineByStationViewModel);
+
+        /// <summary>
+        ///根据线路查询站点
+        /// </summary>
+        /// <param name="stationByLineSearchViewModel"></param>
+        /// <returns></returns>
+        List<Bus_Station> SearchStationInfoByLineWhere(StationByLineSearchViewModel stationByLineSearchViewModel);
     }
 }

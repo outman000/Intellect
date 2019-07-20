@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SystemFilter.PublicFilter;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel;
+using ViewModel.BusViewModel.ResponseModel.LineInforResModel;
 using ViewModel.BusViewModel.ResponseModel.StationInfoResModel;
 
 namespace IntellRegularBus.Controllers
@@ -202,7 +204,7 @@ namespace IntellRegularBus.Controllers
             {
                 lineByStationAddResModel.IsSuccess = true;
                 lineByStationAddResModel.AddCount = UpdateRowNum;
-                lineByStationAddResModel.baseViewModel.Message = "根据班车添加/取消线路成功";
+                lineByStationAddResModel.baseViewModel.Message = "根据站点添加/取消线路成功";
                 lineByStationAddResModel.baseViewModel.ResponseCode = 200;
                 return Ok(lineByStationAddResModel);
             }
@@ -210,12 +212,74 @@ namespace IntellRegularBus.Controllers
             {
                 lineByStationAddResModel.IsSuccess = false;
                 lineByStationAddResModel.AddCount = 0;
-                lineByStationAddResModel.baseViewModel.Message = "根据班车添加/取消线路失败";
+                lineByStationAddResModel.baseViewModel.Message = "根据站点添加/取消线路失败";
                 lineByStationAddResModel.baseViewModel.ResponseCode = 400;
                 return BadRequest(lineByStationAddResModel);
 
             }
 
         }
+
+        /// <summary>
+        /// 根据站点查线路
+        /// </summary>
+        /// <param name="lineByStationViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Bus_Line_Search(LineByStationViewModel lineByStationViewModel)
+        {
+            LineByStationSearchResModel lineByStationSearchResModel = new LineByStationSearchResModel();
+            lineByStationSearchResModel.line_Infos = _stationService.Line_By_Station_Search(lineByStationViewModel);
+            if (lineByStationSearchResModel.line_Infos.Count > 0)
+            {
+                lineByStationSearchResModel.IsSuccess = true;
+                lineByStationSearchResModel.TotalNum = lineByStationSearchResModel.line_Infos.Count;
+                lineByStationSearchResModel.baseViewModel.Message = "根据站点查线路成功";
+                lineByStationSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(lineByStationSearchResModel);
+            }
+            else
+            {
+                lineByStationSearchResModel.IsSuccess = false;
+                lineByStationSearchResModel.TotalNum = 0;
+                lineByStationSearchResModel.baseViewModel.Message = "根据站点查线路失败";
+                lineByStationSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(lineByStationSearchResModel);
+
+            }
+
+        }
+
+        /// <summary>
+        /// 根据线路查站点 /  根据班车查站点
+        /// </summary>
+        /// <param name="stationByLineSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Line_Bus_Search(StationByLineSearchViewModel stationByLineSearchViewModel)
+        {
+            StationByLineSearchResModel stationByLineSearchResModel = new StationByLineSearchResModel();
+            stationByLineSearchResModel.busStation = _stationService.Bus_By_Line_Search(stationByLineSearchViewModel);
+            if (stationByLineSearchResModel.busStation.Count > 0)
+            {
+                stationByLineSearchResModel.IsSuccess = true;
+                stationByLineSearchResModel.TotalNum = stationByLineSearchResModel.busStation.Count;
+                stationByLineSearchResModel.baseViewModel.Message = "根据线路查站点成功";
+                stationByLineSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(stationByLineSearchResModel);
+            }
+            else
+            {
+                stationByLineSearchResModel.IsSuccess = false;
+                stationByLineSearchResModel.TotalNum = 0;
+                stationByLineSearchResModel.baseViewModel.Message = "根据线路查站点失败";
+                stationByLineSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(stationByLineSearchResModel);
+
+            }
+
+        }
+
+       
     }
 }

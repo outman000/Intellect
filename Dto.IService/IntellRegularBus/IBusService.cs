@@ -71,5 +71,7 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="lineByBusSearchViewModel"></param>
         /// <returns></returns>
         List<LineSearchMiddlecs> Line_By_Bus_Search(LineByBusSearchViewModel lineByBusSearchViewModel);
+
+       
     }
 }

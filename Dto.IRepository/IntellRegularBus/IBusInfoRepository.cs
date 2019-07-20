@@ -18,7 +18,7 @@ namespace Dto.IRepository.IntellRegularBus
         //批量删除
         int DeleteByBusIdList(List<int> IdList);
         // 根据条件查班车
-        List<Bus_Info> SearchInfoByWhere(BusSearchViewModel busSearchViewModel);
+        List<Bus_Info> SearchInfoByBusWhere(BusSearchViewModel busSearchViewModel);
         // 根据id查班车
         Bus_Info GetById(int id);
 

@@ -116,5 +116,34 @@ namespace Dto.Service.IntellRegularBus
             _IBusStationRepository.Update(station_Info_update);
             return _IBusStationRepository.SaveChanges();
         }
+        /// <summary>
+        /// 根据站点查询线路
+        /// </summary>
+        /// <param name="lineByStationViewModel"></param>
+        /// <returns></returns>
+        public List<LineSearchMiddlecs> Line_By_Station_Search(LineByStationViewModel lineByStationViewModel)
+        {
+            List<Bus_Station> Station_Relate_Line = _IBusStationRepository.SearchLineInfoByStationWhere(lineByStationViewModel);
+            List<LineSearchMiddlecs> line_infos = new List<LineSearchMiddlecs>();
+            foreach (var im in Station_Relate_Line)
+            {
+                var line_info_temp = _IMapper.Map<Bus_Line, LineSearchMiddlecs>(im.Bus_Line);
+                line_infos.Add(line_info_temp);
+            }
+            return line_infos;
+        }
+        /// <summary>
+        /// 根据线路查站点
+        /// </summary>
+        /// <param name="busByLineSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Station> Bus_By_Line_Search(StationByLineSearchViewModel stationByLineSearchViewModel)
+        {
+            List<Bus_Station> Bus_Relate_Line = _IBusStationRepository.SearchStationInfoByLineWhere(stationByLineSearchViewModel);
+
+
+            return Bus_Relate_Line;
+        }
+
     }
 }

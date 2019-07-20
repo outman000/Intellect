@@ -19,6 +19,7 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<StationUpdateViewModel, Bus_Station>();
             CreateMap<StationAddViewModel, Bus_Station >();
             CreateMap<RelateLineStationAddMiddlecs, Bus_Station >();
+            CreateMap<Bus_Line, LineSearchMiddlecs>();
         }
 
        

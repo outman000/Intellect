@@ -81,16 +81,16 @@ namespace Dto.Repository.IntellRegularBus
 
         //根据条件查询
 
-        public List<Bus_Info> SearchInfoByWhere(BusSearchViewModel busSearchViewModel)
+        public List<Bus_Info> SearchInfoByBusWhere(BusSearchViewModel busSearchViewModel)
         {
             int SkipNum = busSearchViewModel.pageViewModel.CurrentPageNum * busSearchViewModel.pageViewModel.PageSize;
 
             //查询条件
-            var predicate = SearchUserWhere(busSearchViewModel);
+            var predicate = SearchBusWhere(busSearchViewModel);
             DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(busSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.AddDate).ToList();
+                 .OrderBy(o => o.AddDate).ToList();
 
 
             return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
@@ -110,7 +110,7 @@ namespace Dto.Repository.IntellRegularBus
 
 
         //根据条件查询班车
-        private Expression<Func<Bus_Info, bool>> SearchUserWhere(BusSearchViewModel busSearchViewModel)
+        private Expression<Func<Bus_Info, bool>> SearchBusWhere(BusSearchViewModel busSearchViewModel)
         {
             var predicate = WhereExtension.True<Bus_Info>();//初始化where表达式
             predicate = predicate.And(p => p.Code.Contains(busSearchViewModel.Code));

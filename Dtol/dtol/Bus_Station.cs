@@ -21,6 +21,6 @@ namespace Dtol.dtol
         /// </summary>
         public int? Bus_LineId { get; set; }
 
-        public Bus_Info Bus_Line { get; set; }
+        public Bus_Line Bus_Line { get; set; }
     }
 }

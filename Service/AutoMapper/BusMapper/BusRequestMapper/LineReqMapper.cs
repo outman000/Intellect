@@ -18,6 +18,7 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<Bus_Line, LineSearchMiddlecs>();
             CreateMap<LineAddViewModel, Bus_Line>();
             CreateMap < LineUpdateViewModel, Bus_Line>();
+            CreateMap<Bus_Line, LineSearchMiddlecs>();
         }
     }
 }

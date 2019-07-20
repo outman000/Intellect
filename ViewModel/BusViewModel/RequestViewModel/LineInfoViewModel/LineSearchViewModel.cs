@@ -11,10 +11,10 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
     public class LineSearchViewModel
     {
 
-        /// <summary>
-        /// 线路id
-        /// </summary>
-        public int Id { get; set; }
+        ///// <summary>
+        ///// 线路id
+        ///// </summary>
+        //public int Id { get; set; }
         /// <summary>
         /// 线路名称
         /// </summary>

@@ -101,7 +101,7 @@ namespace Dto.Repository.IntellRegularBus
 
             return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
         }
-      
+    
 
         public void Update(Bus_Line obj)
         {
@@ -114,7 +114,7 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(p => p.Code.Contains(lineSearchViewModel.Code));
             predicate = predicate.And(p => p.LineName.Contains(lineSearchViewModel.LineName));
             predicate = predicate.And(p => p.status.Contains(lineSearchViewModel.status));
-            predicate = predicate.And(p => p.Id==lineSearchViewModel.Id);
+           // predicate = predicate.And(p => p.Id==lineSearchViewModel.Id);
 
             return predicate;
         }
