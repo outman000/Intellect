@@ -11,7 +11,7 @@ namespace Dtol.dtol
 
         public string status { get; set; }
         public string Code { get; set; }
-        public string Remark { get; set; }
+        public decimal? Expense { get; set; }
         public DateTime? OnWorkDate { get; set; }
         public DateTime? OffWorkDate { get; set; }
         public DateTime? AddDate { get; set; }

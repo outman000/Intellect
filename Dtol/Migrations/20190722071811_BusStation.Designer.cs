@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20190722071811_BusStation")]
+    partial class BusStation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,35 +77,6 @@ namespace Dtol.Migrations
                     b.ToTable("bus_Line");
                 });
 
-            modelBuilder.Entity("Dtol.dtol.Bus_Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Bus_LineId");
-
-                    b.Property<int?>("Bus_StationId");
-
-                    b.Property<int?>("User_DepartId");
-
-                    b.Property<int?>("User_InfoId");
-
-                    b.Property<DateTime?>("createDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Bus_LineId");
-
-                    b.HasIndex("Bus_StationId");
-
-                    b.HasIndex("User_DepartId");
-
-                    b.HasIndex("User_InfoId");
-
-                    b.ToTable("bus_Payment");
-                });
-
             modelBuilder.Entity("Dtol.dtol.Bus_Station", b =>
                 {
                     b.Property<int>("Id")
@@ -116,11 +89,11 @@ namespace Dtol.Migrations
 
                     b.Property<string>("Code");
 
-                    b.Property<decimal?>("Expense");
-
                     b.Property<DateTime?>("OffWorkDate");
 
                     b.Property<DateTime?>("OnWorkDate");
+
+                    b.Property<decimal?>("Remark");
 
                     b.Property<string>("StationName");
 
@@ -390,25 +363,6 @@ namespace Dtol.Migrations
                     b.HasOne("Dtol.dtol.Bus_Line", "Bus_Line")
                         .WithMany()
                         .HasForeignKey("Bus_LineId");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.Bus_Payment", b =>
-                {
-                    b.HasOne("Dtol.dtol.Bus_Line", "Bus_Line")
-                        .WithMany()
-                        .HasForeignKey("Bus_LineId");
-
-                    b.HasOne("Dtol.dtol.Bus_Station", "Bus_Station")
-                        .WithMany()
-                        .HasForeignKey("Bus_StationId");
-
-                    b.HasOne("Dtol.dtol.User_Depart", "User_Depart")
-                        .WithMany()
-                        .HasForeignKey("User_DepartId");
-
-                    b.HasOne("Dtol.dtol.User_Info", "User_Info")
-                        .WithMany()
-                        .HasForeignKey("User_InfoId");
                 });
 
             modelBuilder.Entity("Dtol.dtol.Bus_Station", b =>

@@ -40,6 +40,7 @@ namespace Dtol
         public DbSet<Bus_Info> bus_Info { get; set; }
         public DbSet<Bus_Line> bus_Line { get; set; }
         public DbSet<Bus_Station> bus_Station { get; set; }
+        public DbSet<Bus_Payment> bus_Payment { get; set; }
 
     }
 }
