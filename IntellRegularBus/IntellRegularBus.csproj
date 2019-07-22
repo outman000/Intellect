@@ -10,6 +10,12 @@
     <OutputPath>bin\Debug\netcoreapp2.2\</OutputPath>
     <DocumentationFile>bin\Debug\netcoreapp2.2\IntellRegularBus.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\netcoreapp2.2\</OutputPath>
+    <DocumentationFile>bin\Release\netcoreapp2.2\IntellRegularBus.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
