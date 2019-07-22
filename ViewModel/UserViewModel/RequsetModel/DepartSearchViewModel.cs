@@ -9,10 +9,14 @@ namespace ViewModel.UserViewModel.RequsetModel
     /// 部门查询视图模型
     /// </summary>
     public class DepartSearchViewModel
-    {     
+    {
         /// <summary>
-         /// 部门名称
-         /// </summary>
+        /// 部门id
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// 部门名称
+        /// </summary>
         public string Name { get; set; }//部门名称
         /// <summary>
         /// 父部门id

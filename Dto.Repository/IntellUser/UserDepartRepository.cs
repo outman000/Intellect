@@ -105,6 +105,7 @@ namespace Dto.Repository.IntellUser
             predicate = predicate.And(p => p.Code.Contains(departSearchViewModel.Code));
             predicate = predicate.And(p => p.Name.Contains(departSearchViewModel.Name));
             predicate = predicate.And(p => p.ParentId.Contains(departSearchViewModel.ParentId));
+            predicate = predicate.And(p => p.Id ==departSearchViewModel.Id);
             return predicate;
         }
 
