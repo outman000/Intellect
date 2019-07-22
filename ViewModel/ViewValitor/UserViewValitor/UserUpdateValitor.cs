@@ -48,9 +48,6 @@ namespace ViewModel.ViewValitor.UserViewValitor
                           .WithMessage("用户身份名称不能为空");
 
 
-            RuleFor(hr_info => hr_info.AddDate).NotNull()
-                .WithMessage("上传时间不能为空")
-                ;
         }
     }
 }

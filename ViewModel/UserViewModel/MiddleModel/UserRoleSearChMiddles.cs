@@ -11,5 +11,6 @@ namespace ViewModel.UserViewModel.MiddleModel
         public string RoleCode { get; set; }
         public string Status { get; set; }
         public DateTime? Createdate { get; set; }
+        public DateTime? UpdateTime { get; set; }
     }
 }

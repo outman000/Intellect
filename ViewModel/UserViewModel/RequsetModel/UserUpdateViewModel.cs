@@ -46,8 +46,8 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// </summary>
         public string WorkExperience { get; set; }
         /// <summary>
-        /// 添加时间
+        /// 修改时间
         /// </summary>
-        public DateTime? AddDate { get; set; }
+        public DateTime? updateDate { get; set; }
     }
 }

@@ -17,5 +17,6 @@ namespace ViewModel.UserViewModel.MiddleModel
         public int? user_DepartId { get; set; }
         public string WorkExperience { get; set; }
         public DateTime? AddDate { get; set; }
+        public DateTime? updateDate { get; set; }
     }
 }

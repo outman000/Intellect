@@ -10,11 +10,7 @@ namespace ViewModel.UserViewModel.RequsetModel
     /// </summary>
     public partial class UserSearchViewModel
     {
-        
-        /// <summary>
-       /// 用户id
-       /// </summary>
-        public int Id { get; set; }
+      
         /// <summary>
         /// 用户真实姓名
         /// </summary>

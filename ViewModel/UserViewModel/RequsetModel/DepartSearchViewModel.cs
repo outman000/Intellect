@@ -22,10 +22,7 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 部门标识
         /// </summary>
         public string Code { get; set; }//部门标识
-        /// <summary>
-        /// 部门排序
-        /// </summary>
-        public int? Sort { get; set; }//部门排序
+ 
          /// <summary>
          /// 分页
          /// </summary>

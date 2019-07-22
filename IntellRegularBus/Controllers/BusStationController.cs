@@ -134,7 +134,7 @@ namespace IntellRegularBus.Controllers
         }
 
         /// <summary>
-        /// 删除线路
+        /// 删除站点
         /// </summary>
         /// <param name="stationDelViewModel"></param>
         /// <returns></returns>
