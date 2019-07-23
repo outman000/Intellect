@@ -26,6 +26,10 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// </summary>
         public int? User_DepartId { get; set; }
         /// <summary>
+        /// 缴费状态-是否缴费
+        /// </summary>
+        public string status { get; set; }
+        /// <summary>
         /// 添加日期
         /// </summary>
         public DateTime? createDate { get; set; }

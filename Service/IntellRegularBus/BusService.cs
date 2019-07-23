@@ -51,8 +51,9 @@ namespace Dto.Service.IntellRegularBus
         //更新班车
         public int Bus_Update(BusUpdateViewModel busUpdateViewModel)
         {
-            var bus_Info = _IMapper.Map<BusUpdateViewModel, Bus_Info>(busUpdateViewModel);
-            _IBusInfoRepository.Update(bus_Info);
+            var bus_Info = _IBusInfoRepository.GetInfoByBusId(busUpdateViewModel.Id);
+            var bus_Info_update = _IMapper.Map<BusUpdateViewModel, Bus_Info>(busUpdateViewModel, bus_Info);
+            _IBusInfoRepository.Update(bus_Info_update);
             return _IBusInfoRepository.SaveChanges();
         }
 
