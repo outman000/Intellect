@@ -22,4 +22,11 @@
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RepairsViewModel\MiddleModel\" />
+    <Folder Include="RepairsViewModel\RequestViewModel\" />
+    <Folder Include="RepairsViewModel\ResponseModel\" />
+    <Folder Include="ViewValitor\RepairsViewValitor\" />
+  </ItemGroup>
+
 </Project>
