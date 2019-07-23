@@ -27,9 +27,18 @@ namespace Dtol.dtol
         /// </summary>
         public int Parent_Flow_ProcedureId;
         public Flow_Procedure Parent_Flow_Procedure;
+        /// <summary>
+        /// 状态
+        /// </summary>
         public string status;
+        /// <summary>
+        /// 当前节点操作人员
+        /// </summary>
         public int User_InfoId;
         public User_Info User_Info;
+        /// <summary>
+        /// 父节点操作人员
+        /// </summary>
         public int Pre_User_InfoId;
         public User_Info Pre_User_Info;
         public DateTime? StartTime;
