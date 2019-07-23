@@ -10,7 +10,7 @@ namespace Dtol.dtol
         public int Flow_ProcedureId{get;set;}
         public Flow_ProcedureDefine Flow_ProcedureDefine{get;set;}
         public int User_RoleId{get;set;}
-        public User_Role User_Role{get;set;}
+        public List<User_Role> User_Role{get;set;}
         public string NodeName { get; set; }
         public string NextNodeName { get; set; }
         public int NextNodeId{ get; set; }
