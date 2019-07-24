@@ -11,7 +11,29 @@ namespace Dto.IService.IntellRepair
         /// <summary>
         /// 查询报修信息
         /// </summary>
-        /// <param name="busSearchViewModel"></param>
+        /// <param name="repairInfoSearchViewModel"></param>
         List<RepairInfoSearchMiddlecs> Repair_Search(RepairInfoSearchViewModel repairInfoSearchViewModel);
+        /// <summary>
+        /// 添加报修信息
+        /// </summary>
+        /// <param name="repairAddViewModel"></param>
+        /// <returns></returns>
+        int Repair_Add(RepairAddViewModel repairAddViewModel);
+
+        /// <summary>
+        /// 删除报修信息
+        /// </summary>
+        /// <param name="repairDelViewModel"></param>
+        /// <returns></returns>
+        int Repair_Delete(RepairDelViewModel repairDelViewModel);
+
+
+        /// <summary>
+        /// 更新表单信息
+        /// </summary>
+        /// <param name="repairUpdateViewModel"></param>
+        /// <returns></returns>
+
+        int Repair_Update(RepairUpdateViewModel repairUpdateViewModel);
     }
 }

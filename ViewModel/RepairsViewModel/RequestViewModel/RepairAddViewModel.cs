@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ViewModel.RepairsViewModel.MiddleModel
+namespace ViewModel.RepairsViewModel.RequestViewModel
 {
-    public class RepairInfoSearchMiddlecs
+    /// <summary>
+    /// 报修表单增加视图
+    /// </summary>
+    /// 
+    public class RepairAddViewModel
     {
         /// <summary>
-        /// 报修id
+        /// 用户id
         /// </summary>
-        public int id { get; set; }
+        public int User_InfoId { get; set; }
+
         /// <summary>
-        /// 用户名
+        /// 部门id
         /// </summary>
-        public string UserName { get; set; }
-    
-        /// <summary>
-        /// 部门名
-        /// </summary>
-        public string Name { get; set; }
-      
+        public int User_DepartId { get; set; }
+
         /// <summary>
         /// 报修标题
         /// </summary>
