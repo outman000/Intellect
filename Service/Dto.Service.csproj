@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="AutoMapper\UserMapper\RoleResponseMapper\" />
-    <Folder Include="IntellRepair\" />
   </ItemGroup>
 
 </Project>

@@ -76,14 +76,18 @@ namespace Dto.Repository.IntellRegularBus
 
         public IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel)
         {
-           var preciateBydepart=   SearchBusUserWhere(busUserSearchViewModel);
+            int SkipNum = busUserSearchViewModel.pageViewModel.CurrentPageNum * busUserSearchViewModel.pageViewModel.PageSize;
+
+            var preciateBydepart =   SearchBusUserWhere(busUserSearchViewModel);
            IQueryable<Bus_Payment> bus_Payments = Db.bus_Payment.Where(preciateBydepart);
 
             IQueryable<Bus_Payment> SearchResultTemp = bus_Payments.Include(a => a.User_Info)
                         .Include(a => a.Bus_Station)
                         .Include(a => a.Bus_Info)
                         .Include(a => a.Bus_Line)
-                        .Include(a => a.User_Depart);
+                        .Include(a => a.User_Depart)
+                        .Skip(SkipNum)
+                        .Take(busUserSearchViewModel.pageViewModel.PageSize);
 
 
             return SearchResultTemp;
