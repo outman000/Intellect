@@ -18,6 +18,11 @@ namespace Dtol.dtol
         public DateTime? Createdate { get; set; }
         public DateTime? UpdateTime { get; set; }
         public DateTime? Level { get; set; }
+        public int? Flow_NodeDefineId { get; set; }
+        public Flow_NodeDefine Flow_NodeDefine { get; set; }
+
+        public int? Flow_ProcedureId { get; set; }
+        public Flow_Procedure Flow_Procedure { get; set; }
 
         public virtual ICollection<User_Relate_Role_Right> User_Relate_Role_Right { get; set; }
 
