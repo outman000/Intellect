@@ -10,10 +10,7 @@ namespace ViewModel.UserViewModel.RequsetModel
     /// </summary>
     public class DepartSearchViewModel
     {
-        /// <summary>
-        /// 部门id
-        /// </summary>
-        public int Id { get; set; }
+        
         /// <summary>
         /// 部门名称
         /// </summary>
