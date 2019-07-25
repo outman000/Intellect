@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.PublicViewModel;
 
-namespace Dtol.dtol
+namespace ViewModel.RepairsViewModel.RequestViewModel
 {
-    public class Flow_ProcedureDefine
+    public class FlowProcedureDefineSearchViewModel
     {
-        /// <summary>
-        /// 主键id
-        /// </summary>
-        public int Id { get; set; }
         /// <summary>
         /// 流程名
         /// </summary>
@@ -27,16 +24,15 @@ namespace Dtol.dtol
         /// </summary>
         public string Type { get; set; }
         /// <summary>
-        /// 流程描述
+        /// 分页
         /// </summary>
-        public string Remark { get; set; }
+        public PageViewModel pageViewModel { get; set; }
         /// <summary>
-        /// 创建时间
+        /// 构造方法
         /// </summary>
-        public DateTime? Createtime { get; set; }
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        public DateTime? Updatetime { get; set; }
+        FlowProcedureDefineSearchViewModel()
+        {
+            pageViewModel = new PageViewModel();
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace Dto.Repository.IntellRepair
 
         public Repair_Info GetById(int id)
         {
-            throw new NotImplementedException();
+            return DbSet.Find(id);
         }
 
         public int SaveChanges()

@@ -10,6 +10,6 @@ namespace Dtol.dtol
         public string status { get; set; }
         public DateTime? Starttime { get; set; }
         public DateTime? Endtime { get; set; }
-       public string remark { get; set; }
+        public string remark { get; set; }
     }
 }

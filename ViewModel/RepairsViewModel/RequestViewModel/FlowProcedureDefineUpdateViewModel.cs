@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dtol.dtol
+namespace ViewModel.RepairsViewModel.RequestViewModel
 {
-    public class Flow_ProcedureDefine
+    public class FlowProcedureDefineUpdateViewModel
     {
         /// <summary>
         /// 主键id
@@ -18,10 +18,7 @@ namespace Dtol.dtol
         /// 流程标识
         /// </summary>
         public string ProcedureCode { get; set; }
-        /// <summary>
-        /// 删除标记
-        /// </summary>
-        public string Status { get; set; }
+     
         /// <summary>
         /// 流程类型
         /// </summary>
@@ -30,10 +27,7 @@ namespace Dtol.dtol
         /// 流程描述
         /// </summary>
         public string Remark { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime? Createtime { get; set; }
+
         /// <summary>
         /// 更新时间
         /// </summary>

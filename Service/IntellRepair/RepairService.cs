@@ -70,6 +70,11 @@ namespace Dto.Service.IntellRepair
             }
         }
 
+        /// <summary>
+        /// 报修表单更新
+        /// </summary>
+        /// <param name="repairUpdateViewModel"></param>
+        /// <returns></returns>
         public int Repair_Update(RepairUpdateViewModel repairUpdateViewModel)
         {
             var repair_Info = _IRepairInfoRepository.GetInfoByRepairId(repairUpdateViewModel.id);

@@ -46,6 +46,7 @@ namespace Dtol
         public DbSet<Flow_NodeDefine> flow_NodeDefine { get; set; }
         public DbSet<Flow_Procedure> flow_Procedure { get; set; }
         public DbSet<Flow_ProcedureDefine> flow_ProcedureDefine { get; set; }
+        public DbSet<Flow_Relate_NodeRole> flow_Relate_NodeRole { get; set; }
 
 
 

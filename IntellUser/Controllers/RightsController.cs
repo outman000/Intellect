@@ -154,7 +154,7 @@ namespace IntellUser.Controllers
         {
             RightsSearchResModel rightsSearchResModel = new RightsSearchResModel();
             var RightsSearchResult = _rightsService.Rights_Search(rightsSearchViewModel);
-            var TotalNum = _rightsService.Rights_Get_ALLNum();
+            var TotalNum = RightsSearchResult.Count ;
             rightsSearchResModel.user_Rights = RightsSearchResult;
             rightsSearchResModel.isSuccess = true;
             rightsSearchResModel.baseViewModel.Message = "查询成功";

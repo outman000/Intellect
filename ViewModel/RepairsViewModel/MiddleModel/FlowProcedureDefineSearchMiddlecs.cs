@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dtol.dtol
+namespace ViewModel.RepairsViewModel.MiddleModel
 {
-    public class Flow_ProcedureDefine
+    public class FlowProcedureDefineSearchMiddlecs
     {
-        /// <summary>
-        /// 主键id
-        /// </summary>
-        public int Id { get; set; }
         /// <summary>
         /// 流程名
         /// </summary>
@@ -38,5 +34,6 @@ namespace Dtol.dtol
         /// 更新时间
         /// </summary>
         public DateTime? Updatetime { get; set; }
+
     }
 }
