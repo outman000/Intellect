@@ -15,11 +15,11 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 状态
         /// </summary>
         public string status { get; set; }
-        /// <summary>
-        /// 开始时间
-        /// </summary>
-        public DateTime Starttime { get; set; }
- 
+        ///// <summary>
+        ///// 开始时间
+        ///// </summary>
+        //public DateTime Starttime { get; set; }
+
         /// <summary>
         /// 描述
         /// </summary>

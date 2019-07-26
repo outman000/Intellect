@@ -3,6 +3,7 @@ using Dtol.dtol;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
@@ -16,7 +17,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
         public ProcsdureInfoReqMapper()
         {
             CreateMap<FlowProcedureUpdateViewModel, Flow_Procedure>();
-
+            CreateMap < Flow_Procedure, FlowProcedureSearchMiddlecs>();
         }
     }
 }

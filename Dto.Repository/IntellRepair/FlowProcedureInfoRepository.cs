@@ -100,7 +100,7 @@ namespace Dto.Repository.IntellRepair
             var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(flowProcedureSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Starttime).ToList();
+                .ToList();
 
             return result;
         }
@@ -116,7 +116,7 @@ namespace Dto.Repository.IntellRepair
             var predicate = WhereExtension.True<Flow_Procedure>();//初始化where表达式
             predicate = predicate.And(p => p.status.Contains(flowProcedureSearchViewModel.status));
             predicate = predicate.And(p => p.remark.Contains(flowProcedureSearchViewModel.remark));
-           
+            //predicate = predicate.And(p => p.Starttime.ToString().Contains(flowProcedureSearchViewModel.Starttime.ToString()));
             return predicate;
         }
 

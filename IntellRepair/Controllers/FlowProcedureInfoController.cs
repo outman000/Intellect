@@ -26,7 +26,6 @@ namespace IntellRepair.Controllers
         /// </summary>
         /// <param name="flowProcedureSearchViewModel"></param>
         /// <returns></returns>
-        /// <summary>
         [HttpPost]
         public ActionResult Manage_Procedure_Search(FlowProcedureSearchViewModel flowProcedureAddViewModel)
         {
