@@ -77,6 +77,13 @@ namespace Dto.Repository.IntellRegularBus
             return line_Info;
         }
 
+        public IQueryable<Bus_Line> GetLineAll(LineSearchViewModel lineSearchViewModel)
+        {
+            var predicate = SearchLineWhere(lineSearchViewModel);
+
+            return DbSet.Where(predicate);
+        }
+
         public void Remove(Guid id)
         {
             DbSet.Remove(DbSet.Find(id));
@@ -93,13 +100,13 @@ namespace Dto.Repository.IntellRegularBus
 
             //查询条件
             var predicate = SearchLineWhere(lineSearchViewModel);
-            DbSet.Where(predicate)
+            var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(lineSearchViewModel.pageViewModel.PageSize)
                  .OrderBy(o => o.AddDate).ToList();
 
 
-            return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
+            return result;
         }
     
 

@@ -143,7 +143,32 @@ namespace Dto.Service.IntellRegularBus
             return line_infos;
         
         }
-
-       
+        /// <summary>
+        /// 查询班车数量
+        /// </summary>
+        /// <param name="busSearchViewModel"></param>
+        /// <returns></returns>
+        public int Bus_Get_ALLNum(BusSearchViewModel busSearchViewModel)
+        {
+            return _IBusInfoRepository.GetBusAll(busSearchViewModel).Count();
+        }
+        /// <summary>
+        /// 根据线路查班车数量
+        /// </summary>
+        /// <param name="busByLineSearchViewModel"></param>
+        /// <returns></returns>
+        public int Bus_By_Line_Get_ALLNum(BusByLineSearchViewModel busByLineSearchViewModel)
+        {
+            return _IBusInfoRepository.GetBusInfoByLineAll(busByLineSearchViewModel).Count();
+        }
+        /// <summary>
+        /// 根据班车查线路数量
+        /// </summary>
+        /// <param name="lineByBusSearchViewModel"></param>
+        /// <returns></returns>
+        public int Line_By_Bus_Get_ALLNum(LineByBusSearchViewModel lineByBusSearchViewModel)
+        {
+            return _IBusInfoRepository.GetLineInfoByBusAll(lineByBusSearchViewModel).Count();
+        }
     }
 }

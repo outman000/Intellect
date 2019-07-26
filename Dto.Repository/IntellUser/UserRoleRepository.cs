@@ -93,8 +93,17 @@ namespace Dto.Repository.IntellUser
                   .Take(userRoleSearchViewModel.pageViewModel.PageSize)
                   .OrderBy(o => o.Createdate).ToList();
         }
+        /// <summary>
+        /// 获得角色数量
+        /// </summary>
+        /// <param name="userRoleSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<User_Role> GetRoleAll(UserRoleSearchViewModel userRoleSearchViewModel)
+        {
+            var predicate = SearchUserRoleWhere(userRoleSearchViewModel);
 
-
+            return DbSet.Where(predicate);
+        }
         #region 条件
         //用户搜索条件
         private Expression<Func<User_Role, bool>> SearchUserRoleWhere(UserRoleSearchViewModel userRoleSearchViewModel)
@@ -105,7 +114,9 @@ namespace Dto.Repository.IntellUser
             return predicate;
         }
 
-   
+     
+
+
         #endregion
     }
 }

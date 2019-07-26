@@ -13,6 +13,14 @@ namespace Dto.IService.IntellRepair
         /// </summary>
         /// <param name="repairInfoSearchViewModel"></param>
         List<RepairInfoSearchMiddlecs> Repair_Search(RepairInfoSearchViewModel repairInfoSearchViewModel);
+
+        /// <summary>
+        /// 查询报修信息数量
+        /// </summary>
+        /// <param name="repairInfoSearchViewModel"></param>
+        /// <returns></returns>
+        int Repair_Get_ALLNum(RepairInfoSearchViewModel repairInfoSearchViewModel);
+
         /// <summary>
         /// 添加报修信息
         /// </summary>

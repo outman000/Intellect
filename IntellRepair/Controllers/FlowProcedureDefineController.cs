@@ -63,7 +63,7 @@ namespace IntellRepair.Controllers
         {
             FlowProcedureDefineSearchResModel  flowProcedureDefineSearchResModel = new FlowProcedureDefineSearchResModel();
             var procedurSearchResult = _IFlowProcedureDefineService.ProcedureDefine_Search(flowProcedureDefineSearchViewModel);
-            var TotalNum = procedurSearchResult.Count;
+            var TotalNum = _IFlowProcedureDefineService.ProcedureDefine_Get_ALLNum(flowProcedureDefineSearchViewModel);
             flowProcedureDefineSearchResModel.flowProcedureDefine_Info = procedurSearchResult;
             flowProcedureDefineSearchResModel.isSuccess = true;
             flowProcedureDefineSearchResModel.baseViewModel.Message = "查询成功";

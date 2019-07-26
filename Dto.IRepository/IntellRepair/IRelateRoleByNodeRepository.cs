@@ -1,6 +1,7 @@
 ﻿using Dtol.dtol;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
@@ -28,5 +29,11 @@ namespace Dto.IRepository.IntellRepair
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(RoleByNodeSearchViewModel  roleByNodeSearchViewModel);
+        /// <summary>
+        /// 根据节点查询角色数量
+        /// </summary>
+        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <returns></returns>
+        IQueryable<Flow_Relate_NodeRole> Role_By_Node_Get_ALLNum(RoleByNodeSearchViewModel roleByNodeSearchViewModel);
     }
 }

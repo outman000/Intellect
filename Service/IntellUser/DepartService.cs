@@ -88,5 +88,10 @@ namespace Dto.Service.IntellUser
         {
             return _IUserDepartRepository.GetAll().Count();
         }
+
+        public int Depart_Get_ALLNum(DepartSearchViewModel departSearchViewModel)
+        {
+            return _IUserDepartRepository.GetDepartAll(departSearchViewModel).Count();
+        }
     }
 }

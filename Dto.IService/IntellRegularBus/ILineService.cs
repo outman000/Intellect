@@ -15,6 +15,13 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="lineSearchViewModel"></param>
         List<LineSearchMiddlecs> Line_Search(LineSearchViewModel lineSearchViewModel);
+
+        /// <summary>
+        /// 查询线路数量
+        /// </summary>
+        /// <param name="lineSearchViewModel"></param>
+        /// <returns></returns>
+        int Line_Get_ALLNum(LineSearchViewModel lineSearchViewModel);
         /// <summary>
         /// 添加线路
         /// </summary>

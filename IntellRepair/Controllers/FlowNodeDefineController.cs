@@ -33,7 +33,7 @@ namespace IntellRepair.Controllers
         {
             FlowNodeDefineSearchResModel flowNodeDefineSearchResModel = new FlowNodeDefineSearchResModel();
             var nodeSearchResult = _IFlowNodeDefineService.NodeDefine_Search(flowNodeDefineSearchViewModel);
-            var TotalNum = nodeSearchResult.Count;
+            var TotalNum = _IFlowNodeDefineService.NodeDefine_Get_ALLNum(flowNodeDefineSearchViewModel);
             flowNodeDefineSearchResModel.flowNodeDefine_Info = nodeSearchResult;
             flowNodeDefineSearchResModel.isSuccess = true;
             flowNodeDefineSearchResModel.baseViewModel.Message = "查询成功";
@@ -202,7 +202,7 @@ namespace IntellRepair.Controllers
             if (roleByNodeSearchResModel.userRoles.Count > 0)
             {
                 roleByNodeSearchResModel.IsSuccess = true;
-                roleByNodeSearchResModel.TotalNum = roleByNodeSearchResModel.userRoles.Count;
+                roleByNodeSearchResModel.TotalNum = _IFlowNodeDefineService.Role_By_Node_Get_ALLNum(roleByNodeSearchViewModel);
                 roleByNodeSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
                 roleByNodeSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(roleByNodeSearchResModel);

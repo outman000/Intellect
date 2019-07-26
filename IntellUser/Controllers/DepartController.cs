@@ -157,7 +157,7 @@ namespace IntellUser.Controllers
         {
             DepartSearchResModel departSearchResModel = new DepartSearchResModel();
             var DepartSearchResult = _departService.Depart_Search(departSearchViewModel);
-            var TotalNum = DepartSearchResult.Count;
+            var TotalNum = _departService.Depart_Get_ALLNum(departSearchViewModel);
             departSearchResModel.user_Departs= DepartSearchResult;
             departSearchResModel.isSuccess = true;
             departSearchResModel.baseViewModel.Message = "查询成功";

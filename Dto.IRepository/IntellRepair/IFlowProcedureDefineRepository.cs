@@ -17,5 +17,7 @@ namespace Dto.IRepository.IntellRepair
         List<Flow_ProcedureDefine> SearchInfoByProcedureDefineWhere(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel);
         // 根据id查流程信息
         Flow_ProcedureDefine GetInfoByProcedureDefineId(int id);
+        //查询流程信息数量
+        IQueryable<Flow_ProcedureDefine> GetProcedureDefineAll(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel);
     }
 }

@@ -22,6 +22,13 @@ namespace Dto.IService.IntellRepair
         List<FlowProcedureDefineSearchMiddlecs> ProcedureDefine_Search(FlowProcedureDefineSearchViewModel  flowProcedureDefineSearchViewModel);
 
         /// <summary>
+        /// 查询流程定义信息数量
+        /// </summary>
+        /// <param name="flowProcedureDefineSearchViewModel"></param>
+        /// <returns></returns>
+        int ProcedureDefine_Get_ALLNum(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel);
+
+        /// <summary>
         /// 删除流程定义信息
         /// </summary>
         /// <param name="flowProcedureDefineDelViewModel"></param>

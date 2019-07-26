@@ -154,7 +154,7 @@ namespace IntellUser.Controllers
         {
             RightsSearchResModel rightsSearchResModel = new RightsSearchResModel();
             var RightsSearchResult = _rightsService.Rights_Search(rightsSearchViewModel);
-            var TotalNum = RightsSearchResult.Count ;
+            var TotalNum = _rightsService.Rights_Get_ALLNum(rightsSearchViewModel);
             rightsSearchResModel.user_Rights = RightsSearchResult;
             rightsSearchResModel.isSuccess = true;
             rightsSearchResModel.baseViewModel.Message = "查询成功";
@@ -178,7 +178,7 @@ namespace IntellUser.Controllers
             if (rightsByRoleSearchResModel.userRights.Count > 0)
             {
                 rightsByRoleSearchResModel.IsSuccess = true;
-                rightsByRoleSearchResModel.TotalNum = rightsByRoleSearchResModel.userRights.Count;
+                rightsByRoleSearchResModel.TotalNum = _rightsService.Rights_By_Role_Get_ALLNum(rightsByRoleSearchViewModel);
                 rightsByRoleSearchResModel.baseViewModel.Message = "根据角色查询权限成功";
                 rightsByRoleSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(rightsByRoleSearchResModel);

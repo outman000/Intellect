@@ -87,13 +87,13 @@ namespace Dto.Repository.IntellRegularBus
 
             //查询条件
             var predicate = SearchBusWhere(busSearchViewModel);
-            DbSet.Where(predicate)
+            var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(busSearchViewModel.pageViewModel.PageSize)
                  .OrderBy(o => o.AddDate).ToList();
 
 
-            return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
+            return result;
         }
 
 
@@ -133,8 +133,12 @@ namespace Dto.Repository.IntellRegularBus
 
         public List<Bus_Info> SearchBusInfoByLineWhere(BusByLineSearchViewModel busByLineSearchViewModel)
         {
+            int SkipNum = busByLineSearchViewModel.pageViewModel.CurrentPageNum * busByLineSearchViewModel.pageViewModel.PageSize;
             int lineid = busByLineSearchViewModel.Bus_LineId;
-            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid).ToList();
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid)
+                     .Skip(SkipNum)
+                     .Take(busByLineSearchViewModel.pageViewModel.PageSize)
+                     .ToList();
             return queryResult;
         }
 
@@ -145,13 +149,48 @@ namespace Dto.Repository.IntellRegularBus
         /// <returns></returns>
         public List<Bus_Info> SearchLineInfoByBusWhere(LineByBusSearchViewModel lineByBusSearchViewModel)
         {
-
+            int SkipNum = lineByBusSearchViewModel.pageViewModel.CurrentPageNum * lineByBusSearchViewModel.pageViewModel.PageSize;
             int BusId = lineByBusSearchViewModel.id;
-            var queryResult = DbSet.Where(k => k.Id == BusId).Include(p => p.Bus_Line).ToList();
+            var queryResult = DbSet.Where(k => k.Id == BusId).Include(p => p.Bus_Line)
+                     .Skip(SkipNum)
+                     .Take(lineByBusSearchViewModel.pageViewModel.PageSize)
+                     .ToList();
 
             return queryResult.ToList();
         }
+        /// <summary>
+        /// 查班车数量
+        /// </summary>
+        /// <param name="busSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Info> GetBusAll(BusSearchViewModel busSearchViewModel)
+        {
+            var predicate = SearchBusWhere(busSearchViewModel);
 
-      
+            return DbSet.Where(predicate);
+        }
+        /// <summary>
+        /// 根据线路查班车数量
+        /// </summary>
+        /// <param name="busByLineSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Info> GetBusInfoByLineAll(BusByLineSearchViewModel busByLineSearchViewModel)
+        {
+            int lineid = busByLineSearchViewModel.Bus_LineId;
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid);
+            return queryResult;
+        }
+        /// <summary>
+        /// 根据班车查线路数量
+        /// </summary>
+        /// <param name="lineByBusSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Info> GetLineInfoByBusAll(LineByBusSearchViewModel lineByBusSearchViewModel)
+        {
+            int BusId = lineByBusSearchViewModel.id;
+            var queryResult = DbSet.Where(k => k.Id == BusId).Include(p => p.Bus_Line);
+
+            return queryResult;
+        }
     }
  }

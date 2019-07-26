@@ -30,10 +30,10 @@ namespace ViewModel.UserViewModel.RequsetModel
        /// </summary>
         public string Levels { get; set; }
 
-        /// <summary>
-        /// 部门id
-        /// </summary>
-        public int? User_DepartId { get; set; }
+        ///// <summary>
+        ///// 部门id
+        ///// </summary>
+        //public int? User_DepartId { get; set; }
 
         //public DateTime? AddDate { get; set; }
         /// <summary>

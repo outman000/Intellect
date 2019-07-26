@@ -31,12 +31,24 @@ namespace Dto.IRepository.IntellUser
         /// <param name="roleByRightsSearchViewModel"></param>
         /// <returns></returns>
         List<User_Relate_Role_Right> SearchRoleInfoByRightsWhere(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
-
+        /// <summary>
+        /// 根据权限查角色数量
+        /// </summary>
+        /// <param name="userRoleSearchViewModel"></param>
+        /// <returns></returns>
+        IQueryable<User_Relate_Role_Right> GetRoleByRightsAll(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
         /// <summary>
         /// 根据角色查权限
         /// </summary>
         /// <param name="rightsByRoleSearchViewModel"></param>
         /// <returns></returns>
         List<User_Relate_Role_Right> SearchRightsInfoByRoleWhere(RightsByRoleSearchViewModel rightsByRoleSearchViewModel);
+        /// <summary>
+        /// 根据角色查权限数量
+        /// </summary>
+        /// <param name="userRoleSearchViewModel"></param>
+        /// <returns></returns>
+        IQueryable<User_Relate_Role_Right> GetRightsByRoleAll(RightsByRoleSearchViewModel rightsByRoleSearchViewModel);
+
     }
 }

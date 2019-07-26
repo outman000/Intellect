@@ -37,5 +37,22 @@ namespace Dto.IRepository.IntellUser
         /// <param name="userByRoleSearchViewModel"></param>
         /// <returns></returns>
         List<User_Relate_Info_Role> SearchUserInfoByWhere(UserByRoleSearchViewModel userByRoleSearchViewModel);
+
+        /// <summary>
+        /// 根据角色查用户数量
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        IQueryable<User_Relate_Info_Role> GetUserByRoleAll(UserByRoleSearchViewModel userByRoleSearchViewModel);
+        /// <summary>
+        /// 根据用户查角色数量
+        /// </summary>
+        /// <param name="userRoleSearchViewModel"></param>
+        /// <returns></returns>
+        IQueryable<User_Relate_Info_Role> GetRoleByUserAll(RoleByUserSearchViewModel roleByUserSearchViewModel);
+
+
+        
     }
+
 }

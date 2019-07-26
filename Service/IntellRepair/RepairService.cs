@@ -82,5 +82,14 @@ namespace Dto.Service.IntellRepair
             _IRepairInfoRepository.Update(repair_Info_update);
             return _IRepairInfoRepository.SaveChanges();
         }
+        /// <summary>
+        /// 查询报修数量
+        /// </summary>
+        /// <param name="repairInfoSearchViewModel"></param>
+        /// <returns></returns>
+        public int Repair_Get_ALLNum(RepairInfoSearchViewModel repairInfoSearchViewModel)
+        {
+            return _IRepairInfoRepository.GetInfoByRepairAll(repairInfoSearchViewModel).Count();
+        }
     }
 }

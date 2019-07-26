@@ -58,6 +58,13 @@ namespace Dto.Repository.IntellRegularBus
             return DbSet.Find(id);
         }
 
+        public IQueryable<Bus_Payment> GetInfoByBusAll(BusUserSearchViewModel busUserSearchViewModel)
+        {
+            var predicate = SearchBusUserWhere(busUserSearchViewModel);
+
+            return DbSet.Where(predicate);
+        }
+
         public Bus_Payment GetInfoByBusUserId(int id)
         {
             Bus_Payment bus_user_Info = DbSet.Single(uid => uid.Id.Equals(id));

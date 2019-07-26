@@ -31,7 +31,7 @@ namespace IntellRepair.Controllers
         {
             RepairInfoSearchResModel repairInfoSearchResModel = new RepairInfoSearchResModel();
             var repairSearchResult = _IRepairService.Repair_Search(repairInfoSearchViewModel);
-            var TotalNum = repairSearchResult.Count;
+            var TotalNum = _IRepairService.Repair_Get_ALLNum(repairInfoSearchViewModel);
             repairInfoSearchResModel.repair_Infos = repairSearchResult;
             repairInfoSearchResModel.isSuccess = true;
             repairInfoSearchResModel.baseViewModel.Message = "查询成功";

@@ -21,7 +21,8 @@ namespace Dto.IRepository.IntellRegularBus
         List<Bus_Info> SearchInfoByBusWhere(BusSearchViewModel busSearchViewModel);
         // 根据id查班车
         Bus_Info GetById(int id);
-
+        //查询班车数量
+        IQueryable<Bus_Info> GetBusAll(BusSearchViewModel busSearchViewModel);
         /// <summary>
         ///根据线路查询班车
         /// </summary>
@@ -29,11 +30,17 @@ namespace Dto.IRepository.IntellRegularBus
         /// <returns></returns>
         List<Bus_Info> SearchBusInfoByLineWhere(BusByLineSearchViewModel busByLineSearchViewModel);
 
+        //根据线路查询班车数量
+        IQueryable<Bus_Info> GetBusInfoByLineAll(BusByLineSearchViewModel busByLineSearchViewModel);
+
         /// <summary>
         ///根据班车查询线路
         /// </summary>
         /// <param name="lineByBusSearchViewModel"></param>
         /// <returns></returns>
         List<Bus_Info> SearchLineInfoByBusWhere(LineByBusSearchViewModel lineByBusSearchViewModel);
+
+        //根据班车查询线路数量
+        IQueryable<Bus_Info> GetLineInfoByBusAll(LineByBusSearchViewModel lineByBusSearchViewModel);
     }
 }

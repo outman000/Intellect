@@ -42,7 +42,7 @@ namespace Dto.IService.IntellUser
         /// 获取用户总数
         /// </summary>
         /// <returns></returns>
-        int User_Get_ALLNum();
+        int User_Get_ALLNum(UserSearchViewModel userSearchViewModel);
 
         /// <summary>
         /// 根据部门添加用户
@@ -57,6 +57,15 @@ namespace Dto.IService.IntellUser
         /// <param name="userByRoleSearchViewModel"></param>
         /// <returns></returns>
         List<UserSearchMiddlecs> User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel);
+
+
+
+        /// <summary>
+        ///根据角色查询用户数量
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        int User_By_Role_Get_ALLNum(UserByRoleSearchViewModel userByRoleSearchViewModel);
     }
 }
 

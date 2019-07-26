@@ -91,7 +91,14 @@ namespace Dto.Service.IntellRegularBus
             return (Queryable_UserDepart.Count() < 1) ?
                    true : false;
         }
-
- 
+        /// <summary>
+        /// 线路查询数量
+        /// </summary>
+        /// <param name="lineSearchViewModel"></param>
+        /// <returns></returns>
+        public int Line_Get_ALLNum(LineSearchViewModel lineSearchViewModel)
+        {
+            return _IBusLineRepository.GetLineAll(lineSearchViewModel).Count();
+        }
     }
 }

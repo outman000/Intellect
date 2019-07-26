@@ -36,7 +36,7 @@ namespace IntellRegularBus.Controllers
         {
             StationSearchResModel stationSearchResModel = new StationSearchResModel();
             var StationSearchResult = _stationService.Station_Search(stationSearchViewModel);
-            var TotalNum = StationSearchResult.Count;
+            var TotalNum = _stationService.Station_Get_ALLNum(stationSearchViewModel);
             stationSearchResModel.station_Infos = StationSearchResult;
             stationSearchResModel.isSuccess = true;
             stationSearchResModel.baseViewModel.Message = "查询成功";
@@ -233,7 +233,7 @@ namespace IntellRegularBus.Controllers
             if (lineByStationSearchResModel.line_Infos.Count > 0)
             {
                 lineByStationSearchResModel.IsSuccess = true;
-                lineByStationSearchResModel.TotalNum = lineByStationSearchResModel.line_Infos.Count;
+                lineByStationSearchResModel.TotalNum = _stationService.Line_By_Station_Get_ALLNum(lineByStationViewModel);
                 lineByStationSearchResModel.baseViewModel.Message = "根据站点查线路成功";
                 lineByStationSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(lineByStationSearchResModel);
@@ -263,7 +263,7 @@ namespace IntellRegularBus.Controllers
             if (stationByLineSearchResModel.busStation.Count > 0)
             {
                 stationByLineSearchResModel.IsSuccess = true;
-                stationByLineSearchResModel.TotalNum = stationByLineSearchResModel.busStation.Count;
+                stationByLineSearchResModel.TotalNum = _stationService.Bus_By_Line_Get_ALLNum(stationByLineSearchViewModel);
                 stationByLineSearchResModel.baseViewModel.Message = "根据线路查站点成功";
                 stationByLineSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(stationByLineSearchResModel);

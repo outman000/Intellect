@@ -116,5 +116,14 @@ namespace Dto.Repository.IntellRepair
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+
+        public IQueryable<Flow_NodeDefine> GetNodeDefineAll(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel)
+        {
+            var predicate = SearchNodeDefineWhere(flowNodeDefineSearchViewModel);
+
+            return DbSet.Where(predicate);
+        }
+
+       
     }
 }

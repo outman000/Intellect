@@ -90,7 +90,7 @@ namespace IntellRegularBus.Controllers
         {
             BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_User_Search(busUserSearchViewModell);
-            var TotalNum = BusUserSearchResult.Count;
+            var TotalNum = _IBusUserService.Bus_User_Get_ALLNum(busUserSearchViewModell);
             busUserSearchResModel.bus_user_Info = BusUserSearchResult;
             busUserSearchResModel.isSuccess = true;
             busUserSearchResModel.baseViewModel.Message = "查询成功";

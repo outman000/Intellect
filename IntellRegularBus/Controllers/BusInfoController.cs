@@ -99,7 +99,7 @@ namespace IntellRegularBus.Controllers
             var BusSearchResult = _busService.Bus_Search(busSearchViewModel);
 
             // var TotalNum = _userService.User_Get_ALLNum();
-            var TotalNum = BusSearchResult.Count;
+            var TotalNum = _busService.Bus_Get_ALLNum(busSearchViewModel);
             busSearchResModel.bus_Infos = BusSearchResult;
             busSearchResModel.isSuccess = true;
             busSearchResModel.baseViewModel.Message = "查询成功";
@@ -240,7 +240,7 @@ namespace IntellRegularBus.Controllers
             if (busByLineSearchResModel.busInfo.Count > 0)
             {
                 busByLineSearchResModel.IsSuccess = true;
-                busByLineSearchResModel.TotalNum = busByLineSearchResModel.busInfo.Count;
+                busByLineSearchResModel.TotalNum = _busService.Bus_By_Line_Get_ALLNum(busByLineSearchViewModel);
                 busByLineSearchResModel.baseViewModel.Message = "根据线路查班车成功";
                 busByLineSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(busByLineSearchResModel);
@@ -273,7 +273,7 @@ namespace IntellRegularBus.Controllers
             if (lineByBusSearchResModel.line_Infos.Count > 0)
             {
                 lineByBusSearchResModel.IsSuccess = true;
-                lineByBusSearchResModel.TotalNum = lineByBusSearchResModel.line_Infos.Count;
+                lineByBusSearchResModel.TotalNum = _busService.Line_By_Bus_Get_ALLNum(lineByBusSearchViewModel);
                 lineByBusSearchResModel.baseViewModel.Message = "根据班车查线路成功";
                 lineByBusSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(lineByBusSearchResModel);

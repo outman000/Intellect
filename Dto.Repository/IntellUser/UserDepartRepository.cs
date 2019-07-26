@@ -85,17 +85,28 @@ namespace Dto.Repository.IntellUser
 
             //查询条件
             var predicate = SearchDepartWhere(departSearchViewModel);
-            DbSet.Where(predicate)
+            var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(departSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.Sort).ToList();
           
-            return DbSet.Where(predicate).OrderBy(o => o.Code).ToList();
+            return result;
         }
 
         public void Update(User_Depart obj)
         {
             DbSet.Update(obj);
+        }
+        /// <summary>
+        ///  部门数量
+        /// </summary>
+        /// <param name="departSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<User_Depart> GetDepartAll(DepartSearchViewModel departSearchViewModel)
+        {
+            var predicate = SearchDepartWhere(departSearchViewModel);
+
+            return DbSet.Where(predicate);
         }
         #region 查询条件
         //根据条件查询部门
@@ -107,6 +118,8 @@ namespace Dto.Repository.IntellUser
             predicate = predicate.And(p => p.ParentId.Contains(departSearchViewModel.ParentId));
             return predicate;
         }
+
+      
 
 
         #endregion

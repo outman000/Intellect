@@ -54,7 +54,7 @@ namespace Dto.IService.IntellUser
         /// 获取所有角色
         /// </summary>
         /// <returns></returns>
-        int User_Role_GetAllNum();
+        int Role_Get_ALLNum(UserRoleSearchViewModel userRoleSearchViewModel);
 
         /// <summary>
         /// 给角色分配权限
@@ -81,5 +81,18 @@ namespace Dto.IService.IntellUser
         /// <returns></returns>
         List<UserRoleSearChMiddles> Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
 
+
+        /// <summary>
+        /// 根据用户查角色总数
+        /// </summary>
+        /// <returns></returns>
+        int Role_By_User_Get_ALLNum(RoleByUserSearchViewModel roleByUserSearchViewModel);
+
+        /// <summary>
+        /// 根据权限查角色总数
+        /// </summary>
+        /// <returns></returns>
+        int Role_By_Rights_Get_ALLNum(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
     }
 }
+

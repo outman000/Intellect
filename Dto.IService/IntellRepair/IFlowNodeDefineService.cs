@@ -16,6 +16,13 @@ namespace Dto.IService.IntellRepair
         List<FlowNodeDefineSearchMiddlecs> NodeDefine_Search(FlowNodeDefineSearchViewModel  flowNodeDefineSearchViewModel);
 
         /// <summary>
+        /// 查询节点定义信息数量
+        /// </summary>
+        /// <param name="flowNodeDefineSearchViewModel"></param>
+        /// <returns></returns>
+        int NodeDefine_Get_ALLNum(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel);
+
+        /// <summary>
         /// 添加节点定义信息
         /// </summary>
         /// <param name="flowNodeDefineAddViewModel"></param>
@@ -57,5 +64,12 @@ namespace Dto.IService.IntellRepair
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         List<UserRoleSearChMiddles> Role_By_Node_Search(RoleByNodeSearchViewModel  roleByNodeSearchViewModel);
+
+        /// <summary>
+        /// 根据节点查询角色数量
+        /// </summary>
+        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <returns></returns>
+        int Role_By_Node_Get_ALLNum(RoleByNodeSearchViewModel roleByNodeSearchViewModel);
     }
 }

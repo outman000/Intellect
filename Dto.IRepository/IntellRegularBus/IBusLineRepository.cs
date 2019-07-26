@@ -18,7 +18,8 @@ namespace Dto.IRepository.IntellRegularBus
         // 根据条件查线路
 
         List<Bus_Line> SearchInfoByLineWhere(LineSearchViewModel lineSearchViewModel);
-       
 
+        //查询线路数量
+        IQueryable<Bus_Line> GetLineAll(LineSearchViewModel lineSearchViewModel);
     }
 }

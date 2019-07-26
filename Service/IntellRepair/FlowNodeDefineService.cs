@@ -135,5 +135,25 @@ namespace Dto.Service.IntellRepair
             }
             return user_roles;
         }
+        /// <summary>
+        /// 查询节点定义数量
+        /// </summary>
+        /// <param name="flowNodeDefineSearchViewModel"></param>
+        /// <returns></returns>
+        public int NodeDefine_Get_ALLNum(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel)
+        {
+            return _IFlowNodeDefineInfoRepository.GetNodeDefineAll(flowNodeDefineSearchViewModel).Count();
+        }
+
+        /// <summary>
+        /// 根据节点查角色数量
+        /// </summary>
+        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public int Role_By_Node_Get_ALLNum(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
+        {
+            return _IRelateRoleByNodeRepository.Role_By_Node_Get_ALLNum(roleByNodeSearchViewModel).Count();
+        }
     }
+    
 }

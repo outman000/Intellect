@@ -86,9 +86,12 @@ namespace Dto.Repository.IntellUser
         /// <returns></returns>
         public List<User_Relate_Role_Right> SearchRoleInfoByRightsWhere(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
         {
+            int SkipNum = roleByRightsSearchViewModel.pageViewModel.CurrentPageNum * roleByRightsSearchViewModel.pageViewModel.PageSize;
             int rightid = roleByRightsSearchViewModel.RightId;
             var queryResult = DbSet.Where(k => k.User_RightsId == rightid).Include(p => p.User_Role)
-                .ToList();
+                            .Skip(SkipNum)
+                            .Take(roleByRightsSearchViewModel.pageViewModel.PageSize)
+                            .ToList();
             return queryResult;
 
         }
@@ -100,11 +103,38 @@ namespace Dto.Repository.IntellUser
         /// <returns></returns>
         public List<User_Relate_Role_Right> SearchRightsInfoByRoleWhere(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
         {
+            int SkipNum = rightsByRoleSearchViewModel.pageViewModel.CurrentPageNum * rightsByRoleSearchViewModel.pageViewModel.PageSize;
             int roleid = rightsByRoleSearchViewModel.RoleId;
             var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Rights)
-                .ToList();
+                            .Skip(SkipNum)
+                            .Take(rightsByRoleSearchViewModel.pageViewModel.PageSize)
+                            .ToList();
             return queryResult;
 
+        }
+        /// <summary>
+        /// 根据角色查权限数量
+        /// </summary>
+        /// <param name="rightsByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<User_Relate_Role_Right> GetRightsByRoleAll(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
+        {
+            int roleid = rightsByRoleSearchViewModel.RoleId;
+            var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Rights);
+
+            return queryResult;
+        }
+        /// <summary>
+        /// 各局权限查角色数量
+        /// </summary>
+        /// <param name="roleByRightsSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<User_Relate_Role_Right> GetRoleByRightsAll(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
+        {
+            int rightid = roleByRightsSearchViewModel.RightId;
+            var queryResult = DbSet.Where(k => k.User_RightsId == rightid).Include(p => p.User_Role);
+
+            return queryResult;
         }
     }
 }

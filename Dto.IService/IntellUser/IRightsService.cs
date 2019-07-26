@@ -39,6 +39,11 @@ namespace Dto.IService.IntellUser
         List<RightsSearchMiddlecs> Rights_Search(RightsSearchViewModel rightsSearchViewModel);
 
         /// <summary>
+        /// 获取所有权限数
+        /// </summary>
+        /// <returns></returns>
+        int Rights_Get_ALLNum(RightsSearchViewModel rightsSearchViewModel);
+        /// <summary>
         /// 获取权限总数
         /// </summary>
         /// <returns></returns>
@@ -49,5 +54,14 @@ namespace Dto.IService.IntellUser
         /// <param name="rightsByRoleSearchViewModel"></param>
         /// <returns></returns>
         List<RightsSearchMiddlecs> Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel);
+
+
+     
+        /// <summary>
+        /// 根据角色获取权限数
+        /// </summary>
+        /// <returns></returns>
+        int Rights_By_Role_Get_ALLNum(RightsByRoleSearchViewModel rightsByRoleSearchViewModel);
+
     }
 }

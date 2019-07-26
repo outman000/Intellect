@@ -53,6 +53,11 @@ namespace Dto.Service.IntellRepair
             }
         }
 
+        public int ProcedureDefine_Get_ALLNum(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel)
+        {
+            return _IFlowProcedureDefineRepository.GetProcedureDefineAll(flowProcedureDefineSearchViewModel).Count();
+        }
+
         /// <summary>
         /// 根据条件查流程定义信息
         /// </summary>

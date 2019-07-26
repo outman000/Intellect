@@ -101,9 +101,23 @@ namespace Dto.Repository.IntellRepair
         /// <returns></returns>
         public List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
         {
+            int SkipNum = roleByNodeSearchViewModel.pageViewModel.CurrentPageNum * roleByNodeSearchViewModel.pageViewModel.PageSize;
             int nodeid = roleByNodeSearchViewModel.NodeId;
             var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid).Include(p => p.User_Role)
+                .Skip(SkipNum)
+                .Take(roleByNodeSearchViewModel.pageViewModel.PageSize)
                 .ToList();
+            return queryResult;
+        }
+        /// <summary>
+        /// 根据节点查询角色数量
+        /// </summary>
+        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Flow_Relate_NodeRole> Role_By_Node_Get_ALLNum(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
+        {
+            int nodeid = roleByNodeSearchViewModel.NodeId;
+            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid).Include(p => p.User_Role);
             return queryResult;
         }
     }

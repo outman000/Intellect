@@ -92,12 +92,12 @@ namespace Dto.Repository.IntellUser
 
             //查询条件
             var predicate = SearchRightsWhere(rightsSearchViewModel);
-            DbSet.Where(predicate)
+            var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(rightsSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.Sort).ToList();
             
-            return DbSet.Where(predicate).OrderBy(o => o.RightsValue).ToList();
+            return result;
         }
         //根据条件查询权限
         private Expression<Func<User_Rights, bool>> SearchRightsWhere(RightsSearchViewModel rightsSearchViewModel)
@@ -108,6 +108,13 @@ namespace Dto.Repository.IntellUser
             predicate = predicate.And(p => p.ParentId.Contains(rightsSearchViewModel.ParentId));
             predicate = predicate.And(p => p.Type.Contains(rightsSearchViewModel.Type));
             return predicate;
+        }
+
+        public IQueryable<User_Rights> GetRightsAll(RightsSearchViewModel rightsSearchViewModel)
+        {
+            var predicate = SearchRightsWhere(rightsSearchViewModel);
+
+            return DbSet.Where(predicate);
         }
     }
 }

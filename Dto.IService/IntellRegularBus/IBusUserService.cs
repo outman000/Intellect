@@ -34,5 +34,11 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busSearchViewModel"></param>
         List<BusUserSearchMiddlecs> Bus_User_Search(BusUserSearchViewModel busUserSearchViewModell);
+
+        /// <summary>
+        /// 查询所有人员缴费信息数量
+        /// </summary>
+        /// <param name="busUserSearchViewModell"></param>
+        int Bus_User_Get_ALLNum(BusUserSearchViewModel busUserSearchViewModell);
     }
 }

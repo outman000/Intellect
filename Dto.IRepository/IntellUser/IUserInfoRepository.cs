@@ -17,7 +17,7 @@ namespace Dto.IRepository.IntellUser
         int DeleteByUseridList(List<int>  IdList);
         // 根据条件查角色
         List<User_Info> SearchInfoByWhere(UserSearchViewModel  userSearchViewModel);
-
-      
+        //查询用户数量
+        IQueryable<User_Info> GetUserAll(UserSearchViewModel userSearchViewModel);
     }
 }

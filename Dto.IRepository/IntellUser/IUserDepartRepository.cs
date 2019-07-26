@@ -18,5 +18,8 @@ namespace Dto.IRepository.IntellUser
         List<User_Depart> SearchDepartByWhere(DepartSearchViewModel departSearchViewModel);
         //根据主键id查询
         User_Depart GetInfoByDepartid(int id);
+
+        //查询部门数量
+        IQueryable<User_Depart> GetDepartAll(DepartSearchViewModel departSearchViewModel);
     }
 }

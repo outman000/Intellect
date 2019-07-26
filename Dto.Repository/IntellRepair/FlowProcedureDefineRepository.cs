@@ -100,7 +100,7 @@ namespace Dto.Repository.IntellRepair
                   .OrderBy(o => o.Createtime).ToList();
         }
 
-        //根据条件查询报修
+        //根据条件查询流程
         private Expression<Func<Flow_ProcedureDefine, bool>> SearchProcedureDefineWhere(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel)
         {
             var predicate = WhereExtension.True<Flow_ProcedureDefine>();//初始化where表达式
@@ -120,6 +120,13 @@ namespace Dto.Repository.IntellRepair
         {
             IQueryable<Flow_ProcedureDefine> procedure_Infos = DbSet.Where(uid => uid.ProcedureCode.Equals(ProcedureCode));
             return procedure_Infos;
+        }
+
+        public IQueryable<Flow_ProcedureDefine> GetProcedureDefineAll(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel)
+        {
+            var predicate = SearchProcedureDefineWhere(flowProcedureDefineSearchViewModel);
+
+            return DbSet.Where(predicate);
         }
     }
 }

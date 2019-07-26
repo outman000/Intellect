@@ -40,7 +40,11 @@ namespace Dto.IService.IntellUser
         // /// </summary>
         // /// <param name="departSearchViewModel"></param>
         List<DepartSearchMiddlecs> Depart_Search(DepartSearchViewModel departSearchViewModel);
-
+        /// <summary>
+        /// 获取部门总数
+        /// </summary>
+        /// <returns></returns>
+        int Depart_Get_ALLNum(DepartSearchViewModel departSearchViewModel);
         /// <summary>
         /// 获取部门总数
         /// </summary>

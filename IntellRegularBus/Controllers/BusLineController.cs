@@ -67,7 +67,7 @@ namespace IntellRegularBus.Controllers
             var LineSearchResult = _lineService.Line_Search(lineSearchViewModel);
 
             // var TotalNum = _userService.User_Get_ALLNum();
-            var TotalNum = LineSearchResult.Count;
+            var TotalNum = _lineService.Line_Get_ALLNum(lineSearchViewModel);
             lineSearchResModel.bus_Line  = LineSearchResult;
             lineSearchResModel.isSuccess = true;
             lineSearchResModel.baseViewModel.Message = "查询成功";

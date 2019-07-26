@@ -81,5 +81,9 @@ namespace Dto.Service.IntellRegularBus
             return bus_User_Search;
         }
 
+        public int Bus_User_Get_ALLNum(BusUserSearchViewModel busUserSearchViewModell)
+        {
+            return _IBusUserRepository.GetInfoByBusAll(busUserSearchViewModell).Count();
+        }
     }
 }

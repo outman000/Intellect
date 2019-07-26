@@ -35,6 +35,12 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busSearchViewModel"></param>
         List<BusSearchMiddlecs> Bus_Search(BusSearchViewModel busSearchViewModel);
+
+        /// <summary>
+        /// 获取班车总数
+        /// </summary>
+        /// <returns></returns>
+        int Bus_Get_ALLNum(BusSearchViewModel busSearchViewModel);
         /// <summary>
         /// 验证班车的唯一性
         /// </summary>
@@ -65,6 +71,9 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="busByLineSearchViewModel"></param>
         /// <returns></returns>
         List<Bus_Info> Bus_By_Line_Search(BusByLineSearchViewModel busByLineSearchViewModel);
+
+        //根据线路查班车数量
+        int Bus_By_Line_Get_ALLNum(BusByLineSearchViewModel busByLineSearchViewModel);
         /// <summary>
         ///根据班车查询线路
         /// </summary>
@@ -72,6 +81,11 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
         List<LineSearchMiddlecs> Line_By_Bus_Search(LineByBusSearchViewModel lineByBusSearchViewModel);
 
-       
+        /// <summary>
+        /// 根据班车查线路
+        /// </summary>
+        /// <param name="lineByBusSearchViewModel"></param>
+        /// <returns></returns>
+        int Line_By_Bus_Get_ALLNum(LineByBusSearchViewModel lineByBusSearchViewModel);
     }
 }

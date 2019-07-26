@@ -114,7 +114,7 @@ namespace IntellUser.Controllers
         {
             UserRoleSearchResModel userRoleSearchResModel=new UserRoleSearchResModel();
             var UserRoleSearchResult = _roleService.User_Role_Search(userRoleSearchViewModel);
-            var TotalNum = UserRoleSearchResult.Count;
+            var TotalNum = _roleService.Role_Get_ALLNum(userRoleSearchViewModel);
             userRoleSearchResModel.userRoles = UserRoleSearchResult;
             userRoleSearchResModel.isSuccess = true;
             userRoleSearchResModel.baseViewModel.Message = "查询成功";
@@ -289,7 +289,7 @@ namespace IntellUser.Controllers
             if (roleByUserSearchResModel.userRoles.Count > 0)
             {
                 roleByUserSearchResModel.IsSuccess = true;
-                roleByUserSearchResModel.TotalNum = roleByUserSearchResModel.userRoles.Count;
+                roleByUserSearchResModel.TotalNum = _roleService.Role_By_User_Get_ALLNum(roleByUserSearchViewModel);
                 roleByUserSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
                 roleByUserSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(roleByUserSearchResModel);
@@ -319,7 +319,7 @@ namespace IntellUser.Controllers
             if (roleByRightsSearchResModel.userRoles.Count > 0)
             {
                 roleByRightsSearchResModel.IsSuccess = true;
-                roleByRightsSearchResModel.TotalNum = roleByRightsSearchResModel.userRoles.Count;
+                roleByRightsSearchResModel.TotalNum = _roleService.Role_By_Rights_Get_ALLNum(roleByRightsSearchViewModel);
                 roleByRightsSearchResModel.baseViewModel.Message = "根据权限查询角色成功";
                 roleByRightsSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(roleByRightsSearchResModel);

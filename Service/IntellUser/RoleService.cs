@@ -108,9 +108,9 @@ namespace Dto.Service.IntellUser
             return _IUserRoleRepository.SaveChanges();
         }
         //获取所有角色
-        public int User_Role_GetAllNum()
+        public int Role_Get_ALLNum(UserRoleSearchViewModel userRoleSearchViewModel)
         {
-            return _userRelateInfoRoleRepository.GetAll().Count();
+            return _IUserRoleRepository.GetRoleAll(userRoleSearchViewModel).Count();
         }
 
         //给角色添加权限
@@ -163,6 +163,24 @@ namespace Dto.Service.IntellUser
                 user_roles.Add(user_role_temp);
             }
             return user_roles;
+        }
+        /// <summary>
+        /// 根据用户查角色数量
+        /// </summary>
+        /// <param name="roleByUserSearchViewModel"></param>
+        /// <returns></returns>
+        public int Role_By_User_Get_ALLNum(RoleByUserSearchViewModel roleByUserSearchViewModel)
+        {
+            return _userRelateInfoRoleRepository.GetRoleByUserAll(roleByUserSearchViewModel).Count();
+        }
+        /// <summary>
+        /// 根据权限查角色数量
+        /// </summary>
+        /// <param name="roleByRightsSearchViewModel"></param>
+        /// <returns></returns>
+        public int Role_By_Rights_Get_ALLNum(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
+        {
+            return _userRelateRoleRightRepository.GetRoleByRightsAll(roleByRightsSearchViewModel).Count();
         }
     }
 }

@@ -34,9 +34,11 @@ namespace Dto.Repository.IntellUser
             return DbSet.Find(id);
         }
 
-        public virtual IQueryable<User_Info> GetAll()
+        public  IQueryable<User_Info> GetUserAll(UserSearchViewModel userSearchViewModel)
         {
-            return DbSet;
+            var predicate = SearchUserWhere(userSearchViewModel);
+
+            return DbSet.Where(predicate);
         }
 
         public virtual void Update(User_Info obj)
@@ -86,13 +88,14 @@ namespace Dto.Repository.IntellUser
 
             //查询条件
             var predicate = SearchUserWhere(userSearchViewModel);
-            DbSet.Where(predicate)
+           
+            var result= DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(userSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.AddDate).ToList();
+            
 
-
-            return DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList();
+            return result;
         }
 
 
@@ -116,8 +119,13 @@ namespace Dto.Repository.IntellUser
                 predicate = predicate.And(p => p.UserName.Contains(userSearchViewModel.UserName));
                 predicate = predicate.And(p => p.Levels.Contains(userSearchViewModel.Levels));
                 predicate = predicate.And(p => p.status.Contains(userSearchViewModel.status));
-                predicate = predicate.And(p => p.User_DepartId== userSearchViewModel.User_DepartId);
+                //predicate = predicate.And(p => p.User_DepartId== userSearchViewModel.User_DepartId);
             return predicate;
+        }
+
+        public IQueryable<User_Info> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
 

@@ -108,5 +108,12 @@ namespace Dto.Repository.IntellRepair
             predicate = predicate.And(p => p.status.Contains(repairInfoSearchViewModel.status));
             return predicate;
         }
+
+        public IQueryable<Repair_Info> GetInfoByRepairAll(RepairInfoSearchViewModel repairInfoSearchViewMode)
+        {
+            var predicate = SearchRepairWhere(repairInfoSearchViewMode);
+
+            return DbSet.Where(predicate);
+        }
     }
 }

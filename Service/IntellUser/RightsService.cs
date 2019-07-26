@@ -102,7 +102,23 @@ namespace Dto.Service.IntellUser
             return user_rights;
 
         }
-
-      
+        /// <summary>
+        /// 获得权限数量
+        /// </summary>
+        /// <param name="rightsSearchViewModel"></param>
+        /// <returns></returns>
+        public int Rights_Get_ALLNum(RightsSearchViewModel rightsSearchViewModel)
+        {
+            return _IUserRightsRepository.GetRightsAll(rightsSearchViewModel).Count();
+        }
+        /// <summary>
+        /// 根据角色查权限数量
+        /// </summary>
+        /// <param name="rightsByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        public int Rights_By_Role_Get_ALLNum(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
+        {
+            return _userRelateRoleRightRepository.GetRightsByRoleAll(rightsByRoleSearchViewModel).Count();
+        }
     }
 }

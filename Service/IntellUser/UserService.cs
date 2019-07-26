@@ -80,11 +80,6 @@ namespace Dto.Service.IntellUser
             return _IUserInfoRepository.SaveChanges();
         }
 
-        //获取所有用户
-        public int User_Get_ALLNum()
-        {
-            return _IUserInfoRepository.GetAll().Count();
-        }
 
 
         //按部门添加用户
@@ -122,5 +117,19 @@ namespace Dto.Service.IntellUser
             return user_infos;
         }
 
+            //获取所有用户
+            public int User_Get_ALLNum(UserSearchViewModel userSearchViewModel)
+            {
+                return _IUserInfoRepository.GetUserAll(userSearchViewModel).Count();
+            }
+        /// <summary>
+        /// 根据角色查用户数量
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        public int User_By_Role_Get_ALLNum(UserByRoleSearchViewModel userByRoleSearchViewModel)
+        {
+            return _userRelateInfoRoleRepository.GetUserByRoleAll(userByRoleSearchViewModel).Count();
+        }
     }
 }

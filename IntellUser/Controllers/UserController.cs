@@ -160,8 +160,8 @@ namespace IntellUser.Controllers
            UserSearchResModel userSearchResModel = new UserSearchResModel();
             var UserSearchResult = _userService.User_Search(userSearchViewModel);
 
-            // var TotalNum = _userService.User_Get_ALLNum();
-            var TotalNum = UserSearchResult.Count;
+            //var TotalNum = _userService.User_Get_ALLNum();
+            var TotalNum = _userService.User_Get_ALLNum(userSearchViewModel);
             userSearchResModel.user_Infos = UserSearchResult;
             userSearchResModel.isSuccess = true;
             userSearchResModel.baseViewModel.Message = "查询成功";
@@ -225,7 +225,7 @@ namespace IntellUser.Controllers
             if (userByRoleSearchResModel.userInfos.Count > 0)
             {
                 userByRoleSearchResModel.IsSuccess = true;
-                userByRoleSearchResModel.TotalNum = userByRoleSearchResModel.userInfos.Count;
+                userByRoleSearchResModel.TotalNum = _userService.User_By_Role_Get_ALLNum(userByRoleSearchViewModel);
                 userByRoleSearchResModel.baseViewModel.Message = "根据用户查询成功";
                 userByRoleSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(userByRoleSearchResModel);

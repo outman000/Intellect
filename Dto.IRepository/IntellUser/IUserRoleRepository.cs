@@ -14,5 +14,12 @@ namespace Dto.IRepository.IntellUser
         List<User_Role> SearchRoleInfoByWhere(UserRoleSearchViewModel userRoleSearchViewModel);
         //根据主键id查询
         User_Role GetInfoByRoleid(int id);
+        /// <summary>
+        /// 查询所有角色
+        /// </summary>
+        /// <param name="userRoleSearchViewModel"></param>
+        /// <returns></returns>
+        IQueryable<User_Role> GetRoleAll(UserRoleSearchViewModel userRoleSearchViewModel);
+       
     }
 }

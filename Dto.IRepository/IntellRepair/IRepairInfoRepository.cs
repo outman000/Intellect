@@ -18,5 +18,7 @@ namespace Dto.IRepository.IntellRepair
         IQueryable<Repair_Info> SearchInfoByRepairWhere(RepairInfoSearchViewModel repairInfoSearchViewModel);
         // 根据id查报修信息
         Repair_Info GetById(int id);
+        //查询报修信息数量
+        IQueryable<Repair_Info> GetInfoByRepairAll(RepairInfoSearchViewModel repairInfoSearchViewMode);
     }
 }

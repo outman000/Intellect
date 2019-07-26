@@ -17,5 +17,7 @@ namespace Dto.IRepository.IntellUser
         List<User_Rights> SearchRightsByWhere(RightsSearchViewModel rightsSearchViewModel);
         //根据主键id查询
         User_Rights GetInfoByRightId(int id);
+        //查询权限数量
+        IQueryable<User_Rights> GetRightsAll(RightsSearchViewModel rightsSearchViewModel);
     }
 }
