@@ -32,6 +32,6 @@ namespace Dtol.dtol
         /// <summary>
         /// 角色集合
         /// </summary>
-        public ICollection<User_Relate_Info_Role> Flow_Relate_NodeRole { get; set; }
+        public ICollection<Flow_Relate_NodeRole> Flow_Relate_NodeRole { get; set; }
     }
 }

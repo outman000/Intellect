@@ -23,7 +23,7 @@ namespace Dtol.dtol
 
         public int? Flow_ProcedureId { get; set; }
         public Flow_Procedure Flow_Procedure { get; set; }
-
+       
         public virtual ICollection<User_Relate_Role_Right> User_Relate_Role_Right { get; set; }
 
         public virtual ICollection<User_Relate_Info_Role> User_Relate_Info_Role { get; set; }

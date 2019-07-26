@@ -91,16 +91,11 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = roleByUserSearchViewModel.pageViewModel.CurrentPageNum * roleByUserSearchViewModel.pageViewModel.PageSize;
             int userid = roleByUserSearchViewModel.UserId;
-       
-       
-            var queryResult = DbSet.Where(k => k.User_InfoId == userid).Include(p => p.User_Role)
-                                .Skip(SkipNum)
-                            .Take(roleByUserSearchViewModel.pageViewModel.PageSize)
-                            .ToList();
+            var queryResult=   DbSet.Where(k => k.User_InfoId==userid).Include(p=>p.User_Role)
+                 .Skip(SkipNum)
+                .Take(roleByUserSearchViewModel.pageViewModel.PageSize)
+                .ToList();
             return queryResult;
-         
-     
-          
         }
         /// <summary>
         /// 根据角色查用户
@@ -109,9 +104,12 @@ namespace Dto.Repository.IntellUser
         /// <returns></returns>
         public List<User_Relate_Info_Role> SearchUserInfoByWhere(UserByRoleSearchViewModel userByRoleSearchViewModel)
         {
+            int SkipNum = userByRoleSearchViewModel.pageViewModel.CurrentPageNum * userByRoleSearchViewModel.pageViewModel.PageSize;
             int roleid = userByRoleSearchViewModel.RoleId;
             var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info)
-                .ToList();
+                     .Skip(SkipNum)
+                    .Take(userByRoleSearchViewModel.pageViewModel.PageSize)
+                    .ToList();
             return queryResult;
         }
         /// <summary>
