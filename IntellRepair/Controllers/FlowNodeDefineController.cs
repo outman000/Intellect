@@ -80,7 +80,7 @@ namespace IntellRepair.Controllers
         public ActionResult Manage_NodeDefine_Delete(FlowNodeDefineDelViewModel flowNodeDefineDelViewModel)
         {
             FlowNodeDefineDelResModel  flowNodeDefineDelResModel = new FlowNodeDefineDelResModel();
-            int DeleteResult = _IFlowNodeDefineService.NodeDefiner_Delete(flowNodeDefineDelViewModel);
+            int DeleteResult = _IFlowNodeDefineService.NodeDefine_Delete(flowNodeDefineDelViewModel);
 
             if (DeleteResult > 0)
             {
@@ -197,7 +197,7 @@ namespace IntellRepair.Controllers
         public ActionResult Manage_Role_By_User_Search(RoleByNodeSearchViewModel  roleByNodeSearchViewModel)
         {
             RoleByNodeSearchResModel  roleByNodeSearchResModel = new RoleByNodeSearchResModel();
-            roleByNodeSearchResModel.userRoles = _IFlowNodeDefineService.Role_By_Node_Search(roleByNodeSearchViewModel);
+            roleByNodeSearchResModel.userRoles = _IFlowNodeDefineService.User_By_Node_Search(roleByNodeSearchViewModel);
 
             if (roleByNodeSearchResModel.userRoles.Count > 0)
             {

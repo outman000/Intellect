@@ -23,13 +23,22 @@ namespace Dto.Service.IntellRepair
             _IMapper = mapper;
         }
 
-        public int Procedure_Add(FlowProcedureSearchViewModel flowProcedureAddViewModel)
+      /// <summary>
+      /// 流程增加
+      /// </summary>
+      /// <param name="flowProcedureAddViewModel"></param>
+      /// <returns></returns>
+        public int Procedure_Add(FlowProcedureAddViewModel flowProcedureAddViewModel)
         {
-            var procedure_Info = _IMapper.Map<FlowProcedureSearchViewModel, Flow_Procedure>(flowProcedureAddViewModel);
+            var procedure_Info = _IMapper.Map<FlowProcedureAddViewModel, Flow_Procedure>(flowProcedureAddViewModel);
             _IFlowProcedureInfoRepository.Add(procedure_Info);
             return _IFlowProcedureInfoRepository.SaveChanges();
         }
-        
+        /// <summary>
+        /// 流程删除
+        /// </summary>
+        /// <param name="flowProcedureDelViewModel"></param>
+        /// <returns></returns>
         public int Procedure_Delete(FlowProcedureDelViewModel flowProcedureDelViewModel)
         {
             int DeleteRowsNum = _IFlowProcedureInfoRepository
@@ -49,6 +58,11 @@ namespace Dto.Service.IntellRepair
             return _IFlowProcedureInfoRepository.GetProcedureAll(flowProcedureSearchViewModel).Count();
         }
 
+        /// <summary>
+        /// 查询流程
+        /// </summary>
+        /// <param name="flowProcedureAddViewModel"></param>
+        /// <returns></returns>
         public List<FlowProcedureSearchMiddlecs> Procedure_Search(FlowProcedureSearchViewModel flowProcedureAddViewModel)
         {
             List<Flow_Procedure> user_Departs = _IFlowProcedureInfoRepository.SearchInfoByProcedureWhere(flowProcedureAddViewModel);
@@ -63,7 +77,11 @@ namespace Dto.Service.IntellRepair
             }
             return departSearches;
         }
-
+        /// <summary>
+        /// 更新流程
+        /// </summary>
+        /// <param name="flowProcedureUpdateViewModel"></param>
+        /// <returns></returns>
         public int Procedure_Update(FlowProcedureUpdateViewModel flowProcedureUpdateViewModel)
         {
             var procedure_Info = _IFlowProcedureInfoRepository.GetInfoByProcedureId(flowProcedureUpdateViewModel.Id);

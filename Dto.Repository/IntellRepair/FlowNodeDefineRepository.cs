@@ -90,7 +90,7 @@ namespace Dto.Repository.IntellRepair
             return SearchResultTemp;
         }
 
-        //根据条件查询报修
+        //根据条件查询节点定义
         private Expression<Func<Flow_NodeDefine, bool>> SearchNodeDefineWhere(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel)
         {
             var predicate = WhereExtension.True<Flow_NodeDefine>();//初始化where表达式

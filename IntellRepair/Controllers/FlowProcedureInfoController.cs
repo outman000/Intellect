@@ -98,5 +98,35 @@ namespace IntellRepair.Controllers
                 return BadRequest(flowProcedureUpdateResModel);
             }
         }
+
+        /// <summary>
+        /// 增加流程信息
+        /// </summary>
+        /// <param name="flowProcedureAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_Procedure_Add(FlowProcedureAddViewModel flowProcedureAddViewModel)
+        {
+            int Node_Add_Count;
+            Node_Add_Count = _IFlowProcedureInfoService.Procedure_Add(flowProcedureAddViewModel);
+            FlowProcedureAddResModel flowNodeAddResModel = new FlowProcedureAddResModel();
+            if (Node_Add_Count > 0)
+            {
+                flowNodeAddResModel.IsSuccess = true;
+                flowNodeAddResModel.AddCount = Node_Add_Count;
+                flowNodeAddResModel.baseViewModel.Message = "添加成功";
+                flowNodeAddResModel.baseViewModel.ResponseCode = 200;
+                return Ok(flowNodeAddResModel);
+            }
+            else
+            {
+                flowNodeAddResModel.IsSuccess = false;
+                flowNodeAddResModel.AddCount = 0;
+                flowNodeAddResModel.baseViewModel.Message = "添加失败";
+                flowNodeAddResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(flowNodeAddResModel);
+            }
+        }
     }
 }

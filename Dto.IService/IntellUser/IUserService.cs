@@ -59,6 +59,14 @@ namespace Dto.IService.IntellUser
         List<UserSearchMiddlecs> User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel);
 
 
+        /// <summary>
+        ///根据角色列表查询用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        List<User_Info> User_By_RoleList_Search(List<int> RoleList);
+
+
 
         /// <summary>
         ///根据角色查询用户数量

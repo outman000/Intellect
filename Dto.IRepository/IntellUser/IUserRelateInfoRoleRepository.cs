@@ -39,6 +39,13 @@ namespace Dto.IRepository.IntellUser
         List<User_Relate_Info_Role> SearchUserInfoByWhere(UserByRoleSearchViewModel userByRoleSearchViewModel);
 
         /// <summary>
+        /// 根据角色列表查用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        List<User_Info> SearchUserInfoByListWhere(List<int> RoleList);
+
+        /// <summary>
         /// 根据角色查用户数量
         /// </summary>
         /// <param name="userByRoleSearchViewModel"></param>

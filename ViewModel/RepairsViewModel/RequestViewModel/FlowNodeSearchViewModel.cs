@@ -5,25 +5,36 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.RepairsViewModel.RequestViewModel
 {
-    /// <summary>
-    /// 流程查询视图
-    /// </summary>
-    /// 
-    public class FlowProcedureSearchViewModel
+    public class FlowNodeSearchViewModel
     {
+
+
         /// <summary>
-        /// 状态
+        /// 当前流程id
         /// </summary>
-        public string status { get; set; }
-        ///// <summary>
-        ///// 开始时间
-        ///// </summary>
-        //public DateTime Starttime { get; set; }
+        public int? Flow_ProcedureId { get; set; }
 
         /// <summary>
         /// 表单id
         /// </summary>
         public int? Repair_InfoId { get; set; }
+
+        /// <summary>
+        /// 操作状态
+        /// </summary>
+        public string operate { get; set; }
+
+        /// <summary>
+        /// 当前节点操作人员
+        /// </summary>
+        public int? User_InfoId { get; set; }
+
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public string status { get; set; }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -31,9 +42,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        FlowProcedureSearchViewModel()
+        FlowNodeSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }
+
     }
 }

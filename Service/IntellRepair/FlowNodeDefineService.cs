@@ -59,7 +59,7 @@ namespace Dto.Service.IntellRepair
         /// </summary>
         /// <param name="flowNodeDefineDelViewModel"></param>
         /// <returns></returns>
-        public int NodeDefiner_Delete(FlowNodeDefineDelViewModel flowNodeDefineDelViewModel)
+        public int NodeDefine_Delete(FlowNodeDefineDelViewModel flowNodeDefineDelViewModel)
         {
             int DeleteRowsNum = _IFlowNodeDefineInfoRepository
                   .DeleteByNodeDefineIdList(flowNodeDefineDelViewModel.DeleleIdList);
@@ -123,7 +123,7 @@ namespace Dto.Service.IntellRepair
         /// </summary>
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
-        public List<UserRoleSearChMiddles> Role_By_Node_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
+        public List<UserRoleSearChMiddles> User_By_Node_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
         {
             List<Flow_Relate_NodeRole> node_Relate_Info_Roles = _IRelateRoleByNodeRepository.SearchRoleInfoByWhere(roleByNodeSearchViewModel);
             List<UserRoleSearChMiddles> user_roles = new List<UserRoleSearChMiddles>();

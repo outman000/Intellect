@@ -7,8 +7,13 @@ namespace Dtol.dtol
 {
     public class Flow_NodeDefine
     {
+        /// <summary>
+        /// 当前节点id
+        /// </summary>
         public int Id { get;set;}
-
+        /// <summary>
+        /// 节点名
+        /// </summary>
         public string NodeName { get; set; }
         public DateTime? CreateTime{get;set;}
         public DateTime? UpdateTime{get;set;}

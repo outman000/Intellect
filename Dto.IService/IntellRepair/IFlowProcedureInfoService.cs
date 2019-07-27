@@ -29,6 +29,12 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         int Procedure_Delete(FlowProcedureDelViewModel  flowProcedureDelViewModel);
 
+        /// <summary>
+        /// 添加流程信息
+        /// </summary>
+        /// <param name="flowProcedureAddViewModel"></param>
+        /// <returns></returns>
+        int Procedure_Add(FlowProcedureAddViewModel  flowProcedureAddViewModel);
 
         /// <summary>
         /// 更新流程信息

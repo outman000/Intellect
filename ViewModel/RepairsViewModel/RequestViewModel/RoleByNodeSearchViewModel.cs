@@ -13,7 +13,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// <summary>
         /// 节点id
         /// </summary>
-        public int NodeId { get; set; }
+        public int Flow_NextNodeDefineId { get; set; }
         /// <summary>
         /// 分页
         /// </summary>

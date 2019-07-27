@@ -83,7 +83,7 @@ namespace Dto.Repository.IntellRepair
 
         public int SaveChanges()
         {
-            throw new NotImplementedException();
+            return Db.SaveChanges();
         }
         /// <summary>
         /// 根据条件查流程
@@ -115,8 +115,7 @@ namespace Dto.Repository.IntellRepair
         {
             var predicate = WhereExtension.True<Flow_Procedure>();//初始化where表达式
             predicate = predicate.And(p => p.status.Contains(flowProcedureSearchViewModel.status));
-            predicate = predicate.And(p => p.remark.Contains(flowProcedureSearchViewModel.remark));
-            //predicate = predicate.And(p => p.Starttime.ToString().Contains(flowProcedureSearchViewModel.Starttime.ToString()));
+            predicate = predicate.And(p => p.Repair_InfoId== flowProcedureSearchViewModel.Repair_InfoId);
             return predicate;
         }
 

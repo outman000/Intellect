@@ -7,6 +7,12 @@ namespace ViewModel.RepairsViewModel.MiddleModel
     public class FlowNodeDefineSearchMiddlecs
     {
 
+
+        /// <summary>
+        /// 当前节点id
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// 节点名
         /// </summary>
@@ -18,9 +24,18 @@ namespace ViewModel.RepairsViewModel.MiddleModel
 
         public string FlowNextName { get; set; }
         /// <summary>
+        /// 下一节点id
+        /// </summary>
+
+        public int? Flow_NextNodeDefineId { get; set; }
+        /// <summary>
         /// 流程名
         /// </summary>
         public string FlowProcedureDefineName { get; set; }
+        /// <summary>
+        /// 流程id
+        /// </summary>
+        public int? Flow_ProcedureDefineId { get; set; }
 
 
         /// <summary>

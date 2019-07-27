@@ -9,6 +9,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     {
 
         /// <summary>
+        /// 当前节点id
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 节点名
         /// </summary>
         public string NodeName { get; set; }
@@ -18,6 +22,12 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// </summary>
 
         public string FlowNextName { get; set; }
+
+        /// <summary>
+        /// 流程id
+        /// </summary>
+        public int? Flow_ProcedureDefineId { get; set; }
+
         /// <summary>
         /// 流程名
         /// </summary>
@@ -30,7 +40,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
 
         public string NodeType { get; set; }
 
-      
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -42,5 +52,6 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         {
             pageViewModel = new PageViewModel();
         }
+
     }
 }

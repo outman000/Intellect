@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dto.IService.IntellUser;
+using Dtol.dtol;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -217,7 +218,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Role_By_User_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
+        public ActionResult Manage_User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
         {
             UserByRoleSearchResModel userByRoleSearchResModel = new UserByRoleSearchResModel();
             userByRoleSearchResModel.userInfos = _userService.User_By_Role_Search(userByRoleSearchViewModel);
@@ -240,6 +241,18 @@ namespace IntellUser.Controllers
             }
         }
 
+        /// <summary>
+        /// 根据角色查用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_User_By_RoleList_Search(List<int> RoleList)
+        {
+            List<User_Info> ui= _userService.User_By_RoleList_Search(RoleList);
+             return Ok(ui);      
+        }
 
 
     }

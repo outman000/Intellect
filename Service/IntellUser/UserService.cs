@@ -100,7 +100,7 @@ namespace Dto.Service.IntellUser
             //    _IUserInfoRepository.SaveChanges();
             //}
 
-            return _IUserInfoRepository.SaveChanges(); 
+            return _IUserInfoRepository.SaveChanges();
         }
 
         //根据角色查询用户
@@ -117,11 +117,11 @@ namespace Dto.Service.IntellUser
             return user_infos;
         }
 
-            //获取所有用户
-            public int User_Get_ALLNum(UserSearchViewModel userSearchViewModel)
-            {
-                return _IUserInfoRepository.GetUserAll(userSearchViewModel).Count();
-            }
+        //获取所有用户
+        public int User_Get_ALLNum(UserSearchViewModel userSearchViewModel)
+        {
+            return _IUserInfoRepository.GetUserAll(userSearchViewModel).Count();
+        }
         /// <summary>
         /// 根据角色查用户数量
         /// </summary>
@@ -131,5 +131,18 @@ namespace Dto.Service.IntellUser
         {
             return _userRelateInfoRoleRepository.GetUserByRoleAll(userByRoleSearchViewModel).Count();
         }
+        /// <summary>
+        /// 根据角色列表查询用户
+        /// </summary>
+        /// <param name="RoleList"></param>
+        /// <returns></returns>
+        public List<User_Info> User_By_RoleList_Search(List<int> RoleList)
+        {
+            List<User_Info> user_Relate_Info_Users = _userRelateInfoRoleRepository.SearchUserInfoByListWhere(RoleList);
+
+            return user_Relate_Info_Users;
+        }
+
+
     }
 }

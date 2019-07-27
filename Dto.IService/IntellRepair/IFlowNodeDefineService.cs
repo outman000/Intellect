@@ -34,7 +34,7 @@ namespace Dto.IService.IntellRepair
         /// </summary>
         /// <param name="repairDelViewModel"></param>
         /// <returns></returns>
-        int NodeDefiner_Delete(FlowNodeDefineDelViewModel flowNodeDefineDelViewModel);
+        int NodeDefine_Delete(FlowNodeDefineDelViewModel flowNodeDefineDelViewModel);
 
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Dto.IService.IntellRepair
         /// </summary>
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
-        List<UserRoleSearChMiddles> Role_By_Node_Search(RoleByNodeSearchViewModel  roleByNodeSearchViewModel);
+        List<UserRoleSearChMiddles> User_By_Node_Search(RoleByNodeSearchViewModel  roleByNodeSearchViewModel);
 
         /// <summary>
         /// 根据节点查询角色数量

@@ -112,6 +112,34 @@ namespace Dto.Repository.IntellUser
                     .ToList();
             return queryResult;
         }
+
+        /// <summary>
+        /// 根据角色列表查用户
+        /// </summary>
+        /// <param name="userByRoleSearchViewModel"></param>
+        /// <returns></returns>
+        public List<User_Info> SearchUserInfoByListWhere(List<int> RoleList)
+        {
+          
+            int roleid;
+            User_Info Result;
+            List<User_Info> queryResult = new List<User_Info>();
+          
+            for (int i=0;i< RoleList.Count;i++)
+            {
+                    roleid = RoleList[i];
+                int count = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info).ToList().Count;
+                
+                for (int j = 0; j < count; j++)
+                {
+                        Result = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info).ToList()[j].User_Info;
+                        queryResult.Add(Result);      
+                }
+            }
+            
+            return queryResult;
+        }
+
         /// <summary>
         /// 根据用户查角色数量
         /// </summary>

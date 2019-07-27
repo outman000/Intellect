@@ -8,17 +8,17 @@ using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
 {
-    public class ProcsdureInfoReqMapper : Profile
+    public class FlowNodeReqMapper : Profile
     {
-
         /// <summary>
         /// 配置构造函数，用来创建关系映射
         /// </summary>
-        public ProcsdureInfoReqMapper()
+        public FlowNodeReqMapper()
         {
-            CreateMap<FlowProcedureUpdateViewModel, Flow_Procedure>();
-            CreateMap < Flow_Procedure, FlowProcedureSearchMiddlecs>();
-            CreateMap<FlowProcedureAddViewModel, Flow_Procedure >();
+            CreateMap<FlowNodeAddViewModel, Flow_Node>();
+            CreateMap< FlowNodeDefineUpdateViewModel, Flow_Node >();
+            CreateMap < FlowNodeUpdateViewModel, Flow_Node >();
+            CreateMap < Flow_Node,FlowNodeSearchMiddlecs>();
         }
     }
 }

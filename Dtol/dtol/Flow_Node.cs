@@ -51,6 +51,13 @@ namespace Dtol.dtol
         public int? Pre_User_InfoId{get;set;}
         public User_Info Pre_User_Info{get;set;}
 
+
+        /// <summary>
+        /// 表单id
+        /// </summary>
+        public int? Repair_InfoId { get; set; }
+        public Repair_Info Repair_Info { get; set; }
+
         /// <summary>
         /// 是否删除
         /// </summary>
