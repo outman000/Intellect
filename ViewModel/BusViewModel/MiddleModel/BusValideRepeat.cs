@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ViewModel.BusViewModel.MiddleModel
-{    /// <summary>
-     /// 班车验证
-     /// </summary>
+{   
+         /// <summary>
+         /// 班车验证
+         /// </summary>
     public class BusValideRepeat
     {
 
