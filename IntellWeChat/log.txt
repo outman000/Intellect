@@ -1,0 +1,20 @@
+2019-07-29 16:48:54.074 +08:00 [INF] Starting web host
+2019-07-29 16:48:59.460 +08:00 [INF] User profile is available. Using 'C:\Users\AW\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-07-29 16:49:00.606 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/  
+2019-07-29 16:49:00.801 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/index.html  
+2019-07-29 16:49:00.821 +08:00 [INF] Request finished in 216.8323ms 301 
+2019-07-29 16:49:01.054 +08:00 [INF] Request finished in 253.9064ms 200 text/html
+2019-07-29 16:49:01.129 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/swagger-ui-bundle.js  
+2019-07-29 16:49:01.129 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/swagger-ui.css  
+2019-07-29 16:49:01.139 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/swagger-ui-standalone-preset.js  
+2019-07-29 16:49:01.234 +08:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2019-07-29 16:49:01.234 +08:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2019-07-29 16:49:01.238 +08:00 [INF] Request finished in 109.0165ms 200 text/css
+2019-07-29 16:49:01.238 +08:00 [INF] Request finished in 99.1673ms 200 application/javascript
+2019-07-29 16:49:01.256 +08:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2019-07-29 16:49:01.256 +08:00 [INF] Request finished in 127.3406ms 200 application/javascript
+2019-07-29 16:49:01.732 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/favicon-32x32.png  
+2019-07-29 16:49:01.733 +08:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-07-29 16:49:01.733 +08:00 [INF] Request finished in 1.1796ms 200 image/png
+2019-07-29 16:49:01.792 +08:00 [INF] Request starting HTTP/2.0 GET https://localhost:44310/swagger/v1/swagger.json  
+2019-07-29 16:49:02.351 +08:00 [INF] Request finished in 558.3314ms 200 application/json;charset=utf-8

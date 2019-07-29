@@ -69,9 +69,7 @@ namespace IntellWeChat
             //    };
             //});
 
-
-
-
+          
             #region EFCore
             var connection = Configuration.GetConnectionString("SqlServerConnection");
             services.AddDbContext<DtolContext>(options =>
@@ -167,6 +165,10 @@ namespace IntellWeChat
 
             //}
             // app.UseAuthentication();//启用验证
+
+            #region 日志
+       
+            #endregion
 
             //允许所有的域
             app.UseCors(builder =>
