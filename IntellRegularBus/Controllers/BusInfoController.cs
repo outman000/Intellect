@@ -61,7 +61,7 @@ namespace IntellRegularBus.Controllers
         }
 
         /// <summary>
-        /// 验证班车id是否重复
+        /// 验证班车标识是否重复
         /// </summary>
         /// <param name="busValideRepeat"></param>
         /// <returns></returns>
