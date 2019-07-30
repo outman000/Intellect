@@ -17,7 +17,7 @@ namespace Dto.Service.AutoMapper.FoodMapper.FoodReqMapper
         {
             CreateMap<FoodInfoAddViewModel, Food_Info>();
             CreateMap< FoodInfoUpdateViewModel, Food_Info >();
-
+            CreateMap< FoodByUserPraiseViewModel, User_Relate_Food > ();
 
         }
     }

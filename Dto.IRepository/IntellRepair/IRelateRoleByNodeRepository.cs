@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.IRepository.IntellRepair
@@ -22,7 +23,7 @@ namespace Dto.IRepository.IntellRepair
         /// <param name="userIdList"></param>
         /// <param name="aimRoleId"></param>
         /// <returns></returns>
-        int RelateNodeToRoleDel(List<int> list);
+        int RelateNodeToRoleDel(List<RelateRoleByNodeDelModelcs> list);
         /// <summary>
         /// 根据用户查角色
         /// </summary>

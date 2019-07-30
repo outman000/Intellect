@@ -100,15 +100,47 @@ namespace Dto.Service.IntellFood
                    true : false;
         }
         /// <summary>
-        /// 根据用户和菜单查询点赞
+        /// 根据用户和菜单点赞
         /// </summary>
         /// <param name="foodByUserSearchViewMode"></param>
         /// <returns></returns>
-        public List<User_Relate_Food> Food_Relate_User_Search(FoodByUserSearchViewModel foodByUserSearchViewMode)
+        public int Food_Relate_User(FoodByUserPraiseViewModel foodByUserSearchViewMode)
         {
-            List<User_Relate_Food> Food_Relate_Users = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserSearchViewMode);
+            int count = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserSearchViewMode);
          
-            return Food_Relate_Users;
+            if(count>0)
+            {
+
+                int DelNum = _IRelate_Food_UserRepository
+                         .RelateFoodToUserDel(foodByUserSearchViewMode);
+            
+                return DelNum;
+            }
+            else
+            {
+                var node_Info = _IMapper.Map<FoodByUserPraiseViewModel, User_Relate_Food>(foodByUserSearchViewMode);
+                _IRelate_Food_UserRepository.Add(node_Info);
+                 _IRelate_Food_UserRepository.SaveChanges();
+                return 1;
+            }
+        }
+
+        public int Food_Relate_User_Del(FoodByUserPraiseViewModel foodByUserSearchViewModelt)
+        {
+            int DelNum = _IRelate_Food_UserRepository
+                     .RelateFoodToUserDel(foodByUserSearchViewModelt);
+
+            return DelNum;
+        }
+        /// <summary>
+        /// 点赞数量
+        /// </summary>
+        /// <param name="foodByFoodIdSearchViewModel"></param>
+        /// <returns></returns>
+        public List<FoodPraiseNumMiddlecs> PraiseNumByFoodId()
+        {
+            List < FoodPraiseNumMiddlecs > fp= _IRelate_Food_UserRepository.RelateFoodToFoodIdSearch();
+            return fp;
         }
     }
 }

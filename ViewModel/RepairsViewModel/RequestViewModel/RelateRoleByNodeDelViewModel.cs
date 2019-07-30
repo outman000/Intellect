@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.RepairsViewModel.MiddleModel;
 
 namespace ViewModel.RepairsViewModel.RequestViewModel
 {
@@ -11,8 +12,8 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     public class RelateRoleByNodeDelViewModel
     {
         /// <summary>
-        /// 关系表主键id
+        /// 角色主键id和节点主键Id
         /// </summary>
-        public List<int> RelateNodeIdandRoleIdList { get; set; }
+        public List<RelateRoleByNodeDelModelcs> RelateNodeIdandRoleIdList { get; set; }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Dto.IRepository.IntellRepair;
 using Dtol;
 using Dtol.dtol;
+using Dtol.EfCoreExtion;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Repository.IntellRepair
@@ -82,18 +85,34 @@ namespace Dto.Repository.IntellRepair
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public int RelateNodeToRoleDel(List<int> list)
+        public int RelateNodeToRoleDel(List<RelateRoleByNodeDelModelcs> list)
         {
 
             for (int i = 0; i < list.Count; i++)
             {
-                var temp = DbSet.Single(a => a.id == list[i]);
+                var preciate = SearchDelRelateWhere(list[i]);
+                var temp = DbSet.Single(preciate);
                 DbSet.Remove(temp);
             }
 
             return SaveChanges();
         }
+        #region 查询条件
+        //根据条件查询部门
+        private Expression<Func<Flow_Relate_NodeRole, bool>> SearchDelRelateWhere(RelateRoleByNodeDelModelcs  relateRoleByNodeDelModelcs)
+        {
+            var predicate = WhereExtension.True<Flow_Relate_NodeRole>();//初始化where表达式
+            predicate = predicate.And(p => p.Flow_NodeDefineId == relateRoleByNodeDelModelcs.Flow_NodeDefineId);
+            predicate = predicate.And(p => p.User_RoleId == relateRoleByNodeDelModelcs.User_RoleId);
+            return predicate;
+        }
 
+
+
+
+
+
+        #endregion
         /// <summary>
         /// 根据节点查询角色
         /// </summary>

@@ -166,5 +166,58 @@ namespace IntellFood.Controllers
                 return BadRequest(foodInfoValideResRepeat);
             }
         }
+
+
+
+        /// <summary>
+        /// 根据用户id和菜单id点赞 /取消点赞
+        /// </summary>
+        /// <param name="foodByUserPraiseViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_FoodToUser_Del(FoodByUserPraiseViewModel  foodByUserPraiseViewModel)
+        {
+            FoodByUserSearchResModel  foodByUserSearchResModel = new FoodByUserSearchResModel();
+            int SearchRowNum = _foodService.Food_Relate_User(foodByUserPraiseViewModel);
+
+            if (SearchRowNum > 0)
+            {
+                foodByUserSearchResModel.IsSuccess = true;
+                foodByUserSearchResModel.TotalNum = SearchRowNum;
+                foodByUserSearchResModel.baseViewModel.Message = "用户点赞/取消赞成功";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                return Ok(foodByUserSearchResModel);
+            }
+            else
+            {
+                foodByUserSearchResModel.IsSuccess = false;
+                foodByUserSearchResModel.TotalNum = 0;
+                foodByUserSearchResModel.baseViewModel.Message = "用户点赞/取消赞成功";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(foodByUserSearchResModel);
+            }
+        }
+
+        /// <summary>
+        /// 查询菜单点赞数量
+        /// </summary>
+        /// <param name="foodByFoodIdSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_PraiseNum_Search()
+        {
+            FoodByFoodIdSearchResModel  foodIdSearchResModel = new FoodByFoodIdSearchResModel();
+            var BusSearchResult = _foodService.PraiseNumByFoodId ();
+
+
+            foodIdSearchResModel.PraiseInfo = BusSearchResult;
+            foodIdSearchResModel.IsSuccess = true;
+            foodIdSearchResModel.baseViewModel.Message = "查询成功";
+            foodIdSearchResModel.baseViewModel.ResponseCode = 200;
+            foodIdSearchResModel.TotalNum = BusSearchResult.Count;
+            return Ok(foodIdSearchResModel);
+
+        }
+
     }
 }
