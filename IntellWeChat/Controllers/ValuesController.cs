@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace IntellWeChat.Controllers
 {
@@ -10,10 +11,19 @@ namespace IntellWeChat.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        readonly ILogger _ILogger;
+        
+        public ValuesController(ILogger logger)
+        {
+            _ILogger = logger;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            _ILogger.Information("大河向东流");
             return new string[] { "value1", "value2" };
         }
 
@@ -21,6 +31,7 @@ namespace IntellWeChat.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
+            _ILogger.Information("大河向东流1");
             return "value";
         }
 
@@ -28,6 +39,7 @@ namespace IntellWeChat.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            _ILogger.Information("大河向东流");
         }
 
         // PUT api/values/5

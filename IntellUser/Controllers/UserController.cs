@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using SystemFilter.PublicFilter;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.UserViewModel.ResponseModel;
-
+using Serilog;
 namespace IntellUser.Controllers
 {
     [Route("UserManageApi/[controller]/[action]")]
@@ -18,15 +18,14 @@ namespace IntellUser.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService  _userService;
-
-       // private readonly IValidator<UserAddViewModel> _validator;
-
+        private readonly ILogger _ILogger;
 
 
-        public UserController(IUserService  userService)
+
+        public UserController(IUserService  userService, ILogger logger)
         {
             _userService = userService;
-
+            _ILogger = logger;
         }
         /// <summary>
         /// 增添用户信息

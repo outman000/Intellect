@@ -32,3 +32,488 @@
 2019-07-29 17:01:25.714 +08:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
 2019-07-29 17:01:25.715 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Get (IntellWeChat) in 90.94680000000001ms
 2019-07-29 17:01:25.715 +08:00 [INF] Request finished in 107.6391ms 200 text/plain; charset=utf-8
+2019-07-29 20:09:48.661 +08:00 [INF] Starting web host
+2019-07-29 20:09:54.837 +08:00 [INF] User profile is available. Using 'C:\Users\AW\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-07-29 20:09:58.264 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/  
+2019-07-29 20:09:58.590 +08:00 [INF] Request finished in 327.0463ms 301 
+2019-07-29 20:09:58.592 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/index.html  
+2019-07-29 20:09:58.846 +08:00 [INF] Request finished in 253.4574ms 200 text/html
+2019-07-29 20:09:58.898 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/swagger-ui-bundle.js  
+2019-07-29 20:09:58.898 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/swagger-ui.css  
+2019-07-29 20:09:58.907 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/swagger-ui-standalone-preset.js  
+2019-07-29 20:09:58.931 +08:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2019-07-29 20:09:58.931 +08:00 [INF] Request finished in 24.0193ms 200 application/javascript
+2019-07-29 20:09:58.943 +08:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2019-07-29 20:09:58.944 +08:00 [INF] Request finished in 45.7062ms 200 text/css
+2019-07-29 20:09:58.963 +08:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2019-07-29 20:09:58.963 +08:00 [INF] Request finished in 65.5159ms 200 application/javascript
+2019-07-29 20:09:59.334 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/favicon-32x32.png  
+2019-07-29 20:09:59.334 +08:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-07-29 20:09:59.334 +08:00 [INF] Request finished in 0.6204ms 200 image/png
+2019-07-29 20:09:59.381 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/swagger/v1/swagger.json  
+2019-07-29 20:10:00.292 +08:00 [INF] Request finished in 911.5868ms 200 application/json;charset=utf-8
+2019-07-29 20:10:05.610 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/api/Values  
+2019-07-29 20:10:05.698 +08:00 [INF] Route matched with {action = "Get", controller = "Values"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.String]] Get() on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:10:05.945 +08:00 [INF] Executing action method IntellWeChat.Controllers.ValuesController.Get (IntellWeChat) - Validation state: "Valid"
+2019-07-29 20:10:05.951 +08:00 [INF] Executed action method IntellWeChat.Controllers.ValuesController.Get (IntellWeChat), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.2528ms.
+2019-07-29 20:10:05.958 +08:00 [INF] Executing ObjectResult, writing value of type 'System.String[]'.
+2019-07-29 20:10:05.964 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Get (IntellWeChat) in 263.5248ms
+2019-07-29 20:10:05.965 +08:00 [INF] Request finished in 354.6666ms 200 application/json; charset=utf-8
+2019-07-29 20:13:40.597 +08:00 [INF] Starting web host
+2019-07-29 20:13:42.502 +08:00 [INF] User profile is available. Using 'C:\Users\AW\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-07-29 20:13:44.284 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/index.html  
+2019-07-29 20:13:44.438 +08:00 [INF] Request finished in 155.6472ms 200 text/html
+2019-07-29 20:44:19.857 +08:00 [INF] host is start
+2019-07-29 20:55:21.679 +08:00 [INF] host is start
+2019-07-29 20:56:30.194 +08:00 [INF] host is start
+2019-07-29 20:56:31.399 +08:00 [DBG] Hosting starting
+2019-07-29 20:56:31.488 +08:00 [INF] User profile is available. Using 'C:\Users\AW\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-07-29 20:56:31.495 +08:00 [DBG] Reading data from file 'C:\Users\AW\AppData\Local\ASP.NET\DataProtection-Keys\key-8d1b39ee-a207-476d-b08f-839058322719.xml'.
+2019-07-29 20:56:31.519 +08:00 [DBG] Found key "8d1b39ee-a207-476d-b08f-839058322719".
+2019-07-29 20:56:31.529 +08:00 [DBG] Considering key "8d1b39ee-a207-476d-b08f-839058322719" with expiration date "2019-09-16T02:33:49.8474617+00:00" as default key.
+2019-07-29 20:56:31.556 +08:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2019-07-29 20:56:31.557 +08:00 [DBG] Decrypting secret element using Windows DPAPI.
+2019-07-29 20:56:31.558 +08:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2019-07-29 20:56:31.559 +08:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2019-07-29 20:56:31.561 +08:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2019-07-29 20:56:31.564 +08:00 [DBG] Using key "8d1b39ee-a207-476d-b08f-839058322719" as the default key.
+2019-07-29 20:56:31.564 +08:00 [DBG] Key ring with default key "8d1b39ee-a207-476d-b08f-839058322719" was loaded during application startup.
+2019-07-29 20:56:31.620 +08:00 [DBG] Compatibility switch AllowInputFormatterExceptionMessages in type MvcJsonOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.643 +08:00 [DBG] Compatibility switch AllowCombiningAuthorizeFilters in type MvcOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.643 +08:00 [DBG] Compatibility switch AllowBindingHeaderValuesToNonStringModelTypes in type MvcOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.643 +08:00 [DBG] Compatibility switch AllowValidatingTopLevelNodes in type MvcOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.644 +08:00 [DBG] Compatibility switch InputFormatterExceptionPolicy in type MvcOptions is using compatibility value "MalformedInputExceptions" for version "Version_2_1"
+2019-07-29 20:56:31.644 +08:00 [DBG] Compatibility switch SuppressBindingUndefinedValueToEnumType in type MvcOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.644 +08:00 [DBG] Compatibility switch EnableEndpointRouting in type MvcOptions is using default value false
+2019-07-29 20:56:31.644 +08:00 [DBG] Compatibility switch MaxValidationDepth in type MvcOptions is using default value null
+2019-07-29 20:56:31.644 +08:00 [DBG] Compatibility switch AllowShortCircuitingValidationWhenNoValidatorsArePresent in type MvcOptions is using default value false
+2019-07-29 20:56:31.672 +08:00 [DBG] Compatibility switch SuppressMapClientErrors in type ApiBehaviorOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.672 +08:00 [DBG] Compatibility switch SuppressUseValidationProblemDetailsForInvalidModelStateResponses in type ApiBehaviorOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.672 +08:00 [DBG] Compatibility switch AllowInferringBindingSourceForCollectionTypesAsFromQuery in type ApiBehaviorOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.682 +08:00 [DBG] Compatibility switch AllowAreas in type RazorPagesOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.683 +08:00 [DBG] Compatibility switch AllowMappingHeadRequestsToGetHandler in type RazorPagesOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.683 +08:00 [DBG] Compatibility switch AllowDefaultHandlingForOptionsRequests in type RazorPagesOptions is using default value false
+2019-07-29 20:56:31.691 +08:00 [DBG] Compatibility switch AllowRecompilingViewsOnFileChange in type RazorViewEngineOptions is using explicitly configured value true
+2019-07-29 20:56:31.728 +08:00 [DBG] Compatibility switch SuppressTempDataAttributePrefix in type MvcViewOptions is using compatibility value true for version "Version_2_1"
+2019-07-29 20:56:31.728 +08:00 [DBG] Compatibility switch AllowRenderingMaxLengthAttribute in type MvcViewOptions is using default value false
+2019-07-29 20:56:31.761 +08:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexTypeModelBinderProvider"]
+2019-07-29 20:56:31.837 +08:00 [DBG] Failed to locate the development https certificate at 'null'.
+2019-07-29 20:56:31.901 +08:00 [DBG] Using development certificate: CN=localhost (Thumbprint: A04053166DD5730E721D5EE200AB065A5E8838E6)
+2019-07-29 20:56:31.973 +08:00 [DBG] Hosting started
+2019-07-29 20:56:31.973 +08:00 [DBG] Loaded hosting startup assembly IntellWeChat
+2019-07-29 20:56:32.191 +08:00 [DBG] Connection id "0HLOK4GN2CS7I" started.
+2019-07-29 20:56:32.224 +08:00 [DBG] Connection id "0HLOK4GN2CS7I" received FIN.
+2019-07-29 20:56:32.246 +08:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Authentication failed because the remote party has closed the transport stream.
+   at System.Net.Security.SslState.StartReadFrame(Byte[] buffer, Int32 readBytes, AsyncProtocolRequest asyncRequest)
+   at System.Net.Security.SslState.StartReceiveBlob(Byte[] buffer, AsyncProtocolRequest asyncRequest)
+   at System.Net.Security.SslState.ForceAuthentication(Boolean receiveFirst, Byte[] buffer, AsyncProtocolRequest asyncRequest)
+   at System.Net.Security.SslState.ProcessAuthentication(LazyAsyncResult lazyResult)
+   at System.Net.Security.SslStream.BeginAuthenticateAsServer(SslServerAuthenticationOptions sslServerAuthenticationOptions, CancellationToken cancellationToken, AsyncCallback asyncCallback, Object asyncState)
+   at System.Net.Security.SslStream.<>c.<AuthenticateAsServerAsync>b__51_0(SslServerAuthenticationOptions arg1, CancellationToken arg2, AsyncCallback callback, Object state)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncImpl[TArg1,TArg2](Func`5 beginMethod, Func`2 endFunction, Action`1 endAction, TArg1 arg1, TArg2 arg2, Object state, TaskCreationOptions creationOptions)
+   at System.Threading.Tasks.TaskFactory.FromAsync[TArg1,TArg2](Func`5 beginMethod, Action`1 endMethod, TArg1 arg1, TArg2 arg2, Object state, TaskCreationOptions creationOptions)
+   at System.Threading.Tasks.TaskFactory.FromAsync[TArg1,TArg2](Func`5 beginMethod, Action`1 endMethod, TArg1 arg1, TArg2 arg2, Object state)
+   at System.Net.Security.SslStream.AuthenticateAsServerAsync(SslServerAuthenticationOptions sslServerAuthenticationOptions, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionAdapter.InnerOnConnectionAsync(ConnectionAdapterContext context)
+2019-07-29 20:56:32.694 +08:00 [DBG] Connection id "0HLOK4GN2CS7I" sending FIN because: "The client closed the connection."
+2019-07-29 20:56:32.695 +08:00 [DBG] Connection id "0HLOK4GN2CS7I" disconnecting.
+2019-07-29 20:56:32.713 +08:00 [DBG] Connection id "0HLOK4GN2CS7I" stopped.
+2019-07-29 20:56:33.378 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" started.
+2019-07-29 20:56:33.384 +08:00 [DBG] Connection id "0HLOK4GN2CS7K" started.
+2019-07-29 20:56:33.482 +08:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/index.html  
+2019-07-29 20:56:33.483 +08:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2019-07-29 20:56:33.498 +08:00 [DBG] The request path /index.html does not match an existing file
+2019-07-29 20:56:33.633 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" completed keep alive response.
+2019-07-29 20:56:33.636 +08:00 [INF] Request finished in 154.1791ms 200 text/html
+2019-07-29 20:56:50.816 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:56:50.816 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:56:50.816 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:56:50.937 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:56:50.945 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:56:50.966 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:56:50.967 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:56:50.967 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:56:50.967 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:56:50.967 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:56:50.967 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:56:50.977 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:56:50.979 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:56:50.980 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:56:50.980 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:56:50.989 +08:00 [DBG] Connection id "0HLOK4GN2CS7J", Request id "0HLOK4GN2CS7J:00000002": started reading request body.
+2019-07-29 20:56:50.994 +08:00 [DBG] Connection id "0HLOK4GN2CS7J", Request id "0HLOK4GN2CS7J:00000002": done reading request body.
+2019-07-29 20:56:50.997 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:56:50.998 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:56:50.998 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:56:50.999 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:56:50.999 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:56:51.002 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:56:51.002 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:56:51.007 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:56:51.011 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:56:51.011 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:56:51.011 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:56:51.019 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 48.9027ms
+2019-07-29 20:56:51.019 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" completed keep alive response.
+2019-07-29 20:56:51.019 +08:00 [INF] Request finished in 203.1788ms 400 application/json; charset=utf-8
+2019-07-29 20:57:08.251 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:57:08.251 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:57:08.251 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:57:08.251 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:57:08.252 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:57:08.252 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:57:08.252 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:57:08.252 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:57:08.252 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:57:08.252 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:57:08.252 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:57:08.253 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:57:08.253 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:57:08.253 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:57:08.253 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:57:08.253 +08:00 [DBG] Connection id "0HLOK4GN2CS7J", Request id "0HLOK4GN2CS7J:00000003": started reading request body.
+2019-07-29 20:57:08.253 +08:00 [DBG] Connection id "0HLOK4GN2CS7J", Request id "0HLOK4GN2CS7J:00000003": done reading request body.
+2019-07-29 20:57:08.253 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:57:08.254 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:57:08.254 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:57:08.254 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:57:08.254 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:57:08.254 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:57:08.254 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:57:08.254 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:57:08.254 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:57:08.254 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:57:08.254 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:57:08.255 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 2.25ms
+2019-07-29 20:57:08.255 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" completed keep alive response.
+2019-07-29 20:57:08.255 +08:00 [INF] Request finished in 3.7834ms 400 application/json; charset=utf-8
+2019-07-29 20:58:23.287 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" received FIN.
+2019-07-29 20:58:23.287 +08:00 [DBG] Connection id "0HLOK4GN2CS7K" received FIN.
+2019-07-29 20:58:23.289 +08:00 [DBG] Connection id "0HLOK4GN2CS7K" sending FIN because: "The client closed the connection."
+2019-07-29 20:58:23.289 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" sending FIN because: "The client closed the connection."
+2019-07-29 20:58:23.290 +08:00 [DBG] Connection id "0HLOK4GN2CS7K" disconnecting.
+2019-07-29 20:58:23.290 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" disconnecting.
+2019-07-29 20:58:23.309 +08:00 [DBG] Connection id "0HLOK4GN2CS7J" stopped.
+2019-07-29 20:58:23.309 +08:00 [DBG] Connection id "0HLOK4GN2CS7K" stopped.
+2019-07-29 20:59:43.658 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" started.
+2019-07-29 20:59:43.672 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:59:43.672 +08:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2019-07-29 20:59:43.672 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:43.673 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:43.673 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:59:43.673 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:59:43.673 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:59:43.673 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:59:43.673 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:43.673 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:59:43.673 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:59:43.673 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:43.673 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:43.673 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:59:43.673 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:43.673 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:43.673 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000001": started reading request body.
+2019-07-29 20:59:43.674 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000001": done reading request body.
+2019-07-29 20:59:43.674 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:59:43.674 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:43.674 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:43.674 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:43.674 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:59:43.674 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:59:43.674 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:59:43.674 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:59:43.674 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:59:43.674 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:59:43.675 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:59:43.675 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.6596000000000002ms
+2019-07-29 20:59:43.675 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 20:59:43.675 +08:00 [INF] Request finished in 2.9785ms 400 application/json; charset=utf-8
+2019-07-29 20:59:44.203 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:59:44.256 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.256 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.256 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:59:44.256 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:59:44.256 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:59:44.256 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:59:44.256 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.256 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:59:44.256 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:59:44.256 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.257 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.257 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:59:44.257 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.257 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.257 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000002": started reading request body.
+2019-07-29 20:59:44.257 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000002": done reading request body.
+2019-07-29 20:59:44.257 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:59:44.258 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.258 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.258 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.258 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.258 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:59:44.258 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:59:44.258 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:59:44.258 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:59:44.258 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:59:44.258 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:59:44.258 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.6988ms
+2019-07-29 20:59:44.258 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 20:59:44.259 +08:00 [INF] Request finished in 55.47ms 400 application/json; charset=utf-8
+2019-07-29 20:59:44.380 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:59:44.380 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.387 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.387 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:59:44.387 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:59:44.387 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:59:44.387 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:59:44.387 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.387 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:59:44.387 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:59:44.388 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.388 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.388 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:59:44.388 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.388 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.388 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000003": started reading request body.
+2019-07-29 20:59:44.388 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000003": done reading request body.
+2019-07-29 20:59:44.388 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:59:44.388 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.388 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.388 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.388 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.388 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:59:44.388 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:59:44.389 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:59:44.389 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:59:44.389 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:59:44.389 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:59:44.389 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.2701ms
+2019-07-29 20:59:44.389 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 20:59:44.389 +08:00 [INF] Request finished in 9.2918ms 400 application/json; charset=utf-8
+2019-07-29 20:59:44.561 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:59:44.568 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.568 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.568 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:59:44.569 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:59:44.569 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:59:44.569 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:59:44.569 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.569 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:59:44.569 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:59:44.569 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.569 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.569 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:59:44.569 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.569 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.569 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000004": started reading request body.
+2019-07-29 20:59:44.569 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000004": done reading request body.
+2019-07-29 20:59:44.570 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:59:44.570 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.570 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.570 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.570 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.570 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:59:44.570 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:59:44.570 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:59:44.570 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:59:44.571 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:59:44.571 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:59:44.571 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.7977ms
+2019-07-29 20:59:44.571 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 20:59:44.571 +08:00 [INF] Request finished in 9.5842ms 400 application/json; charset=utf-8
+2019-07-29 20:59:44.694 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:59:44.694 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.694 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.694 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:59:44.694 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:59:44.694 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:59:44.694 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:59:44.694 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.694 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:59:44.694 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:59:44.695 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.695 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.695 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:59:44.695 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.695 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.695 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000005": started reading request body.
+2019-07-29 20:59:44.695 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000005": done reading request body.
+2019-07-29 20:59:44.695 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:59:44.695 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.695 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.695 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.695 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.695 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:59:44.695 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:59:44.696 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:59:44.696 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:59:44.696 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:59:44.696 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:59:44.696 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.1868ms
+2019-07-29 20:59:44.696 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 20:59:44.696 +08:00 [INF] Request finished in 2.2591ms 400 application/json; charset=utf-8
+2019-07-29 20:59:44.846 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 20:59:44.846 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.846 +08:00 [DBG] POST requests are not supported
+2019-07-29 20:59:44.847 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 20:59:44.847 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 20:59:44.847 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 20:59:44.847 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 20:59:44.847 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.847 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 20:59:44.847 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 20:59:44.847 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 20:59:44.847 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.847 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 20:59:44.847 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.847 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 20:59:44.847 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000006": started reading request body.
+2019-07-29 20:59:44.847 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000006": done reading request body.
+2019-07-29 20:59:44.848 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 20:59:44.848 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.848 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.848 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 20:59:44.848 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 20:59:44.848 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 20:59:44.848 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 20:59:44.848 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 20:59:44.848 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 20:59:44.848 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 20:59:44.849 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 20:59:44.849 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.6714ms
+2019-07-29 20:59:44.849 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 20:59:44.849 +08:00 [INF] Request finished in 2.8171ms 400 application/json; charset=utf-8
+2019-07-29 21:00:27.094 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 6
+2019-07-29 21:00:27.095 +08:00 [DBG] POST requests are not supported
+2019-07-29 21:00:27.101 +08:00 [DBG] POST requests are not supported
+2019-07-29 21:00:27.101 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 21:00:27.101 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 21:00:27.101 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 21:00:27.101 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 21:00:27.101 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 21:00:27.102 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 21:00:27.102 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 21:00:27.102 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 21:00:27.102 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 21:00:27.102 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 21:00:27.102 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 21:00:27.102 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 21:00:27.102 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000007": started reading request body.
+2019-07-29 21:00:27.102 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000007": done reading request body.
+2019-07-29 21:00:27.102 +08:00 [DBG] JSON input formatter threw an exception.
+Newtonsoft.Json.JsonReaderException: Unexpected character encountered while parsing value: s. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ReadStringValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsString()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+2019-07-29 21:00:27.102 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 21:00:27.102 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 21:00:27.102 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 21:00:27.102 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 21:00:27.103 +08:00 [DBG] The request has model state errors, returning an error response.
+2019-07-29 21:00:27.103 +08:00 [DBG] Request was short circuited at action filter 'Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter'.
+2019-07-29 21:00:27.103 +08:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"]
+2019-07-29 21:00:27.103 +08:00 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]' and explicitly specified content types '["application/json","application/xml"]'. The content types in the accept header must be a subset of the explicitly set content types.
+2019-07-29 21:00:27.103 +08:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter' and content type 'application/json' to write the response.
+2019-07-29 21:00:27.103 +08:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2019-07-29 21:00:27.103 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 1.2632ms
+2019-07-29 21:00:27.103 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 21:00:27.104 +08:00 [INF] Request finished in 9.912ms 400 application/json; charset=utf-8
+2019-07-29 21:01:05.691 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 10
+2019-07-29 21:01:05.700 +08:00 [DBG] POST requests are not supported
+2019-07-29 21:01:05.708 +08:00 [DBG] POST requests are not supported
+2019-07-29 21:01:05.708 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 21:01:05.709 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 21:01:05.709 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 21:01:05.709 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 21:01:05.709 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 21:01:05.709 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 21:01:05.709 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 21:01:05.709 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 21:01:05.709 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 21:01:05.709 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 21:01:05.709 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 21:01:05.709 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 21:01:05.709 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000008": started reading request body.
+2019-07-29 21:01:05.709 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000008": done reading request body.
+2019-07-29 21:01:05.710 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 21:01:05.710 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 21:01:05.710 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 21:01:05.728 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 21:01:05.787 +08:00 [INF] Executing action method IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) - Validation state: "Valid"
+2019-07-29 21:01:05.789 +08:00 [INF] Executed action method IntellWeChat.Controllers.ValuesController.Post (IntellWeChat), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 0.16490000000000002ms.
+2019-07-29 21:01:05.789 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 80.467ms
+2019-07-29 21:01:05.790 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 21:01:05.790 +08:00 [INF] Request finished in 100.4031ms 200 
+2019-07-29 21:01:49.574 +08:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/Values application/json-patch+json 10
+2019-07-29 21:01:49.575 +08:00 [DBG] POST requests are not supported
+2019-07-29 21:01:49.575 +08:00 [DBG] POST requests are not supported
+2019-07-29 21:01:49.575 +08:00 [DBG] Request successfully matched the route with name 'null' and template 'api/Values'
+2019-07-29 21:01:49.575 +08:00 [DBG] Action 'IntellWeChat.Controllers.ValuesController.Get (IntellWeChat)' with id 'c1d12115-d850-4fb5-9a32-5edd3fad08f4' did not match the constraint 'Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint'
+2019-07-29 21:01:49.575 +08:00 [INF] Route matched with {action = "Post", controller = "Values"}. Executing controller action with signature Void Post(System.String) on controller IntellWeChat.Controllers.ValuesController (IntellWeChat).
+2019-07-29 21:01:49.575 +08:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2019-07-29 21:01:49.575 +08:00 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 21:01:49.575 +08:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2019-07-29 21:01:49.575 +08:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2019-07-29 21:01:49.575 +08:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.SaveTempDataFilter"]
+2019-07-29 21:01:49.575 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' ...
+2019-07-29 21:01:49.575 +08:00 [DBG] Attempting to bind parameter 'value' of type 'System.String' using the name '' in request data ...
+2019-07-29 21:01:49.575 +08:00 [DBG] Rejected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonPatchInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 21:01:49.575 +08:00 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.JsonInputFormatter' for content type 'application/json-patch+json'.
+2019-07-29 21:01:49.575 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000009": started reading request body.
+2019-07-29 21:01:49.575 +08:00 [DBG] Connection id "0HLOK4GN2CS7L", Request id "0HLOK4GN2CS7L:00000009": done reading request body.
+2019-07-29 21:01:49.576 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 21:01:49.576 +08:00 [DBG] Done attempting to bind parameter 'value' of type 'System.String'.
+2019-07-29 21:01:49.576 +08:00 [DBG] Attempting to validate the bound parameter 'value' of type 'System.String' ...
+2019-07-29 21:01:49.576 +08:00 [DBG] Done attempting to validate the bound parameter 'value' of type 'System.String'.
+2019-07-29 21:01:49.595 +08:00 [INF] Executing action method IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) - Validation state: "Valid"
+2019-07-29 21:01:49.595 +08:00 [INF] Executed action method IntellWeChat.Controllers.ValuesController.Post (IntellWeChat), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 0.0132ms.
+2019-07-29 21:01:49.595 +08:00 [INF] Executed action IntellWeChat.Controllers.ValuesController.Post (IntellWeChat) in 19.8487ms
+2019-07-29 21:01:49.595 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" completed keep alive response.
+2019-07-29 21:01:49.595 +08:00 [INF] Request finished in 27.302ms 200 
+2019-07-29 21:03:53.288 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" received FIN.
+2019-07-29 21:03:53.288 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" sending FIN because: "The client closed the connection."
+2019-07-29 21:03:53.290 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" disconnecting.
+2019-07-29 21:03:53.332 +08:00 [DBG] Connection id "0HLOK4GN2CS7L" stopped.
+2019-07-29 21:09:59.968 +08:00 [INF] host is start

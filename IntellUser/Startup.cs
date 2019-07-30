@@ -18,6 +18,7 @@ using System.Reflection;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using AutofacSerilogIntegration;
 
 namespace IntellUser
 {
@@ -143,7 +144,8 @@ namespace IntellUser
             builder.RegisterAssemblyTypes(IService, Service)
               .Where(t => t.Name.EndsWith("Service"))
               .AsImplementedInterfaces();
-       
+
+            builder.RegisterLogger(autowireProperties: true);
             //将services填充到Autofac容器生成器中
             builder.Populate(services);
             //使用已进行的组件登记创建新容器
@@ -156,17 +158,16 @@ namespace IntellUser
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseHsts();
-
-            //}
+            }
+            else
+            {
+                app.UseHsts();
+            }
            // app.UseAuthentication();//启用验证
-           
+
             //允许所有的域
             app.UseCors(builder =>
             {
