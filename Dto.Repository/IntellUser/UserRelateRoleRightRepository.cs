@@ -9,6 +9,9 @@ using System.Text;
 using Dto.IRepository.IntellUser;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.UserViewModel.ResponseModel;
+using System.Linq.Expressions;
+using Dtol.EfCoreExtion;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace Dto.Repository.IntellUser
 {
@@ -69,16 +72,34 @@ namespace Dto.Repository.IntellUser
             return SaveChanges();
         }
 
-        public int RelateRoleToRightsDel(List<int> list)
+        public int RelateRoleToRightsDel(List<RelateRoleRightDelMiddlecs> list)
         {
             for (int i = 0; i < list.Count; i++)
             {
-                var temp = DbSet.Single(a => a.Id == list[i]);
+                var preciate = SearchDelRelateWhere(list[i]);
+                var temp = DbSet.Single(preciate);
                 DbSet.Remove(temp);
             }
 
             return SaveChanges();
         }
+
+        #region 查询条件
+        //根据条件查询关系表
+        private Expression<Func<User_Relate_Role_Right, bool>> SearchDelRelateWhere(RelateRoleRightDelMiddlecs  relateRoleRightDelMiddlecs )
+        {
+            var predicate = WhereExtension.True<User_Relate_Role_Right>();//初始化where表达式
+            predicate = predicate.And(p => p.User_RightsId == relateRoleRightDelMiddlecs.User_RightsId);
+            predicate = predicate.And(p => p.User_RoleId == relateRoleRightDelMiddlecs.User_RoleId);
+            return predicate;
+        }
+
+
+
+
+
+
+        #endregion
         /// <summary>
         /// 根据权限查角色
         /// </summary>

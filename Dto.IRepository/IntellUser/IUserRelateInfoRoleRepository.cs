@@ -23,7 +23,7 @@ namespace Dto.IRepository.IntellUser
         /// <param name="userIdList"></param>
         /// <param name="aimRoleId"></param>
         /// <returns></returns>
-        int RelateRoleToUserDel(List<int> list);
+        int RelateRoleToUserDel(List<RelateRoleUserDelMiddlecs> list);
         /// <summary>
         /// 根据用户查角色
         /// </summary>

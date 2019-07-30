@@ -231,7 +231,7 @@ namespace IntellUser.Controllers
         }
 
         /// <summary>
-        /// 根据角色查用户
+        /// 根据角色查用户列表
         /// </summary>
         /// <param name="userByRoleSearchViewModel"></param>
         /// <returns></returns>

@@ -71,13 +71,14 @@ namespace Dto.Repository.IntellUser
             return SaveChanges();
         }
 
-        public int RelateRoleToUserDel(List<int> list)
+        public int RelateRoleToUserDel(List<RelateRoleUserDelMiddlecs> list)
         {
-            
+        
             for (int i = 0; i < list.Count; i++)
             {
-               var temp= DbSet.Single(a => a.Id == list[i]);
-                DbSet.Remove(temp);
+               var preciate = SearchDelRelateWhere(list[i]);
+               var temp= DbSet.Single(preciate);
+               DbSet.Remove(temp);
             }
  
             return SaveChanges();
@@ -163,5 +164,24 @@ namespace Dto.Repository.IntellUser
             var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info) ;
             return queryResult;
         }
+
+
+        #region 查询条件
+        //根据条件查询部门
+        private Expression<Func<User_Relate_Info_Role, bool>> SearchDelRelateWhere(RelateRoleUserDelMiddlecs  relateRoleUserDelMiddlecs)
+        {
+            var predicate = WhereExtension.True<User_Relate_Info_Role>();//初始化where表达式
+            predicate = predicate.And(p => p.User_InfoId== relateRoleUserDelMiddlecs.User_InfoId);
+            predicate = predicate.And(p =>p.User_RoleId == relateRoleUserDelMiddlecs.User_RoleId);
+            return predicate;
+        }
+
+   
+
+
+
+
+        #endregion
+
     }
 }

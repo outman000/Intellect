@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
@@ -10,8 +11,8 @@ namespace ViewModel.UserViewModel.RequsetModel
     public class RelateRoleToRightDelViewModel
     {
         /// <summary>
-        /// 权限id集合
+        /// 权限id和角色id集合
         /// </summary>
-        public List<int> RelateRightIdandRoleIdList { get; set; }
+        public List<RelateRoleRightDelMiddlecs> RelateRightIdandRoleIdList { get; set; }
     }
 }

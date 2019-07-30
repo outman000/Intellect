@@ -11,8 +11,8 @@ namespace ViewModel.UserViewModel.RequsetModel
     public class RelateRoleToUserDelViewModel
     {
         /// <summary>
-        /// 关系表主键id
+        /// 用户和角色主键id
         /// </summary>
-        public List<int> RelateUserIdandRoleIdList   { get; set; }
+        public List<RelateRoleUserDelMiddlecs> RelateUserIdandRoleIdList   { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.UserViewModel.ResponseModel;
 
@@ -23,7 +24,7 @@ namespace Dto.IRepository.IntellUser
         /// <param name="userIdList"></param>
         /// <param name="aimRoleId"></param>
         /// <returns></returns>
-        int RelateRoleToRightsDel(List<int> list);
+        int RelateRoleToRightsDel(List<RelateRoleRightDelMiddlecs> list);
 
         /// <summary>
         /// 根据权限查角色

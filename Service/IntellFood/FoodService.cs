@@ -14,11 +14,15 @@ namespace Dto.Service.IntellFood
     public class FoodService : IFoodService
     {
         private readonly IFoodInfoRepository _IFoodInfoRepository;
+        private readonly IRelate_Food_UserRepository  _IRelate_Food_UserRepository;
         private readonly IMapper _IMapper;
 
-        public FoodService(IFoodInfoRepository  foodInfoRepository, IMapper mapper)
+        public FoodService(IFoodInfoRepository  foodInfoRepository, 
+                            IRelate_Food_UserRepository relate_Food_UserRepository,
+                            IMapper mapper)
         {
             _IFoodInfoRepository = foodInfoRepository;
+            _IRelate_Food_UserRepository = relate_Food_UserRepository;
             _IMapper = mapper;
         }
         /// <summary>
@@ -94,6 +98,17 @@ namespace Dto.Service.IntellFood
                                                                  .GetInfoByFoodId(foodInfoValideRepeat.Code);
             return (Queryable_UserDepart.Count() < 1) ?
                    true : false;
+        }
+        /// <summary>
+        /// 根据用户和菜单查询点赞
+        /// </summary>
+        /// <param name="foodByUserSearchViewMode"></param>
+        /// <returns></returns>
+        public List<User_Relate_Food> Food_Relate_User_Search(FoodByUserSearchViewModel foodByUserSearchViewMode)
+        {
+            List<User_Relate_Food> Food_Relate_Users = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserSearchViewMode);
+         
+            return Food_Relate_Users;
         }
     }
 }
