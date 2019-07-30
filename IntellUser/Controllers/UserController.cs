@@ -223,22 +223,11 @@ namespace IntellUser.Controllers
             UserByRoleSearchResModel userByRoleSearchResModel = new UserByRoleSearchResModel();
             userByRoleSearchResModel.userInfos = _userService.User_By_Role_Search(userByRoleSearchViewModel);
 
-            if (userByRoleSearchResModel.userInfos.Count > 0)
-            {
                 userByRoleSearchResModel.IsSuccess = true;
                 userByRoleSearchResModel.TotalNum = _userService.User_By_Role_Get_ALLNum(userByRoleSearchViewModel);
                 userByRoleSearchResModel.baseViewModel.Message = "根据用户查询成功";
                 userByRoleSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(userByRoleSearchResModel);
-            }
-            else
-            {
-                userByRoleSearchResModel.IsSuccess = false;
-                userByRoleSearchResModel.TotalNum = userByRoleSearchResModel.userInfos.Count;
-                userByRoleSearchResModel.baseViewModel.Message = "根据用户查询失败";
-                userByRoleSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(userByRoleSearchResModel);
-            }
         }
 
         /// <summary>

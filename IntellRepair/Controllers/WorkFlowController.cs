@@ -41,22 +41,13 @@ namespace IntellRepair.Controllers
         {
             UserSearchResModel  userSearchResModel = new UserSearchResModel();
             userSearchResModel.user_Infos = _IWorkFlowService.User_By_Node_Search(roleByNodeSearchViewModel);
-            if (userSearchResModel.user_Infos.Count > 0)
-            {
+            
                 userSearchResModel.isSuccess = true;
                 userSearchResModel.TotalNum = userSearchResModel.user_Infos.Count;
                 userSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
                 userSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(userSearchResModel);
-            }
-            else
-            {
-                userSearchResModel.isSuccess = false;
-                userSearchResModel.TotalNum = userSearchResModel.user_Infos.Count;
-                userSearchResModel.baseViewModel.Message = "根据用户查询角色失败";
-                userSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(userSearchResModel);
-            }
+           
         }
 
         

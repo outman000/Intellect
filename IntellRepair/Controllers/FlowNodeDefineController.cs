@@ -199,22 +199,13 @@ namespace IntellRepair.Controllers
             RoleByNodeSearchResModel  roleByNodeSearchResModel = new RoleByNodeSearchResModel();
             roleByNodeSearchResModel.userRoles = _IFlowNodeDefineService.User_By_Node_Search(roleByNodeSearchViewModel);
 
-            if (roleByNodeSearchResModel.userRoles.Count > 0)
-            {
+
                 roleByNodeSearchResModel.IsSuccess = true;
                 roleByNodeSearchResModel.TotalNum = _IFlowNodeDefineService.Role_By_Node_Get_ALLNum(roleByNodeSearchViewModel);
                 roleByNodeSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
                 roleByNodeSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(roleByNodeSearchResModel);
-            }
-            else
-            {
-                roleByNodeSearchResModel.IsSuccess = false;
-                roleByNodeSearchResModel.TotalNum = roleByNodeSearchResModel.userRoles.Count;
-                roleByNodeSearchResModel.baseViewModel.Message = "根据用户查询角色失败";
-                roleByNodeSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(roleByNodeSearchResModel);
-            }
+          
         }
     }
 }

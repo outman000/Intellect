@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SuggestBoxViewModel\MiddleModel\" />
+  </ItemGroup>
+
 </Project>

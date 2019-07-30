@@ -237,23 +237,13 @@ namespace IntellRegularBus.Controllers
         {
             BusByLineSearchResModel busByLineSearchResModel = new BusByLineSearchResModel();
             busByLineSearchResModel.busInfo= _busService.Bus_By_Line_Search(busByLineSearchViewModel);
-            if (busByLineSearchResModel.busInfo.Count > 0)
-            {
+  
                 busByLineSearchResModel.IsSuccess = true;
                 busByLineSearchResModel.TotalNum = _busService.Bus_By_Line_Get_ALLNum(busByLineSearchViewModel);
                 busByLineSearchResModel.baseViewModel.Message = "根据线路查班车成功";
                 busByLineSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(busByLineSearchResModel);
-            }
-            else
-            {
-                busByLineSearchResModel.IsSuccess = false;
-                busByLineSearchResModel.TotalNum = 0;
-                busByLineSearchResModel.baseViewModel.Message = "根据线路查班车失败";
-                busByLineSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(busByLineSearchResModel);
-
-            }
+          
 
         }
 
@@ -270,23 +260,13 @@ namespace IntellRegularBus.Controllers
         {
             LineByBusSearchResModel lineByBusSearchResModel = new LineByBusSearchResModel();
             lineByBusSearchResModel.line_Infos = _busService.Line_By_Bus_Search(lineByBusSearchViewModel);
-            if (lineByBusSearchResModel.line_Infos.Count > 0)
-            {
+           
                 lineByBusSearchResModel.IsSuccess = true;
                 lineByBusSearchResModel.TotalNum = _busService.Line_By_Bus_Get_ALLNum(lineByBusSearchViewModel);
                 lineByBusSearchResModel.baseViewModel.Message = "根据班车查线路成功";
                 lineByBusSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(lineByBusSearchResModel);
-            }
-            else
-            {
-                lineByBusSearchResModel.IsSuccess = false;
-                lineByBusSearchResModel.TotalNum = 0;
-                lineByBusSearchResModel.baseViewModel.Message = "根据班车查线路失败";
-                lineByBusSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(lineByBusSearchResModel);
-
-            }
+           
 
         }
 

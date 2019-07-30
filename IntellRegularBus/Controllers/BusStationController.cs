@@ -230,23 +230,13 @@ namespace IntellRegularBus.Controllers
         {
             LineByStationSearchResModel lineByStationSearchResModel = new LineByStationSearchResModel();
             lineByStationSearchResModel.line_Infos = _stationService.Line_By_Station_Search(lineByStationViewModel);
-            if (lineByStationSearchResModel.line_Infos.Count > 0)
-            {
+            
                 lineByStationSearchResModel.IsSuccess = true;
                 lineByStationSearchResModel.TotalNum = _stationService.Line_By_Station_Get_ALLNum(lineByStationViewModel);
                 lineByStationSearchResModel.baseViewModel.Message = "根据站点查线路成功";
                 lineByStationSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(lineByStationSearchResModel);
-            }
-            else
-            {
-                lineByStationSearchResModel.IsSuccess = false;
-                lineByStationSearchResModel.TotalNum = 0;
-                lineByStationSearchResModel.baseViewModel.Message = "根据站点查线路失败";
-                lineByStationSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(lineByStationSearchResModel);
-
-            }
+          
 
         }
 
@@ -260,23 +250,13 @@ namespace IntellRegularBus.Controllers
         {
             StationByLineSearchResModel stationByLineSearchResModel = new StationByLineSearchResModel();
             stationByLineSearchResModel.busStation = _stationService.Bus_By_Line_Search(stationByLineSearchViewModel);
-            if (stationByLineSearchResModel.busStation.Count > 0)
-            {
+           
                 stationByLineSearchResModel.IsSuccess = true;
                 stationByLineSearchResModel.TotalNum = _stationService.Bus_By_Line_Get_ALLNum(stationByLineSearchViewModel);
                 stationByLineSearchResModel.baseViewModel.Message = "根据线路查站点成功";
                 stationByLineSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(stationByLineSearchResModel);
-            }
-            else
-            {
-                stationByLineSearchResModel.IsSuccess = false;
-                stationByLineSearchResModel.TotalNum = 0;
-                stationByLineSearchResModel.baseViewModel.Message = "根据线路查站点失败";
-                stationByLineSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(stationByLineSearchResModel);
-
-            }
+          
 
         }
 

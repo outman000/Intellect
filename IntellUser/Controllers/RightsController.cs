@@ -175,22 +175,13 @@ namespace IntellUser.Controllers
             RightsByRoleSearchResModel rightsByRoleSearchResModel = new RightsByRoleSearchResModel();
             rightsByRoleSearchResModel.userRights = _rightsService.Rights_By_Role_Search(rightsByRoleSearchViewModel);
 
-            if (rightsByRoleSearchResModel.userRights.Count > 0)
-            {
+         
                 rightsByRoleSearchResModel.IsSuccess = true;
                 rightsByRoleSearchResModel.TotalNum = _rightsService.Rights_By_Role_Get_ALLNum(rightsByRoleSearchViewModel);
                 rightsByRoleSearchResModel.baseViewModel.Message = "根据角色查询权限成功";
                 rightsByRoleSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(rightsByRoleSearchResModel);
-            }
-            else
-            {
-                rightsByRoleSearchResModel.IsSuccess = false;
-                rightsByRoleSearchResModel.TotalNum = rightsByRoleSearchResModel.userRights.Count;
-                rightsByRoleSearchResModel.baseViewModel.Message = "根据角色查询权限失败";
-                rightsByRoleSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(rightsByRoleSearchResModel);
-            }
+          
         }
 
     }

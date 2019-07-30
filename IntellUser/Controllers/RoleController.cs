@@ -286,22 +286,13 @@ namespace IntellUser.Controllers
             RoleByUserSearchResModel roleByUserSearchResModel = new RoleByUserSearchResModel();
             roleByUserSearchResModel.userRoles = _roleService.Role_By_User_Search(roleByUserSearchViewModel);
 
-            if (roleByUserSearchResModel.userRoles.Count > 0)
-            {
+
                 roleByUserSearchResModel.IsSuccess = true;
                 roleByUserSearchResModel.TotalNum = _roleService.Role_By_User_Get_ALLNum(roleByUserSearchViewModel);
                 roleByUserSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
                 roleByUserSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(roleByUserSearchResModel);
-            }
-            else
-            {
-                roleByUserSearchResModel.IsSuccess = false;
-                roleByUserSearchResModel.TotalNum = roleByUserSearchResModel.userRoles.Count;
-                roleByUserSearchResModel.baseViewModel.Message = "根据用户查询角色失败";
-                roleByUserSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(roleByUserSearchResModel);
-            }
+          
         }
 
 
@@ -316,22 +307,13 @@ namespace IntellUser.Controllers
             RoleByRightsSearchResModel roleByRightsSearchResModel = new RoleByRightsSearchResModel();
             roleByRightsSearchResModel.userRoles = _roleService.Role_By_Rights_Search(roleByRightsSearchViewModel);
 
-            if (roleByRightsSearchResModel.userRoles.Count > 0)
-            {
+         
                 roleByRightsSearchResModel.IsSuccess = true;
                 roleByRightsSearchResModel.TotalNum = _roleService.Role_By_Rights_Get_ALLNum(roleByRightsSearchViewModel);
                 roleByRightsSearchResModel.baseViewModel.Message = "根据权限查询角色成功";
                 roleByRightsSearchResModel.baseViewModel.ResponseCode = 200;
                 return Ok(roleByRightsSearchResModel);
-            }
-            else
-            {
-                roleByRightsSearchResModel.IsSuccess = false;
-                roleByRightsSearchResModel.TotalNum = roleByRightsSearchResModel.userRoles.Count;
-                roleByRightsSearchResModel.baseViewModel.Message = "根据权限查询角色失败";
-                roleByRightsSearchResModel.baseViewModel.ResponseCode = 400;
-                return BadRequest(roleByRightsSearchResModel);
-            }
+          
         }
     }
 }

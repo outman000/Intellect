@@ -9,6 +9,7 @@ using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Dtol;
 using FluentValidation.AspNetCore;
+using IntellSuggest;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

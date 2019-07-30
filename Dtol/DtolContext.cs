@@ -49,6 +49,8 @@ namespace Dtol
         public DbSet<Flow_Relate_NodeRole> flow_Relate_NodeRole { get; set; }
         public DbSet<Food_Info>  food_Infos { get; set; }
         public DbSet<User_Relate_Food>  user_Relate_Foods { get; set; }
+        public DbSet<Suggest_Box>  suggest_Boxes { get; set; }
+        public DbSet<Opinion_Info>  opinion_Infos { get; set; }
 
 
 
