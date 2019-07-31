@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20190731021438_opinion")]
+    partial class opinion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,7 +321,7 @@ namespace Dtol.Migrations
 
                     b.Property<DateTime?>("AddDate");
 
-                    b.Property<int?>("Flow_NodeDefineId");
+                    b.Property<int?>("Flow_NodeId");
 
                     b.Property<int?>("Suggest_BoxId");
 
@@ -333,7 +335,7 @@ namespace Dtol.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Flow_NodeDefineId");
+                    b.HasIndex("Flow_NodeId");
 
                     b.HasIndex("Suggest_BoxId");
 
@@ -790,9 +792,9 @@ namespace Dtol.Migrations
 
             modelBuilder.Entity("Dtol.dtol.Opinion_Info", b =>
                 {
-                    b.HasOne("Dtol.dtol.Flow_NodeDefine", "Flow_NodeDefine")
+                    b.HasOne("Dtol.dtol.Flow_Node", "Flow_Node")
                         .WithMany()
-                        .HasForeignKey("Flow_NodeDefineId");
+                        .HasForeignKey("Flow_NodeId");
 
                     b.HasOne("Dtol.dtol.Suggest_Box", "Suggest_Box")
                         .WithMany()

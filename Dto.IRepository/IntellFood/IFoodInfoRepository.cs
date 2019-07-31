@@ -5,12 +5,17 @@ using System.Linq;
 using System.Text;
 using ViewModel.FoodViewModel.RequestViewModel;
 
-namespace Dto.IRepository.IntellFood
+namespace Dto.IRepository.IntellOpinionInfo
 {
     public interface IFoodInfoRepository : IRepository<Food_Info>
     {
         //批量删除
         int DeleteByFoodInfoIdList(List<int> IdList);
+        /// <summary>
+        /// 根据条件查询菜单信息
+        /// </summary>
+        /// <param name="foodInfoSearchViewModel"></param>
+        /// <returns></returns>
         List<Food_Info> SearchFoodInfoByWhere(FoodInfoSearchViewModel  foodInfoSearchViewModel);
         //根据菜单主键id查询
         Food_Info GetInfoByFoodId(int id);

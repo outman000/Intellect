@@ -6,7 +6,7 @@ using ViewModel.FoodViewModel.MiddleModel;
 using ViewModel.FoodViewModel.RequestViewModel;
 using ViewModel.UserViewModel.MiddleModel;
 
-namespace Dto.IRepository.IntellFood
+namespace Dto.IRepository.IntellOpinionInfo
 {
     public interface IRelate_Food_UserRepository : IRepository<User_Relate_Food>
     {

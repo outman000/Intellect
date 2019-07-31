@@ -46,7 +46,11 @@ namespace Dto.Service.IntellSuggestBox
             _ISuggestBoxRepository.Add(suggestBox_Info);
             return _ISuggestBoxRepository.SaveChanges();
         }
-
+        /// <summary>
+        /// 意见箱表单删除
+        /// </summary>
+        /// <param name="suggestBoxDelViewModel"></param>
+        /// <returns></returns>
         public int SuggestBox_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
         {
             int DeleteRowsNum = _ISuggestBoxRepository

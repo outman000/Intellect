@@ -1,4 +1,4 @@
-﻿using Dto.IRepository.IntellFood;
+﻿using Dto.IRepository.IntellOpinionInfo;
 using Dtol.dtol;
 using System;
 using System.Collections.Generic;

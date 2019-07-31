@@ -1,0 +1,138 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Dto.IService.IntellOpinionInfo;
+
+
+using Microsoft.AspNetCore.Mvc;
+using SystemFilter.PublicFilter;
+using ViewModel.OpinionInfoViewModel.RequestViewModel;
+using ViewModel.OpinionInfoViewModel.ResponseModel;
+using ViewModel.SuggestBoxViewModel.RequestViewModel;
+
+namespace IntellSuggest.Controllers
+{
+    [Route("OpinionInfoManageApi/[controller]/[action]")]
+    [ApiController]
+    public class OpinionInfoController : ControllerBase
+    {
+        private readonly IOpinionInfoService _opinionInfoService;
+
+        public OpinionInfoController(IOpinionInfoService  opinionInfoService)
+        {
+            _opinionInfoService = opinionInfoService;
+        }
+
+        /// <summary>
+        /// 增添领导回复意见信息
+        /// </summary>
+        /// <param name="opinionInfoAddViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_OpinionInfo_Add(OpinionInfoAddViewModel opinionInfoAddViewModel)
+        {
+            int OpinionInfo_Add_Count;
+            OpinionInfo_Add_Count = _opinionInfoService.OpinionInfo_Add(opinionInfoAddViewModel);
+            OpinionInfoAddResModel  opinionInfoAddResModel = new OpinionInfoAddResModel();
+            if (OpinionInfo_Add_Count > 0)
+            {
+                opinionInfoAddResModel.IsSuccess = true;
+                opinionInfoAddResModel.AddCount = OpinionInfo_Add_Count;
+                opinionInfoAddResModel.baseViewModel.Message = "添加成功";
+                opinionInfoAddResModel.baseViewModel.ResponseCode = 200;
+                return Ok(opinionInfoAddResModel);
+            }
+            else
+            {
+                opinionInfoAddResModel.IsSuccess = false;
+                opinionInfoAddResModel.AddCount = 0;
+                opinionInfoAddResModel.baseViewModel.Message = "添加失败";
+                opinionInfoAddResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(opinionInfoAddResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 删除领导回复意见信息
+        /// </summary>
+        /// <param name="opinionInfoDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_OpinionInfo_Delete(OpinionInfoDelViewModel  opinionInfoDelViewModel)
+        {
+            OpinionInfoDelResModel  opinionInfoDelResModel = new OpinionInfoDelResModel();
+            int DeleteResult = _opinionInfoService.OpinionInfo_Delete(opinionInfoDelViewModel);
+
+            if (DeleteResult > 0)
+            {
+                opinionInfoDelResModel.DelCount = DeleteResult;
+                opinionInfoDelResModel.IsSuccess = true;
+                opinionInfoDelResModel.baseViewModel.Message = "删除成功";
+                opinionInfoDelResModel.baseViewModel.ResponseCode = 200;
+                return Ok(opinionInfoDelResModel);
+            }
+            else
+            {
+                opinionInfoDelResModel.DelCount = -1;
+                opinionInfoDelResModel.IsSuccess = false;
+                opinionInfoDelResModel.baseViewModel.Message = "删除失败";
+                opinionInfoDelResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(opinionInfoDelResModel);
+            }
+        }
+        /// <summary>
+        /// 更新领导回复意见信息
+        /// </summary>
+        /// <param name="opinionInfoUpdateViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_OpinionInfo_Update(OpinionInfoUpdateViewModel  opinionInfoUpdateViewModel)
+        {
+            OpinionInfoUpdateResModel  opinionInfoUpdateResModel = new OpinionInfoUpdateResModel();
+            int UpdateRowNum = _opinionInfoService.OpinionInfo_Update(opinionInfoUpdateViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                opinionInfoUpdateResModel.IsSuccess = true;
+                opinionInfoUpdateResModel.AddCount = UpdateRowNum;
+                opinionInfoUpdateResModel.baseViewModel.Message = "更新成功";
+                opinionInfoUpdateResModel.baseViewModel.ResponseCode = 200;
+                return Ok(opinionInfoUpdateResModel);
+            }
+            else
+            {
+                opinionInfoUpdateResModel.IsSuccess = false;
+                opinionInfoUpdateResModel.AddCount = 0;
+                opinionInfoUpdateResModel.baseViewModel.Message = "更新失败";
+                opinionInfoUpdateResModel.baseViewModel.ResponseCode = 400;
+                return BadRequest(opinionInfoUpdateResModel);
+            }
+        }
+
+        /// <summary>
+        /// 查询领导回复意见信息
+        /// </summary>
+        /// <param name="opinionInfoSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_OpinionInfo_Search(OpinionInfoSearchViewModel opinionInfoSearchViewModel)
+        {
+            OpinionInfoSearchResModel  opinionInfoSearchResModel = new OpinionInfoSearchResModel();
+            var BusSearchResult = _opinionInfoService.OpinionInfo_Search(opinionInfoSearchViewModel);
+
+            // var TotalNum = _userService.User_Get_ALLNum();
+            var TotalNum = _opinionInfoService.OpinionInfo_Get_ALLNum(opinionInfoSearchViewModel);
+            opinionInfoSearchResModel.suggestBoxInfo = BusSearchResult;
+            opinionInfoSearchResModel.IsSuccess = true;
+            opinionInfoSearchResModel.baseViewModel.Message = "查询成功";
+            opinionInfoSearchResModel.baseViewModel.ResponseCode = 200;
+            opinionInfoSearchResModel.TotalNum = TotalNum;
+            return Ok(opinionInfoSearchResModel);
+
+        }
+    }
+}

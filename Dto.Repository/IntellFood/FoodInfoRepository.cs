@@ -1,4 +1,4 @@
-﻿using Dto.IRepository.IntellFood;
+﻿using Dto.IRepository.IntellOpinionInfo;
 using Dtol;
 using Dtol.dtol;
 using Dtol.EfCoreExtion;

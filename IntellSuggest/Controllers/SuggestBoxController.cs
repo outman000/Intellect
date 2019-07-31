@@ -132,5 +132,8 @@ namespace IntellSuggest.Controllers
             return Ok(suggestBoxSearchResModel);
 
         }
+
+
+       
     }
 }

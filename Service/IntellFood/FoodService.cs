@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Dto.IRepository.IntellFood;
+using Dto.IRepository.IntellOpinionInfo;
 using Dto.IService.IntellFood;
 using Dtol.dtol;
 using System;
