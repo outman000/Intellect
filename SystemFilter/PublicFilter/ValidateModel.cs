@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace SystemFilter.PublicFilter
@@ -9,11 +10,15 @@ namespace SystemFilter.PublicFilter
 
     public class ValidateModel: ActionFilterAttribute
     {
+
+
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
+            
             ModelStateDictionary modelState = actionContext.ModelState;
             if (!modelState.IsValid)
             {
+                
                 actionContext.Result = new BadRequestObjectResult(modelState);
             }
         }

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutofacSerilogIntegration;
 using AutoMapper;
 using Dtol;
 using FluentValidation.AspNetCore;
@@ -41,34 +42,6 @@ namespace IntellWeChat
             var IRepository = Assembly.Load("Dto.IRepository");
             var Repository = Assembly.Load("Dto.Repository");
             var valitorAssembly = Assembly.Load("ViewModel");
-
-            #region
-
-
-
-
-
-            #endregion
-
-
-
-
-            //var jwtSettings = new JwtSettings();
-            //Configuration.Bind("JwtSettings", jwtSettings);
-
-            //services.AddAuthentication(option =>
-            //{
-            //    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(option =>
-            //{
-            //    option.TokenValidationParameters = new TokenValidationParameters
-            //    {
-
-            //    };
-            //});
-
           
             #region EFCore
             var connection = Configuration.GetConnectionString("SqlServerConnection");
@@ -145,6 +118,9 @@ namespace IntellWeChat
 
             //将services填充到Autofac容器生成器中
             builder.Populate(services);
+            //日志依赖注入
+            builder.RegisterLogger(autowireProperties: true);
+
             //使用已进行的组件登记创建新容器
             var ApplicationContainer = builder.Build();
             #endregion
@@ -167,7 +143,7 @@ namespace IntellWeChat
             // app.UseAuthentication();//启用验证
 
             #region 日志
-       
+           // app.UseSerilogRequestLogging();
             #endregion
 
             //允许所有的域
