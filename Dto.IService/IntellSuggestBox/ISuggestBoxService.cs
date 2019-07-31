@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.SuggestBoxViewModel.RequestViewModel;
@@ -20,22 +21,23 @@ namespace Dto.IService.IntellSuggestBox
         /// <param name="suggestBoxUpdateViewModel"></param>
         /// <returns></returns>
         int SuggestBox_Update(SuggestBoxUpdateViewModel  suggestBoxUpdateViewModel);
+        
         /// <summary>
         /// 删除菜单信息
         /// </summary>
-        /// <param name = "foodInfoDelViewModel" ></ param >
+        /// <param name = "suggestBoxDelViewModel" ></ param >
         /// < returns ></ returns >
-        //int Food_Delete(FoodInfoDelViewModel foodInfoDelViewModel);
+        int SuggestBox_Delete(SuggestBoxDelViewModel  suggestBoxDelViewModel);
         /// <summary>
         /// 查询菜单信息
         /// </summary>
-        /// <param name = "foodInfoSearchViewModel" ></ param >
-        //List < Food_Info > Food_Search(FoodInfoSearchViewModel foodInfoSearchViewModel);
+        /// <param name = "suggestBoxSearchViewModel" ></ param >
+        List<Suggest_Box> SuggestBox_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel);
 
         /// <summary>
         /// 获取菜单总数
         /// </summary>
         /// <returns></returns>
-        //int Food_Get_ALLNum(FoodInfoSearchViewModel foodInfoSearchViewModel);
+        int SuggestBox_Get_ALLNum(SuggestBoxSearchViewModel suggestBoxSearchViewModel);
     }
 }

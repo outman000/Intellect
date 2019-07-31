@@ -102,6 +102,7 @@ namespace Dto.Repository.IntellFood
             predicate = predicate.And(p => p.FoodType.Contains(foodInfoSearchViewModel.FoodType));
             return predicate;
         }
+        #endregion
         /// <summary>
         /// 菜单数量
         /// </summary>
@@ -131,6 +132,6 @@ namespace Dto.Repository.IntellFood
 
 
 
-        #endregion
+      
     }
 }

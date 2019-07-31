@@ -30,6 +30,7 @@
     <ProjectReference Include="..\Dto.Repository\Dto.Repository.csproj" />
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
     <ProjectReference Include="..\Service\Dto.Service.csproj" />
+    <ProjectReference Include="..\SystemFilter\SystemFilter.csproj" />
   </ItemGroup>
 
 </Project>

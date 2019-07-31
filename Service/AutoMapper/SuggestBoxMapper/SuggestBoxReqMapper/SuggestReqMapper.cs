@@ -13,7 +13,7 @@ namespace Dto.Service.AutoMapper.SuggestBoxMapper.SuggestBoxReqMapper
         public SuggestReqMapper()
         {
             CreateMap<SuggestBoxAddViewModel, Suggest_Box>();
-       
+            CreateMap<SuggestBoxUpdateViewModel, Suggest_Box>();
 
 
         }

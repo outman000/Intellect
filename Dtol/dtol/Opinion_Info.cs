@@ -14,7 +14,7 @@ namespace Dtol.dtol
         /// <summary>
         /// 用户id
         /// </summary>
-        public int User_InfoId { get; set; }
+        public int? User_InfoId { get; set; }
         public User_Info User_Info { get; set; }
 
      
@@ -22,7 +22,7 @@ namespace Dtol.dtol
         /// <summary>
         /// 意见箱表单id
         /// </summary>
-        public int Suggest_BoxId { get; set; }
+        public int? Suggest_BoxId { get; set; }
         public Suggest_Box Suggest_Box { get; set; }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Dtol.dtol
         /// <summary>
         /// 节点id
         /// </summary>
-        public int Flow_NodeId { get; set; }
+        public int? Flow_NodeId { get; set; }
 
         public Flow_Node Flow_Node { get; set; }
  

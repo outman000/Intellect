@@ -2,11 +2,14 @@
 using Dto.IRepository.IntellSuggestBox;
 using Dtol;
 using Dtol.dtol;
+using Dtol.EfCoreExtion;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using ViewModel.SuggestBoxViewModel.RequestViewModel;
 
 namespace Dto.Repository.IntellSuggestBox
 {
@@ -85,5 +88,47 @@ namespace Dto.Repository.IntellSuggestBox
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// 查询意见箱表单
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Suggest_Box> SearchSuggestBoxInfoByWhere(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        {
+            //查询条件
+            int SkipNum = suggestBoxSearchViewModel.pageViewModel.CurrentPageNum * suggestBoxSearchViewModel.pageViewModel.PageSize;
+
+            //查询条件
+            var predicate = SearchSggestBoxWhere(suggestBoxSearchViewModel);
+            var result = DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(suggestBoxSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o).ToList();
+
+            return result;
+        }
+
+        #region 查询条件
+        //根据条件查询意见箱表单
+        private Expression<Func<Suggest_Box, bool>> SearchSggestBoxWhere(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Suggest_Box>();//初始化where表达式
+            predicate = predicate.And(p => p.SuggestDate.ToString().Contains(suggestBoxSearchViewModel.SuggestDate.ToString()));
+            predicate = predicate.And(p => p.Title.Contains(suggestBoxSearchViewModel.Title));
+            predicate = predicate.And(p => p.SuggestType.Contains(suggestBoxSearchViewModel.SuggestType));
+            return predicate;
+        }
+        /// <summary>
+        /// 意见箱表单数量
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Suggest_Box> GeSuggestBoxAll(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        {
+            var predicate = SearchSggestBoxWhere(suggestBoxSearchViewModel);
+
+            return DbSet.Where(predicate);
+        }
+        #endregion
     }
 }

@@ -17,8 +17,8 @@ namespace Dto.IRepository.IntellFood
 
         //根据班车标识查询
         IQueryable<Food_Info> GetInfoByFoodId(string code);
-        //// 根据条件查人员缴费
-        //IQueryable<Food_Info> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel);
+       // 根据条件查人员缴费
+       //IQueryable<Food_Info> SearchInfoByFoodWhere(FoodInfoSearchViewModel foodInfoSearchViewModel);
         //根据条件查人员缴费数量
         IQueryable<Food_Info> GetFoodAll(FoodInfoSearchViewModel foodInfoSearchViewModel);
 

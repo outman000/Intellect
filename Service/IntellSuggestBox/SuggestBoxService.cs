@@ -4,6 +4,7 @@ using Dto.IService.IntellSuggestBox;
 using Dtol.dtol;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ViewModel.SuggestBoxViewModel.RequestViewModel;
 
@@ -41,9 +42,38 @@ namespace Dto.Service.IntellSuggestBox
         public int SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
         {
 
-            var food_Info = _IMapper.Map<SuggestBoxAddViewModel, Suggest_Box>(suggestBoxAddViewModel);
-            _ISuggestBoxRepository.Add(food_Info);
+            var suggestBox_Info = _IMapper.Map<SuggestBoxAddViewModel, Suggest_Box>(suggestBoxAddViewModel);
+            _ISuggestBoxRepository.Add(suggestBox_Info);
             return _ISuggestBoxRepository.SaveChanges();
+        }
+
+        public int SuggestBox_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
+        {
+            int DeleteRowsNum = _ISuggestBoxRepository
+               .DeleteByFoodInfoIdList(suggestBoxDelViewModel.DeleleIdList);
+            if (DeleteRowsNum == suggestBoxDelViewModel.DeleleIdList.Count)
+            {
+                return DeleteRowsNum;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        /// <summary>
+        /// 意见箱表单查询
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Suggest_Box> SuggestBox_Search(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        {
+            List<Suggest_Box> suggestBox = _ISuggestBoxRepository.SearchSuggestBoxInfoByWhere(suggestBoxSearchViewModel);
+            return suggestBox;
+        }
+
+        public int SuggestBox_Get_ALLNum(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        {
+            return _ISuggestBoxRepository.GeSuggestBoxAll(suggestBoxSearchViewModel).Count();
         }
     }
 }
