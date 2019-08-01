@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="OpinionInfoViewModel\MiddleModel\" />
     <Folder Include="SuggestBoxViewModel\MiddleModel\" />
   </ItemGroup>
 

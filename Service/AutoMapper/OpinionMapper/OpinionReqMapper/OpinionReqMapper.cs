@@ -3,6 +3,7 @@ using Dtol.dtol;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.OpinionInfoViewModel.MiddleModel;
 using ViewModel.OpinionInfoViewModel.RequestViewModel;
 
 namespace Dto.Service.AutoMapper.OpinionMapper.OpinionReqMapper
@@ -16,7 +17,7 @@ namespace Dto.Service.AutoMapper.OpinionMapper.OpinionReqMapper
         {
             CreateMap<OpinionInfoUpdateViewModel, Opinion_Info>();
             CreateMap<OpinionInfoAddViewModel, Opinion_Info>();
-          
+            CreateMap<Opinion_Info,OpinionInfoSearchMiddlecs > ();
 
         }
     }

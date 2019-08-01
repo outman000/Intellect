@@ -95,7 +95,7 @@ namespace IntellWeChat
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "东疆智慧后勤意见箱接口文档",
+                    Title = "东疆智慧后勤意见箱管理接口文档",
                     Description = "意见箱模块接口",
                     Contact = new Contact
                     {
@@ -189,7 +189,7 @@ namespace IntellWeChat
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "意见箱管理文档 V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "用户管理文档 V1");
                 c.RoutePrefix = string.Empty;
             });
 

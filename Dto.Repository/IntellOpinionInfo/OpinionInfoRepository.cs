@@ -101,11 +101,10 @@ namespace Dto.Repository.IntellOpinionInfo
         {
             int SkipNum = opinionInfoSearchViewModel.pageViewModel.CurrentPageNum * opinionInfoSearchViewModel.pageViewModel.PageSize;
             var preciateByopinionInfo = SearchOpinionInfoWhere(opinionInfoSearchViewModel);
-            IQueryable<Opinion_Info> NodeDefine_Infos = Db.opinion_Infos.Where(preciateByopinionInfo);
+            IQueryable<Opinion_Info> OpinionInfo = Db.opinion_Infos.Where(preciateByopinionInfo);
 
-            IQueryable<Opinion_Info> SearchResultTemp = NodeDefine_Infos.Include(a => a.User_Info)
+            IQueryable<Opinion_Info> SearchResultTemp = OpinionInfo.Include(a => a.User_Info)
                         .Include(a => a.Flow_NodeDefine)
-                        .Include(a => a.Suggest_Box)
                         .Skip(SkipNum)
                         .Take(opinionInfoSearchViewModel.pageViewModel.PageSize);
             return SearchResultTemp;
@@ -117,10 +116,9 @@ namespace Dto.Repository.IntellOpinionInfo
             var predicate = WhereExtension.True<Opinion_Info>();//初始化where表达式
             predicate = predicate.And(p => p.User_Info.UserName.Contains(opinionInfoSearchViewModel.UserName));
             predicate = predicate.And(p => p.Suggest_BoxId==opinionInfoSearchViewModel.Suggest_BoxId);
-            predicate = predicate.And(p => p.Flow_NodeDefine.NodeName.Contains(opinionInfoSearchViewModel.FlowNodeName));
-
+            predicate = predicate.And(p => p.Flow_NodeDefine.NodeName.Contains(opinionInfoSearchViewModel.NodeName));
             predicate = predicate.And(p => p.status.Contains(opinionInfoSearchViewModel.status));
-                  predicate = predicate.And(p => p.AddDate.ToString().Contains(opinionInfoSearchViewModel.AddDate.ToString()));
+            predicate = predicate.And(p => p.AddDate.ToString().Contains(opinionInfoSearchViewModel.AddDate.ToString()));
             return predicate;
         }
 
