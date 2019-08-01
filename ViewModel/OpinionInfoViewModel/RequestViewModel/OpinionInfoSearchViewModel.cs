@@ -21,7 +21,7 @@ namespace ViewModel.OpinionInfoViewModel.RequestViewModel
         /// <summary>
         /// 节点名
         /// </summary>
-        public string FlowNodeName { get; set; }
+        public string NodeName { get; set; }
 
 
         /// <summary>

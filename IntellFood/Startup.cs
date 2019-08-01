@@ -96,7 +96,7 @@ namespace IntellFood
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "东疆智慧后勤用户管理接口文档",
+                    Title = "东疆智慧后勤菜单管理接口文档",
                     Description = "菜单管理模块接口",
                     Contact = new Contact
                     {

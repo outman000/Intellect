@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.OpinionInfoViewModel.MiddleModel;
 using ViewModel.OpinionInfoViewModel.RequestViewModel;
 
 
@@ -69,11 +70,14 @@ namespace Dto.Service.IntellSuggestBox
         /// </summary>
         /// <param name="opinionInfoSearchViewModel"></param>
         /// <returns></returns>
-        public List<Opinion_Info> OpinionInfo_Search(OpinionInfoSearchViewModel opinionInfoSearchViewModel)
+        public List<OpinionInfoSearchMiddlecs> OpinionInfo_Search(OpinionInfoSearchViewModel opinionInfoSearchViewModel)
         {
-           
+            OpinionInfoSearchMiddlecs oism = new OpinionInfoSearchMiddlecs();
+
            List<Opinion_Info> opinionInfo_Infos = _IOpinionInfoRepository.SearchOpinionInfoByWhere(opinionInfoSearchViewModel).ToList();
-           return opinionInfo_Infos;
+            var repairSearchMiddlecs = _IMapper.Map<List<Opinion_Info>, List<OpinionInfoSearchMiddlecs>>(opinionInfo_Infos);
+
+            return repairSearchMiddlecs;
         }
 
         public int OpinionInfo_Get_ALLNum(OpinionInfoSearchViewModel opinionInfoSearchViewModel)

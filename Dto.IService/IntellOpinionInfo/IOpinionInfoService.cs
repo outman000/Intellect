@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.OpinionInfoViewModel.MiddleModel;
 using ViewModel.OpinionInfoViewModel.RequestViewModel;
 
 
@@ -34,7 +35,7 @@ namespace Dto.IService.IntellOpinionInfo
         /// 查询领导回复意见
         /// </summary>
         /// <param name="opinionInfoSearchViewModel"></param>
-        List<Opinion_Info> OpinionInfo_Search(OpinionInfoSearchViewModel  opinionInfoSearchViewModel);
+        List<OpinionInfoSearchMiddlecs> OpinionInfo_Search(OpinionInfoSearchViewModel  opinionInfoSearchViewModel);
 
         /// <summary>
         /// 获取领导回复意见总数

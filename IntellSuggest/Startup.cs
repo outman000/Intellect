@@ -95,8 +95,8 @@ namespace IntellWeChat
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "东疆智慧后勤用户管理接口文档",
-                    Description = "移动端模块接口",
+                    Title = "东疆智慧后勤意见箱管理接口文档",
+                    Description = "意见箱模块接口",
                     Contact = new Contact
                     {
                         Name = "张祎荻",
