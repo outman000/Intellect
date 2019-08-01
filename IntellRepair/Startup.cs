@@ -68,7 +68,7 @@ namespace IntellRepair
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "东疆智慧后勤班车管理接口文档",
+                    Title = "东疆智慧后勤报修管理接口文档",
                     Description = "报修管理模块接口",
                     Contact = new Contact
                     {
@@ -160,7 +160,7 @@ namespace IntellRepair
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "表单管理文档 V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "报修管理文档 V1");
                 c.RoutePrefix = string.Empty;
             });
 
