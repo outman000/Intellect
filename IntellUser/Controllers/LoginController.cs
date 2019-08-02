@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,11 @@ namespace IntellUser.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILoginService _ILoginService;
-        public LoginController(ILoginService  loginService)
+        private readonly ILogger _ILogger;
+        public LoginController(ILoginService  loginService, ILogger logger)
         {
             _ILoginService = loginService;
-
+            _ILogger = logger;
         }
         /// <summary>
         /// 正式登陆方法

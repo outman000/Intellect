@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellRepair;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,11 @@ namespace IntellRepair.Controllers
     public class FlowNodeController : ControllerBase
     {
         private readonly IFlowNodeService _IFlowNodeService;
-
-        public FlowNodeController(IFlowNodeService flowNodeService)
+        private readonly ILogger _ILogger;
+        public FlowNodeController(IFlowNodeService flowNodeService, ILogger logger)
         {
             _IFlowNodeService = flowNodeService;
+            _ILogger = logger;
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace IntellRepair.Controllers
                 flowNodeAddResModel.AddCount = Node_Add_Count;
                 flowNodeAddResModel.baseViewModel.Message = "添加成功";
                 flowNodeAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加流转信息成功");
                 return Ok(flowNodeAddResModel);
             }
             else
@@ -48,6 +51,7 @@ namespace IntellRepair.Controllers
                 flowNodeAddResModel.AddCount = 0;
                 flowNodeAddResModel.baseViewModel.Message = "添加失败";
                 flowNodeAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加流转信息失败");
                 return BadRequest(flowNodeAddResModel);
             }
         }
@@ -70,6 +74,7 @@ namespace IntellRepair.Controllers
                 flowNodeUpdateResModels.AddCount = UpdateRowNum;
                 flowNodeUpdateResModels.baseViewModel.Message = "更新成功";
                 flowNodeUpdateResModels.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新流转信息成功");
                 return Ok(flowNodeUpdateResModels);
             }
             else
@@ -78,6 +83,7 @@ namespace IntellRepair.Controllers
                 flowNodeUpdateResModels.AddCount = 0;
                 flowNodeUpdateResModels.baseViewModel.Message = "更新失败";
                 flowNodeUpdateResModels.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新流转信息失败");
                 return BadRequest(flowNodeUpdateResModels);
             }
         }
@@ -99,6 +105,7 @@ namespace IntellRepair.Controllers
                 flowNodeDelResModel.IsSuccess = true;
                 flowNodeDelResModel.baseViewModel.Message = "删除成功";
                 flowNodeDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除流转信息成功");
                 return Ok(flowNodeDelResModel);
             }
             else
@@ -107,6 +114,7 @@ namespace IntellRepair.Controllers
                 flowNodeDelResModel.IsSuccess = false;
                 flowNodeDelResModel.baseViewModel.Message = "删除失败";
                 flowNodeDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除流转信息失败");
                 return BadRequest(flowNodeDelResModel);
             }
         }
@@ -127,6 +135,7 @@ namespace IntellRepair.Controllers
             flowNodeSearchResModel.baseViewModel.Message = "查询成功";
             flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
             flowNodeSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询流转信息成功");
             return Ok(flowNodeSearchResModel);
         }
     }

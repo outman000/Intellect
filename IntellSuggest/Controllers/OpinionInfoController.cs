@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellOpinionInfo;
 
 
@@ -18,10 +19,11 @@ namespace IntellSuggest.Controllers
     public class OpinionInfoController : ControllerBase
     {
         private readonly IOpinionInfoService _opinionInfoService;
-
-        public OpinionInfoController(IOpinionInfoService  opinionInfoService)
+        private readonly ILogger _ILogger;
+        public OpinionInfoController(IOpinionInfoService  opinionInfoService, ILogger logger)
         {
             _opinionInfoService = opinionInfoService;
+            _ILogger = logger;
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoAddResModel.AddCount = OpinionInfo_Add_Count;
                 opinionInfoAddResModel.baseViewModel.Message = "添加成功";
                 opinionInfoAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添领导回复意见信息成功");
                 return Ok(opinionInfoAddResModel);
             }
             else
@@ -51,6 +54,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoAddResModel.AddCount = 0;
                 opinionInfoAddResModel.baseViewModel.Message = "添加失败";
                 opinionInfoAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添领导回复意见信息失败");
                 return BadRequest(opinionInfoAddResModel);
             }
         }
@@ -73,6 +77,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoDelResModel.IsSuccess = true;
                 opinionInfoDelResModel.baseViewModel.Message = "删除成功";
                 opinionInfoDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除领导回复意见信息成功");
                 return Ok(opinionInfoDelResModel);
             }
             else
@@ -81,6 +86,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoDelResModel.IsSuccess = false;
                 opinionInfoDelResModel.baseViewModel.Message = "删除失败";
                 opinionInfoDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除领导回复意见信息失败");
                 return BadRequest(opinionInfoDelResModel);
             }
         }
@@ -101,6 +107,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoUpdateResModel.AddCount = UpdateRowNum;
                 opinionInfoUpdateResModel.baseViewModel.Message = "更新成功";
                 opinionInfoUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新领导回复意见信息成功");
                 return Ok(opinionInfoUpdateResModel);
             }
             else
@@ -109,6 +116,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoUpdateResModel.AddCount = 0;
                 opinionInfoUpdateResModel.baseViewModel.Message = "更新失败";
                 opinionInfoUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新领导回复意见信息失败");
                 return BadRequest(opinionInfoUpdateResModel);
             }
         }
@@ -131,6 +139,7 @@ namespace IntellSuggest.Controllers
             opinionInfoSearchResModel.baseViewModel.Message = "查询成功";
             opinionInfoSearchResModel.baseViewModel.ResponseCode = 200;
             opinionInfoSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询领导回复意见信息成功");
             return Ok(opinionInfoSearchResModel);
 
         }

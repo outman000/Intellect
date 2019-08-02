@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellRepair;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,11 @@ namespace IntellRepair.Controllers
     {
 
         private readonly IFlowProcedureDefineService _IFlowProcedureDefineService;
-
-        public FlowProcedureDefineController(IFlowProcedureDefineService flowProcedureDefineService)
+        private readonly ILogger _ILogger;
+        public FlowProcedureDefineController(IFlowProcedureDefineService flowProcedureDefineService, ILogger logger)
         {
             _IFlowProcedureDefineService = flowProcedureDefineService;
+            _ILogger = logger;
         }
 
         /// <summary>
@@ -42,6 +44,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineAddResModel.AddCount = Node_Add_Count;
                 flowProcedureDefineAddResModel.baseViewModel.Message = "添加成功";
                 flowProcedureDefineAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加流程定义信息成功");
                 return Ok(flowProcedureDefineAddResModel);
             }
             else
@@ -50,6 +53,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineAddResModel.AddCount = 0;
                 flowProcedureDefineAddResModel.baseViewModel.Message = "添加失败";
                 flowProcedureDefineAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加流程定义信息失败");
                 return BadRequest(flowProcedureDefineAddResModel);
             }
         }
@@ -69,6 +73,7 @@ namespace IntellRepair.Controllers
             flowProcedureDefineSearchResModel.baseViewModel.Message = "查询成功";
             flowProcedureDefineSearchResModel.baseViewModel.ResponseCode = 200;
             flowProcedureDefineSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询流程定义信息成功");
             return Ok(flowProcedureDefineSearchResModel);
         }
 
@@ -89,6 +94,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineDelResModel.IsSuccess = true;
                 flowProcedureDefineDelResModel.baseViewModel.Message = "删除成功";
                 flowProcedureDefineDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除流程定义信息成功");
                 return Ok(flowProcedureDefineDelResModel);
             }
             else
@@ -97,6 +103,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineDelResModel.IsSuccess = false;
                 flowProcedureDefineDelResModel.baseViewModel.Message = "删除失败";
                 flowProcedureDefineDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除流程定义信息失败");
                 return BadRequest(flowProcedureDefineDelResModel);
             }
         }
@@ -119,6 +126,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineUpdateResModel.AddCount = UpdateRowNum;
                 flowProcedureDefineUpdateResModel.baseViewModel.Message = "更新成功";
                 flowProcedureDefineUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新流程定义信息成功");
                 return Ok(flowProcedureDefineUpdateResModel);
             }
             else
@@ -127,6 +135,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineUpdateResModel.AddCount = 0;
                 flowProcedureDefineUpdateResModel.baseViewModel.Message = "更新失败";
                 flowProcedureDefineUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新流程定义信息失败");
                 return BadRequest(flowProcedureDefineUpdateResModel);
             }
         }
@@ -148,6 +157,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineSingleResModel.IsSuccess = true;
                 flowProcedureDefineSingleResModel.baseViewModel.Message = "此标识可以使用";
                 flowProcedureDefineSingleResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("流程标识验证是否重复，此标识可以使用");
                 return Ok(flowProcedureDefineSingleResModel);
             }
             else
@@ -155,6 +165,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineSingleResModel.IsSuccess = false;
                 flowProcedureDefineSingleResModel.baseViewModel.Message = "此标识已经存在，请更换";
                 flowProcedureDefineSingleResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("流程标识验证是否重复，此标识已经存在，请更换");
                 return BadRequest(flowProcedureDefineSingleResModel);
             }
         }

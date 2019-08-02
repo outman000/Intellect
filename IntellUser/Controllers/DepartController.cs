@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +18,15 @@ namespace IntellUser.Controllers
     public class DepartController : ControllerBase
     {
         private readonly IDepartService _departService;
-
+        private readonly ILogger _ILogger;
         // private readonly IValidator<UserAddViewModel> _validator;
 
 
 
-        public DepartController(IDepartService departService)
+        public DepartController(IDepartService departService, ILogger logger)
         {
             _departService = departService;
-
+            _ILogger = logger;
         }
         /// <summary>
         /// 增添部门信息
@@ -46,6 +47,7 @@ namespace IntellUser.Controllers
                 userAddResModel.AddCount = Depart_Add_Count;
                 userAddResModel.baseViewModel.Message = "添加成功";
                 userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添部门信息成功");
                 return Ok(userAddResModel);
             }
             else
@@ -54,6 +56,7 @@ namespace IntellUser.Controllers
                 userAddResModel.AddCount = 0;
                 userAddResModel.baseViewModel.Message = "添加失败";
                 userAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添部门信息失败");
                 return BadRequest(userAddResModel);
             }
         }
@@ -76,6 +79,7 @@ namespace IntellUser.Controllers
                 departValideResRepeat.IsSuccess = true;
                 departValideResRepeat.baseViewModel.Message = "此id可以使用";
                 departValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("部门名id验证是否重复，此id可以使用");
                 return Ok(departValideResRepeat);
             }
             else
@@ -83,6 +87,7 @@ namespace IntellUser.Controllers
                 departValideResRepeat.IsSuccess = false;
                 departValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 departValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("部门名id验证是否重复，此id已经存在，请更换");
                 return BadRequest(departValideResRepeat);
             }
         }
@@ -104,6 +109,7 @@ namespace IntellUser.Controllers
                 departDeleteResModel.IsSuccess = true;
                 departDeleteResModel.baseViewModel.Message = "删除成功";
                 departDeleteResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除部门信息（直接删除），删除成功");
                 return Ok(departDeleteResModel);
             }
             else
@@ -112,6 +118,7 @@ namespace IntellUser.Controllers
                 departDeleteResModel.IsSuccess = false;
                 departDeleteResModel.baseViewModel.Message = "删除失败";
                 departDeleteResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除部门信息（直接删除），删除失败");
                 return BadRequest(departDeleteResModel);
             }
 
@@ -135,6 +142,7 @@ namespace IntellUser.Controllers
                 departValideResRepeat.AddCount = UpdateRowNum;
                 departValideResRepeat.baseViewModel.Message = "更新成功";
                 departValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新部门信息成功");
                 return Ok(departValideResRepeat);
             }
             else
@@ -143,6 +151,7 @@ namespace IntellUser.Controllers
                 departValideResRepeat.AddCount = 0;
                 departValideResRepeat.baseViewModel.Message = "更新失败";
                 departValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新部门信息失败");
                 return BadRequest(departValideResRepeat);
             }
         }
@@ -163,6 +172,7 @@ namespace IntellUser.Controllers
             departSearchResModel.baseViewModel.Message = "查询成功";
             departSearchResModel.baseViewModel.ResponseCode = 200;
             departSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询部门信息成功");
             return Ok(departSearchResModel);
 
         }

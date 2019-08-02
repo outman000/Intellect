@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellSuggestBox;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,13 @@ namespace IntellSuggest.Controllers
     public class SuggestBoxController : ControllerBase
     {
         private readonly ISuggestBoxService _suggestBoxService;
+        private readonly ILogger _ILogger;
 
 
-
-        public SuggestBoxController(ISuggestBoxService suggestBoxService)
+        public SuggestBoxController(ISuggestBoxService suggestBoxService, ILogger logger)
         {
             _suggestBoxService = suggestBoxService;
+            _ILogger = logger;
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxAddResModel.AddCount = SuggestBox_Add_Count;
                 suggestBoxAddResModel.baseViewModel.Message = "添加成功";
                 suggestBoxAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添意见箱表单信息成功");
                 return Ok(suggestBoxAddResModel);
             }
             else
@@ -51,6 +54,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxAddResModel.AddCount = 0;
                 suggestBoxAddResModel.baseViewModel.Message = "添加失败";
                 suggestBoxAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添意见箱表单信息失败");
                 return BadRequest(suggestBoxAddResModel);
             }
         }
@@ -71,6 +75,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxUpdateResModel.AddCount = UpdateRowNum;
                 suggestBoxUpdateResModel.baseViewModel.Message = "更新成功";
                 suggestBoxUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新意见箱表单信息成功");
                 return Ok(suggestBoxUpdateResModel);
             }
             else
@@ -79,6 +84,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxUpdateResModel.AddCount = 0;
                 suggestBoxUpdateResModel.baseViewModel.Message = "更新失败";
                 suggestBoxUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新意见箱表单信息失败");
                 return BadRequest(suggestBoxUpdateResModel);
             }
         }
@@ -100,6 +106,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxDelResModel.IsSuccess = true;
                 suggestBoxDelResModel.baseViewModel.Message = "删除成功";
                 suggestBoxDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除意见箱表单信息成功");
                 return Ok(suggestBoxDelResModel);
             }
             else
@@ -108,6 +115,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxDelResModel.IsSuccess = false;
                 suggestBoxDelResModel.baseViewModel.Message = "删除失败";
                 suggestBoxDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除意见箱表单信息失败");
                 return BadRequest(suggestBoxDelResModel);
             }
         }
@@ -129,6 +137,7 @@ namespace IntellSuggest.Controllers
             suggestBoxSearchResModel.baseViewModel.Message = "查询成功";
             suggestBoxSearchResModel.baseViewModel.ResponseCode = 200;
             suggestBoxSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询意见箱表单信息成功");
             return Ok(suggestBoxSearchResModel);
 
         }

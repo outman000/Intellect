@@ -37,6 +37,7 @@ namespace IntellUser.Controllers
         [ValidateModel]
         public ActionResult Manage_User_add(UserAddViewModel userAddViewModel)
         {
+         
             int User_Add_Count;
             User_Add_Count = _userService.User_Add(userAddViewModel);
             UserAddResModel userAddResModel = new UserAddResModel();
@@ -46,6 +47,7 @@ namespace IntellUser.Controllers
                 userAddResModel.AddCount = User_Add_Count;
                 userAddResModel.baseViewModel.Message = "添加成功";
                 userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添用户信息成功");
                 return Ok(userAddResModel);
             }
             else
@@ -54,6 +56,7 @@ namespace IntellUser.Controllers
                 userAddResModel.AddCount = 0;
                 userAddResModel.baseViewModel.Message = "添加失败";
                 userAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添用户信息失败");
                 return BadRequest(userAddResModel);
             }
         }
@@ -74,6 +77,7 @@ namespace IntellUser.Controllers
                 userValideResRepeat.IsSuccess = true;
                 userValideResRepeat.baseViewModel.Message = "此id可以使用";
                 userValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("用户名id验证，此id可以使用");
                 return  Ok(userValideResRepeat);
             }
             else
@@ -81,6 +85,7 @@ namespace IntellUser.Controllers
                 userValideResRepeat.IsSuccess = false;
                 userValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 userValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户名id验证，此id已经存在，请更换");
                 return BadRequest(userValideResRepeat);
             }
         }
@@ -104,6 +109,7 @@ namespace IntellUser.Controllers
                 userDeleteResModel.IsSuccess=true;
                 userDeleteResModel.baseViewModel.Message = "删除成功";
                 userDeleteResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除用户信息（软删除），删除成功");
                 return Ok(userDeleteResModel);
             }
             else
@@ -112,6 +118,7 @@ namespace IntellUser.Controllers
                 userDeleteResModel.IsSuccess = false;
                 userDeleteResModel.baseViewModel.Message = "删除失败";
                 userDeleteResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除用户信息（软删除），删除失败");
                 return BadRequest(userDeleteResModel);
             }
 
@@ -137,6 +144,7 @@ namespace IntellUser.Controllers
                 userValideResRepeat.AddCount = UpdateRowNum;
                 userValideResRepeat.baseViewModel.Message = "更新成功";
                 userValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新用户信息，更新成功");
                 return Ok(userValideResRepeat);
             }
             else
@@ -145,6 +153,7 @@ namespace IntellUser.Controllers
                 userValideResRepeat.AddCount = 0;
                 userValideResRepeat.baseViewModel.Message = "更新失败";
                 userValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新用户信息，更新失败");
                 return BadRequest(userValideResRepeat);
             }
         }
@@ -167,6 +176,7 @@ namespace IntellUser.Controllers
             userSearchResModel.baseViewModel.Message = "查询成功";
             userSearchResModel.baseViewModel.ResponseCode = 200;
             userSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询用户信息，查询成功");
             return Ok(userSearchResModel);
 
         }
@@ -188,6 +198,7 @@ namespace IntellUser.Controllers
                 relateDepartToUserAddResModel.AddCount = UpdateRowNum;
                 relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户成功："+ UpdateRowNum+"条";
                 relateDepartToUserAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据部门添加用户成功，" + UpdateRowNum + "条");
                 return Ok(relateDepartToUserAddResModel);
             }
             else if(UpdateRowNum<totalnum)
@@ -196,6 +207,7 @@ namespace IntellUser.Controllers
                 relateDepartToUserAddResModel.AddCount = 0;
                 relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户失败"+ (totalnum-UpdateRowNum) + "条";
                 relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据部门添加用户失败，" + (totalnum - UpdateRowNum) + "条");
                 return BadRequest(relateDepartToUserAddResModel);
             }
             else
@@ -204,6 +216,7 @@ namespace IntellUser.Controllers
                 relateDepartToUserAddResModel.AddCount = 0;
                 relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户失败" ;
                 relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据部门添加用户失败");
                 return BadRequest(relateDepartToUserAddResModel);
 
             }
@@ -224,9 +237,10 @@ namespace IntellUser.Controllers
 
                 userByRoleSearchResModel.IsSuccess = true;
                 userByRoleSearchResModel.TotalNum = _userService.User_By_Role_Get_ALLNum(userByRoleSearchViewModel);
-                userByRoleSearchResModel.baseViewModel.Message = "根据用户查询成功";
+                userByRoleSearchResModel.baseViewModel.Message = "根据角色查用户成功";
                 userByRoleSearchResModel.baseViewModel.ResponseCode = 200;
-                return Ok(userByRoleSearchResModel);
+                _ILogger.Information("根据角色查用户成功");
+            return Ok(userByRoleSearchResModel);
         }
 
         /// <summary>
@@ -239,7 +253,8 @@ namespace IntellUser.Controllers
         public ActionResult Manage_User_By_RoleList_Search(List<int> RoleList)
         {
             List<User_Info> ui= _userService.User_By_RoleList_Search(RoleList);
-             return Ok(ui);      
+            _ILogger.Information("根据角色查用户列表成功");
+            return Ok(ui);      
         }
 
 

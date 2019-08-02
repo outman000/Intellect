@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellRegularBus;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,11 @@ namespace IntellRegularBus.Controllers
 
 
         private readonly IBusUserService _IBusUserService;
-
-        public BusUserController(IBusUserService lineService)
+        private readonly ILogger _ILogger;
+        public BusUserController(IBusUserService lineService, ILogger logger)
         {
             _IBusUserService = lineService;
-
+            _ILogger = logger;
         }
 
         /// <summary>
@@ -41,6 +42,7 @@ namespace IntellRegularBus.Controllers
                 busUserAddResModel.AddCount = Bus_User_Add_Count;
                 busUserAddResModel.baseViewModel.Message = "添加成功";
                 busUserAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加用户缴费信息成功");
                 return Ok(busUserAddResModel);
             }
             else
@@ -49,6 +51,7 @@ namespace IntellRegularBus.Controllers
                 busUserAddResModel.AddCount = 0;
                 busUserAddResModel.baseViewModel.Message = "添加失败";
                 busUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加用户缴费信息失败");
                 return BadRequest(busUserAddResModel);
             }
        
@@ -70,6 +73,7 @@ namespace IntellRegularBus.Controllers
                 busUserDelResModel.IsSuccess = true;
                 busUserDelResModel.baseViewModel.Message = "删除成功";
                 busUserDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除用户缴费信息成功");
                 return Ok(busUserDelResModel);
             }
             else
@@ -78,6 +82,7 @@ namespace IntellRegularBus.Controllers
                 busUserDelResModel.IsSuccess = false;
                 busUserDelResModel.baseViewModel.Message = "删除失败";
                 busUserDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除用户缴费信息失败");
                 return BadRequest(busUserDelResModel);
             }
         }
@@ -96,6 +101,7 @@ namespace IntellRegularBus.Controllers
             busUserSearchResModel.baseViewModel.Message = "查询成功";
             busUserSearchResModel.baseViewModel.ResponseCode = 200;
             busUserSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询所有用户缴费信息成功");
             return Ok(busUserSearchResModel);
         }
 
@@ -115,6 +121,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.AddCount = UpdateRowNum;
                 busUserUpdateResModel.baseViewModel.Message = "更新成功";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("修改用户缴费信息成功");
                 return Ok(busUserUpdateResModel);
             }
             else
@@ -123,6 +130,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.AddCount = 0;
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("修改用户缴费信息失败");
                 return BadRequest(busUserUpdateResModel);
             }
         }

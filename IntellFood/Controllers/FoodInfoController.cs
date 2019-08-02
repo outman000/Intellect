@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellFood;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace IntellFood.Controllers
     public class FoodInfoController : ControllerBase
     {
         private readonly IFoodService _foodService;
-   
+        private readonly ILogger _ILogger;
 
 
-        public FoodInfoController(IFoodService  foodService)
+        public FoodInfoController(IFoodService  foodService, ILogger logger)
         {
             _foodService = foodService;
-
+            _ILogger = logger;
 
         }
 
@@ -46,6 +47,7 @@ namespace IntellFood.Controllers
             foodInfoSearchResModel.baseViewModel.Message = "查询成功";
             foodInfoSearchResModel.baseViewModel.ResponseCode = 200;
             foodInfoSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询菜单信息成功");
             return Ok(foodInfoSearchResModel);
 
         }
@@ -69,6 +71,7 @@ namespace IntellFood.Controllers
                 foodInfoAddResModel.AddCount = Food_Add_Count;
                 foodInfoAddResModel.baseViewModel.Message = "添加成功";
                 foodInfoAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添菜单信息成功");
                 return Ok(foodInfoAddResModel);
             }
             else
@@ -77,6 +80,7 @@ namespace IntellFood.Controllers
                 foodInfoAddResModel.AddCount = 0;
                 foodInfoAddResModel.baseViewModel.Message = "添加失败";
                 foodInfoAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添菜单信息失败");
                 return BadRequest(foodInfoAddResModel);
             }
         }
@@ -98,6 +102,7 @@ namespace IntellFood.Controllers
                 foodInfoDelResModel.IsSuccess = true;
                 foodInfoDelResModel.baseViewModel.Message = "删除成功";
                 foodInfoDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除菜单信息成功");
                 return Ok(foodInfoDelResModel);
             }
             else
@@ -106,6 +111,7 @@ namespace IntellFood.Controllers
                 foodInfoDelResModel.IsSuccess = false;
                 foodInfoDelResModel.baseViewModel.Message = "删除失败";
                 foodInfoDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除菜单信息失败");
                 return BadRequest(foodInfoDelResModel);
             }
         }
@@ -128,6 +134,7 @@ namespace IntellFood.Controllers
                 foodInfoUpdateResModel.AddCount = UpdateRowNum;
                 foodInfoUpdateResModel.baseViewModel.Message = "更新成功";
                 foodInfoUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新菜单信息成功");
                 return Ok(foodInfoUpdateResModel);
             }
             else
@@ -136,6 +143,7 @@ namespace IntellFood.Controllers
                 foodInfoUpdateResModel.AddCount = 0;
                 foodInfoUpdateResModel.baseViewModel.Message = "更新失败";
                 foodInfoUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新菜单信息失败");
                 return BadRequest(foodInfoUpdateResModel);
             }
         }
@@ -156,6 +164,7 @@ namespace IntellFood.Controllers
                 foodInfoValideResRepeat.IsSuccess = true;
                 foodInfoValideResRepeat.baseViewModel.Message = "此id可以使用";
                 foodInfoValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("验证菜单标识是否重复，此id可以使用");
                 return Ok(foodInfoValideResRepeat);
             }
             else
@@ -163,6 +172,7 @@ namespace IntellFood.Controllers
                 foodInfoValideResRepeat.IsSuccess = false;
                 foodInfoValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 foodInfoValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("验证菜单标识是否重复，此id已经存在，请更换");
                 return BadRequest(foodInfoValideResRepeat);
             }
         }
@@ -186,6 +196,7 @@ namespace IntellFood.Controllers
                 foodByUserSearchResModel.TotalNum = SearchRowNum;
                 foodByUserSearchResModel.baseViewModel.Message = "用户点赞/取消赞成功";
                 foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据用户id和菜单id，用户点赞/取消赞成功");
                 return Ok(foodByUserSearchResModel);
             }
             else
@@ -194,6 +205,7 @@ namespace IntellFood.Controllers
                 foodByUserSearchResModel.TotalNum = 0;
                 foodByUserSearchResModel.baseViewModel.Message = "用户点赞/取消赞成功";
                 foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据用户id和菜单id，用户点赞/取消赞成功");
                 return BadRequest(foodByUserSearchResModel);
             }
         }
@@ -215,6 +227,7 @@ namespace IntellFood.Controllers
             foodIdSearchResModel.baseViewModel.Message = "查询成功";
             foodIdSearchResModel.baseViewModel.ResponseCode = 200;
             foodIdSearchResModel.TotalNum = BusSearchResult.Count;
+            _ILogger.Information("查询菜单点赞数量，查询成功");
             return Ok(foodIdSearchResModel);
 
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellRegularBus;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +22,13 @@ namespace IntellRegularBus.Controllers
 
         private readonly IBusService _busService;
         private readonly IStationService _stationService;
+        private readonly ILogger _ILogger;
 
-
-        public BusInfoController(IBusService busService, IStationService stationService)
+        public BusInfoController(IBusService busService, IStationService stationService, ILogger logger)
         {
             _busService = busService;
             _stationService= stationService;
-
+            _ILogger = logger;
         }
         /// <summary>
         /// 增添班车信息
@@ -48,6 +49,7 @@ namespace IntellRegularBus.Controllers
                 userAddResModel.AddCount = Bus_Add_Count;
                 userAddResModel.baseViewModel.Message = "添加成功";
                 userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添班车信息成功");
                 return Ok(userAddResModel);
             }
             else
@@ -56,6 +58,7 @@ namespace IntellRegularBus.Controllers
                 userAddResModel.AddCount = 0;
                 userAddResModel.baseViewModel.Message = "添加失败";
                 userAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添班车信息失败");
                 return BadRequest(userAddResModel);
             }
         }
@@ -77,6 +80,7 @@ namespace IntellRegularBus.Controllers
                 busValideResRepeat.IsSuccess = true;
                 busValideResRepeat.baseViewModel.Message = "此id可以使用";
                 busValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("验证班车标识是否重复，此id可以使用");
                 return Ok(busValideResRepeat);
             }
             else
@@ -84,6 +88,7 @@ namespace IntellRegularBus.Controllers
                 busValideResRepeat.IsSuccess = false;
                 busValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 busValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("验证班车标识是否重复，此id已经存在，请更换");
                 return BadRequest(busValideResRepeat);
             }
         }
@@ -105,6 +110,7 @@ namespace IntellRegularBus.Controllers
             busSearchResModel.baseViewModel.Message = "查询成功";
             busSearchResModel.baseViewModel.ResponseCode = 200;
             busSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询班车信息成功");
             return Ok(busSearchResModel);
 
         }
@@ -126,6 +132,7 @@ namespace IntellRegularBus.Controllers
                 busUpdateResModel.AddCount = UpdateRowNum;
                 busUpdateResModel.baseViewModel.Message = "更新成功";
                 busUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新班车信息成功");
                 return Ok(busUpdateResModel);
             }
             else
@@ -134,6 +141,7 @@ namespace IntellRegularBus.Controllers
                 busUpdateResModel.AddCount = 0;
                 busUpdateResModel.baseViewModel.Message = "更新失败";
                 busUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新班车信息失败");
                 return BadRequest(busUpdateResModel);
             }
         }
@@ -155,6 +163,7 @@ namespace IntellRegularBus.Controllers
                 busDelResModel.IsSuccess = true;
                 busDelResModel.baseViewModel.Message = "删除成功";
                 busDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除班车成功");
                 return Ok(busDelResModel);
             }
             else
@@ -163,6 +172,7 @@ namespace IntellRegularBus.Controllers
                 busDelResModel.IsSuccess = false;
                 busDelResModel.baseViewModel.Message = "删除失败";
                 busDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除班车失败");
                 return BadRequest(busDelResModel);
             }
         }
@@ -183,6 +193,7 @@ namespace IntellRegularBus.Controllers
                 lineByBusAddResModel.AddCount = UpdateRowNum;
                 lineByBusAddResModel.baseViewModel.Message = "根据班车添加/取消线路成功";
                 lineByBusAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据班车添加线路/取消线路成功");
                 return Ok(lineByBusAddResModel);
             }
             else
@@ -191,6 +202,7 @@ namespace IntellRegularBus.Controllers
                 lineByBusAddResModel.AddCount = 0;
                 lineByBusAddResModel.baseViewModel.Message = "根据班车添加/取消线路失败";
                 lineByBusAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据班车添加/取消线路失败");
                 return BadRequest(lineByBusAddResModel);
 
             }
@@ -213,6 +225,7 @@ namespace IntellRegularBus.Controllers
                 busByLineAddResModel.AddCount = UpdateRowNum;
                 busByLineAddResModel.baseViewModel.Message = "根据线路添加/取消班车成功";
                 busByLineAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据线路添加/取消班车成功");
                 return Ok(busByLineAddResModel);
             }
             else
@@ -221,6 +234,7 @@ namespace IntellRegularBus.Controllers
                 busByLineAddResModel.AddCount = 0;
                 busByLineAddResModel.baseViewModel.Message = "根据线路添加/取消班车失败";
                 busByLineAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据线路添加/取消班车失败");
                 return BadRequest(busByLineAddResModel);
 
             }
@@ -242,7 +256,8 @@ namespace IntellRegularBus.Controllers
                 busByLineSearchResModel.TotalNum = _busService.Bus_By_Line_Get_ALLNum(busByLineSearchViewModel);
                 busByLineSearchResModel.baseViewModel.Message = "根据线路查班车成功";
                 busByLineSearchResModel.baseViewModel.ResponseCode = 200;
-                return Ok(busByLineSearchResModel);
+            _ILogger.Information("根据线路查班车成功");
+            return Ok(busByLineSearchResModel);
           
 
         }
@@ -265,7 +280,8 @@ namespace IntellRegularBus.Controllers
                 lineByBusSearchResModel.TotalNum = _busService.Line_By_Bus_Get_ALLNum(lineByBusSearchViewModel);
                 lineByBusSearchResModel.baseViewModel.Message = "根据班车查线路成功";
                 lineByBusSearchResModel.baseViewModel.ResponseCode = 200;
-                return Ok(lineByBusSearchResModel);
+            _ILogger.Information("根据班车查线路成功");
+            return Ok(lineByBusSearchResModel);
            
 
         }

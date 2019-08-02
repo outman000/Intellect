@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellRepair;
 using Dto.IService.IntellUser;
 using Dto.Service.IntellUser;
@@ -22,14 +23,17 @@ namespace IntellRepair.Controllers
     public class WorkFlowController : ControllerBase
     {
         private readonly IWorkFlowService _IWorkFlowService;
-   
-       
+        private readonly ILogger _ILogger;
 
-       public WorkFlowController(IWorkFlowService workFlowService,IFlowNodeDefineService flowNodeDefineService)
-       {
+
+        public WorkFlowController(IWorkFlowService workFlowService,
+                                IFlowNodeDefineService flowNodeDefineService,
+                                ILogger logger)
+        {
             _IWorkFlowService = workFlowService;
-           
-       }
+            _ILogger = logger;
+
+        }
 
         /// <summary>
         /// 根据节点查用户列表
@@ -46,12 +50,10 @@ namespace IntellRepair.Controllers
                 userSearchResModel.TotalNum = userSearchResModel.user_Infos.Count;
                 userSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
                 userSearchResModel.baseViewModel.ResponseCode = 200;
-                return Ok(userSearchResModel);
+               _ILogger.Information("根据节点查用户列表成功");
+            return Ok(userSearchResModel);
            
         }
-
-        
-
 
     }
 }

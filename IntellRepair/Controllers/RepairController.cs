@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Dto.IService.IntellRepair;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,11 @@ namespace IntellRepair.Controllers
     public class RepairController : ControllerBase
     {
         private readonly IRepairService _IRepairService;
-
-        public RepairController(IRepairService repairService)
+        private readonly ILogger _ILogger;
+        public RepairController(IRepairService repairService, ILogger logger)
         {
             _IRepairService = repairService;
+            _ILogger = logger;
         }
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace IntellRepair.Controllers
             repairInfoSearchResModel.baseViewModel.Message = "查询成功";
             repairInfoSearchResModel.baseViewModel.ResponseCode = 200;
             repairInfoSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询报修信息成功");
             return Ok(repairInfoSearchResModel);
         }
 
@@ -60,6 +63,7 @@ namespace IntellRepair.Controllers
                 repairAddResModel.AddCount = Repair_Add_Count;
                 repairAddResModel.baseViewModel.Message = "添加成功";
                 repairAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添报修信息成功");
                 return Ok(repairAddResModel);
             }
             else
@@ -68,6 +72,7 @@ namespace IntellRepair.Controllers
                 repairAddResModel.AddCount = 0;
                 repairAddResModel.baseViewModel.Message = "添加失败";
                 repairAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添报修信息失败");
                 return BadRequest(repairAddResModel);
             }
         }
@@ -89,6 +94,7 @@ namespace IntellRepair.Controllers
                 rpairDelResModel.IsSuccess = true;
                 rpairDelResModel.baseViewModel.Message = "删除成功";
                 rpairDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除报修表单成功");
                 return Ok(rpairDelResModel);
             }
             else
@@ -97,6 +103,7 @@ namespace IntellRepair.Controllers
                 rpairDelResModel.IsSuccess = false;
                 rpairDelResModel.baseViewModel.Message = "删除失败";
                 rpairDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除报修表单失败");
                 return BadRequest(rpairDelResModel);
             }
         }
@@ -118,6 +125,7 @@ namespace IntellRepair.Controllers
                 repairUpdateResModel.AddCount = UpdateRowNum;
                 repairUpdateResModel.baseViewModel.Message = "更新成功";
                 repairUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新报修信息成功");
                 return Ok(repairUpdateResModel);
             }
             else
@@ -126,6 +134,7 @@ namespace IntellRepair.Controllers
                 repairUpdateResModel.AddCount = 0;
                 repairUpdateResModel.baseViewModel.Message = "更新失败";
                 repairUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新报修信息失败");
                 return BadRequest(repairUpdateResModel);
             }
         }
