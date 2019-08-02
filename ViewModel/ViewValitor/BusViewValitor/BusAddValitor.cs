@@ -25,7 +25,7 @@ namespace ViewModel.ViewValitor.BusViewValitor
              ;
             RuleFor(hr_info => hr_info.SeatNum).NotNull()
                  .WithMessage("车座数量不能为空")
-                 .Matches("^[0-9]$")
+                 . Matches("^[0-9]{1,}$")
                  .WithMessage("车座数量必须为数字")
              ;
 
