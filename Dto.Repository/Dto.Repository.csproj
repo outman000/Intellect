@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IntellWeChat\" />
+  </ItemGroup>
+
 </Project>

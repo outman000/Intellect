@@ -9,6 +9,7 @@
     <OutputPath>bin\Debug\netcoreapp2.2\</OutputPath>
     <DocumentationFile>bin\Debug\netcoreapp2.2\IntellWeChat.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <!--<ItemGroup>
@@ -28,6 +29,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
@@ -36,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthentValitor\AuthentValitor.csproj" />
     <ProjectReference Include="..\Dto.IRepository\Dto.IRepository.csproj" />
     <ProjectReference Include="..\Dto.IService\Dto.IService.csproj" />
     <ProjectReference Include="..\Dto.Repository\Dto.Repository.csproj" />
