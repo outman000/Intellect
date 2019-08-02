@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutofacSerilogIntegration;
 using AutoMapper;
 using Dtol;
 using FluentValidation.AspNetCore;
@@ -118,7 +119,7 @@ namespace IntellRegularBus
             builder.RegisterAssemblyTypes(IService, Service)
               .Where(t => t.Name.EndsWith("Service"))
               .AsImplementedInterfaces();
-
+            builder.RegisterLogger(autowireProperties: true);
             //将services填充到Autofac容器生成器中
             builder.Populate(services);
             //使用已进行的组件登记创建新容器
