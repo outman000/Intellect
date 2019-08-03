@@ -42,5 +42,10 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// 线路Id   ---外键
         /// </summary>
         public int? Bus_LineId { get; set; }
+
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime? updateDate { get; set; }
     }
 }
