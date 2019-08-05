@@ -3,6 +3,7 @@ using Dtol;
 using Dtol.dtol;
 using Dtol.EfCoreExtion;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,16 +75,41 @@ namespace Dto.Repository.IntellWeChat
             throw new NotImplementedException();
         }
 
-        public List<User_Info> SearchInfoByWhere(WeChatLoginViewModel weChatLoginViewModel)
+
+        public User_Info ValideUserInfo(WeChatLoginViewModel weChatLoginViewModel)
         {
-         
             var preciate = SearchUserWhere(weChatLoginViewModel);
-            IQueryable<User_Info> OpinionInfo = Db.user_Info.Where(preciate);
-            IQueryable<User_Info> SearchResultTemp = OpinionInfo.Include(a => a.User_Depart);
-
-            return SearchResultTemp.ToList();
-
+            User_Info SearchResultTemp = DbSet
+                                        .Where(preciate)
+                                        .Include(a => a.User_Depart)
+                                        .FirstOrDefault()
+                                        ;
+            return SearchResultTemp;
         }
+
+        /// <summary>
+        /// 根据用户信息获取所有相关信息（权限，部门，角色）
+        /// </summary>
+        /// <param name="user_Info"></param>
+        /// <returns></returns>
+        public List<User_Relate_Info_Role> SearchInfoByWhere(int  id)
+        {
+                var userAllInfo = Db.user_Relate_Info_Role
+                                            .Where(a => a.User_InfoId == id)
+                                            .Include(b => b.User_Role)
+                                            .ThenInclude(c => c.User_Relate_Role_Right)
+                                            .ThenInclude(
+                                              d => d.User_Rights
+                                            ).ToList()
+                                            ;
+                return userAllInfo;
+        }
+
+     
+
+
+
+
         #region 查询条件
         //根据条件查询用户
         private Expression<Func<User_Info, bool>> SearchUserWhere(WeChatLoginViewModel weChatLoginViewModel)
@@ -94,14 +120,14 @@ namespace Dto.Repository.IntellWeChat
             return predicate;
         }
 
-        public void Add(WeChatLoginMiddlecs obj)
+        public void Add(WeChatIndexMiddlecs obj)
         {
             throw new NotImplementedException();
         }
 
        
 
-        public void Update(WeChatLoginMiddlecs obj)
+        public void Update(WeChatIndexMiddlecs obj)
         {
             throw new NotImplementedException();
         }

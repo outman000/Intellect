@@ -3,6 +3,7 @@ using Dto.IRepository.IntellUser;
 using Dto.IRepository.IntellWeChat;
 using Dto.IService.IntellWeChat;
 using Dtol.dtol;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,69 +35,30 @@ namespace Dto.Service.IntellWeChat
             _IMapper = mapper;
         }
 
-        public List<WeChatLoginMiddlecs> WeChatLogin_Search(WeChatLoginViewModel weChatLoginViewModel)
+        public WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
-            List<WeChatLoginMiddlecs> wlm = new List<WeChatLoginMiddlecs>();
-
-            //查出用户id
-            List<User_Info> user_Infos = _ILoginRepository.SearchInfoByWhere(weChatLoginViewModel);
-
-            if (user_Infos.Count == 0)//没有该用户
+            WeChatIndexMiddlecs weChatIndexMiddlecs = new WeChatIndexMiddlecs();
+            //用户权限集合
+            List<User_Rights> user_Rights = new List<User_Rights>();
+            //获取用户信息
+            var user_info = _IUserInfoRepository.GetInfoAndDepartByUserid(weChatInfoViewModel.UserUid);
+            //获取用户相关所有信息（部门，权限，角色等等）
+            var user_Infos_All = _ILoginRepository.SearchInfoByWhere(weChatInfoViewModel.UserUid);
+            //匹配相关信息
+            weChatIndexMiddlecs = _IMapper.Map(user_info, weChatIndexMiddlecs);
+            //建有层级关系的权限扁平化
+            for (int i = 0; i < user_Infos_All.Count; i++)
             {
-            
-                return wlm;
-            }
-            var rb = _IMapper.Map<List<User_Info>, List< WeChatLoginMiddlecs> >(user_Infos, wlm);   
-            var rb2 = _IMapper.Map<WeChatLoginMiddlecs, RoleByUserSearchViewModel >(rb[0]);
-            rb2.pageViewModel.PageSize = 99999;
-            rb2.pageViewModel.CurrentPageNum = 0;
-            //查出角色id
-            List<User_Relate_Info_Role> user_Relate_Info_Roles = _userRelateInfoRoleRepository.SearchRoleInfoByWhere(rb2);
-            if (user_Relate_Info_Roles.Count == 0)//该用户没有角色
-            {
-                wlm[0].Id = 8888888;
-                return wlm;
-            }
-
-            var rbsb = _IMapper.Map< List<User_Relate_Info_Role>, List<RightsByRoleSearchViewModel> >(user_Relate_Info_Roles);
-            for(int i=0;i<rbsb.Count;i++)
-            {
-                rbsb[i].pageViewModel.PageSize = 9999;
-                rbsb[i].pageViewModel.CurrentPageNum = 0;
-            }
-
-            //查出权限
-            List<List<User_Relate_Role_Right>>  user_Relate_Right_Roles = new List<List<User_Relate_Role_Right>>();
-            if (user_Relate_Right_Roles.Count == 0)//该用户没有权限
-            {
-                wlm[0].Id = 6666666;
-                return wlm;
-            }
-            for (int j=0;j< rbsb.Count;j++ )
-            {
-               var a = _userRelateRoleRightRepository.SearchRightsInfoByRoleWhere(rbsb[j]);
-               user_Relate_Right_Roles.Add(a);
-            }
-          
-
-            List<RightsSearchMiddlecs> user_rights = new List<RightsSearchMiddlecs>();
-            for(int n=0;n< user_Relate_Right_Roles.Count; n++)
-            {
-                for (int z = 0; z < user_Relate_Right_Roles[n].Count; z++)
+                int rightNum = user_Infos_All[i].User_Role.User_Relate_Role_Right.Count;
+                for (int j = 0; j < rightNum; j++)
                 {
-                    var user_rights_temp = _IMapper.Map<User_Rights, RightsSearchMiddlecs>(user_Relate_Right_Roles[n][z].User_Rights);
-                    user_rights.Add(user_rights_temp);
+                    //将外键变为空
+                    var tempRights = user_Infos_All[i].User_Role.User_Relate_Role_Right[j].User_Rights;
+                    user_Rights.Add(tempRights);
                 }
             }
-
-            //WeChatLoginMiddlecs 列表长度取决于 角色*权限 个数
-            _IMapper.Map<List<RightsSearchMiddlecs>, List<WeChatLoginMiddlecs>>(user_rights, wlm);
-            for (int n = 0; n < user_rights.Count; n++)
-            {
-                var fh = _IMapper.Map<User_Info, WeChatLoginMiddlecs>(user_Infos[0], wlm[n]);
-            }
-          
-            return wlm;
+            weChatIndexMiddlecs.User_Rights = user_Rights;
+            return weChatIndexMiddlecs;
         }
     }
 }

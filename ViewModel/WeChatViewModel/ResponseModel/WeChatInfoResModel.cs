@@ -6,13 +6,12 @@ using ViewModel.WeChatViewModel.MiddleModel;
 
 namespace ViewModel.WeChatViewModel.ResponseModel
 {
-    public class WeChatLoginResModel
+    public class WeChatInfoResModel
     {
         public bool IsSuccess;
-        public List<WeChatLoginMiddlecs> userInfo;
+        public WeChatIndexMiddlecs userInfo;
         public BaseViewModel baseViewModel;
-        public int TotalNum;
-        public WeChatLoginResModel()
+        public WeChatInfoResModel()
         {
             baseViewModel = new BaseViewModel();
         }

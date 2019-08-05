@@ -23,63 +23,34 @@ namespace IntellWeChat.Controllers
                _loginService = loginService;
                _ILogger = logger;
         }
-
         /// <summary>
         /// 根据用户账号和密码查询用户信息
         /// </summary>
-        /// <param name="weChatLoginViewModel"></param>
+        /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult Manage_WeChatLogin_Search(WeChatLoginViewModel weChatLoginViewModel)
+        [HttpPost] 
+        public ActionResult Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
-            WeChatLoginResModel  weChatLoginResModel = new WeChatLoginResModel();
-            var UserSearchResult = _loginService.WeChatLogin_Search(weChatLoginViewModel);
-            if(UserSearchResult.Count== 0)
+            WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
+            var UserSearchResult = _loginService.WeChatLogin_Search(weChatInfoViewModel);
+            if(UserSearchResult.User_Rights.Count<1)
             {
-                weChatLoginResModel.IsSuccess = false;
-                weChatLoginResModel.baseViewModel.Message = "不存在该用户，查询失败";
-                weChatLoginResModel.TotalNum = 0;
-                weChatLoginResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("查询用户信息，查询失败");
-                return BadRequest(weChatLoginResModel);
-            }
-            else if(UserSearchResult[0].Id == 8888888)
-            {
-                //var TotalNum = _userService.User_Get_ALLNum();
-                weChatLoginResModel.userInfo = UserSearchResult;
-                weChatLoginResModel.IsSuccess = false;
-                weChatLoginResModel.baseViewModel.Message = "存在该用户，但是该用户没有角色";
-                weChatLoginResModel.TotalNum = UserSearchResult.Count;
-                weChatLoginResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("查询用户信息，存在该用户，但是该用户没有角色");
-                return Ok(weChatLoginResModel);
-               
-
-            }
-            else if(UserSearchResult[0].Id == 6666666)
-            {
-                weChatLoginResModel.userInfo = UserSearchResult;
-                weChatLoginResModel.IsSuccess = false;
-                weChatLoginResModel.baseViewModel.Message = "存在该用户，但是该用户没有权限";
-                weChatLoginResModel.TotalNum = UserSearchResult.Count;
-                weChatLoginResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("查询用户信息，存在该用户，但是该用户没有权限");
-                return Ok(weChatLoginResModel);
-
-
+                weChatInfoResModel.IsSuccess = false;
+                weChatInfoResModel.baseViewModel.Message = "用户无权限登录";
+                weChatInfoResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户无权限，进入系统失败");
+                return BadRequest(weChatInfoResModel);
             }
             else
             {
 
-                weChatLoginResModel.userInfo = UserSearchResult;
-                weChatLoginResModel.IsSuccess = true;
-                weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
-                weChatLoginResModel.TotalNum = UserSearchResult.Count;
-                weChatLoginResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("查询用户信息，存在该用户，查询成功");
-                return Ok(weChatLoginResModel);
+                weChatInfoResModel.userInfo = UserSearchResult;
+                weChatInfoResModel.IsSuccess = true;
+                weChatInfoResModel.baseViewModel.Message = "存在该用户，查询成功";
+                weChatInfoResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
+                return Ok(weChatInfoResModel);
             }
-
         }
 
 

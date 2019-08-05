@@ -14,6 +14,6 @@ namespace Dto.IService.IntellWeChat
         /// </summary>
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
-        List<WeChatLoginMiddlecs> WeChatLogin_Search(WeChatLoginViewModel  weChatLoginViewModel);
+       WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel weChatLoginViewModel);
     }
 }

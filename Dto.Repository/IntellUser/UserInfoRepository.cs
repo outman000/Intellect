@@ -128,6 +128,14 @@ namespace Dto.Repository.IntellUser
             throw new NotImplementedException();
         }
 
+        public User_Info GetInfoAndDepartByUserid(int id)
+        {
+            User_Info user_Info = DbSet.Include(a=>a.User_Depart)
+                                 .Single(uid => uid.Id.Equals(id))       
+                ;
+            return user_Info;
+        }
+
 
         #endregion
 
