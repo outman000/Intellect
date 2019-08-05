@@ -12,6 +12,11 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\netcoreapp2.2\</OutputPath>
+    <DocumentationFile>bin\Release\netcoreapp2.2\IntellWeChat.xml</DocumentationFile>
+  </PropertyGroup>
+
   <!--<ItemGroup>
     <Compile Remove="logs\**" />
     <Content Remove="logs\**" />
