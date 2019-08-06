@@ -100,6 +100,7 @@ namespace Dto.Repository.IntellRepair
             var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(flowProcedureSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.Starttime)
                 .ToList();
 
             return result;

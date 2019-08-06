@@ -112,6 +112,7 @@ namespace Dto.Repository.IntellUser
             var queryResult = DbSet.Where(k => k.User_RightsId == rightid).Include(p => p.User_Role)
                             .Skip(SkipNum)
                             .Take(roleByRightsSearchViewModel.pageViewModel.PageSize)
+                              .OrderBy(o => o.Id)
                             .ToList();
             return queryResult;
 
@@ -129,6 +130,7 @@ namespace Dto.Repository.IntellUser
             var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Rights)
                             .Skip(SkipNum)
                             .Take(rightsByRoleSearchViewModel.pageViewModel.PageSize)
+                              .OrderBy(o => o.Id)
                             .ToList();
             return queryResult;
 

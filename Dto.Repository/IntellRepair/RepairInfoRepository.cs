@@ -77,7 +77,7 @@ namespace Dto.Repository.IntellRepair
             IQueryable<Repair_Info> SearchResultTemp = repair_Infos.Include(a => a.User_Info)
                         .Include(a => a.User_Depart)
                         .Skip(SkipNum)
-                        .Take(repairInfoSearchViewModel.pageViewModel.PageSize);
+                        .Take(repairInfoSearchViewModel.pageViewModel.PageSize).OrderBy(o => o.repairsDate);
             return SearchResultTemp;
         }
 

@@ -147,6 +147,7 @@ namespace Dto.Repository.IntellRegularBus
             var queryResult = DbSet.Where(k => k.Id == StationId).Include(p => p.Bus_Line)
                         .Skip(SkipNum)
                         .Take(lineByStationViewModel.pageViewModel.PageSize)
+                        .OrderBy(o => o.AddDate)
                         .ToList();
 
             return queryResult.ToList();
