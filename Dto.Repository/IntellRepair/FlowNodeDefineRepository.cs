@@ -86,7 +86,8 @@ namespace Dto.Repository.IntellRepair
             IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos.Include(a => a.Flow_NextNodeDefine)
                         .Include(a => a.Flow_ProcedureDefine)
                         .Skip(SkipNum)
-                        .Take(flowNodeDefineSearchViewModel.pageViewModel.PageSize);
+                        .Take(flowNodeDefineSearchViewModel.pageViewModel.PageSize)
+                        .OrderBy(o => o.CreateTime);
             return SearchResultTemp;
         }
 

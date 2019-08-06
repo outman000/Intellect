@@ -109,6 +109,7 @@ namespace Dto.Repository.IntellRegularBus
                         .Include(a => a.Bus_Line)
                         .Include(a => a.User_Depart)
                         .Skip(SkipNum)
+                        .OrderBy(o => o.createDate)
                         .Take(busUserSearchViewModel.pageViewModel.PageSize);
 
 

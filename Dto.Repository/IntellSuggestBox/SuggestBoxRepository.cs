@@ -103,7 +103,7 @@ namespace Dto.Repository.IntellSuggestBox
             var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(suggestBoxSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o).ToList();
+                .OrderBy(o => o.SuggestDate).ToList();
 
             return result;
         }

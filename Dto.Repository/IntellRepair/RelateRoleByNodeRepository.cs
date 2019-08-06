@@ -125,6 +125,7 @@ namespace Dto.Repository.IntellRepair
             var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid).Include(p => p.User_Role)
                 .Skip(SkipNum)
                 .Take(roleByNodeSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.id)
                 .ToList();
             return queryResult;
         }
