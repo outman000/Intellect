@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 
 namespace Dto.Repository.IntellRegularBus
@@ -81,6 +82,20 @@ namespace Dto.Repository.IntellRegularBus
             return Db.SaveChanges();
         }
 
+        /// <summary>
+        /// 根据班车id查询数量
+        /// </summary>
+        /// <param name="busSearchByIdViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
+        {
+            var preciateBydepart = SearchBusUserByIdWhere(busSearchByIdViewModel);
+            IQueryable<Bus_Payment> bus_Payments = Db.bus_Payment.Where(preciateBydepart);
+            IQueryable<Bus_Payment> SearchResultTemp = bus_Payments.Include(a => a.Bus_Info);
+
+            return SearchResultTemp;
+        }
+
         public IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel)
         {
             int SkipNum = busUserSearchViewModel.pageViewModel.CurrentPageNum * busUserSearchViewModel.pageViewModel.PageSize;
@@ -125,5 +140,17 @@ namespace Dto.Repository.IntellRegularBus
 
         #endregion
 
+        #region 条件
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserByIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+
+            predicate = predicate.And(a => a.Bus_InfoId==busSearchByIdViewModel.Id);
+
+            return predicate;
+        }
+
+        #endregion
     }
 }

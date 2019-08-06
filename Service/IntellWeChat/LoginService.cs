@@ -21,21 +21,21 @@ namespace Dto.Service.IntellWeChat
         private readonly IUserRelateInfoRoleRepository _userRelateInfoRoleRepository;
         private readonly IUserRelateRoleRightRepository _userRelateRoleRightRepository;
         private readonly IMapper _IMapper;
-       
-        public LoginService(ILoginRepository  loginRepository,
+
+        public LoginService(ILoginRepository loginRepository,
                             IUserInfoRepository userInfoRepository,
                             IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                             IUserRelateRoleRightRepository userRelateRoleRightRepository,
                             IMapper mapper)
         {
-                 _ILoginRepository = loginRepository;
-                 _IUserInfoRepository = userInfoRepository;
-                 _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
+            _ILoginRepository = loginRepository;
+            _IUserInfoRepository = userInfoRepository;
+            _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
             _userRelateRoleRightRepository = userRelateRoleRightRepository;
             _IMapper = mapper;
         }
 
-        public WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
+        public WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel weChatInfoViewModel)
         {
             WeChatIndexMiddlecs weChatIndexMiddlecs = new WeChatIndexMiddlecs();
             //用户权限集合
@@ -59,6 +59,16 @@ namespace Dto.Service.IntellWeChat
             }
             weChatIndexMiddlecs.User_Rights = user_Rights;
             return weChatIndexMiddlecs;
+        }
+
+
+        public WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
+        {
+            WeChatLoginMiddlecs weChatLoginMiddlecs = new WeChatLoginMiddlecs();
+            var user_Infos = _ILoginRepository.ValideUserInfo(weChatLoginViewModel);
+
+           var user_session=_IMapper.Map(user_Infos, weChatLoginMiddlecs);
+            return user_session;
         }
     }
 }

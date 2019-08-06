@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 
 namespace Dto.IService.IntellRegularBus
@@ -40,5 +41,12 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busUserSearchViewModell"></param>
         int Bus_User_Get_ALLNum(BusUserSearchViewModel busUserSearchViewModell);
+
+
+        /// <summary>
+        /// 根据班车id查询数量
+        /// </summary>
+        /// <param name="busSearchByIdViewModel"></param>
+        int ByBusIdSearchNum(BusSearchByIdViewModel busSearchByIdViewModel);
     }
 }

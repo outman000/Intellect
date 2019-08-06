@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
 
@@ -84,6 +85,24 @@ namespace Dto.Service.IntellRegularBus
         public int Bus_User_Get_ALLNum(BusUserSearchViewModel busUserSearchViewModell)
         {
             return _IBusUserRepository.GetInfoByBusAll(busUserSearchViewModell).Count();
+        }
+
+        public int ByBusIdSearchNum(BusSearchByIdViewModel busSearchByIdViewModel)
+        {
+
+
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusIdWhere(busSearchByIdViewModel).ToList();
+          
+            if (bus_Payments.Count ==0)//没查到该班车信息，可以添加该班车
+            {
+                return 0;
+            }
+            else if(bus_Payments.Count== Convert.ToInt32(bus_Payments[0].Bus_Info.SeatNum))//说明该班车已坐满人
+            {
+                return -1;
+            }
+            else
+            return 0;
         }
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
+using ViewModel.BusViewModel.ResponseModel.BusInfoResModel;
 
 namespace IntellRegularBus.Controllers
 {
@@ -91,11 +93,11 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
        [HttpPost]
-        public ActionResult Bus_User_Search(BusUserSearchViewModel busUserSearchViewModell)
+        public ActionResult Bus_User_Search(BusUserSearchViewModel busUserSearchViewModel)
         {
             BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
-            var BusUserSearchResult = _IBusUserService.Bus_User_Search(busUserSearchViewModell);
-            var TotalNum = _IBusUserService.Bus_User_Get_ALLNum(busUserSearchViewModell);
+            var BusUserSearchResult = _IBusUserService.Bus_User_Search(busUserSearchViewModel);
+            var TotalNum = _IBusUserService.Bus_User_Get_ALLNum(busUserSearchViewModel);
             busUserSearchResModel.bus_user_Info = BusUserSearchResult;
             busUserSearchResModel.isSuccess = true;
             busUserSearchResModel.baseViewModel.Message = "查询成功";
@@ -105,6 +107,36 @@ namespace IntellRegularBus.Controllers
             return Ok(busUserSearchResModel);
         }
 
+
+        /// <summary>
+        /// 根据班车Id查询该班车是否坐满人
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Bus_Id_Search(BusSearchByIdViewModel busSearchByIdViewModel)
+        {
+            BusSearchByIdResModel  busSearchByIdResModel = new BusSearchByIdResModel();
+            int Result = _IBusUserService.ByBusIdSearchNum(busSearchByIdViewModel);
+             if(Result==-1)
+             {
+                    busSearchByIdResModel.isSuccess = false;
+                    busSearchByIdResModel.baseViewModel.Message = "该班车已坐满人，请重新选择";
+                    busSearchByIdResModel.baseViewModel.ResponseCode = 400;
+                    _ILogger.Information("该班车已满员，请重新选择");
+                   return BadRequest(busSearchByIdResModel);
+
+            }
+            else
+            {
+                busSearchByIdResModel.isSuccess = true;
+                busSearchByIdResModel.baseViewModel.Message = "该班车未坐满人，可以添加该班车";
+                busSearchByIdResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("该班车未坐满人，可以添加该班车");
+                return Ok(busSearchByIdResModel);
+
+            }
+           
+        }
         /// <summary>
         /// 修改用户缴费信息
         /// </summary>

@@ -24,7 +24,7 @@ namespace IntellWeChat.Controllers
                _ILogger = logger;
         }
         /// <summary>
-        /// 根据用户账号和密码查询用户信息
+        /// 根据用户id查询用户信息
         /// </summary>
         /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
@@ -53,6 +53,34 @@ namespace IntellWeChat.Controllers
             }
         }
 
+        /// <summary>
+        /// 根据用户账号和密码查询用户信息
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
+        {
+            WeChatLoginResModel  weChatLoginResModel = new WeChatLoginResModel();
+            var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
+            if (UserSearchResult == null)
+            {
+                weChatLoginResModel.IsSuccess = false;
+                weChatLoginResModel.baseViewModel.Message = "用户名不存在或者密码错误";
+                weChatLoginResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户名不存在或者密码错误，进入系统失败");
+                return BadRequest(weChatLoginResModel);
+            }
+            else
+            {
 
+                weChatLoginResModel.user_session = UserSearchResult;
+                weChatLoginResModel.IsSuccess = true;
+                weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
+                weChatLoginResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
+                return Ok(weChatLoginResModel);
+            }
+        }
     }
 }

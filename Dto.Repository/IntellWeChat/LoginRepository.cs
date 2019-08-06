@@ -75,15 +75,17 @@ namespace Dto.Repository.IntellWeChat
             throw new NotImplementedException();
         }
 
-
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
         public User_Info ValideUserInfo(WeChatLoginViewModel weChatLoginViewModel)
         {
             var preciate = SearchUserWhere(weChatLoginViewModel);
             User_Info SearchResultTemp = DbSet
                                         .Where(preciate)
-                                        .Include(a => a.User_Depart)
-                                        .FirstOrDefault()
-                                        ;
+                                        .FirstOrDefault();
             return SearchResultTemp;
         }
 
