@@ -18,29 +18,73 @@ namespace Dtol.dtol
         /// 站点id
         /// </summary>
         public int? Bus_StationId { get; set; }
-        public Bus_Station Bus_Station { get; set; }
+
         /// <summary>
         /// 线路id
         /// </summary>
         public int? Bus_LineId { get; set; }
-        public Bus_Line Bus_Line { get; set; }
+
         /// <summary>
         /// 用户id
         /// </summary>
         public int? User_InfoId { get; set; }
-        public User_Info User_Info { get; set; }
+
         /// <summary>
         /// 部门id
         /// </summary>
         public int? User_DepartId { get; set; }
-        public User_Depart User_Depart { get; set; }
+
 
         /// <summary>
-        /// 班车Id   ---外键
+        /// 班车Id 
         /// </summary>
         public int? Bus_InfoId { get; set; }
 
-        public Bus_Info Bus_Info { get; set; }
+
+        /// <summary>
+        /// 站点名
+        /// </summary>
+        public string StationName { get; set; }
+     
+        /// <summary>
+        /// 线路名
+        /// </summary>
+        public string LineName { get; set; }
+
+        /// <summary>
+        /// 用户姓名
+        /// </summary>
+        public string UserName { get; set; }
+
+
+
+        /// <summary>
+        /// 用户照片
+        /// </summary>
+        public string Userpicture { get; set; }
+
+        /// <summary>
+        /// 部门名
+        /// </summary>
+        public string Name{ get; set; }
+
+        /// <summary>
+        /// 班车名
+        /// </summary>
+        public string BusName { get; set; }
+
+        /// <summary>
+        /// 站点费用
+        /// </summary>
+        public string Expense { get; set; }
+
+
+        /// <summary>
+        /// 表单id-----外键
+        /// </summary>
+        public int? Repair_InfoId { get; set; }
+        public Repair_Info Repair_Info { get; set; }
+
         public DateTime? createDate{ get; set; }
         public DateTime? updateDate { get; set; }
     }

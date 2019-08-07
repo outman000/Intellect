@@ -23,9 +23,11 @@ namespace Dto.Service.IntellRegularBus
         private readonly IUserDepartRepository _IUserDepartRepository;
         private readonly IBusLineRepository _IBusLineRepository;
         private readonly IBusStationRepository _IBusStationRepository;
+        private readonly IBusInfoRepository _IBusInfoRepository;
 
 
         public BusUserService(IBusUserRepository busUserRepository ,
+                                IBusInfoRepository busInfoRepository,
                                 IMapper mapper, 
                                 IUserInfoRepository userInfoRepository,
                                 IUserDepartRepository userDepartRepository, 
@@ -38,6 +40,7 @@ namespace Dto.Service.IntellRegularBus
             _IUserDepartRepository = userDepartRepository;
             _IBusLineRepository = busLineRepository;
             _IBusStationRepository = busStationRepository;
+            _IBusInfoRepository = busInfoRepository;
         }
 
 
@@ -91,13 +94,16 @@ namespace Dto.Service.IntellRegularBus
         {
 
 
-            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusIdWhere(busSearchByIdViewModel).ToList();
-          
-            if (bus_Payments.Count ==0)//没查到该班车信息，可以添加该班车
+            Bus_Info bus_Payments = _IBusInfoRepository.GetInfoByBusId(busSearchByIdViewModel.Id);
+            int seatNume = Convert.ToInt32(bus_Payments.SeatNum);//班车座位数
+
+            var bus_User=_IBusUserRepository.SearchInfoByBusIdWhere(busSearchByIdViewModel).ToList();//最新月份坐该班车的各部门信息
+            if (bus_User.Count == 0)//没查到该班车信息，可以添加该班车
             {
                 return 0;
             }
-            else if(bus_Payments.Count== Convert.ToInt32(bus_Payments[0].Bus_Info.SeatNum))//说明该班车已坐满人
+    
+            else if (bus_User.Count== seatNume)//说明该班车已坐满人
             {
                 return -1;
             }

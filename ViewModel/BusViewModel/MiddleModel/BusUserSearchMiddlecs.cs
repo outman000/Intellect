@@ -19,6 +19,10 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public string LineName { get; set; }
         /// <summary>
+        /// 班车名
+        /// </summary>
+        public string BusName { get; set; }
+        /// <summary>
         /// 站点名
         /// </summary>
         public string StationName { get; set; }
@@ -27,10 +31,13 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public string Expense { get; set; }
         /// <summary>
-        /// 缴费状态
+        /// 缴费状态-是否缴费
         /// </summary>
         public string status { get; set; }
 
-
+        /// <summary>
+        /// 用户照片
+        /// </summary>
+        public string Userpicture { get; set; }
     }
 }

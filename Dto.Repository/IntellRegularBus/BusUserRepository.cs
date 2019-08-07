@@ -90,30 +90,28 @@ namespace Dto.Repository.IntellRegularBus
         public IQueryable<Bus_Payment> SearchInfoByBusIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             var preciateBydepart = SearchBusUserByIdWhere(busSearchByIdViewModel);
-            IQueryable<Bus_Payment> bus_Payments = Db.bus_Payment.Where(preciateBydepart);
-            IQueryable<Bus_Payment> SearchResultTemp = bus_Payments.Include(a => a.Bus_Info);
+            IQueryable<Bus_Payment> bus_Payments = Db.bus_Payment.Where(preciateBydepart)
+                .OrderByDescending(o => o.createDate);
+            DateTime cd = bus_Payments.ToList()[0].createDate.Value;//获取最新日期
 
-            return SearchResultTemp;
+            var result = bus_Payments.Where(e => e.createDate.Value.Year== cd.Year && e.createDate.Value.Month == cd.Month);
+            return result;
         }
 
         public IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel)
         {
             int SkipNum = busUserSearchViewModel.pageViewModel.CurrentPageNum * busUserSearchViewModel.pageViewModel.PageSize;
 
-            var preciateBydepart =   SearchBusUserWhere(busUserSearchViewModel);
-           IQueryable<Bus_Payment> bus_Payments = Db.bus_Payment.Where(preciateBydepart);
+            var predicate =   SearchBusUserWhere(busUserSearchViewModel);
+         
 
-            IQueryable<Bus_Payment> SearchResultTemp = bus_Payments.Include(a => a.User_Info)
-                        .Include(a => a.Bus_Station)
-                        .Include(a => a.Bus_Info)
-                        .Include(a => a.Bus_Line)
-                        .Include(a => a.User_Depart)
-                        .Skip(SkipNum)
-                        .OrderBy(o => o.createDate)
-                        .Take(busUserSearchViewModel.pageViewModel.PageSize);
+            var result = DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(busUserSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.createDate);
 
 
-            return SearchResultTemp;
+            return result;
 
 
         }
@@ -129,12 +127,12 @@ namespace Dto.Repository.IntellRegularBus
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
 
-            predicate = predicate.And(a => a.User_Info.UserName.Contains(busUserSearchViewModel.UserName));
+            predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
             predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
             predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );
             predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.User_DepartId) );
             predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId) );
-            predicate = predicate.And(a => a.Bus_Station.Expense.ToString().Contains(busUserSearchViewModel.Expense) );
+            predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
 
             return predicate;
         }

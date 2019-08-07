@@ -19,13 +19,8 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<BusUserAddViewModel, Bus_Payment>();
             CreateMap < BusUserUpdateViewModel, Bus_Payment>();
 
-            CreateMap<Bus_Payment, BusUserSearchMiddlecs>()
-             .ForMember(s => s.Name, sp => sp.MapFrom(src => src.User_Depart.Name))
-             .ForMember(s => s.LineName, sp => sp.MapFrom(src => src.Bus_Line.LineName))
-             .ForMember(s => s.StationName, sp => sp.MapFrom(src => src.Bus_Station.StationName))
-             .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName))
-             .ForMember(s => s.Expense, sp => sp.MapFrom(src => src.Bus_Station.Expense))
-             .ForMember(s => s.status, sp => sp.MapFrom(src => src.status));
+            CreateMap<Bus_Payment, BusUserSearchMiddlecs>();
+          
 
         }
     }
