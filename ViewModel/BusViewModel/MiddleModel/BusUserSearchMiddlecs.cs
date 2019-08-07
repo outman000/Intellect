@@ -30,6 +30,12 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// 站点费用
         /// </summary>
         public string Expense { get; set; }
+
+        /// <summary>
+        /// 乘车时间
+        /// </summary>
+        public DateTime? carDate { get; set; }
+
         /// <summary>
         /// 缴费状态-是否缴费
         /// </summary>

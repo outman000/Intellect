@@ -64,7 +64,11 @@ namespace Dto.Service.IntellRegularBus
                 return -1;
             }
         }
-
+        /// <summary>
+        /// 更新单条人员缴费信息
+        /// </summary>
+        /// <param name="busUserUpdateViewModel"></param>
+        /// <returns></returns>
         public int Bus_User_Update(BusUserUpdateViewModel busUserUpdateViewModel)
         {
             var bus_user_Info = _IBusUserRepository.GetInfoByBusUserId(busUserUpdateViewModel.Id);
@@ -73,6 +77,57 @@ namespace Dto.Service.IntellRegularBus
             return _IBusUserRepository.SaveChanges();
         }
 
+        /// <summary>
+        /// 更新人员缴费信息表单id列
+        /// </summary>
+        /// <param name="busPamentUpdateViewModel"></param>
+        /// <returns></returns>
+        public int Bus_PayMent_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
+        {
+            List<Bus_Payment> bus_user_Info = _IBusUserRepository.SearchInfoByBusWhere(busPamentUpdateViewModel).ToList();
+      
+            for (int i=0; i< bus_user_Info.Count;i++)
+            {
+              var temp=_IMapper.Map<BusPaymentUpdateViewModel, Bus_Payment>(busPamentUpdateViewModel, bus_user_Info[i]);
+                _IBusUserRepository.Update(temp);
+            }
+           
+            return _IBusUserRepository.SaveChanges();
+        }
+
+        /// <summary>
+        ///  添加模板信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public int Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel)
+        {
+          //  List<Bus_Payment> busUserSearchMiddlecs = new List<Bus_Payment>();
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere(busUserSearchViewModel).ToList();
+            //  var bus_User_Search = _IMapper.Map<List<Bus_Payment>, List<Bus_Payment>>(bus_Payments, busUserSearchMiddlecs);
+            List <BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
+            for (int j = 0; j < bus_Payments.Count; j++)
+            {
+                var bus_Info = _IMapper.Map<Bus_Payment, BusUserAddViewModel>(bus_Payments[j]);
+                busUserAddViewModel.Add(bus_Info);
+            }
+            NowDateUpdateViewModel nowDateUpdateViewModel = new NowDateUpdateViewModel();
+            nowDateUpdateViewModel.carDate = DateTime.Now;
+            for(int i=0;i< bus_Payments.Count;i++)
+            {
+                var bus_user_Info = _IMapper.Map<NowDateUpdateViewModel, BusUserAddViewModel>(nowDateUpdateViewModel, busUserAddViewModel[i]);
+                var Bus_Payment = _IMapper.Map<BusUserAddViewModel, Bus_Payment>(busUserAddViewModel[i]);
+                _IBusUserRepository.Add(Bus_Payment);
+               
+            }
+            return _IBusUserRepository.SaveChanges();
+        }
+
+        /// <summary>
+        ///  查询出人员缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
         public List<BusUserSearchMiddlecs> Bus_User_Search(BusUserSearchViewModel busUserSearchViewModel)
         {
             BusUserSearchMiddlecs busUserSearchMiddlecs = new BusUserSearchMiddlecs();
@@ -89,6 +144,10 @@ namespace Dto.Service.IntellRegularBus
         {
             return _IBusUserRepository.GetInfoByBusAll(busUserSearchViewModell).Count();
         }
+
+
+
+
 
         public int ByBusIdSearchNum(BusSearchByIdViewModel busSearchByIdViewModel)
         {

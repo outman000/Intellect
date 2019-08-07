@@ -20,8 +20,10 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap < BusUserUpdateViewModel, Bus_Payment>();
 
             CreateMap<Bus_Payment, BusUserSearchMiddlecs>();
-          
-
+            CreateMap<BusPaymentUpdateViewModel, Bus_Payment>();
+            CreateMap<NowDateUpdateViewModel, Bus_Payment>();
+            CreateMap<NowDateUpdateViewModel, BusUserAddViewModel>();
+            CreateMap<Bus_Payment, BusUserAddViewModel>();
         }
     }
 }

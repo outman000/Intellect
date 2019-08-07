@@ -23,13 +23,25 @@ namespace Dto.IService.IntellRegularBus
         int Bus_User_Delete(BusUserDelViewModel busDelViewModel);
 
         /// <summary>
-        /// 更新人员缴费信息
+        /// 更新单个人员缴费信息
         /// </summary>
         /// <param name="busUserUpdateViewModel"></param>
         /// <returns></returns>
 
         int Bus_User_Update(BusUserUpdateViewModel busUserUpdateViewModel);
+        /// <summary>
+        /// 根据模板添加信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        int Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel);
 
+        /// <summary>
+        /// 更新人员缴费表单id信息
+        /// </summary>
+        /// <param name="busPamentUpdateViewModel"></param>
+        /// <returns></returns>
+        int Bus_PayMent_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel);
         /// <summary>
         /// 查询所有人员缴费信息
         /// </summary>

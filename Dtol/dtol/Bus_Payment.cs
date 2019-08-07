@@ -85,7 +85,19 @@ namespace Dtol.dtol
         public int? Repair_InfoId { get; set; }
         public Repair_Info Repair_Info { get; set; }
 
+        /// <summary>
+        /// 乘车时间
+        /// </summary>
+        public DateTime? carDate { get; set; }
+
+        /// <summary>
+        /// 创建缴费时间
+        /// </summary>
         public DateTime? createDate{ get; set; }
+
+        /// <summary>
+        /// 修改缴费时间
+        /// </summary>
         public DateTime? updateDate { get; set; }
     }
 }

@@ -26,5 +26,9 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// 线路描述
         /// </summary>
         public string Remark { get; set; }
-   }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTime? updateDate { get; set; }
+    }
 }

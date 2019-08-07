@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 
@@ -68,8 +69,8 @@ namespace Dto.Repository.IntellRegularBus
 
         public Bus_Payment GetInfoByBusUserId(int id)
         {
-            Bus_Payment bus_user_Info = DbSet.Single(uid => uid.Id.Equals(id));
-            return bus_user_Info;
+            Bus_Payment busPayment_Info = DbSet.Single(uid => uid.Id.Equals(id));
+            return busPayment_Info;
         }
 
         public void Remove(Guid id)
@@ -97,7 +98,11 @@ namespace Dto.Repository.IntellRegularBus
             var result = bus_Payments.Where(e => e.createDate.Value.Year== cd.Year && e.createDate.Value.Month == cd.Month);
             return result;
         }
-
+        /// <summary>
+        /// 查询人员缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
         public IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel)
         {
             int SkipNum = busUserSearchViewModel.pageViewModel.CurrentPageNum * busUserSearchViewModel.pageViewModel.PageSize;
@@ -116,12 +121,21 @@ namespace Dto.Repository.IntellRegularBus
 
         }
 
-        public IQueryable<Bus_Payment> SearChErrorBusPayment()
+        /// <summary>
+        /// 查询人员缴费信息(重载)
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusWhere(BusPaymentUpdateViewModel busPamentUpdateViewModel)
         {
 
+            var predicate = SearchBusUserWhere(busPamentUpdateViewModel);
+            var result = DbSet.Where(predicate)
+                .OrderBy(o => o.createDate);
 
-            return null;
+            return result;
         }
+
 
         public void Update(Bus_Payment obj)
         {
@@ -137,9 +151,20 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
             predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
             predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );
-            predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.User_DepartId) );
+            predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.Bus_StationId) );
             predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId) );
             predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
+            predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
+                                  && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
+            return predicate;
+        }
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere(BusPaymentUpdateViewModel  busPamentUpdateViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+
+            predicate = predicate.And(a => a.User_DepartId==busPamentUpdateViewModel.User_DepartId);
+            predicate = predicate.And(a => a.carDate.Value.Year== busPamentUpdateViewModel.carDate.Year 
+                                    && a.carDate.Value.Month== busPamentUpdateViewModel.carDate.Month);
 
             return predicate;
         }
@@ -157,6 +182,7 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
 
+     
         #endregion
     }
 }

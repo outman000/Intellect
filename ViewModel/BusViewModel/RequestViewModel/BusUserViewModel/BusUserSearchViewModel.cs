@@ -41,6 +41,12 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// 缴费状态-是否缴费
         /// </summary>
         public string status { get; set; }
+
+        /// <summary>
+        /// 乘车时间
+        /// </summary>
+        public DateTime? carDate { get; set; }
+
         /// <summary>
         /// 分页
         /// </summary>
