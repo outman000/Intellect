@@ -116,6 +116,13 @@ namespace Dto.Repository.IntellRegularBus
 
         }
 
+        public IQueryable<Bus_Payment> SearChErrorBusPayment()
+        {
+
+
+            return null;
+        }
+
         public void Update(Bus_Payment obj)
         {
             DbSet.Update(obj);

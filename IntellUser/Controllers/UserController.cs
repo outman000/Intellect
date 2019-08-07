@@ -55,9 +55,9 @@ namespace IntellUser.Controllers
                 userAddResModel.IsSuccess = false;
                 userAddResModel.AddCount = 0;
                 userAddResModel.baseViewModel.Message = "添加失败";
-                userAddResModel.baseViewModel.ResponseCode = 400;
+                userAddResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("增添用户信息失败");
-                return BadRequest(userAddResModel);
+                return Ok(userAddResModel);
             }
         }
         /// <summary>
@@ -86,7 +86,7 @@ namespace IntellUser.Controllers
                 userValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 userValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("用户名id验证，此id已经存在，请更换");
-                return BadRequest(userValideResRepeat);
+                return Ok(userValideResRepeat);
             }
         }
 
@@ -119,7 +119,7 @@ namespace IntellUser.Controllers
                 userDeleteResModel.baseViewModel.Message = "删除失败";
                 userDeleteResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除用户信息（软删除），删除失败");
-                return BadRequest(userDeleteResModel);
+                return Ok(userDeleteResModel);
             }
 
          
@@ -154,7 +154,7 @@ namespace IntellUser.Controllers
                 userValideResRepeat.baseViewModel.Message = "更新失败";
                 userValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新用户信息，更新失败");
-                return BadRequest(userValideResRepeat);
+                return Ok(userValideResRepeat);
             }
         }
 
@@ -208,7 +208,7 @@ namespace IntellUser.Controllers
                 relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户失败"+ (totalnum-UpdateRowNum) + "条";
                 relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据部门添加用户失败，" + (totalnum - UpdateRowNum) + "条");
-                return BadRequest(relateDepartToUserAddResModel);
+                return Ok(relateDepartToUserAddResModel);
             }
             else
             {
@@ -217,7 +217,7 @@ namespace IntellUser.Controllers
                 relateDepartToUserAddResModel.baseViewModel.Message = "根据部门添加用户失败" ;
                 relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据部门添加用户失败");
-                return BadRequest(relateDepartToUserAddResModel);
+                return Ok(relateDepartToUserAddResModel);
 
             }
 
