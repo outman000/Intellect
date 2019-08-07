@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
+namespace ViewModel.BusViewModel.MiddleModel
 {
-    /// <summary>
-    /// 添加缴费人员信息视图模型
-    /// </summary>
-    public  class BusUserAddViewModel
+    public class BusUserUpdateMiddlecs
     {
+        /// <summary>
+        /// 主键Id
+        /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// 缴费状态-是否缴费
         /// </summary>
         public string status { get; set; }
+
         /// <summary>
         /// 站点id
         /// </summary>
@@ -85,10 +87,9 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public int? Repair_InfoId { get; set; }
 
         /// <summary>
-        /// 乘车时间
+        /// 修改日期
         /// </summary>
-        public DateTime? carDate { get; set; }
+        public DateTime? updateDate { get; set; }
 
-        public DateTime? createDate { get; set; }
     }
 }

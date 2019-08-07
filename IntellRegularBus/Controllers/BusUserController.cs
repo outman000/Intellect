@@ -106,7 +106,36 @@ namespace IntellRegularBus.Controllers
             _ILogger.Information("查询所有用户缴费信息成功");
             return Ok(busUserSearchResModel);
         }
+        /// <summary>
+        /// 把模板月份用户缴费信息添加到数据库
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Bus_PayMent_Template_Add(BusUserSearchViewModel busUserSearchViewModel)
+        {
 
+            int Bus_User_Add_Count;
+            Bus_User_Add_Count = _IBusUserService.Bus_PayMent_Template(busUserSearchViewModel);
+            BusUserAddResModel busUserAddResModel = new BusUserAddResModel();
+            if (Bus_User_Add_Count > 0)
+            {
+                busUserAddResModel.IsSuccess = true;
+                busUserAddResModel.AddCount = Bus_User_Add_Count;
+                busUserAddResModel.baseViewModel.Message = "添加成功";
+                busUserAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加用户缴费信息成功");
+                return Ok(busUserAddResModel);
+            }
+            else
+            {
+                busUserAddResModel.IsSuccess = false;
+                busUserAddResModel.AddCount = 0;
+                busUserAddResModel.baseViewModel.Message = "添加失败";
+                busUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加用户缴费信息失败");
+                return BadRequest(busUserAddResModel);
+            }
+        }
 
         /// <summary>
         /// 根据班车Id查询该班车是否坐满人
@@ -138,7 +167,7 @@ namespace IntellRegularBus.Controllers
            
         }
         /// <summary>
-        /// 修改用户缴费信息
+        /// 修改单个用户缴费信息
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -166,6 +195,34 @@ namespace IntellRegularBus.Controllers
                 return BadRequest(busUserUpdateResModel);
             }
         }
+        /// <summary>
+        /// 修改用户缴费表单id信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Bus_Payment_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
+        {
+            BusPaymentUpdateResModel  busPamentUpdateResModel = new BusPaymentUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_PayMent_Update(busPamentUpdateViewModel);
 
+            if (UpdateRowNum > 0)
+            {
+                busPamentUpdateResModel.IsSuccess = true;
+                busPamentUpdateResModel.AddCount = UpdateRowNum;
+                busPamentUpdateResModel.baseViewModel.Message = "更新成功";
+                busPamentUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加用户缴费表单id信息成功");
+                return Ok(busPamentUpdateResModel);
+            }
+            else
+            {
+                busPamentUpdateResModel.IsSuccess = false;
+                busPamentUpdateResModel.AddCount = 0;
+                busPamentUpdateResModel.baseViewModel.Message = "更新失败";
+                busPamentUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加用户缴费表单id信息失败");
+                return BadRequest(busPamentUpdateResModel);
+            }
+        }
     }
 }
