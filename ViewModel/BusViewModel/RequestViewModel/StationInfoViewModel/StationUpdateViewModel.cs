@@ -34,6 +34,6 @@ namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
         /// 下班到达站点时间
         /// </summary>
         public DateTime? OffWorkDate { get; set; }
-
+        public DateTime? updateDate { get; set; }
     }
 }
