@@ -7,6 +7,10 @@ namespace ViewModel.RepairsViewModel.MiddleModel
     public class FlowProcedureDefineSearchMiddlecs
     {
         /// <summary>
+        /// 流程id
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 流程名
         /// </summary>
         public string ProcedureName { get; set; }

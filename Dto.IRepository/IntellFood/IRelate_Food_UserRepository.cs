@@ -26,6 +26,13 @@ namespace Dto.IRepository.IntellOpinionInfo
         int RelateFoodToUserDel(FoodByUserPraiseViewModel foodByUserSearchViewModelt);
 
         /// <summary>
+        /// 根据菜ID给用户点赞关系表删数据
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        int ByFoodIdDel(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel);
+
+        /// <summary>
         /// 根据菜单id查询关系表
         /// </summary>
         /// <param name="foodIdSearchViewModel"></param>

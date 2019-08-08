@@ -142,5 +142,18 @@ namespace Dto.Service.IntellFood
             List < FoodPraiseNumMiddlecs > fp= _IRelate_Food_UserRepository.RelateFoodToFoodIdSearch();
             return fp;
         }
+        /// <summary>
+        ///根据菜Id删除点赞数量
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        public int By_Food_Id_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+            int DeleteRowsNum = _IRelate_Food_UserRepository
+                  .ByFoodIdDel(foodByUserPraiseDelViewModel);
+            
+                return DeleteRowsNum;
+          
+        }
     }
 }

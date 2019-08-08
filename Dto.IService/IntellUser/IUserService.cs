@@ -1,4 +1,5 @@
 ﻿using Dtol.dtol;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,12 @@ namespace Dto.IService.IntellUser
         /// <param name="userByRoleSearchViewModel"></param>
         /// <returns></returns>
         int User_By_Role_Get_ALLNum(UserByRoleSearchViewModel userByRoleSearchViewModel);
+        /// <summary>
+        /// 上传用户头像
+        /// </summary>
+        /// <param name="iformFile"></param>
+
+        String GetUserHead(IFormFile iformFile);
     }
 }
 

@@ -2,8 +2,10 @@
 using Dto.IRepository.IntellUser;
 using Dto.IService.IntellUser;
 using Dtol.dtol;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using ViewModel.UserViewModel.MiddleModel;
@@ -143,6 +145,21 @@ namespace Dto.Service.IntellUser
             return user_Relate_Info_Users;
         }
 
-
+        public String GetUserHead(IFormFile formFile)
+        {
+            String filePath = "";//上传文件的路径
+            String RandName = "";
+            String[] fileTail = formFile.FileName.Split('.');
+            RandName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "." + fileTail[1];
+            filePath = Directory.GetCurrentDirectory() + "\\files\\" + RandName;
+            if (formFile.Length > 0)
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    formFile.CopyTo(stream);
+                }
+            }
+            return RandName;
+        }
     }
 }

@@ -11,6 +11,8 @@ using SystemFilter.PublicFilter;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.UserViewModel.ResponseModel;
 using Serilog;
+using System.IO;
+
 namespace IntellUser.Controllers
 {
     [Route("UserManageApi/[controller]/[action]")]
@@ -257,6 +259,27 @@ namespace IntellUser.Controllers
             return Ok(ui);      
         }
 
+        /// <summary>上传文件并且导入数据库（通过requset）
+        /// </summary>
+
+        [HttpPost]
+        public ActionResult uploadfile()
+        {
+            var files = Request.Form.Files;
+            String RandFileName = "";
+       
+            if (files.Count == 0)
+            {
+                throw new ArgumentException("找不到上传的文件");
+            }
+            // full path to file in temp location
+            foreach (var formFile in files)
+            {
+                RandFileName=_userService.GetUserHead(formFile);
+            }
+            // return Ok(RandName);
+            return Ok("ss");
+        }
 
     }
 }

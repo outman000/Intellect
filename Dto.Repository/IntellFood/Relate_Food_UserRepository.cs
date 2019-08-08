@@ -57,6 +57,17 @@ namespace Dto.Repository.IntellFood
             return predicate;
         }
         #endregion
+
+
+        #region 查询条件
+        //根据条件查询点赞
+        private Expression<Func<User_Relate_Food, bool>> SearchDelRelateWhere(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+            var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
+            predicate = predicate.And(p => p.Food_InfoId == foodByUserPraiseDelViewModel.Food_InfoId);
+            return predicate;
+        }
+        #endregion
         public int SaveChanges()
         {
             return Db.SaveChanges();
@@ -103,6 +114,23 @@ namespace Dto.Repository.IntellFood
            
             return SaveChanges();
         }
+        /// <summary>
+        /// 根据菜id删 点赞
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        public int ByFoodIdDel(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+
+            var preciate = SearchDelRelateWhere(foodByUserPraiseDelViewModel);
+            var temp = DbSet.Where(preciate).ToList();
+            for(int i=0;i<temp.Count;i++)
+            {
+                DbSet.Remove(temp[i]);
+            }
+            return SaveChanges();
+        }
+
         /// <summary>
         /// 查询点赞数量
         /// </summary>

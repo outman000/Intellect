@@ -47,14 +47,21 @@ namespace Dto.IService.IntellFood
         bool Food_Single(FoodInfoValideRepeat  foodInfoValideRepeat);
 
         /// <summary>
-        ///根据用户和菜单点赞
+        ///根据用户和菜单查询有无点赞信息
         /// </summary>
         /// <param name="foodByUserSearchViewMode"></param>
         /// <returns></returns>
-       int Food_Relate_User(FoodByUserPraiseViewModel foodByUserSearchViewMode);
+        int Food_Relate_User(FoodByUserPraiseViewModel foodByUserSearchViewMode);
 
         /// <summary>
-        ///根据用户和菜单点赞
+        ///根据菜Id删除点赞数量
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        int By_Food_Id_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel);
+
+        /// <summary>
+        ///根据用户和菜单查询点赞数量
         /// </summary>
         /// <param name="foodByFoodIdSearchViewModel"></param>
         /// <returns></returns>

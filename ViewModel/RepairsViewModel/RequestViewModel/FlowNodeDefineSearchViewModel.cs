@@ -8,10 +8,8 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     public class FlowNodeDefineSearchViewModel
     {
 
-        /// <summary>
-        /// 当前节点id
-        /// </summary>
-        public int Id { get; set; }
+
+
         /// <summary>
         /// 节点名
         /// </summary>

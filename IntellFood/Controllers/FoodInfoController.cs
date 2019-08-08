@@ -21,7 +21,7 @@ namespace IntellFood.Controllers
         private readonly ILogger _ILogger;
 
 
-        public FoodInfoController(IFoodService  foodService, ILogger logger)
+        public FoodInfoController(IFoodService foodService, ILogger logger)
         {
             _foodService = foodService;
             _ILogger = logger;
@@ -35,9 +35,9 @@ namespace IntellFood.Controllers
         /// <param name="foodInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Food_Search(FoodInfoSearchViewModel  foodInfoSearchViewModel)
+        public ActionResult Manage_Food_Search(FoodInfoSearchViewModel foodInfoSearchViewModel)
         {
-            FoodInfoSearchResModel  foodInfoSearchResModel = new FoodInfoSearchResModel();
+            FoodInfoSearchResModel foodInfoSearchResModel = new FoodInfoSearchResModel();
             var BusSearchResult = _foodService.Food_Search(foodInfoSearchViewModel);
 
             // var TotalNum = _userService.User_Get_ALLNum();
@@ -60,11 +60,11 @@ namespace IntellFood.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_Add(FoodInfoAddViewModel  foodInfoAddViewModel)
+        public ActionResult Manage_Food_Add(FoodInfoAddViewModel foodInfoAddViewModel)
         {
             int Food_Add_Count;
             Food_Add_Count = _foodService.Food_Add(foodInfoAddViewModel);
-            FoodInfoAddResModel  foodInfoAddResModel = new FoodInfoAddResModel();
+            FoodInfoAddResModel foodInfoAddResModel = new FoodInfoAddResModel();
             if (Food_Add_Count > 0)
             {
                 foodInfoAddResModel.IsSuccess = true;
@@ -93,7 +93,7 @@ namespace IntellFood.Controllers
         [HttpPost]
         public ActionResult Manage_Food_Delete(FoodInfoDelViewModel foodInfoDelViewModel)
         {
-            FoodInfoDelResModel  foodInfoDelResModel = new FoodInfoDelResModel();
+            FoodInfoDelResModel foodInfoDelResModel = new FoodInfoDelResModel();
             int DeleteResult = _foodService.Food_Delete(foodInfoDelViewModel);
 
             if (DeleteResult > 0)
@@ -123,9 +123,9 @@ namespace IntellFood.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_Update(FoodInfoUpdateViewModel  foodInfoUpdateViewModel)
+        public ActionResult Manage_Food_Update(FoodInfoUpdateViewModel foodInfoUpdateViewModel)
         {
-            FoodInfoUpdateResModel  foodInfoUpdateResModel = new FoodInfoUpdateResModel();
+            FoodInfoUpdateResModel foodInfoUpdateResModel = new FoodInfoUpdateResModel();
             int UpdateRowNum = _foodService.Food_Update(foodInfoUpdateViewModel);
 
             if (UpdateRowNum > 0)
@@ -154,9 +154,9 @@ namespace IntellFood.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_ValideRepeat(FoodInfoValideRepeat  foodInfoValideRepeat)
+        public ActionResult Manage_Food_ValideRepeat(FoodInfoValideRepeat foodInfoValideRepeat)
         {
-            FoodInfoValideResRepeat  foodInfoValideResRepeat = new FoodInfoValideResRepeat();
+            FoodInfoValideResRepeat foodInfoValideResRepeat = new FoodInfoValideResRepeat();
             bool ValideResutlt = _foodService.Food_Single(foodInfoValideRepeat);
             foodInfoValideResRepeat.IsSuccess = ValideResutlt;
             if (ValideResutlt)
@@ -185,9 +185,9 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserPraiseViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodToUser_Del(FoodByUserPraiseViewModel  foodByUserPraiseViewModel)
+        public ActionResult Manage_FoodToUser_Del(FoodByUserPraiseViewModel foodByUserPraiseViewModel)
         {
-            FoodByUserSearchResModel  foodByUserSearchResModel = new FoodByUserSearchResModel();
+            FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
             int SearchRowNum = _foodService.Food_Relate_User(foodByUserPraiseViewModel);
 
             if (SearchRowNum > 0)
@@ -218,8 +218,8 @@ namespace IntellFood.Controllers
         [HttpPost]
         public ActionResult Manage_PraiseNum_Search()
         {
-            FoodByFoodIdSearchResModel  foodIdSearchResModel = new FoodByFoodIdSearchResModel();
-            var BusSearchResult = _foodService.PraiseNumByFoodId ();
+            FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
+            var BusSearchResult = _foodService.PraiseNumByFoodId();
 
 
             foodIdSearchResModel.PraiseInfo = BusSearchResult;
@@ -232,5 +232,34 @@ namespace IntellFood.Controllers
 
         }
 
+        /// <summary>
+        /// 根据菜Id删除点赞信息
+        /// </summary>
+        /// <param name="foodInfoDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_FoodId_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+            FoodByUserPraiseDelResModel foodByUserPraiseDelResModel = new FoodByUserPraiseDelResModel();
+            int DeleteResult = _foodService.By_Food_Id_Del(foodByUserPraiseDelViewModel);
+            if (DeleteResult > 0)
+            {
+                foodByUserPraiseDelResModel.DelCount = DeleteResult;
+                foodByUserPraiseDelResModel.IsSuccess = true;
+                foodByUserPraiseDelResModel.baseViewModel.Message = "根据菜Id删除点赞信息成功";
+                foodByUserPraiseDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除菜单点赞信息成功");
+                return Ok(foodByUserPraiseDelResModel);
+            }
+            else
+            {
+                foodByUserPraiseDelResModel.DelCount = -1;
+                foodByUserPraiseDelResModel.IsSuccess = false;
+                foodByUserPraiseDelResModel.baseViewModel.Message = "根据菜Id删除点赞信息失败";
+                foodByUserPraiseDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除菜单点赞信息失败");
+                return BadRequest(foodByUserPraiseDelResModel);
+            }
+        }
     }
 }
