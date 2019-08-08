@@ -181,7 +181,7 @@ namespace Dto.Service.IntellRegularBus
         /// <summary>
         /// 班车信息验证
         /// </summary>
-        public int Bus_Payment_valide(BusUserValideViewModel busUserValideViewModel)
+        public IDictionary<int, String> Bus_Payment_valide(BusUserValideViewModel busUserValideViewModel)
         {
             IDictionary<int, String> ErrorResult = new Dictionary<int, String>();
             //查询缴费信息
@@ -243,7 +243,7 @@ namespace Dto.Service.IntellRegularBus
 
             }
 
-            return 0;
+            return ErrorResult;
 
         }
 

@@ -65,6 +65,6 @@ namespace Dto.IService.IntellRegularBus
         /// 班车缴费的验证
         /// </summary>
         /// <param name="busUserValideViewModel"></param>
-        int Bus_Payment_valide(BusUserValideViewModel busUserValideViewModel);
+        IDictionary<int, String> Bus_Payment_valide(BusUserValideViewModel busUserValideViewModel);
     }
 }

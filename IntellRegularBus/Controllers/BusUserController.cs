@@ -232,27 +232,28 @@ namespace IntellRegularBus.Controllers
         [HttpPost]
         public ActionResult Bus_Payment_Valide(BusUserValideViewModel  busUserValideViewModel)
         {
-            BusPaymentUpdateResModel busPamentUpdateResModel = new BusPaymentUpdateResModel();
-            int UpdateRowNum = _IBusUserService.Bus_Payment_valide(busUserValideViewModel);
+            BuUserValideResModel buUserValideResModel = new BuUserValideResModel();
+            IDictionary<int, String> errorResult = _IBusUserService.Bus_Payment_valide(busUserValideViewModel);
 
-            if (UpdateRowNum > 0)
+            if (errorResult.Count > 0)
             {
-                busPamentUpdateResModel.IsSuccess = true;
-                busPamentUpdateResModel.AddCount = UpdateRowNum;
-                busPamentUpdateResModel.baseViewModel.Message = "更新成功";
-                busPamentUpdateResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("增加用户缴费表单id信息成功");
-                return Ok(busPamentUpdateResModel);
+                buUserValideResModel.isSuccess = false;
+                buUserValideResModel.errorResult = errorResult;
+                buUserValideResModel.baseViewModel.Message = "缴费单存在变更信息";
+                buUserValideResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("验证班车缴费信息存在变更");
+                return Ok(buUserValideResModel);
             }
             else
             {
-                busPamentUpdateResModel.IsSuccess = false;
-                busPamentUpdateResModel.AddCount = 0;
-                busPamentUpdateResModel.baseViewModel.Message = "更新失败";
-                busPamentUpdateResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("增加用户缴费表单id信息失败");
-                return BadRequest(busPamentUpdateResModel);
+                buUserValideResModel.isSuccess = true;
+                buUserValideResModel.errorResult = errorResult;
+                buUserValideResModel.baseViewModel.Message = "班车缴费单不存在变更信息";
+                buUserValideResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("班车缴费信息可以使用，无异常");
+                return Ok(buUserValideResModel);
             }
+
         }
     }
 }
