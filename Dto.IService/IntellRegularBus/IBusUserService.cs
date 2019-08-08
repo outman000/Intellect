@@ -60,5 +60,11 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busSearchByIdViewModel"></param>
         int ByBusIdSearchNum(BusSearchByIdViewModel busSearchByIdViewModel);
+
+        /// <summary>
+        /// 班车缴费的验证
+        /// </summary>
+        /// <param name="busUserValideViewModel"></param>
+        int Bus_Payment_valide(BusUserValideViewModel busUserValideViewModel);
     }
 }

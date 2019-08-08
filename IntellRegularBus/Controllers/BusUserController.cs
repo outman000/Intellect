@@ -224,5 +224,35 @@ namespace IntellRegularBus.Controllers
                 return BadRequest(busPamentUpdateResModel);
             }
         }
+
+        /// <summary>
+        /// 缴费信息验证
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Bus_Payment_Valide(BusUserValideViewModel  busUserValideViewModel)
+        {
+            BusPaymentUpdateResModel busPamentUpdateResModel = new BusPaymentUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_Payment_valide(busUserValideViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                busPamentUpdateResModel.IsSuccess = true;
+                busPamentUpdateResModel.AddCount = UpdateRowNum;
+                busPamentUpdateResModel.baseViewModel.Message = "更新成功";
+                busPamentUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加用户缴费表单id信息成功");
+                return Ok(busPamentUpdateResModel);
+            }
+            else
+            {
+                busPamentUpdateResModel.IsSuccess = false;
+                busPamentUpdateResModel.AddCount = 0;
+                busPamentUpdateResModel.baseViewModel.Message = "更新失败";
+                busPamentUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加用户缴费表单id信息失败");
+                return BadRequest(busPamentUpdateResModel);
+            }
+        }
     }
 }

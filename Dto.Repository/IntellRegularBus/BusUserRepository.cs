@@ -83,6 +83,11 @@ namespace Dto.Repository.IntellRegularBus
             return Db.SaveChanges();
         }
 
+        public void Update(Bus_Payment obj)
+        {
+            DbSet.Update(obj);
+        }
+
         /// <summary>
         /// 根据班车id查询数量
         /// </summary>
@@ -99,7 +104,7 @@ namespace Dto.Repository.IntellRegularBus
             return result;
         }
         /// <summary>
-        /// 查询人员缴费信息
+        /// 查询人员缴费信息（重载,最普通的查询）
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
@@ -120,9 +125,8 @@ namespace Dto.Repository.IntellRegularBus
 
 
         }
-
         /// <summary>
-        /// 查询人员缴费信息(重载)
+        /// 查询人员缴费信息(重载，用户初始化当月的班车缴费清单而查询模板清单的方法)
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
@@ -135,12 +139,25 @@ namespace Dto.Repository.IntellRegularBus
 
             return result;
         }
-
-
-        public void Update(Bus_Payment obj)
+        /// <summary>
+        /// 查询人员缴费信息验证(重载，用于缴费单提交之前班车信息的验证)
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserValideViewModel  busUserValideViewModel)
         {
-            DbSet.Update(obj);
+
+            var predicate = SearchBusValideWhere(busUserValideViewModel);
+            var result = DbSet.Where(predicate)
+                .OrderBy(o => o.createDate);
+            return result;
         }
+
+        public void aa()
+        {
+           
+        }
+
 
         #region 条件
         //根据条件查询班车
@@ -170,19 +187,30 @@ namespace Dto.Repository.IntellRegularBus
         }
 
         #endregion
-
-        #region 条件
+        #region 条件（查询模板账单的条件，根据模板账单生成新的班车账单）
         //根据条件查询班车
         private Expression<Func<Bus_Payment, bool>> SearchBusUserByIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-
+           
             predicate = predicate.And(a => a.Bus_InfoId==busSearchByIdViewModel.Id);
 
             return predicate;
         }
+        #endregion
+        #region 条件(验证班车名单信息)
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> SearchBusValideWhere(BusUserValideViewModel  busUserValideViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
 
-     
+            predicate = predicate.And(a => a.User_DepartId == busUserValideViewModel.User_DepartId);
+            predicate = predicate.And(a => a.carDate.Value.Year == busUserValideViewModel.carDate.Value.Year
+                                 && a.carDate.Value.Month == busUserValideViewModel.carDate.Value.Month);
+            return predicate;
+        }
+
+
         #endregion
     }
 }
