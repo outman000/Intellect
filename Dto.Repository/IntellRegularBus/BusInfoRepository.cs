@@ -30,7 +30,7 @@ namespace Dto.Repository.IntellRegularBus
             DbSet.Add(obj);
         }
 
-        public virtual Bus_Info GetById(Guid id)
+        public  Bus_Info GetById(Guid id)
         {
             return DbSet.Find(id);
         }
@@ -121,10 +121,7 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
 
-        public Bus_Info GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+  
         /// <summary>
         /// 根据线路查班车
         /// </summary>
@@ -191,6 +188,11 @@ namespace Dto.Repository.IntellRegularBus
             var queryResult = DbSet.Where(k => k.Id == BusId).Include(p => p.Bus_Line);
 
             return queryResult;
+        }
+
+        public Bus_Info GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
  }

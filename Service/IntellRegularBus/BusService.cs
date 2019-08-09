@@ -78,7 +78,7 @@ namespace Dto.Service.IntellRegularBus
         //给班车添加线路
         public int Bus_To_Line_Add(LineByBusAddViewModel lineByBusAddViewModel)
         {
-            var bus_Info = _IBusInfoRepository.GetById(lineByBusAddViewModel.Id);
+            var bus_Info = _IBusInfoRepository.GetInfoByBusId(lineByBusAddViewModel.Id);
             var bus_Info_update=  _IMapper.Map<LineByBusAddViewModel, Bus_Info>(lineByBusAddViewModel, bus_Info);
             _IBusInfoRepository.Update(bus_Info_update);
             return _IBusInfoRepository.SaveChanges();

@@ -26,8 +26,9 @@ namespace Dtol.dtol
         /// 食物价格
         /// </summary>
         public decimal? Price { get; set; }
+
         /// <summary>
-        /// 食物简介
+        /// 食物地点分类
         /// </summary>
         public string Remark { get; set; }
 

@@ -271,7 +271,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="lineByBusSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Bus_Station_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
+        public ActionResult Manage_Bus_Line_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
         {
             LineByBusSearchResModel lineByBusSearchResModel = new LineByBusSearchResModel();
             lineByBusSearchResModel.line_Infos = _busService.Line_By_Bus_Search(lineByBusSearchViewModel);
