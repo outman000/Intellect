@@ -107,7 +107,7 @@ namespace IntellRegularBus.Controllers
             return Ok(busUserSearchResModel);
         }
         /// <summary>
-        /// 把模板月份用户缴费信息添加到数据库
+        /// 把模板月份用户缴费信息添加到数据库（参数只需要传乘车时间和部门Id,还有分页信息即可）
         /// </summary>
         /// <returns></returns>
         [HttpPost]

@@ -111,12 +111,12 @@ namespace Dto.Service.IntellRegularBus
             List <BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
             for (int j = 0; j < bus_Payments.Count; j++)
             {
-                var bus_Info = _IMapper.Map<Bus_Payment, BusUserAddViewModel>(bus_Payments[j]);
+                var bus_Info = _IMapper.Map<Bus_Payment, BusUserAddViewModel>(bus_Payments[j]);//把查询结果中的主键列去掉
                 busUserAddViewModel.Add(bus_Info);
             }
-            //按照模板添加后，更新日期为当前余额
+            //按照模板添加后，更新日期为当前年份和月份
             NowDateUpdateViewModel nowDateUpdateViewModel = new NowDateUpdateViewModel();
-            nowDateUpdateViewModel.carDate = DateTime.Now;
+            nowDateUpdateViewModel.carDate = DateTime.Now;//当前年月
             for(int i=0;i< bus_Payments.Count;i++)
             {
                 var bus_user_Info = _IMapper.Map<NowDateUpdateViewModel, BusUserAddViewModel>(nowDateUpdateViewModel, busUserAddViewModel[i]);
