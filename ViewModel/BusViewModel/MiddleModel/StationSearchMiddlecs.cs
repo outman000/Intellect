@@ -39,6 +39,14 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public DateTime? OffWorkDate { get; set; }
         /// <summary>
+        /// 上班到达站点时间
+        /// </summary>
+        public string OnDate { get; set; }
+        /// <summary>
+        /// 下班到达站点时间
+        /// </summary>
+        public string OffDate { get; set; }
+        /// <summary>
         /// 增加数据时间
         /// </summary>
         public DateTime? AddDate { get; set; }

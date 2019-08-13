@@ -43,5 +43,14 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// 线路Id   ---外键
         /// </summary>
         public int? Bus_LineId { get; set; }
+
+        /// <summary>
+        /// 增加时间
+        /// </summary>
+        public DateTime? AddDate { get; set; }
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime? updateDate { get; set; }
     }
 }

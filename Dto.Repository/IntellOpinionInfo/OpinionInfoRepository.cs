@@ -115,6 +115,7 @@ namespace Dto.Repository.IntellOpinionInfo
         {
             var predicate = WhereExtension.True<Opinion_Info>();//初始化where表达式
             predicate = predicate.And(p => p.User_Info.UserName.Contains(opinionInfoSearchViewModel.UserName));
+            if(opinionInfoSearchViewModel.Suggest_BoxId!=null)
             predicate = predicate.And(p => p.Suggest_BoxId==opinionInfoSearchViewModel.Suggest_BoxId);
             predicate = predicate.And(p => p.Flow_NodeDefine.NodeName.Contains(opinionInfoSearchViewModel.NodeName));
             predicate = predicate.And(p => p.status.Contains(opinionInfoSearchViewModel.status));

@@ -17,7 +17,9 @@ namespace Dto.Service.AutoMapper.OpinionMapper.OpinionReqMapper
         {
             CreateMap<OpinionInfoUpdateViewModel, Opinion_Info>();
             CreateMap<OpinionInfoAddViewModel, Opinion_Info>();
-            CreateMap<Opinion_Info,OpinionInfoSearchMiddlecs > ();
+            CreateMap<Opinion_Info, OpinionInfoSearchMiddlecs>()
+            .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName));
+
 
         }
     }

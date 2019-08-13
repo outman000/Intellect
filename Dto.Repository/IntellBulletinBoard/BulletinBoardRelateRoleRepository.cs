@@ -142,5 +142,24 @@ namespace Dto.Repository.IntellBulletinBoard
             return predicate;
         }
         #endregion
+
+
+        /// <summary>
+        /// 根据用户信息获取所有相关信息（公告栏，角色）
+        /// </summary>
+        /// <param name="user_Info"></param>
+        /// <returns></returns>
+        public List<User_Relate_Info_Role> SearchInfoByWhere(int id)
+        {
+            var userAllInfo = Db.user_Relate_Info_Role
+                                        .Where(a => a.User_InfoId == id)
+                                        .Include(b => b.User_Role)
+                                        .ThenInclude(c => c.User_Relate_Role_Right)
+                                        .ThenInclude(
+                                          d => d.User_Rights
+                                        ).ToList()
+                                        ;
+            return userAllInfo;
+        }
     }
 }
