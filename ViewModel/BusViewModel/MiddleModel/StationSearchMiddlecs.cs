@@ -27,6 +27,10 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public string Remark { get; set; }
         /// <summary>
+        /// 站点费用
+        /// </summary>
+        public decimal? Expense { get; set; }
+        /// <summary>
         /// 上班到达站点时间
         /// </summary>
         public DateTime? OnWorkDate { get; set; }

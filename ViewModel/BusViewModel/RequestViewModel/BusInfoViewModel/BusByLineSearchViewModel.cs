@@ -8,7 +8,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel
     public class BusByLineSearchViewModel
     {
         /// <summary>
-        /// 线路Id   ---外键
+        /// 部门Id   ---外键
         /// </summary>
         public int Bus_LineId { get; set; }
         /// <summary>

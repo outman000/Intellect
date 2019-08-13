@@ -44,6 +44,11 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 身份名称
         /// </summary>
         public string WorkExperience { get; set; }
+
+        ///// <summary>
+        ///// 头像存储路径
+        ///// </summary>
+        //public string ImgName { get; set; }
         /// <summary>
         /// 添加时间
         /// </summary>

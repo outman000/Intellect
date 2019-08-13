@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ViewModel.UserViewModel.RequsetModel
@@ -17,10 +19,7 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 用户姓名
         /// </summary>
         public string UserName { get; set; }
-        /// <summary>
-        /// 用户登录名
-        /// </summary>
-        public string UserId { get; set; }
+      
         /// <summary>
         /// 用户密码
         /// </summary>
@@ -45,6 +44,20 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 工作经验
         /// </summary>
         public string WorkExperience { get; set; }
+
+        ///// <summary>
+        ///// 头像姓名
+        ///// </summary>
+        //public string Files { get; set; }
+
+        ///// <summary>
+        ///// 上传头像文件
+        ///// </summary>
+        //[Required]
+        //[Display(Name = "身份证附件")]
+        //[FileExtensions(Extensions = ".jpg,.png", ErrorMessage = "图片格式错误")]
+        //public IFormFile formFile { get; set; }
+
         /// <summary>
         /// 修改时间
         /// </summary>

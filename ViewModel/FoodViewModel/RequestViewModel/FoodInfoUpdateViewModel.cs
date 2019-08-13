@@ -29,11 +29,11 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         /// </summary>
         public decimal? Price { get; set; }
         /// <summary>
-        /// 食物地点分类
+        /// 星期数
         /// </summary>
         public string Remark { get; set; }
         /// <summary>
-        /// 食物种类
+        /// 食物地点分类
         /// </summary>
         public string FoodType { get; set; }
         /// <summary>

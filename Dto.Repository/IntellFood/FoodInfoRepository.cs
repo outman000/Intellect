@@ -88,7 +88,7 @@ namespace Dto.Repository.IntellFood
             var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(foodInfoSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o).ToList();
+                .OrderBy(o => o.AddDate).ToList();
 
             return result;
         }
@@ -100,6 +100,7 @@ namespace Dto.Repository.IntellFood
             predicate = predicate.And(p => p.Price.ToString().Contains(foodInfoSearchViewModel.Price.ToString()));
             predicate = predicate.And(p => p.FoodName.Contains(foodInfoSearchViewModel.FoodName));
             predicate = predicate.And(p => p.FoodType.Contains(foodInfoSearchViewModel.FoodType));
+            predicate = predicate.And(p => p.Remark.Contains(foodInfoSearchViewModel.Remark));
             return predicate;
         }
         #endregion

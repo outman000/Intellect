@@ -19,6 +19,37 @@ namespace Dtol.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Dtol.dtol.Bulletin_Board", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AddDate");
+
+                    b.Property<string>("BulletinContent");
+
+                    b.Property<string>("BulletinTitle");
+
+                    b.Property<int?>("Repair_InfoId");
+
+                    b.Property<string>("StayNum");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<int>("User_InfoId");
+
+                    b.Property<string>("status");
+
+                    b.Property<DateTime?>("updateDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Repair_InfoId");
+
+                    b.ToTable("bulletin_Boards");
+                });
+
             modelBuilder.Entity("Dtol.dtol.Bus_Info", b =>
                 {
                     b.Property<int>("Id")
@@ -697,6 +728,13 @@ namespace Dtol.Migrations
                     b.HasIndex("Flow_ProcedureId");
 
                     b.ToTable("user_Role");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.Bulletin_Board", b =>
+                {
+                    b.HasOne("Dtol.dtol.Repair_Info", "Repair_Info")
+                        .WithMany()
+                        .HasForeignKey("Repair_InfoId");
                 });
 
             modelBuilder.Entity("Dtol.dtol.Bus_Info", b =>

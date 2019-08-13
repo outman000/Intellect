@@ -16,11 +16,7 @@ namespace ViewModel.ViewValitor.UserViewValitor
                   .WithMessage("用户姓名必须为中文")
               ;
 
-            RuleFor(hr_info => hr_info.UserId).NotNull()
-                .WithMessage("用户登录账号不能为空")
-                  .Matches("[a-zA-Z]")
-                  .WithMessage("登录账号必须为英文，不可以包含特殊符号")
-                  ;
+        
 
             RuleFor(hr_info => hr_info.UserPwd).NotNull()
                     .WithMessage("用户密码不能为空")

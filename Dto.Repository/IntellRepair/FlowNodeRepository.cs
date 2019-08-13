@@ -106,9 +106,12 @@ namespace Dto.Repository.IntellRepair
         {
             var predicate = WhereExtension.True<Flow_Node>();//初始化where表达式
             predicate = predicate.And(p => p.status.Contains(flowNodeSearchViewModel.status));
+            if(flowNodeSearchViewModel.Flow_ProcedureId!=null)
             predicate = predicate.And(p => p.Flow_ProcedureId==flowNodeSearchViewModel.Flow_ProcedureId);
+            if(flowNodeSearchViewModel.Repair_InfoId != null)
             predicate = predicate.And(p => p.Repair_InfoId==flowNodeSearchViewModel.Repair_InfoId);
             predicate = predicate.And(p => p.operate.Contains(flowNodeSearchViewModel.operate));
+            if (flowNodeSearchViewModel.User_InfoId != null)
             predicate = predicate.And(p => p.User_InfoId==flowNodeSearchViewModel.User_InfoId);
             
 

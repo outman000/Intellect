@@ -9,7 +9,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
         /// <summary>
         /// 线路id
         /// </summary>
-        public int Bus_LineId { get; set; }
+        public int? Bus_LineId { get; set; }
         /// <summary>
         /// 站点id
         /// </summary>

@@ -16,11 +16,7 @@ namespace ViewModel.ViewValitor.UserViewValitor
                     .Matches("[\u4e00-\u9fa5]")
                   .WithMessage("权限必须为中文")
               ;
-            RuleFor(hr_info => hr_info.RightsValue).NotNull()
-            .WithMessage("权限id不能为空")
-             .Matches("[a-zA-Z]")
-                  .WithMessage("权限id，不可以包含特殊符号")
-        ;
+
 
 
             RuleFor(hr_info => hr_info.ParentId).NotNull()

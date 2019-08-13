@@ -3,8 +3,10 @@ using Dto.IRepository.IntellRegularBus;
 using Dto.IRepository.IntellUser;
 using Dto.IService.IntellRegularBus;
 using Dtol.dtol;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
@@ -50,11 +52,34 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public int Bus_User_Add(BusUserAddViewModel busUserAddViewModel)
         {
+            //string RandName = GetUserHead(busUserAddViewModel.formFile);//头像名
+            //RandName = "E://东疆智慧后勤/IntellRegularBus/HeadImg/" + RandName;//头像存储路径
+            //busUserAddViewModel.Userpicture = RandName;
             var bus_Info = _IMapper.Map<BusUserAddViewModel, Bus_Payment>(busUserAddViewModel);
             _IBusUserRepository.Add(bus_Info);
             return _IBusUserRepository.SaveChanges();
         }
-
+        /// <summary>
+        /// 获得头像名称
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        public string GetUserHead(IFormFile formFile)
+        {
+            string filePath = "";//上传文件的路径
+            string RandName = "";
+            string[] fileTail = formFile.FileName.Split('.');
+            RandName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "." + fileTail[1];
+            filePath = "E://东疆智慧后勤/IntellRegularBus/HeadImg/" + RandName;
+            if (formFile.Length > 0)
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    formFile.CopyTo(stream);
+                }
+            }
+            return RandName;
+        }
         public int Bus_User_Delete(BusUserDelViewModel busDelViewModel)
         {
             int DeleteRowsNum = _IBusUserRepository
@@ -111,12 +136,12 @@ namespace Dto.Service.IntellRegularBus
             List <BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
             for (int j = 0; j < bus_Payments.Count; j++)
             {
-                var bus_Info = _IMapper.Map<Bus_Payment, BusUserAddViewModel>(bus_Payments[j]);
+                var bus_Info = _IMapper.Map<Bus_Payment, BusUserAddViewModel>(bus_Payments[j]);//把查询结果中的主键列去掉
                 busUserAddViewModel.Add(bus_Info);
             }
-            //按照模板添加后，更新日期为当前余额
+            //按照模板添加后，更新日期为当前年份和月份
             NowDateUpdateViewModel nowDateUpdateViewModel = new NowDateUpdateViewModel();
-            nowDateUpdateViewModel.carDate = DateTime.Now;
+            nowDateUpdateViewModel.carDate = DateTime.Now;//当前年月
             for(int i=0;i< bus_Payments.Count;i++)
             {
                 var bus_user_Info = _IMapper.Map<NowDateUpdateViewModel, BusUserAddViewModel>(nowDateUpdateViewModel, busUserAddViewModel[i]);

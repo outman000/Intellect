@@ -51,7 +51,7 @@ namespace Dtol
         public DbSet<User_Relate_Food>  user_Relate_Foods { get; set; }
         public DbSet<Suggest_Box>  suggest_Boxes { get; set; }
         public DbSet<Opinion_Info>  opinion_Infos { get; set; }
-
+        public DbSet<Bulletin_Board> bulletin_Boards { get; set; }
 
 
 

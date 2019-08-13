@@ -6,10 +6,11 @@ using Serilog;
 using Dto.IService.IntellFood;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SystemFilter.PublicFilter;
+
 using ViewModel.FoodViewModel.MiddleModel;
 using ViewModel.FoodViewModel.RequestViewModel;
 using ViewModel.FoodViewModel.ResponseModel;
+using SystemFilter.PublicFilter;
 
 namespace IntellFood.Controllers
 {
