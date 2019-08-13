@@ -52,7 +52,7 @@ namespace Dtol
         public DbSet<Suggest_Box>  suggest_Boxes { get; set; }
         public DbSet<Opinion_Info>  opinion_Infos { get; set; }
         public DbSet<Bulletin_Board> bulletin_Boards { get; set; }
-
+        public DbSet<Bulletin_Board_Relate_Role> bulletin_Board_Relate_Roles { get; set; }
 
 
 
