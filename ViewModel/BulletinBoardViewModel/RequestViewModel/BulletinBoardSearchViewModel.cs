@@ -24,10 +24,6 @@ namespace ViewModel.BulletinBoardViewModel.RequestViewModel
         public string StayNum { get; set; }
 
         /// <summary>
-        /// 创建者Id
-        /// </summary>
-        public int User_InfoId { get; set; }
-        /// <summary>
         /// 创建者
         /// </summary>
         public string UserName { get; set; }
@@ -37,10 +33,6 @@ namespace ViewModel.BulletinBoardViewModel.RequestViewModel
         /// </summary>
         public string status { get; set; }
 
-        /// <summary>
-        /// 表单id-----外键
-        /// </summary>
-        public int? Repair_InfoId { get; set; }
     
         /// <summary>
         /// 增加时间

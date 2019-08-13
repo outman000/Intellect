@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BulletinBoardViewModel.MiddleModel;
+using ViewModel.BulletinBoardViewModel.RequestViewModel;
 
 namespace Dto.Service.AutoMapper.BulletinBoardMapper.BulletinBoardMapper
 {
@@ -14,7 +15,8 @@ namespace Dto.Service.AutoMapper.BulletinBoardMapper.BulletinBoardMapper
         public BulletinBoardReqMapper()
         {
             CreateMap<Bulletin_Board, BulletinBoardSearchMiddlecs>();
-
+            CreateMap<BulletinBoardAddViewModel, Bulletin_Board >();
+            CreateMap< BulletinBoardUpdateViewModel, Bulletin_Board >();
         }
     }
 }

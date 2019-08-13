@@ -29,7 +29,7 @@ namespace ViewModel.BulletinBoardViewModel.MiddleModel
         /// <summary>
         /// 创建者
         /// </summary>
-        public int UserName { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// 状态  0-启用 1-禁用
