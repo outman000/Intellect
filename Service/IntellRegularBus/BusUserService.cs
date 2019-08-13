@@ -223,53 +223,51 @@ namespace Dto.Service.IntellRegularBus
             //合成错误消息
             for (int i = 0; i < Errorqueryable.Count(); i++)
             {
-                String ErrorName = Errorqueryable[i].Username;
-                for (int j = i; j < Errorqueryable.Count; j++)
-                {
-                    if (j == i)
-                    {
-                        if (Errorqueryable[j].BaseName == null)
-                        {
-                            ErrorResult.Add(Errorqueryable[j].Id, ErrorName + "所选择的" + Errorqueryable[j].PayName + "已经删除，请重新选择。");
-                        }
-                        else
-                        {
-                            ErrorResult.Add(Errorqueryable[j].Id, ErrorName + "所选择的" + Errorqueryable[j].PayName + "已经修改，请重新选择。");
-                        }
-                    }
 
-                    else if (Errorqueryable[j].Username.Equals(ErrorName))
+                if (i == 0)
+                {
+                    if (Errorqueryable[i].BaseName == null || Errorqueryable[i].Status.Equals("1"))
                     {
-                        if (Errorqueryable[j].BaseName == null)
+                        ErrorResult.Add(Errorqueryable[i].Id, Errorqueryable[i].Username + "所选择的" + Errorqueryable[i].PayName + "已经删除，请重新选择。");
+                    }
+                    else
+                    {
+                        ErrorResult.Add(Errorqueryable[i].Id, Errorqueryable[i].Username + "所选择的" + Errorqueryable[i].PayName + "已经修改，请重新选择。");
+                    }
+                }
+                else
+                {
+                    //查询某个key是否存在
+                    if (ErrorResult.ContainsKey(Errorqueryable[i].Id))
+                    {
+                        int key = Errorqueryable[i].Id;
+                        if (Errorqueryable[i].BaseName == null || Errorqueryable[i].Status.Equals("1"))
                         {
-                            ErrorResult[j] += Errorqueryable[j].PayName + "已经不存在，请重新选择";
+                            //将相同id的行的结果合并为一个，以文件信息返回出来
+                            ErrorResult[key] += Errorqueryable[i].PayName + "已经不存在，请重新选择";
                         }
                         else
                         {
-                            ErrorResult[j] += Errorqueryable[j].PayName + "已经修改，请重新选择";
+                            ErrorResult[key] += Errorqueryable[i].PayName + "已经修改，请重新选择";
                         }
                     }
                     else
                     {
-                        if (Errorqueryable[j].BaseName == null)
+                        if (Errorqueryable[i].BaseName == null || Errorqueryable[i].Status.Equals("1"))
                         {
-                            ErrorResult.Add(Errorqueryable[j].Id, ErrorName + "所选择的" + Errorqueryable[j].PayName + "已经删除，请重新选择。");
-                            i = j;
+                            ErrorResult.Add(Errorqueryable[i].Id, Errorqueryable[i].Username + "所选择的" + Errorqueryable[i].PayName + "已经删除，请重新选择。");
                         }
                         else
                         {
-                            ErrorResult.Add(Errorqueryable[j].Id, ErrorName + "所选择的" + Errorqueryable[j].PayName + "已经修改，请重新选择。");
-                            i = j;
+                            ErrorResult.Add(Errorqueryable[i].Id, Errorqueryable[i].Username + "所选择的" + Errorqueryable[i].PayName + "已经修改，请重新选择。");
                         }
-
                     }
 
                 }
 
+                
             }
-
             return ErrorResult;
-
         }
 
         /// <summary>
@@ -306,7 +304,8 @@ namespace Dto.Service.IntellRegularBus
                            Username = Pay.UserName,
                            PayName = Pay.BusName,
                            BaseName = infos.CarPlate,
-                           CreateDate = Pay.createDate
+                           CreateDate = Pay.createDate,
+                           Status = infos.status
                        }
                    ).Union(
                            from Pay in Bus_Payments
@@ -319,7 +318,8 @@ namespace Dto.Service.IntellRegularBus
                                Username = Pay.UserName,
                                PayName = Pay.StationName,
                                BaseName = stat.StationName,
-                               CreateDate = Pay.createDate
+                               CreateDate = Pay.createDate,
+                               Status = stat.status
                            }
                    ).Union(
                        from Pay in Bus_Payments
@@ -332,11 +332,12 @@ namespace Dto.Service.IntellRegularBus
                            Username = Pay.UserName,
                            PayName = Pay.LineName,
                            BaseName = line.LineName,
-                           CreateDate = Pay.createDate
+                           CreateDate = Pay.createDate,
+                           Status= line.status
                        }
                    )).Where(a => (!a.PayName.Equals(a.BaseName))
                                //|| a.BaseName == null
-                           ).OrderByDescending(t => t.CreateDate).ToList()
+                           ).OrderBy(t => t.Id).ToList()
                   ;
             
             return PayErrorList;
