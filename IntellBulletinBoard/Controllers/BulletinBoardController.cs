@@ -45,7 +45,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardAddResModel.AddCount = BulletinBoard_Add_Count;
                 bulletinBoardAddResModel.baseViewModel.Message = "添加成功";
                 bulletinBoardAddResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("增添菜单信息成功");
+                _ILogger.Information("增添公告栏信息成功");
                 return Ok(bulletinBoardAddResModel);
             }
             else
@@ -54,7 +54,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardAddResModel.AddCount = 0;
                 bulletinBoardAddResModel.baseViewModel.Message = "添加失败";
                 bulletinBoardAddResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("增添菜单信息失败");
+                _ILogger.Information("增添公告栏信息失败");
                 return BadRequest(bulletinBoardAddResModel);
             }
         }
@@ -99,7 +99,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardUpdateResModel.AddCount = UpdateRowNum;
                 bulletinBoardUpdateResModel.baseViewModel.Message = "更新成功";
                 bulletinBoardUpdateResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("更新菜单信息成功");
+                _ILogger.Information("更新公告栏信息成功");
                 return Ok(bulletinBoardUpdateResModel);
             }
             else
@@ -108,7 +108,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardUpdateResModel.AddCount = 0;
                 bulletinBoardUpdateResModel.baseViewModel.Message = "更新失败";
                 bulletinBoardUpdateResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("更新菜单信息失败");
+                _ILogger.Information("更新公告栏信息失败");
                 return BadRequest(bulletinBoardUpdateResModel);
             }
         }
@@ -138,8 +138,89 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardDelResModel.IsSuccess = false;
                 bulletinBoardDelResModel.baseViewModel.Message = "删除失败";
                 bulletinBoardDelResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("删除菜单信息失败");
+                _ILogger.Information("删除公告栏信息失败");
                 return BadRequest(bulletinBoardDelResModel);
+            }
+        }
+
+        /// <summary>
+        /// 根据公告栏查角色
+        /// </summary>
+        /// <param name="roleByBulletinSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Role_By_Bulletin_Search(RoleByBulletinSearchViewModel  roleByBulletinSearchViewModel)
+        {
+            RoleByBulletinSearchResModel  roleByBulletinSearchResModel = new RoleByBulletinSearchResModel();
+            roleByBulletinSearchResModel.userRoles = _bulletinBoardService.Role_By_Bulletin_Search(roleByBulletinSearchViewModel);
+
+
+            roleByBulletinSearchResModel.IsSuccess = true;
+            roleByBulletinSearchResModel.TotalNum = _bulletinBoardService.Role_By_Bulletin_Get_ALLNum(roleByBulletinSearchViewModel);
+            roleByBulletinSearchResModel.baseViewModel.Message = "根据公告栏信息查询角色成功";
+            roleByBulletinSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据公告栏信息查询角色成功");
+            return Ok(roleByBulletinSearchResModel);
+
+        }
+        /// <summary>
+        /// 给公告栏添加角色
+        /// </summary>
+        /// <param name="roleByBulletinAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_BulletinBoardToRole_Add(RoleByBulletinAddViewModel  roleByBulletinAddViewModel)
+        {
+            RoleByBulletinAddResModel  roleByBulletinAddResModel = new RoleByBulletinAddResModel();
+            int UpdateRowNum = _bulletinBoardService.BulletinBoardToRole_Add(roleByBulletinAddViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                roleByBulletinAddResModel.IsSuccess = true;
+                roleByBulletinAddResModel.AddCount = UpdateRowNum;
+                roleByBulletinAddResModel.baseViewModel.Message = "公告栏信息分配角色成功";
+                roleByBulletinAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("给公告栏分配角色成功");
+                return Ok(roleByBulletinAddResModel);
+            }
+            else
+            {
+                roleByBulletinAddResModel.IsSuccess = false;
+                roleByBulletinAddResModel.AddCount = 0;
+                roleByBulletinAddResModel.baseViewModel.Message = "公告栏信息分配角色失败";
+                roleByBulletinAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("给公告栏分配角色失败");
+                return BadRequest(roleByBulletinAddResModel);
+            }
+        }
+        /// <summary>
+        ///  根据公告栏删除角色
+        /// </summary>
+        /// <param name="roleByBulletinDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_UserRoleToUser_Del(RoleByBulletinDelViewModel  roleByBulletinDelViewModel)
+        {
+            RoleByBulletinDelResModel roleByBulletinDelResModel = new RoleByBulletinDelResModel();
+            int DeleteRowNum = _bulletinBoardService.BulletinBoardToRole_Del(roleByBulletinDelViewModel);
+
+            if (DeleteRowNum > 0)
+            {
+                roleByBulletinDelResModel.IsSuccess = true;
+                roleByBulletinDelResModel.DelCount = DeleteRowNum;
+                roleByBulletinDelResModel.baseViewModel.Message = "公告栏删除角色成功";
+                roleByBulletinDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据公告栏删除角色成功");
+                return Ok(roleByBulletinDelResModel);
+            }
+            else
+            {
+                roleByBulletinDelResModel.IsSuccess = false;
+                roleByBulletinDelResModel.DelCount = 0;
+                roleByBulletinDelResModel.baseViewModel.Message = "公告栏删除角色失败";
+                roleByBulletinDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据公告栏删除角色失败");
+                return BadRequest(roleByBulletinDelResModel);
             }
         }
     }

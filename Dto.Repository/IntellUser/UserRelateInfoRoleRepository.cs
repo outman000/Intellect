@@ -169,7 +169,7 @@ namespace Dto.Repository.IntellUser
 
 
         #region 查询条件
-        //根据条件查询部门
+        //根据条件查询角色和用户关联关系
         private Expression<Func<User_Relate_Info_Role, bool>> SearchDelRelateWhere(RelateRoleUserDelMiddlecs  relateRoleUserDelMiddlecs)
         {
             var predicate = WhereExtension.True<User_Relate_Info_Role>();//初始化where表达式
@@ -177,12 +177,6 @@ namespace Dto.Repository.IntellUser
             predicate = predicate.And(p =>p.User_RoleId == relateRoleUserDelMiddlecs.User_RoleId);
             return predicate;
         }
-
-   
-
-
-
-
         #endregion
 
     }

@@ -23,6 +23,12 @@ namespace ViewModel.WeChatViewModel.MiddleModel
         /// 用户姓名
         /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string PhoneCall { get; set; }
+
         /// <summary>
         /// 用户手机号
         /// </summary>
