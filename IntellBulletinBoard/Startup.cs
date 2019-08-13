@@ -107,7 +107,7 @@ namespace IntellBulletinBoard
                     Version = "v1"
                 });
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
-                var xmlPath = Path.Combine(basePath, "IntellFood.xml");
+                var xmlPath = Path.Combine(basePath, "IntellBulletinBoard.xml");
                 var xmlPathModel = Path.Combine(basePath, "ViewModel.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(xmlPathModel);
