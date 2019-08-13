@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
@@ -57,27 +59,33 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public string UserName { get; set; }
 
 
-
-        /// <summary>
-        /// 用户照片
-        /// </summary>
-        public string Userpicture { get; set; }
-
         /// <summary>
         /// 部门名
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 班车名
+        /// 司机名
         /// </summary>
-        public string BusName { get; set; }
+        public string DriverName { get; set; }
 
         /// <summary>
         /// 站点费用
         /// </summary>
         public string Expense { get; set; }
 
+        /// <summary>
+        /// 用户照片名称
+        /// </summary>
+        public string Userpicture { get; set; }
+
+        ///// <summary>
+        ///// 上传头像文件
+        ///// </summary>
+        //[Required]
+        //[Display(Name = "身份证附件")]
+        //[FileExtensions(Extensions = ".jpg,.png", ErrorMessage = "图片格式错误")]
+        //public IFormFile formFile { get; set; }
 
         /// <summary>
         /// 表单id-----外键

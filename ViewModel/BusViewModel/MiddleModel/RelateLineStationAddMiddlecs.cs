@@ -10,7 +10,7 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// <summary>
         /// 线路id
         /// </summary>
-        public int Bus_LineId { get; set; }
+        public int? Bus_LineId { get; set; }
         /// <summary>
         /// 站点id
         /// </summary>

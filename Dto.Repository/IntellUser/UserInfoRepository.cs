@@ -10,6 +10,7 @@ using Dto.IRepository.IntellUser;
 using ViewModel.UserViewModel.RequsetModel;
 using System.Linq.Expressions;
 using Dtol.EfCoreExtion;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace Dto.Repository.IntellUser
 {
@@ -134,6 +135,32 @@ namespace Dto.Repository.IntellUser
                                  .Single(uid => uid.Id.Equals(id))       
                 ;
             return user_Info;
+        }
+        /// <summary>
+        /// 根据部门查用户
+        /// </summary>
+        /// <param name="userByDepartSearchViewModel"></param>
+        /// <returns></returns>
+        public List<User_Info> SearchUserInfoByDepartWhere(UserByDepartSearchViewModel userByDepartSearchViewModel)
+        {
+            int SkipNum = userByDepartSearchViewModel.pageViewModel.CurrentPageNum * userByDepartSearchViewModel.pageViewModel.PageSize;
+            int lineid = userByDepartSearchViewModel.User_DepartId;
+            var queryResult = DbSet.Where(k => k.User_DepartId == lineid)
+                     .Skip(SkipNum)
+                     .Take(userByDepartSearchViewModel.pageViewModel.PageSize)
+                     .ToList();
+            return queryResult;
+        }
+        /// <summary>
+        /// 根据部门查用户用户
+        /// </summary>
+        /// <param name="userByDepartSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<User_Info> GetUserByDepartAll(UserByDepartSearchViewModel userByDepartSearchViewModel)
+        {
+            int departId = userByDepartSearchViewModel.User_DepartId;
+            var queryResult = DbSet.Where(k => k.User_DepartId == departId);
+            return queryResult;
         }
 
 

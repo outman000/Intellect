@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntellWeChat", "IntellWeCha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntellSuggest", "IntellSuggest\IntellSuggest.csproj", "{134493F7-ED51-4436-B538-8030189324A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthentValitor", "AuthentValitor\AuthentValitor.csproj", "{69AFB666-4D32-43D2-9462-D8AFCF1778A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthentValitor", "AuthentValitor\AuthentValitor.csproj", "{69AFB666-4D32-43D2-9462-D8AFCF1778A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntellBulletinBoard", "IntellBulletinBoard\IntellBulletinBoard.csproj", "{651A1CC8-1653-44D5-B70A-DC502595B14E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{69AFB666-4D32-43D2-9462-D8AFCF1778A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69AFB666-4D32-43D2-9462-D8AFCF1778A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69AFB666-4D32-43D2-9462-D8AFCF1778A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{651A1CC8-1653-44D5-B70A-DC502595B14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{651A1CC8-1653-44D5-B70A-DC502595B14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{651A1CC8-1653-44D5-B70A-DC502595B14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{651A1CC8-1653-44D5-B70A-DC502595B14E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -39,10 +39,11 @@ namespace IntellUser.Controllers
         [ValidateModel]
         public ActionResult Manage_User_add(UserAddViewModel userAddViewModel)
         {
-         
+           
+
             int User_Add_Count;
-            User_Add_Count = _userService.User_Add(userAddViewModel);
             UserAddResModel userAddResModel = new UserAddResModel();
+            User_Add_Count = _userService.User_Add(userAddViewModel);
             if (User_Add_Count > 0)
             {
                 userAddResModel.IsSuccess = true;
@@ -279,6 +280,26 @@ namespace IntellUser.Controllers
             }
             // return Ok(RandName);
             return Ok("ss");
+        }
+
+        /// <summary>
+        /// 根据部门查用户
+        /// </summary>
+        /// <param name="userByDepartSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_User_By_Depart_Search(UserByDepartSearchViewModel userByDepartSearchViewModel)
+        {
+            UserByDepartSearchResModel  userByDepartSearchResModel = new UserByDepartSearchResModel();
+            userByDepartSearchResModel.userInfo = _userService.User_By_Depart_Search(userByDepartSearchViewModel);
+
+            userByDepartSearchResModel.IsSuccess = true;
+            userByDepartSearchResModel.TotalNum = _userService.User_By_Depart_Get_ALLNum(userByDepartSearchViewModel);
+            userByDepartSearchResModel.baseViewModel.Message = "根据部门查用户成功";
+            userByDepartSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据部门查用户成功");
+            return Ok(userByDepartSearchResModel);
         }
 
     }

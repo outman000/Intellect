@@ -29,7 +29,7 @@ namespace Dto.Service.IntellUser
         //添加用户
         public int User_Add(UserAddViewModel userAddViewModel)
         {
-
+          
             var user_Info = _IMapper.Map<UserAddViewModel, User_Info>(userAddViewModel);
             _IUserInfoRepository.Add(user_Info);
             return _IUserInfoRepository.SaveChanges();
@@ -76,6 +76,9 @@ namespace Dto.Service.IntellUser
         //更新用户
         public int User_Update(UserUpdateViewModel userUpdateViewModel)
         {
+            //string RandName = GetUserHead(userUpdateViewModel.formFile);//头像名
+            //RandName = " E://东疆智慧后勤/IntellUser/HeadImg/" + RandName;//头像存储路径
+            //userUpdateViewModel.Files = RandName;
             var user_Info = _IUserInfoRepository.GetInfoByUserid(userUpdateViewModel.Id);
             var user_Info_update = _IMapper.Map<UserUpdateViewModel, User_Info>(userUpdateViewModel, user_Info);
             _IUserInfoRepository.Update(user_Info_update);
@@ -144,12 +147,16 @@ namespace Dto.Service.IntellUser
 
             return user_Relate_Info_Users;
         }
-
-        public String GetUserHead(IFormFile formFile)
+        /// <summary>
+        /// 获得头像名称
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        public string GetUserHead(IFormFile formFile)
         {
-            String filePath = "";//上传文件的路径
-            String RandName = "";
-            String[] fileTail = formFile.FileName.Split('.');
+            string filePath = "";//上传文件的路径
+            string RandName = "";
+            string[] fileTail = formFile.FileName.Split('.');
             RandName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "." + fileTail[1];
             filePath = Directory.GetCurrentDirectory() + "\\files\\" + RandName;
             if (formFile.Length > 0)
@@ -160,6 +167,27 @@ namespace Dto.Service.IntellUser
                 }
             }
             return RandName;
+        }
+        /// <summary>
+        /// 根据部门查用户
+        /// </summary>
+        /// <param name="userByDepartSearchViewModel"></param>
+        /// <returns></returns>
+        public List<UserSearchMiddlecs> User_By_Depart_Search(UserByDepartSearchViewModel userByDepartSearchViewModel)
+        {
+            List<User_Info> Bus_Relate_Line = _IUserInfoRepository.SearchUserInfoByDepartWhere(userByDepartSearchViewModel);
+            List<UserSearchMiddlecs> user_infos = new List<UserSearchMiddlecs>();
+            foreach (var item in Bus_Relate_Line)
+            {
+                var user_info_temp = _IMapper.Map<User_Info, UserSearchMiddlecs>(item);
+                user_infos.Add(user_info_temp);
+            }
+            return user_infos;
+        }
+
+        public int User_By_Depart_Get_ALLNum(UserByDepartSearchViewModel userByDepartSearchViewModel)
+        {
+            return _IUserInfoRepository.GetUserByDepartAll(userByDepartSearchViewModel).Count();
         }
     }
 }

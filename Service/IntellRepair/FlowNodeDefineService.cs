@@ -96,7 +96,7 @@ namespace Dto.Service.IntellRepair
         {
 
             //获取视图集合
-            List<RelateRoleByNodeAddModelcs> relateNodeIdandRoleIdList = relateRoleByNodeAddViewModel.RelateRoleIdandNodeIdList;
+            List<RelateRoleByNodeAddModelcs> relateNodeIdandRoleIdList = relateRoleByNodeAddViewModel.RelateNodeIdandRoleIdList;
             //将视图模型和转为领域模型集合
             List<Flow_Relate_NodeRole> node_Relate_Role = _IMapper.Map<List<RelateRoleByNodeAddModelcs>, List<Flow_Relate_NodeRole>>(relateNodeIdandRoleIdList);
 

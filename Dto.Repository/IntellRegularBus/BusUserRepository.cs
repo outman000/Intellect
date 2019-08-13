@@ -118,7 +118,7 @@ namespace Dto.Repository.IntellRegularBus
             var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(busUserSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.createDate);
+                .OrderBy(o => o.Id);
 
 
             return result;
@@ -171,14 +171,16 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.Bus_StationId) );
             predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId) );
             predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
+            if(busUserSearchViewModel.carDate!=null)
             predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
-                                  && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
+                                     && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
+                                 
             return predicate;
         }
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere(BusPaymentUpdateViewModel  busPamentUpdateViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-
+        
             predicate = predicate.And(a => a.User_DepartId==busPamentUpdateViewModel.User_DepartId);
             predicate = predicate.And(a => a.carDate.Value.Year== busPamentUpdateViewModel.carDate.Year 
                                     && a.carDate.Value.Month== busPamentUpdateViewModel.carDate.Month);

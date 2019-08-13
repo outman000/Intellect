@@ -60,8 +60,9 @@ namespace Dtol.dtol
         public string DeptLeaderId { get; set; }
         public string DeptLeaderName { get; set; }
         public string Levels { get; set; }
+
         /// <summary>
-        /// 头像存储路径
+        /// 头像姓名
         /// </summary>
         public string Files { get; set; }
 

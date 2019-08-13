@@ -13,6 +13,6 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// <summary>
         /// 角色id集合
         /// </summary>
-        public List<RelateRoleByNodeAddModelcs> RelateRoleIdandNodeIdList { get; set; }
+        public List<RelateRoleByNodeAddModelcs> RelateNodeIdandRoleIdList { get; set; }
     }
 }

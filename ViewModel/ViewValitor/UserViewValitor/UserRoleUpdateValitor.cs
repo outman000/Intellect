@@ -11,9 +11,9 @@ namespace ViewModel.ViewValitor.UserViewValitor
         public UserRoleUpdateValitor()
         {
             RuleFor(role => role.Status).NotNull()
-                  .WithMessage("角色名称状态不嫩为空")
-                  .Matches("[\u4e00-\u9fa5]")
-                  .WithMessage("角色名称必须为中文")
+                  .WithMessage("角色状态不能为空")
+                   .Matches("^[0-9]{1,}$")
+                  .WithMessage("角色状态必须为数字")
               ;
             RuleFor(role => role.RoleName).NotNull()
                   .WithMessage("角色名称不能为空")
@@ -21,7 +21,7 @@ namespace ViewModel.ViewValitor.UserViewValitor
                   .WithMessage("角色名称必须为中文")
               ;
             RuleFor(role => role.UpdateTime).NotNull()
-                  .WithMessage("添加时间不能为空")
+                  .WithMessage("更新时间不能为空")
               ;
 
         }

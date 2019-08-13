@@ -22,10 +22,17 @@ namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
         /// 站点标识
         /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        /// 乘车费用
+        /// </summary>
+        public decimal? Expense { get; set; }
+
         /// <summary>
         /// 站点描述
         /// </summary>
         public string Remark { get; set; }
+
         /// <summary>
         /// 上班到达站点时间
         /// </summary>

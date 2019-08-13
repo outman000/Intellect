@@ -17,10 +17,7 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 权限名称
         /// </summary>
         public string RightsName { get; set; }//权限名称
-        /// <summary>
-        /// 权限标识
-        /// </summary>
-        public string RightsValue { get; set; }//权限标识
+     
         /// <summary>
         /// url地址
         /// </summary>
