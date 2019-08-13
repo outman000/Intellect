@@ -30,10 +30,6 @@ namespace ViewModel.WeChatViewModel.MiddleModel
         public string PhoneCall { get; set; }
 
         /// <summary>
-        /// 用户手机号
-        /// </summary>
-        public string PhoneCall { get; set; }
-        /// <summary>
         /// 部门信息Id
         /// </summary>
         /// 
