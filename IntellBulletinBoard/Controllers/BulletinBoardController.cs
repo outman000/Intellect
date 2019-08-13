@@ -12,7 +12,7 @@ using SystemFilter.PublicFilter;
 
 namespace IntellBulletinBoard.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BulletinBoardController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace IntellBulletinBoard.Controllers
         /// <summary>
         /// 增添公告栏信息
         /// </summary>
-        /// <param name="foodInfoAddViewModel"></param>
+        /// <param name="bulletinBoardAddViewModel"></param>
         /// <returns></returns>
 
         [HttpPost]
