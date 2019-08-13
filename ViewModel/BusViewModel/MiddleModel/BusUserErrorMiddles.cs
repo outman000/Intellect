@@ -13,6 +13,7 @@ namespace ViewModel.BusViewModel.MiddleModel
         public string  Username { get; set; }
         public string PayName { get; set; }
         public string BaseName { get; set; }
+        public string Status { get; set; }
         public DateTime? CreateDate { get; set; }
    }
 }
