@@ -35,8 +35,8 @@ namespace Dto.IRepository.IntellOpinionInfo
         /// <summary>
         /// 根据菜单id查询关系表
         /// </summary>
-        /// <param name="foodIdSearchViewModel"></param>
+        /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
-        List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdSearch();
+        List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
     }
 }

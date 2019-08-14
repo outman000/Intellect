@@ -65,7 +65,9 @@ namespace Dto.Repository.IntellRepair
             for (int i = 0; i < IdList.Count; i++)
             {
                 var model = DbSet.Single(w => w.Id == IdList[i]);
-                DbSet.Remove(model);
+                model.status = "1";
+                DbSet.Update(model);
+
                 SaveChanges();  
                 DeleteRowNum = i + 1;
             }
@@ -98,8 +100,10 @@ namespace Dto.Repository.IntellRepair
             predicate = predicate.And(p => p.NodeName.Contains(flowNodeDefineSearchViewModel.NodeName));
             predicate = predicate.And(p => p.NodeType.Contains(flowNodeDefineSearchViewModel.NodeType));
             predicate = predicate.And(p => p.Flow_NextNodeDefine.NodeName.Contains(flowNodeDefineSearchViewModel.FlowNextName));
+            if(flowNodeDefineSearchViewModel.Flow_ProcedureDefineId!=null)
+            predicate = predicate.And(p => p.Flow_ProcedureDefine.Id==flowNodeDefineSearchViewModel.Flow_ProcedureDefineId);
             predicate = predicate.And(p => p.Flow_ProcedureDefine.ProcedureName.Contains(flowNodeDefineSearchViewModel.ProcedureName));
-           
+
             return predicate;
         }
         public Flow_NodeDefine GetById(int id)

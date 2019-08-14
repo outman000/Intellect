@@ -32,10 +32,11 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// </summary>
 
         public string NodeType { get; set; }
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public string status { get; set; }
 
-       /// <summary>
-       /// 修改时间
-       /// </summary>
-        public DateTime? UpdateTime { get; set; }
+
     }
 }
