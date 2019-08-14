@@ -279,19 +279,6 @@ namespace Dto.Service.IntellRegularBus
         /// <param name=""></param>
         private List<BusUserErrorMiddles> GetPayError(IQueryable<Bus_Payment> Bus_Payments, IQueryable<Bus_Info> bus_Infos, IQueryable<Bus_Station> Bus_Stations, IQueryable<Bus_Line> Bus_Lines)
         {
-            var aaaaa = from Pay in Bus_Payments
-                        join line in Bus_Lines
-                        on Pay.Bus_LineId equals line.Id into ig
-                        from line in ig.DefaultIfEmpty()
-                        select new
-                        {
-                            Id = Pay.Id,
-                            Username = Pay.UserName,
-                            PayName = Pay.LineName,
-                            BaseName = line.LineName,
-                            CreateDate = Pay.createDate
-                        };
-
           //  IQueryable<BusUserErrorMiddles> busUserErrorMiddles;
             var PayErrorList = ((
                        from Pay in Bus_Payments

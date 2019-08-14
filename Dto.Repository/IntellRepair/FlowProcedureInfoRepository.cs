@@ -98,6 +98,7 @@ namespace Dto.Repository.IntellRepair
             //查询条件
             var predicate = SearchProcedureWhere(flowProcedureSearchViewModel);
             var result = DbSet.Where(predicate)
+                .Include(a=>a.Repair_Info)
                 .Skip(SkipNum)
                 .Take(flowProcedureSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.Starttime)
@@ -118,6 +119,8 @@ namespace Dto.Repository.IntellRepair
             predicate = predicate.And(p => p.status.Contains(flowProcedureSearchViewModel.status));
             if(flowProcedureSearchViewModel.Repair_InfoId!=null)
             predicate = predicate.And(p => p.Repair_InfoId== flowProcedureSearchViewModel.Repair_InfoId);
+            if (flowProcedureSearchViewModel.User_InfoId != null)
+                predicate = predicate.And(p => p.Repair_Info.User_InfoId == flowProcedureSearchViewModel.User_InfoId);
             return predicate;
         }
 

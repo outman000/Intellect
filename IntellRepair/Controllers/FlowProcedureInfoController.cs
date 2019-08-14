@@ -29,11 +29,11 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Procedure_Search(FlowProcedureSearchViewModel flowProcedureAddViewModel)
+        public ActionResult Manage_Procedure_Search(FlowProcedureSearchViewModel  flowProcedureSearchViewModel)
         {
             FlowProcedureSearchResModel  flowProcedureSearchResModel = new FlowProcedureSearchResModel();
-            var nodeSearchResult = _IFlowProcedureInfoService.Procedure_Search(flowProcedureAddViewModel);
-            var TotalNum = _IFlowProcedureInfoService.Procedure_Get_ALLNum(flowProcedureAddViewModel);
+            var nodeSearchResult = _IFlowProcedureInfoService.Procedure_Search(flowProcedureSearchViewModel);
+            var TotalNum = _IFlowProcedureInfoService.Procedure_Get_ALLNum(flowProcedureSearchViewModel);
             flowProcedureSearchResModel.procedure_Infos = nodeSearchResult;
             flowProcedureSearchResModel.isSuccess = true;
             flowProcedureSearchResModel.baseViewModel.Message = "查询成功";
