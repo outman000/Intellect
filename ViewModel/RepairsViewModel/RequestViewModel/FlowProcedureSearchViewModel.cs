@@ -12,6 +12,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     public class FlowProcedureSearchViewModel
     {
         /// <summary>
+        /// 用户主键id（此参数可以不写）
+        /// </summary>
+        public int? User_InfoId { get; set; }
+        /// <summary>
         /// 状态
         /// </summary>
         public string status { get; set; }
@@ -21,7 +25,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         //public DateTime Starttime { get; set; }
 
         /// <summary>
-        /// 表单id
+        /// 表单id（此参数可以不写）
         /// </summary>
         public int? Repair_InfoId { get; set; }
         /// <summary>
