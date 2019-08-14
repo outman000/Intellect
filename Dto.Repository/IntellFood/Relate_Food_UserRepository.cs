@@ -139,24 +139,46 @@ namespace Dto.Repository.IntellFood
         public List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
             string foodtype = praiseNumSearchMiddlecs.FoodType;
+            string foodName = praiseNumSearchMiddlecs.FoodName;
+            string remark = praiseNumSearchMiddlecs.Remark;
+            
             List<FoodPraiseNumMiddlecs> fpnm=new List<FoodPraiseNumMiddlecs>();
-
+            //var p = SearchFoodWhere(praiseNumSearchMiddlecs);
             var food = DbSet.Include(a => a.Food_Info)
-                .Where(b=>b.Food_Info.FoodType== foodtype)
-                .GroupBy(m => m.Food_InfoId)
+                .Where(b => b.Food_Info.FoodType.Contains(foodtype)&& 
+                        b.Food_Info.FoodName.Contains(foodName)&&
+                        b.Food_Info.Remark.Contains(remark))
+                .GroupBy(m => new { m.Food_InfoId, m.Food_Info.FoodName,
+                                    m.Food_Info.FoodType,m.Food_Info.Remark })
                 .Select(k => new
-                   {
-                       Food_InfoId = k.Key,
-                       PraiseNum = k.Count()
-                   })
-           .OrderBy(m => m.PraiseNum).ToList();
+                {
+                 ft= k.Key.FoodType,//地点类型
+                 rm= k.Key.Remark,//星期
+                 fn = k.Key.FoodName,//菜名
+                 FoodId = k.Key.Food_InfoId,//主键Id
+                 PraiseNum = k.Count()
+                     
+                }).OrderBy(m => m.PraiseNum).ToList();
 
             foreach (var temp in food)
             {
-                fpnm.Add(new FoodPraiseNumMiddlecs() { Food_InfoId = temp.Food_InfoId, PraiseNum = temp.PraiseNum });
+                fpnm.Add(new FoodPraiseNumMiddlecs() { Food_InfoId = temp.FoodId, FoodName = temp.fn,FoodType=temp.ft,Remark=temp.rm, PraiseNum = temp.PraiseNum });
             }
             return fpnm;
 
         }
+
+        #region 查询条件
+        //根据条件查询部门
+        private Expression<Func<Food_Info, bool>> SearchFoodWhere(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
+        {
+            var predicate = WhereExtension.True<Food_Info>();//初始化where表达式
+
+            predicate = predicate.And(p => p.FoodType == praiseNumSearchMiddlecs.FoodType);
+            predicate = predicate.And(p => p.FoodName == praiseNumSearchMiddlecs.FoodName);
+            predicate = predicate.And(p => p.Remark == praiseNumSearchMiddlecs.Remark);
+            return predicate;
+        }
+        #endregion
     }
 }

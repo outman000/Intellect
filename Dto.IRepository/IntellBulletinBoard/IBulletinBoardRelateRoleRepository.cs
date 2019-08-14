@@ -37,5 +37,12 @@ namespace Dto.IRepository.IntellBulletinBoard
         /// <param name="userRoleSearchViewModel"></param>
         /// <returns></returns>
         IQueryable<Bulletin_Board_Relate_Role> GetRoleByBulletinAll(RoleByBulletinSearchViewModel roleByBulletinSearchViewModel);
+
+        /// <summary>
+        /// 根据用户id查询部门、角色和公告栏
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        List<User_Relate_Info_Role> SearchInfoByWhere(int id);
     }
 }

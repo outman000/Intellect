@@ -223,5 +223,35 @@ namespace IntellBulletinBoard.Controllers
                 return BadRequest(roleByBulletinDelResModel);
             }
         }
+
+        /// <summary>
+        /// 根据用户id查询角色和公告栏信息
+        /// </summary>
+        /// <param name="bulletinByUserSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_WeChatLogin_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel)
+        {
+            BulletinByUserSearchResModel  bulletinByUserSearchResModel = new BulletinByUserSearchResModel();
+            var UserSearchResult = _bulletinBoardService.BulletinByUserId_Search(bulletinByUserSearchViewModel);
+            if (UserSearchResult.Bulletin_Board.Count < 1)
+            {
+                bulletinByUserSearchResModel.IsSuccess = false;
+                bulletinByUserSearchResModel.baseViewModel.Message = "用户无权限查看公告信息";
+                bulletinByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户无权限，查看公告失败");
+                return BadRequest(bulletinByUserSearchResModel);
+            }
+            else
+            {
+
+                bulletinByUserSearchResModel.userInfo = UserSearchResult;
+                bulletinByUserSearchResModel.IsSuccess = true;
+                bulletinByUserSearchResModel.baseViewModel.Message = "存在可显示的公告，查询成功";
+                bulletinByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询公告信息成功");
+                return Ok(bulletinByUserSearchResModel);
+            }
+        }
     }
 }

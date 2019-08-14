@@ -131,9 +131,9 @@ namespace IntellRegularBus.Controllers
                 busUserAddResModel.IsSuccess = false;
                 busUserAddResModel.AddCount = 0;
                 busUserAddResModel.baseViewModel.Message = "添加失败";
-                busUserAddResModel.baseViewModel.ResponseCode = 400;
+                busUserAddResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("增加用户缴费信息失败");
-                return BadRequest(busUserAddResModel);
+                return Ok(busUserAddResModel);
             }
         }
 

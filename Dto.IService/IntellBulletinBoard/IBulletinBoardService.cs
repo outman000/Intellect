@@ -68,5 +68,7 @@ namespace Dto.IService.IntellBulletinBoard
         /// <param name="roleByBulletinDelViewModel"></param>
         /// <returns></returns>
         int BulletinBoardToRole_Del(RoleByBulletinDelViewModel  roleByBulletinDelViewModel);
+
+        BulletinBoardRoleSearchMiddlecs BulletinByUserId_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel);
     }
 }

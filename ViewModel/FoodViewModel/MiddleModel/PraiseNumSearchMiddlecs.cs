@@ -14,5 +14,11 @@ namespace ViewModel.FoodViewModel.MiddleModel
         /// 食物地点分类
         /// </summary>
         public string FoodType { get; set; }
+        /// <summary>
+        /// 食物名称
+        /// </summary>
+        public string FoodName { get; set; }
+
+
     }
 }

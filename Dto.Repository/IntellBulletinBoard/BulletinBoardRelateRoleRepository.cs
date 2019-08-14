@@ -75,7 +75,11 @@ namespace Dto.Repository.IntellBulletinBoard
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
-
+        /// <summary>
+        /// 根据公告栏查询角色
+        /// </summary>
+        /// <param name="roleByBulletinSearchViewModel"></param>
+        /// <returns></returns>
         public List<Bulletin_Board_Relate_Role> SearchRoleInfoByWhere(RoleByBulletinSearchViewModel roleByBulletinSearchViewModel)
         {
 
@@ -155,13 +159,9 @@ namespace Dto.Repository.IntellBulletinBoard
                                         .Where(a => a.User_InfoId == id)
                                         .Include(b => b.User_Role)
                                         .ThenInclude(c => c.Bulletin_Board_Relate_Role)
-                                            .ThenInclude(
+                                        .ThenInclude(
                                               d => d.Bulletin_Board
-                                            ).ToList()
-
-
-                               
-                                        ;
+                                            ).ToList();
             return userAllInfo;
         }
     }

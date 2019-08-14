@@ -20,6 +20,8 @@ namespace Dto.Service.AutoMapper.BulletinBoardMapper.BulletinBoardMapper
             CreateMap<BulletinBoardUpdateViewModel, Bulletin_Board >();
             CreateMap<User_Role, UserRoleSearChMiddles>();
             CreateMap<RelateRoleBulletinAddMiddlecs ,Bulletin_Board_Relate_Role>();
+
+            CreateMap<User_Info, BulletinBoardRoleSearchMiddlecs>();
         }
     }
 }

@@ -14,6 +14,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
         /// 站点名称
         /// </summary>
         public string StationName { get; set; }
+
+        /// <summary>
+        /// 站点费用
+        /// </summary>
+        public decimal? Expense { get; set; }
         /// <summary>
         /// 站点状态
         /// </summary>

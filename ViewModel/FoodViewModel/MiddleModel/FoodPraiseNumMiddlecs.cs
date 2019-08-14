@@ -11,9 +11,25 @@ namespace ViewModel.FoodViewModel.MiddleModel
         /// </summary>
         public int Food_InfoId { get; set; }
         /// <summary>
+        ///每个菜的名字
+        /// </summary>
+        public string FoodName { get; set; }
+
+        /// <summary>
+        /// 所属地点
+        /// </summary>
+        public string FoodType { get; set; }
+
+        /// <summary>
+        /// 星期数
+        /// </summary>
+        public string Remark { get; set; }
+
+        /// <summary>
         ///每个菜的点赞数量
         /// </summary>
         public int PraiseNum { get; set; }
+
 
 
     }

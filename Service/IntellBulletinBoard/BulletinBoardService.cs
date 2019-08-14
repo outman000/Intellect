@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dto.IRepository.IntellBulletinBoard;
+using Dto.IRepository.IntellUser;
 using Dto.IService.IntellBulletinBoard;
 using Dtol.dtol;
 using System;
@@ -16,14 +17,17 @@ namespace Dto.Service.IntellBulletinBoard
     {
         private readonly IBulletinBoardRepository _IBulletinBoardRepository;
         private readonly IBulletinBoardRelateRoleRepository _IBulletinBoardRelateRoleRepository;
+        private readonly IUserInfoRepository _IUserInfoRepository;
         private readonly IMapper _IMapper;
 
         public BulletinBoardService(IBulletinBoardRepository  bulletinBoardRepository,
                                     IBulletinBoardRelateRoleRepository bulletinBoardRelateRoleRepository,
+                                     IUserInfoRepository userInfoRepository,
                                     IMapper mapper)
         {
             _IBulletinBoardRepository = bulletinBoardRepository;
             _IBulletinBoardRelateRoleRepository = bulletinBoardRelateRoleRepository;
+            _IUserInfoRepository = userInfoRepository;
             _IMapper = mapper;
         }
         /// <summary>
@@ -156,5 +160,51 @@ namespace Dto.Service.IntellBulletinBoard
             }
             return user_roles;
         }
+
+        /// <summary>
+        /// 根据用户Id，查询部门，角色，符合条件的公告栏
+        /// </summary>
+        /// <param name="bulletinByUserSearchViewModel"></param>
+        /// <returns></returns>
+        public BulletinBoardRoleSearchMiddlecs BulletinByUserId_Search(BulletinByUserSearchViewModel  bulletinByUserSearchViewModel)
+        {
+
+            BulletinBoardRoleSearchMiddlecs  bulletinBoardRoleSearchMiddlecs = new BulletinBoardRoleSearchMiddlecs();
+            //公告栏集合
+            List<Bulletin_Board>  bulletin_Boards = new List<Bulletin_Board>();
+            //获取用户信息
+            var user_info = _IUserInfoRepository.GetInfoAndDepartByUserid(bulletinByUserSearchViewModel.UserUid);
+            //获取用户相关所有信息（部门，公告栏，角色等等）
+            var user_Infos_All = _IBulletinBoardRelateRoleRepository.SearchInfoByWhere(bulletinByUserSearchViewModel.UserUid);
+            //匹配相关信息
+            bulletinBoardRoleSearchMiddlecs = _IMapper.Map(user_info, bulletinBoardRoleSearchMiddlecs);
+            //建有层级关系的权限扁平化
+            for (int i = 0; i < user_Infos_All.Count; i++)
+            {
+                int rightNum = user_Infos_All[i].User_Role.Bulletin_Board_Relate_Role.Count;
+                for (int j = 0; j < rightNum; j++)
+                {
+                    //将外键变为空
+                    var tempBoards = user_Infos_All[i].User_Role.Bulletin_Board_Relate_Role[j].Bulletin_Board;
+                    int sn = Convert.ToInt32(tempBoards.StayNum);//停留小时数
+                     //创建公告时间+停留小时数 转换为时间戳格式
+                    TimeSpan ts= tempBoards.AddDate.AddHours(sn).ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                    long sdate = Convert.ToInt64(ts.TotalSeconds);
+                    //当前时间转为时间戳格式
+                    TimeSpan ts2=DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                    long edate = Convert.ToInt64(ts2.TotalSeconds);
+                    //当前时间 在限制的时间内 则显示，否则不显示
+                    if (sdate > edate)
+                    {
+                    
+                         bulletin_Boards.Add(tempBoards);
+                    }
+                }
+            }
+
+            bulletinBoardRoleSearchMiddlecs.Bulletin_Board = bulletin_Boards;
+            return bulletinBoardRoleSearchMiddlecs;
+        }
+
     }
 }

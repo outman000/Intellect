@@ -131,7 +131,8 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(p => p.Code.Contains(stationSearchViewModel.Code));
             predicate = predicate.And(p => p.StationName.Contains(stationSearchViewModel.StationName));
             predicate = predicate.And(p => p.status.Contains(stationSearchViewModel.status));
-         
+            //if(stationSearchViewModel.Expense!=null)
+            //predicate = predicate.And(p => p.Expense.Value.ToString().Contains(stationSearchViewModel.Expense.Value.ToString()));
             return predicate;
         }
 

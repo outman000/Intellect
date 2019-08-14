@@ -134,6 +134,7 @@ namespace Dto.Service.IntellRegularBus
             List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere(busUserSearchViewModel).ToList();
             //先以之前的月份为模板进行添加
             List <BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
+    
             for (int j = 0; j < bus_Payments.Count; j++)
             {
                 var bus_Info = _IMapper.Map<Bus_Payment, BusUserAddViewModel>(bus_Payments[j]);//把查询结果中的主键列去掉

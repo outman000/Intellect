@@ -48,7 +48,7 @@ namespace Dtol.dtol
         /// <summary>
         /// 增加时间
         /// </summary>
-        public DateTime? AddDate { get; set; }
+        public DateTime AddDate { get; set; }
         /// <summary>
         /// 修改时间
         /// </summary>

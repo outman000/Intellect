@@ -38,7 +38,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
 
         public string NodeType { get; set; }
 
-
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public string status { get; set; }
         /// <summary>
         /// 分页
         /// </summary>

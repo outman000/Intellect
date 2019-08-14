@@ -29,6 +29,11 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public string Remark { get; set; }
 
         /// <summary>
+        /// 删除标记
+        /// </summary>
+        public string Status { get; set; }
+
+        /// <summary>
         /// 更新时间
         /// </summary>
         public DateTime? Updatetime { get; set; }
