@@ -9,7 +9,6 @@ namespace ViewModel.UserViewModel.MiddleModel
         public int id { get; set; }
         public string UserName { get; set; }
         public string UserId { get; set; }
-        public string UserPwd { get; set; }
         public string PhoneCall { get; set; }
         public string Email { get; set; }
         public string status { get; set; }

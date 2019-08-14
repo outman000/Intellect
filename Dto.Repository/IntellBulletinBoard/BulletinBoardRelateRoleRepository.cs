@@ -154,10 +154,13 @@ namespace Dto.Repository.IntellBulletinBoard
             var userAllInfo = Db.user_Relate_Info_Role
                                         .Where(a => a.User_InfoId == id)
                                         .Include(b => b.User_Role)
-                                        .ThenInclude(c => c.User_Relate_Role_Right)
-                                        .ThenInclude(
-                                          d => d.User_Rights
-                                        ).ToList()
+                                        .ThenInclude(c => c.Bulletin_Board_Relate_Role)
+                                            .ThenInclude(
+                                              d => d.Bulletin_Board
+                                            ).ToList()
+
+
+                               
                                         ;
             return userAllInfo;
         }

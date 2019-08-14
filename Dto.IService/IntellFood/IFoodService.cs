@@ -63,8 +63,8 @@ namespace Dto.IService.IntellFood
         /// <summary>
         ///根据用户和菜单查询点赞数量
         /// </summary>
-        /// <param name="foodByFoodIdSearchViewModel"></param>
+        /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
-        List<FoodPraiseNumMiddlecs> PraiseNumByFoodId();
+        List<FoodPraiseNumMiddlecs> PraiseNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
     }
 }

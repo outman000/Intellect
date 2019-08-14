@@ -44,5 +44,10 @@ namespace ViewModel.RepairsViewModel.MiddleModel
 
         public string NodeType { get; set; }
 
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public string status { get; set; }
+
     }
 }

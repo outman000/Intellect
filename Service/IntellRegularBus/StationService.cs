@@ -31,12 +31,15 @@ namespace Dto.Service.IntellRegularBus
             foreach (var item in line_Infos)
             {
                 var stationSearchMiddlecs = _IMapper.Map<Bus_Station, StationSearchMiddlecs>(item);
-                //获得上班日期的时和分
-                if(stationSearchMiddlecs.OnWorkDate!=null)
-                stationSearchMiddlecs.OnDate = stationSearchMiddlecs.OnWorkDate.Value.ToString().Substring(10, 5);
-                //获得下班日期的时和分
+
+                if (stationSearchMiddlecs.OnWorkDate != null)
+                    //把上班时间格式转为时和分
+                 stationSearchMiddlecs.OnDate = stationSearchMiddlecs.OnWorkDate.Value.ToString("HH:mm");
+
                 if(stationSearchMiddlecs.OffWorkDate!= null)
-                stationSearchMiddlecs.OffDate = stationSearchMiddlecs.OffWorkDate.Value.ToString().Substring(10, 5);
+                 //把下班时间格式转为时和分
+                 stationSearchMiddlecs.OffDate = stationSearchMiddlecs.OffWorkDate.Value.ToString("HH:mm");
+                
                 lineSearches.Add(stationSearchMiddlecs);
             }
             return lineSearches;

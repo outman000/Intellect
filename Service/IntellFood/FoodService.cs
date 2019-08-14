@@ -135,11 +135,11 @@ namespace Dto.Service.IntellFood
         /// <summary>
         /// 点赞数量
         /// </summary>
-        /// <param name="foodByFoodIdSearchViewModel"></param>
+        /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
-        public List<FoodPraiseNumMiddlecs> PraiseNumByFoodId()
+        public List<FoodPraiseNumMiddlecs> PraiseNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
-            List < FoodPraiseNumMiddlecs > fp= _IRelate_Food_UserRepository.RelateFoodToFoodIdSearch();
+            List < FoodPraiseNumMiddlecs > fp= _IRelate_Food_UserRepository.RelateFoodToFoodIdSearch(praiseNumSearchMiddlecs);
             return fp;
         }
         /// <summary>

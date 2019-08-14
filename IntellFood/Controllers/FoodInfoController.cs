@@ -214,13 +214,13 @@ namespace IntellFood.Controllers
         /// <summary>
         /// 查询菜单点赞数量
         /// </summary>
-        /// <param name="foodByFoodIdSearchViewModel"></param>
+        /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_PraiseNum_Search()
+        public ActionResult Manage_PraiseNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
             FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
-            var BusSearchResult = _foodService.PraiseNumByFoodId();
+            var BusSearchResult = _foodService.PraiseNumByFoodId(praiseNumSearchMiddlecs);
 
 
             foodIdSearchResModel.PraiseInfo = BusSearchResult;

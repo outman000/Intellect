@@ -27,5 +27,7 @@ namespace Dtol.dtol
         public virtual List<User_Relate_Role_Right> User_Relate_Role_Right { get; set; }
 
         public virtual List<User_Relate_Info_Role> User_Relate_Info_Role { get; set; }
+
+        public virtual List<Bulletin_Board_Relate_Role> Bulletin_Board_Relate_Role { get; set; }
     }
 }

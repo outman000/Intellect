@@ -136,14 +136,22 @@ namespace Dto.Repository.IntellFood
         /// </summary>
         /// <param name="foodByFoodIdSearchViewModel"></param>
         /// <returns></returns>
-        public List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdSearch()
+        public List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
+            string foodtype = praiseNumSearchMiddlecs.FoodType;
             List<FoodPraiseNumMiddlecs> fpnm=new List<FoodPraiseNumMiddlecs>();
-              var student= DbSet.GroupBy(m => m.Food_InfoId)
-           .Select(k => new { Food_InfoId = k.Key, PraiseNum = k.Count() })
+
+            var food = DbSet.Include(a => a.Food_Info)
+                .Where(b=>b.Food_Info.FoodType== foodtype)
+                .GroupBy(m => m.Food_InfoId)
+                .Select(k => new
+                   {
+                       Food_InfoId = k.Key,
+                       PraiseNum = k.Count()
+                   })
            .OrderBy(m => m.PraiseNum).ToList();
 
-            foreach (var temp in student)
+            foreach (var temp in food)
             {
                 fpnm.Add(new FoodPraiseNumMiddlecs() { Food_InfoId = temp.Food_InfoId, PraiseNum = temp.PraiseNum });
             }

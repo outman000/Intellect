@@ -35,6 +35,10 @@ namespace Dtol.dtol
 
         public string NodeType { get; set; }
         /// <summary>
+        /// 是否删除
+        /// </summary>
+        public string status { get; set; }
+        /// <summary>
         /// 角色集合
         /// </summary>
         public ICollection<Flow_Relate_NodeRole> Flow_Relate_NodeRole { get; set; }
