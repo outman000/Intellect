@@ -23,9 +23,9 @@ namespace ViewModel.ViewValitor.BusViewValitor
                   ;
 
             RuleFor(hr_info => hr_info.CarPlate).NotNull()
-                    .WithMessage("车牌不能为空")
-                   .Length(6)
-                    .WithMessage("车牌为6位");
+                    .WithMessage("车牌不能为空");
+                   //.Length(6)
+                   // .WithMessage("车牌为6位");
 
             RuleFor(hr_info => hr_info.phone).NotNull()
                    .WithMessage("司机手机号不能为空")

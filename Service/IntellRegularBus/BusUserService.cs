@@ -291,7 +291,7 @@ namespace Dto.Service.IntellRegularBus
                            Id = Pay.Id,
                            Username = Pay.UserName,
                            PayName = Pay.BusName,
-                           BaseName = infos.CarPlate,
+                           BaseName = infos.DriverName,
                            CreateDate = Pay.createDate,
                            Status = infos.status
                        }
