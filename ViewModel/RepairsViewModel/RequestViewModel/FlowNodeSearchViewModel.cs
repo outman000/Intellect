@@ -10,12 +10,12 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
 
 
         /// <summary>
-        /// 当前流程id
+        /// 当前流程id(此属性可以为空)
         /// </summary>
         public int? Flow_ProcedureId { get; set; }
 
         /// <summary>
-        /// 表单id
+        /// 表单id(此属性可以为空)
         /// </summary>
         public int? Repair_InfoId { get; set; }
 

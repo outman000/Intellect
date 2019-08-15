@@ -130,6 +130,7 @@ namespace IntellRepair.Controllers
             FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
             var nodeSearchResult = _IFlowNodeService.Node_Search(flowNodeSearchViewModel);
             var TotalNum = _IFlowNodeService.Node_Get_ALLNum(flowNodeSearchViewModel);
+
             flowNodeSearchResModel.flowNodeDefine_Info = nodeSearchResult;
             flowNodeSearchResModel.isSuccess = true;
             flowNodeSearchResModel.baseViewModel.Message = "查询成功";

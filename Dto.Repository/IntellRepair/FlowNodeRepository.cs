@@ -94,7 +94,9 @@ namespace Dto.Repository.IntellRepair
             int SkipNum = flowNodeSearchViewModel.pageViewModel.CurrentPageNum * flowNodeSearchViewModel.pageViewModel.PageSize;
             //查询条件
             var predicate = SearchNodeWhere(flowNodeSearchViewModel);
-            var result = DbSet.Where(predicate)
+
+
+            var result = DbSet.Where(predicate).Include(a=>a.Repair_Info)
                 .Skip(SkipNum)
                 .Take(flowNodeSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.StartTime).ToList();

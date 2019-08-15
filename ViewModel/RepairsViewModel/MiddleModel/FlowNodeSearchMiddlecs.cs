@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,8 +28,10 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 父流程id
         /// </summary>  
         public int? Parent_Flow_ProcedureId { get; set; }
-
-
+        /// <summary>
+        /// 表单信息
+        /// </summary>
+        public Repair_Info Repair_Info { get; set; }
         /// <summary>
         /// 表单id
         /// </summary>
