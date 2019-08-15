@@ -22,5 +22,6 @@ namespace ViewModel.WeChatViewModel.MiddleModel
         /// </summary>
         public string UserName { get; set; }
 
+
     }
 }

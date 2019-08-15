@@ -12,6 +12,9 @@ namespace ViewModel.WeChatViewModel.RequestViewModel
         public bool IsSuccess;
         public WeChatLoginMiddlecs user_session;
         public BaseViewModel baseViewModel;
+        
+  
+             
         public WeChatLoginResModel()
         {
             baseViewModel = new BaseViewModel();

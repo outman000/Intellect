@@ -63,6 +63,7 @@ namespace IntellWeChat.Controllers
         {
             WeChatLoginResModel  weChatLoginResModel = new WeChatLoginResModel();
             var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
+
             if (UserSearchResult == null)
             {
                 weChatLoginResModel.IsSuccess = false;
@@ -73,13 +74,14 @@ namespace IntellWeChat.Controllers
             }
             else
             {
-
                 weChatLoginResModel.user_session = UserSearchResult;
                 weChatLoginResModel.IsSuccess = true;
                 weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
                 weChatLoginResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
                 return Ok(weChatLoginResModel);
+
+
             }
         }
     }
