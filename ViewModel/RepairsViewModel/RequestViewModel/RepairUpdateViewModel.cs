@@ -45,7 +45,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 联系电话
         /// </summary>
         public string telephone { get; set; }
-
+        /// <summary>
+        /// 删除标识
+        /// </summary>
+        public string status { get; set; }
         /// <summary>
         /// 报修状态
         /// </summary>
