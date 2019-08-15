@@ -31,7 +31,7 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// <summary>
         /// 表单信息
         /// </summary>
-        public Repair_Info Repair_Info { get; set; }
+        public FlowNodeRepaireInfoMiddle Repair_Info { get; set; }
         /// <summary>
         /// 表单id
         /// </summary>
@@ -41,12 +41,23 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 操作状态
         /// </summary>
         public string operate { get; set; }
+        /// <summary>
+        /// 当前操作人员信息
+        /// </summary>
+        public FlowNodeUserInfoMiddles User_Info{ get; set; }
 
 
         /// <summary>
         /// 当前节点操作人员
         /// </summary>
         public int? User_InfoId { get; set; }
+
+        /// <summary>
+        /// 父操作人员信息
+        /// </summary>
+        public FlowNodeUserInfoMiddles Pre_User_Info { get; set; }
+
+
 
         /// <summary>
         /// 父节点操作人员

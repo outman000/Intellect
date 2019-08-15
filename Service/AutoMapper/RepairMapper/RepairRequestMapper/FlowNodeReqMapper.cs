@@ -12,13 +12,19 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
     {
         /// <summary>
         /// 配置构造函数，用来创建关系映射
-        /// </summary>
+        /// </summary>E
         public FlowNodeReqMapper()
         {
             CreateMap<FlowNodeAddViewModel, Flow_Node>();
             CreateMap< FlowNodeDefineUpdateViewModel, Flow_Node >();
             CreateMap < FlowNodeUpdateViewModel, Flow_Node >();
-            CreateMap < Flow_Node,FlowNodeSearchMiddlecs>();
+            CreateMap<Flow_Node, FlowNodeSearchMiddlecs>();
+            //二级属性将第二层级的一些属性userinfo过滤掉
+            CreateMap<Repair_Info, FlowNodeRepaireInfoMiddle>();
+
+            //二级复杂属性User_Info的信息过滤掉
+            CreateMap<User_Info, FlowNodeUserInfoMiddles>();
+            
         }
     }
 }
