@@ -162,7 +162,7 @@ namespace Dto.Repository.IntellRegularBus
         {
             int SkipNum = stationByLineSearchViewModel.pageViewModel.CurrentPageNum * stationByLineSearchViewModel.pageViewModel.PageSize;
             int lineid = stationByLineSearchViewModel.Bus_LineId;
-            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid)
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid && k.status == "0")
                         .Skip(SkipNum)
                         .Take(stationByLineSearchViewModel.pageViewModel.PageSize)
                         .ToList();
@@ -199,7 +199,7 @@ namespace Dto.Repository.IntellRegularBus
         public IQueryable<Bus_Station> GetStationInfoByLinAll(StationByLineSearchViewModel stationByLineSearchViewModel)
         {
             int lineid = stationByLineSearchViewModel.Bus_LineId;
-            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid);
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid && k.status == "0");
             return queryResult;
         }
     }

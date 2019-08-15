@@ -85,7 +85,7 @@ namespace Dto.Repository.IntellBulletinBoard
 
             int SkipNum = roleByBulletinSearchViewModel.pageViewModel.CurrentPageNum * roleByBulletinSearchViewModel.pageViewModel.PageSize;
             int bulletinId = roleByBulletinSearchViewModel.Bulletin_BoardId;
-            var queryResult = DbSet.Where(k => k.Bulletin_BoardId == bulletinId).Include(p => p.User_Role)
+            var queryResult = DbSet.Where(k => k.Bulletin_BoardId == bulletinId && k.User_Role.Status=="0").Include(p => p.User_Role)
                  .Skip(SkipNum)
                 .Take(roleByBulletinSearchViewModel.pageViewModel.PageSize)
                  .OrderBy(o => o.Id)
@@ -101,7 +101,7 @@ namespace Dto.Repository.IntellBulletinBoard
         public IQueryable<Bulletin_Board_Relate_Role> GetRoleByBulletinAll(RoleByBulletinSearchViewModel roleByBulletinSearchViewModel)
         {
             int bulletinId = roleByBulletinSearchViewModel.Bulletin_BoardId;
-            var queryResult = DbSet.Where(k => k.Bulletin_BoardId == bulletinId).Include(p => p.User_Role);
+            var queryResult = DbSet.Where(k => k.Bulletin_BoardId == bulletinId && k.User_Role.Status == "0").Include(p => p.User_Role);
 
             return queryResult;
         }
@@ -156,12 +156,21 @@ namespace Dto.Repository.IntellBulletinBoard
         public List<User_Relate_Info_Role> SearchInfoByWhere(int id)
         {
             var userAllInfo = Db.user_Relate_Info_Role
-                                        .Where(a => a.User_InfoId == id)
+                                        .Where(a => a.User_InfoId == id && a.User_Role.Status=="0")
                                         .Include(b => b.User_Role)
                                         .ThenInclude(c => c.Bulletin_Board_Relate_Role)
                                         .ThenInclude(
                                               d => d.Bulletin_Board
                                             ).ToList();
+
+            for(int i=0;i< userAllInfo.Count;i++)//该用户拥有角色数量
+            {
+                for(int j=0;j< userAllInfo[i].User_Role.Bulletin_Board_Relate_Role.Count;j++)//该用户某个角色的所有公告栏
+                {
+                  if (userAllInfo[i].User_Role.Bulletin_Board_Relate_Role[j].Bulletin_Board.status == "1")
+                  userAllInfo[i].User_Role.Bulletin_Board_Relate_Role.Remove(userAllInfo[i].User_Role.Bulletin_Board_Relate_Role[j]);
+                }
+            }
             return userAllInfo;
         }
     }

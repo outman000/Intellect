@@ -97,14 +97,14 @@ namespace Dto.Repository.IntellWeChat
         public List<User_Relate_Info_Role> SearchInfoByWhere(int  id)
         {
                 var userAllInfo = Db.user_Relate_Info_Role
-                                            .Where(a => a.User_InfoId == id)
+                                            .Where(a => a.User_InfoId == id && a.User_Role.Status == "0")
                                             .Include(b => b.User_Role)
                                             .ThenInclude(c => c.User_Relate_Role_Right)
                                             .ThenInclude(
                                               d => d.User_Rights
-                                            ).ToList()
-                                            ;
-                return userAllInfo;
+                                            ).ToList();
+         
+            return userAllInfo;
         }
 
      

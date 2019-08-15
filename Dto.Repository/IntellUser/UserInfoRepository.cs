@@ -145,7 +145,7 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = userByDepartSearchViewModel.pageViewModel.CurrentPageNum * userByDepartSearchViewModel.pageViewModel.PageSize;
             int lineid = userByDepartSearchViewModel.User_DepartId;
-            var queryResult = DbSet.Where(k => k.User_DepartId == lineid)
+            var queryResult = DbSet.Where(k => k.User_DepartId == lineid && k.status == "0")
                      .Skip(SkipNum)
                      .Take(userByDepartSearchViewModel.pageViewModel.PageSize)
                      .ToList();
@@ -159,7 +159,7 @@ namespace Dto.Repository.IntellUser
         public IQueryable<User_Info> GetUserByDepartAll(UserByDepartSearchViewModel userByDepartSearchViewModel)
         {
             int departId = userByDepartSearchViewModel.User_DepartId;
-            var queryResult = DbSet.Where(k => k.User_DepartId == departId);
+            var queryResult = DbSet.Where(k => k.User_DepartId == departId && k.status == "0");
             return queryResult;
         }
 

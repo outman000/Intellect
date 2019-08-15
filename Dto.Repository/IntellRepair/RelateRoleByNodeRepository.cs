@@ -122,7 +122,7 @@ namespace Dto.Repository.IntellRepair
         {
             int SkipNum = roleByNodeSearchViewModel.pageViewModel.CurrentPageNum * roleByNodeSearchViewModel.pageViewModel.PageSize;
             int nodeid = roleByNodeSearchViewModel.Flow_NextNodeDefineId;
-            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid).Include(p => p.User_Role)
+            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid && k.User_Role.Status == "0").Include(p => p.User_Role)
                 .Skip(SkipNum)
                 .Take(roleByNodeSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.id)
@@ -137,7 +137,7 @@ namespace Dto.Repository.IntellRepair
         public IQueryable<Flow_Relate_NodeRole> Role_By_Node_Get_ALLNum(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
         {
             int nodeid = roleByNodeSearchViewModel.Flow_NextNodeDefineId;
-            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid).Include(p => p.User_Role);
+            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid && k.User_Role.Status == "0").Include(p => p.User_Role);
             return queryResult;
         }
     }

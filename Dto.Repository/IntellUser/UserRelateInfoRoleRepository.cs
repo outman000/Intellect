@@ -92,7 +92,7 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = roleByUserSearchViewModel.pageViewModel.CurrentPageNum * roleByUserSearchViewModel.pageViewModel.PageSize;
             int userid = roleByUserSearchViewModel.UserId;
-            var queryResult=   DbSet.Where(k => k.User_InfoId==userid).Include(p=>p.User_Role)
+            var queryResult=   DbSet.Where(k => k.User_InfoId==userid && k.User_Role.Status=="0").Include(p=>p.User_Role)
                  .Skip(SkipNum)
                 .Take(roleByUserSearchViewModel.pageViewModel.PageSize)
                  .OrderBy(o => o.Id)
@@ -108,7 +108,7 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = userByRoleSearchViewModel.pageViewModel.CurrentPageNum * userByRoleSearchViewModel.pageViewModel.PageSize;
             int roleid = userByRoleSearchViewModel.RoleId;
-            var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info)
+            var queryResult = DbSet.Where(k => k.User_RoleId == roleid && k.User_Info.status == "0").Include(p => p.User_Info)
                      .Skip(SkipNum)
                     .Take(userByRoleSearchViewModel.pageViewModel.PageSize)
                       .OrderBy(o => o.Id)
@@ -131,11 +131,11 @@ namespace Dto.Repository.IntellUser
             for (int i=0;i< RoleList.Count;i++)
             {
                     roleid = RoleList[i];
-                int count = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info).ToList().Count;
+                int count = DbSet.Where(k => k.User_RoleId == roleid && k.User_Info.status == "0").Include(p => p.User_Info).ToList().Count;
                 
                 for (int j = 0; j < count; j++)
                 {
-                        Result = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Info).ToList()[j].User_Info;
+                        Result = DbSet.Where(k => k.User_RoleId == roleid && k.User_Info.status == "0").Include(p => p.User_Info).ToList()[j].User_Info;
                         queryResult.Add(Result);      
                 }
             }
@@ -151,7 +151,7 @@ namespace Dto.Repository.IntellUser
         public IQueryable<User_Relate_Info_Role> GetRoleByUserAll(RoleByUserSearchViewModel roleByUserSearchViewModel)
         {
             int userid = roleByUserSearchViewModel.UserId;
-            var queryResult = DbSet.Where(k => k.User_InfoId == userid).Include(p => p.User_Role);
+            var queryResult = DbSet.Where(k => k.User_InfoId == userid && k.User_Role.Status == "0").Include(p => p.User_Role);
 
             return queryResult;
         }

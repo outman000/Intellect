@@ -67,7 +67,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// <summary>
         /// 司机名
         /// </summary>
-        public string DriverName { get; set; }
+        public string BusName { get; set; }
 
         /// <summary>
         /// 站点费用

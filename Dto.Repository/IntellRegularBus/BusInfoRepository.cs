@@ -117,7 +117,7 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(p => p.DriverName.Contains(busSearchViewModel.DriverName));
             predicate = predicate.And(p => p.CarPlate.Contains(busSearchViewModel.CarPlate));
             predicate = predicate.And(p => p.SeatNum.Contains(busSearchViewModel.SeatNum));
-
+            predicate = predicate.And(p => p.status.Contains(busSearchViewModel.status));
             return predicate;
         }
 
@@ -132,7 +132,7 @@ namespace Dto.Repository.IntellRegularBus
         {
             int SkipNum = busByLineSearchViewModel.pageViewModel.CurrentPageNum * busByLineSearchViewModel.pageViewModel.PageSize;
             int lineid = busByLineSearchViewModel.Bus_LineId;
-            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid)
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid && k.status=="0")
                      .Skip(SkipNum)
                      .Take(busByLineSearchViewModel.pageViewModel.PageSize)
                      .ToList();
@@ -174,7 +174,7 @@ namespace Dto.Repository.IntellRegularBus
         public IQueryable<Bus_Info> GetBusInfoByLineAll(BusByLineSearchViewModel busByLineSearchViewModel)
         {
             int lineid = busByLineSearchViewModel.Bus_LineId;
-            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid);
+            var queryResult = DbSet.Where(k => k.Bus_LineId == lineid && k.status == "0");
             return queryResult;
         }
         /// <summary>
@@ -185,7 +185,7 @@ namespace Dto.Repository.IntellRegularBus
         public IQueryable<Bus_Info> GetLineInfoByBusAll(LineByBusSearchViewModel lineByBusSearchViewModel)
         {
             int BusId = lineByBusSearchViewModel.id;
-            var queryResult = DbSet.Where(k => k.Id == BusId).Include(p => p.Bus_Line);
+            var queryResult = DbSet.Where(k => k.Id == BusId ).Include(p => p.Bus_Line);
 
             return queryResult;
         }

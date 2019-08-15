@@ -88,8 +88,9 @@ namespace Dto.Repository.IntellFood
            
             int userid = foodByUserSearchViewModel.User_InfoId;
             int foodid = foodByUserSearchViewModel.Food_InfoId;
-            var queryResult = DbSet.Where(k => k.User_InfoId == userid && k.Food_InfoId == foodid)
-                                                            .ToList();
+            var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
+                                          k.Food_InfoId == foodid && 
+                                          k.User_Info.status=="0").ToList();
             return queryResult.Count;
         }
 
@@ -147,7 +148,8 @@ namespace Dto.Repository.IntellFood
             var food = DbSet.Include(a => a.Food_Info)
                 .Where(b => b.Food_Info.FoodType.Contains(foodtype)&& 
                         b.Food_Info.FoodName.Contains(foodName)&&
-                        b.Food_Info.Remark.Contains(remark))
+                        b.Food_Info.Remark.Contains(remark)&&
+                        b.User_Info.status=="0")
                 .GroupBy(m => new { m.Food_InfoId, m.Food_Info.FoodName,
                                     m.Food_Info.FoodType,m.Food_Info.Remark })
                 .Select(k => new
