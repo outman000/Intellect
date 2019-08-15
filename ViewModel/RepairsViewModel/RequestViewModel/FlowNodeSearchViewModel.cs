@@ -5,6 +5,9 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.RepairsViewModel.RequestViewModel
 {
+    /// <summary>
+    /// 流程信息视图模型
+    /// </summary>
     public class FlowNodeSearchViewModel
     {
 
