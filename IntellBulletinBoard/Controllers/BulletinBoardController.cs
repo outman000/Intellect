@@ -230,7 +230,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinByUserSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_WeChatLogin_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel)
+        public ActionResult Manage_BulletinByLogin_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel)
         {
             BulletinByUserSearchResModel  bulletinByUserSearchResModel = new BulletinByUserSearchResModel();
             var UserSearchResult = _bulletinBoardService.BulletinByUserId_Search(bulletinByUserSearchViewModel);
