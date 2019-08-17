@@ -53,6 +53,13 @@ namespace Dto.Repository.IntellRepair
             Flow_NodeDefine node_Info = DbSet.Single(uid => uid.Id.Equals(id));
             return node_Info;
         }
+        //根据流程定义主键Id去查开始节点Id
+        public Flow_NodeDefine GetInfoByProcedureDefineId(int id)
+        {
+            Flow_NodeDefine node_Info = DbSet.Single(uid => uid.Flow_ProcedureDefineId==id &&
+                                                            uid.NodeType=="开始类型");
+            return node_Info;
+        }
 
         /// <summary>
         /// 删除节点定义 列表
@@ -89,6 +96,22 @@ namespace Dto.Repository.IntellRepair
                         .Include(a => a.Flow_ProcedureDefine)
                         .Skip(SkipNum)
                         .Take(flowNodeDefineSearchViewModel.pageViewModel.PageSize)
+                        .OrderBy(o => o.CreateTime);
+            return SearchResultTemp;
+        }
+
+
+        /// <summary>
+        /// 根据id条件查询节点定义信息（重载）
+        /// </summary>
+        /// <param name="flowNodeDefineSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Flow_NodeDefine> SearchInfoByNodeDefineWhere(int ProduceKeyId)
+        {
+
+            IQueryable<Flow_NodeDefine> NodeDefine_Infos = Db.flow_NodeDefine.Where(p=>p.Id== ProduceKeyId);
+            IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos.Include(a => a.Flow_NextNodeDefine)
+                        .Include(a => a.Flow_ProcedureDefine)
                         .OrderBy(o => o.CreateTime);
             return SearchResultTemp;
         }

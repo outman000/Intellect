@@ -25,11 +25,18 @@ namespace Dto.IRepository.IntellRepair
         /// <returns></returns>
         int RelateNodeToRoleDel(List<RelateRoleByNodeDelModelcs> list);
         /// <summary>
-        /// 根据用户查角色
+        /// 根据节点查角色
         /// </summary>
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(RoleByNodeSearchViewModel  roleByNodeSearchViewModel);
+
+        /// <summary>
+        /// 根据节点Id查角色
+        /// </summary>
+        /// <param name="Flow_NextNodeDefineId"></param>
+        /// <returns></returns>
+        List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(int Flow_NextNodeDefineId);
         /// <summary>
         /// 根据节点查询角色数量
         /// </summary>

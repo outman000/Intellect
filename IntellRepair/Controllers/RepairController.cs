@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
+using ViewModel.RepairsViewModel.MiddleModel;
 
 namespace IntellRepair.Controllers
 {
@@ -45,22 +46,23 @@ namespace IntellRepair.Controllers
 
 
         /// <summary>
-        /// 增添报修信息
+        /// 增添报修以及流程信息
         /// </summary>
         /// <param name="repairAddViewModel"></param>
+        /// <param name="Flow_ProcedureDefineId"></param>
         /// <returns></returns>
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Repair_Add(RepairAddViewModel repairAddViewModel)
+        public ActionResult Manage_Repair_Add(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId)
         {
-            int Repair_Add_Count;
-            Repair_Add_Count = _IRepairService.Repair_Add(repairAddViewModel);
+            WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
+            workFlowFistReturnIdList = _IRepairService.Repair_Add(repairAddViewModel,Flow_ProcedureDefineId);
             RepairAddResModel repairAddResModel = new RepairAddResModel();
-            if (Repair_Add_Count > 0)
+            if (workFlowFistReturnIdList != null)
             {
                 repairAddResModel.IsSuccess = true;
-                repairAddResModel.AddCount = Repair_Add_Count;
+                repairAddResModel.workFlowFistReturnIdList = workFlowFistReturnIdList;
                 repairAddResModel.baseViewModel.Message = "添加成功";
                 repairAddResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("增添报修信息成功");
@@ -69,7 +71,7 @@ namespace IntellRepair.Controllers
             else
             {
                 repairAddResModel.IsSuccess = false;
-                repairAddResModel.AddCount = 0;
+                repairAddResModel.workFlowFistReturnIdList = null;
                 repairAddResModel.baseViewModel.Message = "添加失败";
                 repairAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添报修信息失败");

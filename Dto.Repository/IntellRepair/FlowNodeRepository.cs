@@ -105,6 +105,17 @@ namespace Dto.Repository.IntellRepair
 
             return result;
         }
+        //查询流转信息（重载查找父节点id）
+        public List<Flow_Node> SearchInfoByNodeWhere(FlowInfoSearchViewModel fLowInfoSearchViewModel)
+        {
+     
+
+            var predicate = SearchNodeWhere(fLowInfoSearchViewModel);
+            var result = DbSet.Where(predicate)
+                     .OrderBy(o => o.StartTime).ToList();
+
+            return result;
+        }
         //根据条件查询报修
         private Expression<Func<Flow_Node, bool>> SearchNodeWhere(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
@@ -121,7 +132,17 @@ namespace Dto.Repository.IntellRepair
 
             return predicate;
         }
-
+        //根据条件查询流转（重载）
+        private Expression<Func<Flow_Node, bool>> SearchNodeWhere(FlowInfoSearchViewModel fLowInfoSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Flow_Node>();//初始化where表达式
+            predicate = predicate.And(p => p.status.Contains(fLowInfoSearchViewModel.status));
+            predicate = predicate.And(p => p.Flow_ProcedureId == fLowInfoSearchViewModel.Flow_ProcedureId);
+            predicate = predicate.And(p => p.Repair_InfoId == fLowInfoSearchViewModel.Repair_InfoId);
+            predicate = predicate.And(p => p.operate.Contains(fLowInfoSearchViewModel.operate));
+            predicate = predicate.And(p => p.User_InfoId == fLowInfoSearchViewModel.User_InfoId);
+            return predicate;
+        }
         public IQueryable<Flow_Node> GetNodeAll(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             var predicate = SearchNodeWhere(flowNodeSearchViewModel);

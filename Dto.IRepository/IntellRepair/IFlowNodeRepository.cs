@@ -15,7 +15,8 @@ namespace Dto.IRepository.IntellRepair
         int DeleteByNodeIdList(List<int> IdList);
         //// 根据条件查流转信息
         List<Flow_Node> SearchInfoByNodeWhere(FlowNodeSearchViewModel flowNodeSearchViewModel);
-
+        //// 根据条件查流转信息(重载查找上一节点id)
+        List<Flow_Node> SearchInfoByNodeWhere(FlowInfoSearchViewModel fLowInfoSearchViewModel);
 
         //// 根据表单ID查流转信息
         List<Flow_Node> SearchInfoByRepariIdWhere(FlowNodeByRepairIdSearchViewModel flowNodeByRepairIdSearchViewModel);

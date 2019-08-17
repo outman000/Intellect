@@ -14,12 +14,18 @@ namespace Dto.Service.IntellRepair
     public class RepairService : IRepairService
     {
         private readonly IRepairInfoRepository _IRepairInfoRepository;
+        private readonly IFlowProcedureInfoRepository _IFlowProcedureInfoRepository;
+        private readonly IFlowNodeDefineInfoRepository _IFlowNodeDefineInfoRepository;
         private readonly IMapper _IMapper;
 
-        public RepairService(IRepairInfoRepository irepairInfoRepository, IMapper mapper)
+        public RepairService(IRepairInfoRepository irepairInfoRepository, 
+                             IFlowProcedureInfoRepository iflowProcedureInfoRepository,
+                             IFlowNodeDefineInfoRepository iflowNodeDefineInfoRepository,
+                             IMapper mapper)
         {
             _IRepairInfoRepository = irepairInfoRepository;
-
+            _IFlowProcedureInfoRepository = iflowProcedureInfoRepository;
+            _IFlowNodeDefineInfoRepository = iflowNodeDefineInfoRepository;
             _IMapper = mapper;
         }
 
@@ -42,13 +48,30 @@ namespace Dto.Service.IntellRepair
         /// 添加报修表单
         /// </summary>
         /// <param name="repairAddViewModel"></param>
-        /// <returns></returns>
-        public int Repair_Add(RepairAddViewModel repairAddViewModel)
+        /// <returns>返回主键id</returns>
+        public WorkFlowFistReturnIdList Repair_Add(RepairAddViewModel repairAddViewModel,int Flow_ProcedureDefineId)
         {
-
+            //存入表单信息
             var repair_Info = _IMapper.Map<RepairAddViewModel, Repair_Info>(repairAddViewModel);
             _IRepairInfoRepository.Add(repair_Info);
-            return _IRepairInfoRepository.SaveChanges();
+            _IRepairInfoRepository.SaveChanges();
+
+            //存入流程信息（只有在开始节点的时候才会存入一条数据）
+            var flowProcedureAddViewModel = _IMapper.Map<Repair_Info, FlowProcedureAddViewModel>(repair_Info);
+            var procedure_Info = _IMapper.Map<FlowProcedureAddViewModel, Flow_Procedure>(flowProcedureAddViewModel); 
+            _IFlowProcedureInfoRepository.Add(procedure_Info);
+            _IFlowProcedureInfoRepository.SaveChanges();
+
+            //通过流程定义Id去查开始节点的主键id
+           var ProcedureDefine= _IFlowNodeDefineInfoRepository.GetInfoByProcedureDefineId(Flow_ProcedureDefineId);
+           int FirstNodeId=ProcedureDefine.Id;
+            //返回三个Id
+            WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
+            workFlowFistReturnIdList.Repair_InfoId = repair_Info.id;//表单主键Id
+            workFlowFistReturnIdList.User_InfoId = repair_Info.User_InfoId;//填写表单的用户Id
+            workFlowFistReturnIdList.Flow_ProcedureId = procedure_Info.Id;//流程Id
+            workFlowFistReturnIdList.Flow_NodeDefineId = FirstNodeId;//该流程第一个节点Id
+            return workFlowFistReturnIdList;
         }
 
         /// <summary>

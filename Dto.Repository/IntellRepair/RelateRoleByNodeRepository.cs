@@ -113,6 +113,21 @@ namespace Dto.Repository.IntellRepair
 
 
         #endregion
+
+        /// <summary>
+        /// 根据节点查询角色
+        /// </summary>
+        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(int  id)
+        {
+        
+
+            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == id && k.User_Role.Status == "0").Include(p => p.User_Role)
+                .OrderBy(o => o.id)
+                .ToList();
+            return queryResult;
+        }
         /// <summary>
         /// 根据节点查询角色
         /// </summary>

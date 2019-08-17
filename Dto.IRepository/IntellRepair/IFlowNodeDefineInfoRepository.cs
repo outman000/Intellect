@@ -15,6 +15,10 @@ namespace Dto.IRepository.IntellRepair
         int DeleteByNodeDefineIdList(List<int> IdList);
         // 根据条件查节点信息
         IQueryable<Flow_NodeDefine> SearchInfoByNodeDefineWhere(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel);
+        //根据流程主键id查相关节点
+        IQueryable<Flow_NodeDefine> SearchInfoByNodeDefineWhere(int ProduceKeyId);
+        Flow_NodeDefine GetInfoByProcedureDefineId(int id);
+
         // 根据id查节点信息
         Flow_NodeDefine GetById(int id);
 

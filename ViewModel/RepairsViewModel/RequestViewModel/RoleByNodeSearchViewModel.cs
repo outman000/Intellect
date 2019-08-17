@@ -21,7 +21,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        RoleByNodeSearchViewModel()
+        public RoleByNodeSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }

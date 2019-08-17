@@ -26,7 +26,7 @@ namespace Dto.IService.IntellRepair
         /// </summary>
         /// <param name="repairAddViewModel"></param>
         /// <returns></returns>
-        int Repair_Add(RepairAddViewModel repairAddViewModel);
+        WorkFlowFistReturnIdList Repair_Add(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId);
 
         /// <summary>
         /// 删除报修信息

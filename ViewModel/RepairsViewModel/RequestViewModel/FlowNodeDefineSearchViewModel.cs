@@ -8,8 +8,6 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     public class FlowNodeDefineSearchViewModel
     {
 
-
-
         /// <summary>
         /// 节点名
         /// </summary>
@@ -49,7 +47,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        FlowNodeDefineSearchViewModel()
+        public FlowNodeDefineSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }

@@ -6,16 +6,16 @@ using ViewModel.RepairsViewModel.MiddleModel;
 
 namespace ViewModel.RepairsViewModel.ResponseModel
 {
-    public class RepairAddResModel
+    public class FlowInfoSearchResModel
     {
-        public RepairAddResModel()
+        public FlowInfoSearchResModel()
         {
             baseViewModel = new BaseViewModel();
 
         }
 
         public bool IsSuccess;
-        public WorkFlowFistReturnIdList  workFlowFistReturnIdList;
+        public FlowNodePreMiddlecs flowNodePreMiddlecs;
 
         public BaseViewModel baseViewModel;
     }
