@@ -98,7 +98,11 @@ namespace Dto.Repository.IntellRepair
                                                .ThenInclude(c => c.User_Depart)
                                                .Include(d=>d.Pre_User_Info)
                                                .ThenInclude(c=>c.User_Depart)
-                                               .Include(a => a.Repair_Info)
+                                               .Include(a => a.Repair_Info )
+                                               .Where(s=>s.User_Info.status!="1"&&
+                                                       s.Pre_User_Info.status != "1"&&
+                                                       s.Repair_Info.status!="1")
+                                           
                 .Skip(SkipNum)
                 .Take(flowNodeSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.StartTime).ToList();
@@ -128,7 +132,8 @@ namespace Dto.Repository.IntellRepair
             predicate = predicate.And(p => p.operate.Contains(flowNodeSearchViewModel.operate));
             if (flowNodeSearchViewModel.User_InfoId != null)
             predicate = predicate.And(p => p.User_InfoId==flowNodeSearchViewModel.User_InfoId);
-            
+            if (flowNodeSearchViewModel.isHandler != null)
+                predicate = predicate.And(p => p.Repair_Info.isHandler == flowNodeSearchViewModel.isHandler);
 
             return predicate;
         }

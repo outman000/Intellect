@@ -117,8 +117,8 @@ namespace Dto.Repository.IntellWeChat
         private Expression<Func<User_Info, bool>> SearchUserWhere(WeChatLoginViewModel weChatLoginViewModel)
         {
             var predicate = WhereExtension.True<User_Info>();//初始化where表达式
-            predicate = predicate.And(p => p.UserId.Contains(weChatLoginViewModel.UserId));
-            predicate = predicate.And(p => p.UserPwd.Contains(weChatLoginViewModel.UserPwd));
+            predicate = predicate.And(p => p.UserId==weChatLoginViewModel.UserId);
+            predicate = predicate.And(p => p.UserPwd==weChatLoginViewModel.UserPwd);
             predicate = predicate.And(p => p.status=="0");
             return predicate;
         }
