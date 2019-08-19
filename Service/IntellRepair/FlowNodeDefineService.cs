@@ -27,7 +27,7 @@ namespace Dto.Service.IntellRepair
             _IMapper = mapper;
         }
 
-      
+        
 
         /// <summary>
         /// 节点定义查询

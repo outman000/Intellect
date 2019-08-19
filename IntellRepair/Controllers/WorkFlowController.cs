@@ -74,9 +74,10 @@ namespace IntellRepair.Controllers
 
         }
         /// <summary>
-        /// 增添报修以及流程信息
+        /// 增添报修以及流程信息(增加意见箱以及流程信息)
         /// </summary>
         /// <param name="repairAddViewModel"></param>
+        /// <param name="Flow_ProcedureDefineId"></param>
         /// <returns></returns>
 
         [HttpPost]

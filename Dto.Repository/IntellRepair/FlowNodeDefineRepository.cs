@@ -127,7 +127,8 @@ namespace Dto.Repository.IntellRepair
             if(flowNodeDefineSearchViewModel.Flow_ProcedureDefineId!=null)
             predicate = predicate.And(p => p.Flow_ProcedureDefine.Id==flowNodeDefineSearchViewModel.Flow_ProcedureDefineId);
             predicate = predicate.And(p => p.Flow_ProcedureDefine.ProcedureName.Contains(flowNodeDefineSearchViewModel.ProcedureName));
-
+            if (flowNodeDefineSearchViewModel.Id != null)
+                predicate = predicate.And(p => p.Id == flowNodeDefineSearchViewModel.Id);
             return predicate;
         }
         public Flow_NodeDefine GetById(int id)

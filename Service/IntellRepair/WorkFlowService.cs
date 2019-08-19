@@ -128,12 +128,15 @@ namespace Dto.Service.IntellRepair
         /// <param name="flowInfoSearchViewModel"></param>
         /// <param name="nodeByrepair_Info"></param>
         /// <param name="currentNodeInfo"></param>
-        public void Work_FlowNodeOperate_Update(FlowInfoSearchViewModel flowInfoSearchViewModel,
+        private void Work_FlowNodeOperate_Update(FlowInfoSearchViewModel flowInfoSearchViewModel,
                                                               Flow_Node nodeByrepair_Info,
                                                               Flow_NodeDefine currentNodeInfo)
         {
+           
             var flowInfo = _IMapper.Map<Flow_Node, FlowInfoSearchViewModel>(nodeByrepair_Info);
             List<Flow_Node> nodepre_Infos = _IFlowNodeRepository.SearchInfoByNodeWhere(flowInfo);//查询父节点操作信息
+            if (nodepre_Infos[0].Parent_Flow_NodeDefineId == null) //说明是开始节点，需要把当前用户设置为null
+                nodepre_Infos[0].User_InfoId = null;//开始的当前处理人变为空，防止查出两条已办
             nodepre_Infos[0].operate = "2";//把未提交状态（1），改为已提交状态（2）
             nodepre_Infos[0].EndTime = flowInfoSearchViewModel.StartTime;//用户提交时间，就是上一节点结束时间，是当前节点
             _IFlowNodeRepository.Update(nodepre_Infos[0]);
@@ -146,6 +149,7 @@ namespace Dto.Service.IntellRepair
                 //把流程表结束时间赋上值
                 var procedure_Info = _IFlowProcedureInfoRepository.GetInfoByProcedureId(flowInfoSearchViewModel.Flow_ProcedureId);
                 procedure_Info.Endtime = nodeByrepair_Info.StartTime;
+                procedure_Info.remark = "2";//流程结束
                 _IFlowProcedureInfoRepository.Update(procedure_Info);
                 _IFlowProcedureInfoRepository.SaveChanges();
             }

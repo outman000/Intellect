@@ -54,7 +54,7 @@ namespace Dtol.dtol
         /// </summary>
         public string status { get; set; }
         /// <summary>
-        /// 报修状态
+        /// 表单类型（1-报修类型，2-意见类型）
         /// </summary>
         public string isHandler { get; set; }
     }

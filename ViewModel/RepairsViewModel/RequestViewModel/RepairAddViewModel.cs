@@ -21,28 +21,28 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public int User_DepartId { get; set; }
 
         /// <summary>
-        /// 报修标题
+        /// 报修标题  (意见箱的标题)
         /// </summary>
         public string RepairsTitle { get; set; }
         /// <summary>
-        /// 报修类型
+        /// 报修类型（意见箱的类型）
         /// </summary>
         public string RepairsType { get; set; }
         /// <summary>
-        /// 紧急情况
+        /// 紧急情况( 意见箱是否匿名)
         /// </summary>
         public string RepairsEmergency { get; set; }
         /// <summary>
-        /// 报修内容
+        /// 报修内容( 意见箱内容)
         /// </summary>
         public string RepairsContent { get; set; }
         /// <summary>
-        /// 报修时间
+        /// 报修时间(意见箱填写时间)
         /// </summary>
         public DateTime? repairsDate { get; set; }
 
         /// <summary>
-        /// 报修地址
+        /// 报修地址(联系地址)
         /// </summary>
         public string RepairsAdress { get; set; }
         /// <summary>
@@ -54,7 +54,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// </summary>
         public string status { get; set; }
         /// <summary>
-        /// 报修状态
+        /// 表单类型（1-报修类型，2-意见类型）
         /// </summary>
         public string isHandler { get; set; }
     }

@@ -9,6 +9,11 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     {
 
         /// <summary>
+        /// 主键
+        /// </summary>
+        public int? Id { get; set; }
+
+        /// <summary>
         /// 节点名
         /// </summary>
         public string NodeName { get; set; }

@@ -58,7 +58,8 @@ namespace Dto.Service.IntellRepair
 
             //存入流程信息（只有在开始节点的时候才会存入一条数据）
             var flowProcedureAddViewModel = _IMapper.Map<Repair_Info, FlowProcedureAddViewModel>(repair_Info);
-            var procedure_Info = _IMapper.Map<FlowProcedureAddViewModel, Flow_Procedure>(flowProcedureAddViewModel); 
+            var procedure_Info = _IMapper.Map<FlowProcedureAddViewModel, Flow_Procedure>(flowProcedureAddViewModel);
+            procedure_Info.remark = "1";//流程开始
             _IFlowProcedureInfoRepository.Add(procedure_Info);
             _IFlowProcedureInfoRepository.SaveChanges();
 
