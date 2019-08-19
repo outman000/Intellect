@@ -55,7 +55,7 @@ namespace IntellWeChat
 
             services.AddAuthentication(x =>
             {
-                //看这个单词熟悉么？没错，就是上边错误里的那个。
+                
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })

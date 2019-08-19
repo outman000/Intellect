@@ -10,6 +10,8 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 报修id
         /// </summary>
         public int id { get; set; }
+
+        public string userName { get; set; }
         /// <summary>
         /// 报修标题
         /// </summary>
