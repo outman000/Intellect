@@ -87,7 +87,7 @@ namespace IntellWeChat.Controllers
         }
 
 
-
+        /// <summary>
         /// 根据用户账号和密码查询用户信息(旭旭专用)
         /// </summary>
         /// <param name="weChatLoginViewModel"></param>
