@@ -58,13 +58,13 @@ namespace IntellRepair.Controllers
         /// <summary>
         /// 根据节点查用户列表（内部使用）
         /// </summary>
-        /// <param name="userListByNodeIdSearchViewModel"></param>
+        /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Role_By_Search(UserListByNodeIdSearchViewModel userListByNodeIdSearchViewModel)
+        public ActionResult Manage_Role_By_Search(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel)
         {
             UserSearchResModel userSearchResModel = new UserSearchResModel();
-            userSearchResModel.user_Infos = _IWorkFlowService.User_By_Node_Search(userListByNodeIdSearchViewModel);
+            userSearchResModel.user_Infos = _IWorkFlowService.User_By_Node_Search(roleByNodeSearchSingleViewModel);
             userSearchResModel.isSuccess = true;
             userSearchResModel.TotalNum = userSearchResModel.user_Infos.Count;
             userSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
@@ -120,7 +120,16 @@ namespace IntellRepair.Controllers
             flowNodePreMiddlecs = _IWorkFlowService.Work_FlowNodeAll_Add(flowInfoSearchViewModel);
    
             FlowInfoSearchResModel  flowInfoSearchResModel = new FlowInfoSearchResModel();
-            if (flowNodePreMiddlecs.NodeType!="结束类型")
+            if(flowNodePreMiddlecs==null)
+            {
+                flowInfoSearchResModel.IsSuccess = false;
+                flowInfoSearchResModel.flowNodePreMiddlecs = null;
+                flowInfoSearchResModel.baseViewModel.Message = "生产当前节点未办失败，当前节点的当前类型角色下配有多个人，请检查当前类型的角色下的人";
+                flowInfoSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("生产当前节点未办失败，当前节点的当前类型角色下配有多个人，请检查当前类型的角色");
+                return BadRequest(flowInfoSearchResModel);
+            }
+             else if (flowNodePreMiddlecs.NodeType!="结束类型")
             {
                 flowInfoSearchResModel.IsSuccess = true;
                 flowInfoSearchResModel.flowNodePreMiddlecs = flowNodePreMiddlecs;

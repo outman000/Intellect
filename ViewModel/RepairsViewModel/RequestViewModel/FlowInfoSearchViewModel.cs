@@ -38,6 +38,11 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public int Repair_InfoId { get; set; }
 
         /// <summary>
+        /// 角色类型
+        /// </summary>
+        public string RepairType { get; set; }
+
+        /// <summary>
         /// 操作状态（数据设置为默认为1）
         /// </summary>
         public string operate { get; set; }
@@ -55,5 +60,6 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         ///// 提交时间（开始节点 StartTime=EndTime，其他节点不传）
         ///// </summary>
         //public DateTime? EndTime { get; set; }
+
     }
 }

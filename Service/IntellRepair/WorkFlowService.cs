@@ -42,11 +42,11 @@ namespace Dto.Service.IntellRepair
         /// <summary>
         /// 根据节点查用户列表（重载内部使用)
         /// </summary>
-        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
-        public List<UserSearchMiddlecs> User_By_Node_Search(UserListByNodeIdSearchViewModel userListByNodeIdSearchViewModel)
+        public List<UserSearchMiddlecs> User_By_Node_Search(RoleByNodeSearchSingleViewModel  roleByNodeSearchSingleViewModel)
         {
-            List<Flow_Relate_NodeRole> node_Relate_Info_Roles = _IRelateRoleByNodeRepository.SearchRoleInfoByWhere(userListByNodeIdSearchViewModel.Flow_NextNodeDefineId);
+            List<Flow_Relate_NodeRole> node_Relate_Info_Roles = _IRelateRoleByNodeRepository.SearchRoleInfoByWhere(roleByNodeSearchSingleViewModel);
             List<int> RoleList = new List<int>();
             for (int i = 0; i < node_Relate_Info_Roles.Count; i++)
             {
@@ -76,11 +76,38 @@ namespace Dto.Service.IntellRepair
                 RoleList.Add(User_RoleId);
 
             }
-          
-            List<User_Info> user_Relate_Info_Users = _IUserRelateInfoRoleRepository.SearchUserInfoByListWhere(RoleList);
-            var userLsit_Info = _IMapper.Map<List<User_Info>, List<UserSearchMiddlecs>>(user_Relate_Info_Users);
+            int userId = roleByNodeSearchViewModel.user_InfoId.Value;
+            int departId = roleByNodeSearchViewModel.departId.Value;
+            string nodeType = roleByNodeSearchViewModel.NodeKeep;
 
-            return userLsit_Info;
+            List<User_Info> user_Relate_Info_Users = _IUserRelateInfoRoleRepository.SearchUserInfoByListWhere(RoleList);
+
+            List<UserSearchMiddlecs> userSearchMiddlecs = new List<UserSearchMiddlecs>();
+                var userLsit_Info = _IMapper.Map<List<User_Info>, List<UserSearchMiddlecs>>(user_Relate_Info_Users);
+            if (nodeType == "部门保持")
+            {
+                for (int i = 0; i < userLsit_Info.Count; i++)
+                {
+                    if (userLsit_Info[i].user_DepartId == departId)
+                    {
+                        userSearchMiddlecs.Add(userLsit_Info[i]);
+
+                    }
+                }
+            }
+            else if(nodeType=="用户保持") 
+            {
+                for (int i = 0; i < userLsit_Info.Count; i++)
+                {
+                    if (userLsit_Info[i].id == userId)
+                    {
+                        userSearchMiddlecs.Add(userLsit_Info[i]);
+
+                    }
+                }
+            }
+           else userSearchMiddlecs = userLsit_Info;//无任何保持
+            return userSearchMiddlecs;
         }
 
 
@@ -91,11 +118,14 @@ namespace Dto.Service.IntellRepair
         /// <returns></returns>
         public FlowNodePreMiddlecs Work_FlowNodeAll_Add(FlowInfoSearchViewModel  flowInfoSearchViewModel)
         {
+            string RepairType = flowInfoSearchViewModel.RepairType;//表单类型，也就是相对应的角色类型
             //获取当前节点信息
             var currentNodeInfo = _IFlowNodeDefineInfoRepository
                            .GetInfoByNodeDefineId(flowInfoSearchViewModel.Flow_NodeDefineId);
-            var currentAllInfo = _IMapper.Map<Flow_NodeDefine, FlowNodePreMiddlecs>(currentNodeInfo);
           
+
+            var currentAllInfo = _IMapper.Map<Flow_NodeDefine, FlowNodePreMiddlecs>(currentNodeInfo);
+
             //请求信息存入流转信息表
             var nodeByrepair_Info = _IMapper.Map<FlowInfoSearchViewModel, Flow_Node>(flowInfoSearchViewModel);
             currentAllInfo = _IMapper.Map<Flow_Node, FlowNodePreMiddlecs>(nodeByrepair_Info, currentAllInfo);
@@ -110,9 +140,12 @@ namespace Dto.Service.IntellRepair
                 var FirstFlow = _IMapper.Map<FlowNodePreMiddlecs, FlowInfoSearchViewModel>(currentAllInfo, flowInfoSearchViewModel);
                 currentAllInfo=Work_FlowNodeAll_Add(FirstFlow);//生成拟文流转记录
                  //获得下一节点处理人id ，这里也就是管理员的 用户id
-                UserListByNodeIdSearchViewModel userLis = new UserListByNodeIdSearchViewModel();
-                userLis.Flow_NextNodeDefineId = currentAllInfo.Flow_NextNodeDefineId.Value;
+                RoleByNodeSearchSingleViewModel userLis = new RoleByNodeSearchSingleViewModel();
+                userLis.Flow_NextNodeDefineId = currentAllInfo.Flow_NextNodeDefineId.Value;//下一节点Id
+                userLis.RoleType = RepairType;//表单的类型与角色类型必须一致
                 List<UserSearchMiddlecs> frn = User_By_Node_Search(userLis);
+                if (frn.Count > 1)
+                    return null;
                 //生成管理员流转信息
                 var NiWenFlow = _IMapper.Map<FlowNodePreMiddlecs, FlowInfoSearchViewModel>(currentAllInfo, flowInfoSearchViewModel);
                 NiWenFlow.User_InfoId = frn[0].id;

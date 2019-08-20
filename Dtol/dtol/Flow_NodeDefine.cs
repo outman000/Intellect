@@ -34,6 +34,13 @@ namespace Dtol.dtol
         /// </summary>
 
         public string NodeType { get; set; }
+
+
+        /// <summary>
+        /// 节点保持
+        /// </summary>
+
+        public string NodeKeep { get; set; }
         /// <summary>
         /// 是否删除
         /// </summary>

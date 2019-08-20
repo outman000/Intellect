@@ -34,9 +34,9 @@ namespace Dto.IRepository.IntellRepair
         /// <summary>
         /// 根据节点Id查角色
         /// </summary>
-        /// <param name="Flow_NextNodeDefineId"></param>
+        /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
-        List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(int Flow_NextNodeDefineId);
+        List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel);
         /// <summary>
         /// 根据节点查询角色数量
         /// </summary>

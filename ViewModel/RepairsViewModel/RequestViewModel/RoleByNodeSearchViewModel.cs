@@ -14,6 +14,22 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 节点id
         /// </summary>
         public int Flow_NextNodeDefineId { get; set; }
+
+        /// <summary>
+        /// 节点保持
+        /// </summary>
+        public string NodeKeep { get; set; }
+
+        /// <summary>
+        /// 提交人用户id （用户保持的时候传）
+        /// </summary>
+        public int? user_InfoId { get; set; }
+
+        /// <summary>
+        /// 提交人部门id（部门保持的时候传）
+        /// </summary>
+        public int? departId { get; set; }
+
         /// <summary>
         /// 分页
         /// </summary>

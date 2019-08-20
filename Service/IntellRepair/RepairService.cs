@@ -69,6 +69,7 @@ namespace Dto.Service.IntellRepair
             //返回三个Id
             WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
             workFlowFistReturnIdList.Repair_InfoId = repair_Info.id;//表单主键Id
+            workFlowFistReturnIdList.RepairType = repair_Info.RepairsType;//填写的类型与角色类相对应
             workFlowFistReturnIdList.User_InfoId = repair_Info.User_InfoId;//填写表单的用户Id
             workFlowFistReturnIdList.Flow_ProcedureId = procedure_Info.Id;//流程Id
             workFlowFistReturnIdList.Flow_NodeDefineId = FirstNodeId;//该流程第一个节点Id

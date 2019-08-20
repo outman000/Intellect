@@ -25,5 +25,10 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 当前流程id
         /// </summary>
         public int Flow_ProcedureId { get; set; }
+
+        /// <summary>
+        /// 表单类型
+        /// </summary>
+        public string RepairType { get; set; }
     }
 }

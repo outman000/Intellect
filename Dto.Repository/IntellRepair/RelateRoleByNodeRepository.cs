@@ -115,18 +115,35 @@ namespace Dto.Repository.IntellRepair
         #endregion
 
         /// <summary>
-        /// 根据节点查询角色
+        /// 根据节点查询角色(重载)
         /// </summary>
-        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
-        public List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(int  id)
+        public List<Flow_Relate_NodeRole> SearchRoleInfoByWhere(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel)
         {
-        
 
-            var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == id && k.User_Role.Status == "0").Include(p => p.User_Role)
-                .OrderBy(o => o.id)
-                .ToList();
-            return queryResult;
+            int id = roleByNodeSearchSingleViewModel.Flow_NextNodeDefineId;
+            string roleType = roleByNodeSearchSingleViewModel.RoleType;
+
+            if (roleType!=null && roleType != "")
+            {
+                var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == id &&
+                                         k.User_Role.Status == "0" && k.User_Role.RoleType == roleType)
+                                         .Include(p => p.User_Role)
+               .OrderBy(o => o.id)
+               .ToList();
+                return queryResult;
+            }
+            else
+            {
+                var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == id &&
+                                                k.User_Role.Status == "0" )
+                                                .Include(p => p.User_Role)
+              .OrderBy(o => o.id)
+              .ToList();
+                return queryResult;
+            }
+          
         }
         /// <summary>
         /// 根据节点查询角色
@@ -137,6 +154,7 @@ namespace Dto.Repository.IntellRepair
         {
             int SkipNum = roleByNodeSearchViewModel.pageViewModel.CurrentPageNum * roleByNodeSearchViewModel.pageViewModel.PageSize;
             int nodeid = roleByNodeSearchViewModel.Flow_NextNodeDefineId;
+
             var queryResult = DbSet.Where(k => k.Flow_NodeDefineId == nodeid && k.User_Role.Status == "0").Include(p => p.User_Role)
                 .Skip(SkipNum)
                 .Take(roleByNodeSearchViewModel.pageViewModel.PageSize)

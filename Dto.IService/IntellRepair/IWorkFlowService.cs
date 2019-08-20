@@ -14,9 +14,9 @@ namespace Dto.IService.IntellRepair
         /// <summary>
         /// 根据节点查用户列表（内部使用）
         /// </summary>
-        /// <param name="userListByNodeIdSearchViewModel"></param>
+        /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
-        List<UserSearchMiddlecs> User_By_Node_Search(UserListByNodeIdSearchViewModel userListByNodeIdSearchViewModel);
+        List<UserSearchMiddlecs> User_By_Node_Search(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel);
         /// <summary>
         /// 根据节点查用户列表
         /// </summary>
