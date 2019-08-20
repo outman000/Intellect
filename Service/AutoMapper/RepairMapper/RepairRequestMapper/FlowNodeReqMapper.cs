@@ -20,7 +20,8 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             CreateMap < FlowNodeUpdateViewModel, Flow_Node >();
             CreateMap<Flow_Node, FlowNodeSearchMiddlecs>();
             //二级属性将第二层级的一些属性userinfo过滤掉
-            CreateMap<Repair_Info, FlowNodeRepaireInfoMiddle>();
+            CreateMap<Repair_Info, FlowNodeRepaireInfoMiddle>()
+                 .ForMember(s => s.userName, sp => sp.MapFrom(src => src.User_Info.UserName));
 
             //二级复杂属性User_Info的信息过滤掉
             CreateMap<User_Info, FlowNodeUserInfoMiddles>();

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AuthentValitor.AuthentModel;
 using AuthentValitor.AuthHelper;
+using Dto.IService.IntellWeChat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using ViewModel.WeChatViewModel.RequestViewModel;
+using ViewModel.WeChatViewModel.ResponseModel;
 
 namespace IntellWeChat.Controllers
 {
@@ -15,10 +18,12 @@ namespace IntellWeChat.Controllers
     public class ValuesController : ControllerBase
     {
 
+        private readonly ILoginService _loginService;
         readonly ILogger _ILogger;
-        
-        public ValuesController(ILogger logger)
+
+        public ValuesController(ILoginService loginService, ILogger logger)
         {
+            _loginService = loginService;
             _ILogger = logger;
         }
        
@@ -68,6 +73,76 @@ namespace IntellWeChat.Controllers
                 token = jwtStr
             });
         }
+
+        /// <summary>
+        /// 根据用户账号和密码查询用户信息
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_WeChatLogin_User123123(WeChatLoginViewModel weChatLoginViewModel)
+        {
+            WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
+            var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
+
+            if (UserSearchResult == null)
+            {
+                weChatLoginResModel.IsSuccess = false;
+                weChatLoginResModel.baseViewModel.Message = "用户名不存在或者密码错误";
+                weChatLoginResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户名不存在或者密码错误，进入系统失败");
+                return BadRequest(weChatLoginResModel);
+            }
+            else
+            {
+                weChatLoginResModel.user_session = UserSearchResult;
+                weChatLoginResModel.IsSuccess = true;
+                weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
+                weChatLoginResModel.baseViewModel.ResponseCode = 200;
+
+                TokenModelJwt tokenModel = new TokenModelJwt();
+                tokenModel.Uid = 2;
+                tokenModel.Role = "Admin";
+                string  token = JwtHelper.IssueJwt(tokenModel);
+              
+
+                _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
+
+                return Ok(weChatLoginResModel);
+
+
+            }
+        }
+
+
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult GetJWTToken1(WeChatInfoViewModel weChatInfoViewModel)
+        {
+            WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
+            var UserSearchResult = _loginService.WeChatLogin_Search(weChatInfoViewModel);
+            if (UserSearchResult.User_Rights.Count < 1)
+            {
+                weChatInfoResModel.IsSuccess = false;
+                weChatInfoResModel.baseViewModel.Message = "用户无权限登录";
+                weChatInfoResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户无权限，进入系统失败");
+                return BadRequest(weChatInfoResModel);
+            }
+            else
+            {
+
+                weChatInfoResModel.userInfo = UserSearchResult;
+                weChatInfoResModel.IsSuccess = true;
+                weChatInfoResModel.baseViewModel.Message = "存在该用户，查询成功";
+                weChatInfoResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
+                return Ok(weChatInfoResModel);
+            }
+        }
+
 
     }
 }

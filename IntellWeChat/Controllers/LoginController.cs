@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dto.IService.IntellWeChat;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -28,7 +29,8 @@ namespace IntellWeChat.Controllers
         /// </summary>
         /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
-        [HttpPost] 
+        [HttpPost]
+        [Authorize]
         public ActionResult Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
