@@ -108,7 +108,8 @@ namespace Dto.Repository.IntellRepair
             predicate = predicate.And(p => p.ProcedureCode.Contains(flowProcedureDefineSearchViewModel.ProcedureCode));
             predicate = predicate.And(p => p.Type.Contains(flowProcedureDefineSearchViewModel.Type));
             predicate = predicate.And(p => p.Status.Contains(flowProcedureDefineSearchViewModel.Status));
-
+          if(flowProcedureDefineSearchViewModel.Id!=null)
+            predicate = predicate.And(p => p.Id==flowProcedureDefineSearchViewModel.Id);
             return predicate;
         }
         public void Update(Flow_ProcedureDefine obj)

@@ -7,7 +7,12 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
 {
     public class FlowProcedureDefineSearchViewModel
     {
-     
+
+
+        /// <summary>
+        /// 流程Id
+        /// </summary>
+        public int? Id { get; set; }
         /// <summary>
         /// 流程名
         /// </summary>

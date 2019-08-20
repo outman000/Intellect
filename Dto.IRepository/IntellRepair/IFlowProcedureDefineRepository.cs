@@ -13,6 +13,7 @@ namespace Dto.IRepository.IntellRepair
         IQueryable<Flow_ProcedureDefine> GetInfoByProcedureDefineId(string ProcedureCode);
         //批量删除
         int DeleteByProcedureDefineIdList(List<int> IdList);
+        Flow_ProcedureDefine GetById(int id);
         //根据条件查流程信息
         List<Flow_ProcedureDefine> SearchInfoByProcedureDefineWhere(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel);
         // 根据id查流程信息

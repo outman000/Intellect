@@ -35,7 +35,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             .ForMember(s => s.Parent_Flow_NodeDefineId, sp => sp.MapFrom(src => src.Parent_Flow_NodeDefineId))
             .ForMember(s => s.status, sp => sp.MapFrom(src => src.status))
             .ForMember(s => s.operate, sp => sp.MapFrom(src => src.operate))
-            .ForMember(s => s.EndTime, sp => sp.MapFrom(src => src.EndTime))
+
             .ForMember(s => s.StartTime, sp => sp.MapFrom(src => src.StartTime))
             .ForMember(s => s.Pre_User_InfoId, sp => sp.MapFrom(src => src.Pre_User_InfoId))
             .ForMember(s => s.Repair_InfoId, sp => sp.MapFrom(src => src.Repair_InfoId))
@@ -47,7 +47,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             .ForMember(s => s.Parent_Flow_NodeDefineId, sp => sp.MapFrom(src => src.Flow_NodeDefineId))
             .ForMember(s => s.status, sp => sp.MapFrom(src => src.status))
             .ForMember(s => s.StartTime, sp => sp.MapFrom(src => src.StartTime))
-            .ForMember(s => s.EndTime, sp => sp.MapFrom(src => src.EndTime))
+
             .ForMember(s => s.operate, sp => sp.MapFrom(src => "1" ));
 
             CreateMap<Flow_Node, FlowNodePreMiddlecs>()

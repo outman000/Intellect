@@ -82,10 +82,10 @@ namespace IntellRepair.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Repair_Add(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId)
+        public ActionResult Manage_Repair_Add(RepairAddViewModel repairAddViewModel)
         {
             WorkFlowFistReturnIdList  workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
-            workFlowFistReturnIdList = _IRepairService.Repair_Add(repairAddViewModel,Flow_ProcedureDefineId);
+            workFlowFistReturnIdList = _IRepairService.Repair_Add(repairAddViewModel, repairAddViewModel.Flow_ProcedureDefineId);
             RepairAddResModel repairAddResModel = new RepairAddResModel();
             if (workFlowFistReturnIdList!=null)
             {

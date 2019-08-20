@@ -154,6 +154,26 @@ namespace Dto.Service.IntellRepair
         {
             return _IRelateRoleByNodeRepository.Role_By_Node_Get_ALLNum(roleByNodeSearchViewModel).Count();
         }
+
+        /// <summary>
+        /// 根据流程定义增加节点  /   根据节点定义增加流程定义
+        /// </summary>
+        /// <param name="flowProcedureByNodeIdAddViewModel"></param>
+        /// <returns></returns>
+        public int ProcedureDefine_To_Node_Add(FlowProcedureByNodeIdAddViewModel flowProcedureByNodeIdAddViewModel)
+        {
+
+            var List = flowProcedureByNodeIdAddViewModel.relateNodeIdAndProcedureIdList;  //线路id和站点id列表
+
+            for (int i = 0; i < List.Count; i++)
+            {
+                var nodeDefine_info = _IFlowNodeDefineInfoRepository.GetInfoByNodeDefineId(List[i].Flow_NodeDefineId);
+                var nodeDefine_info_update = _IMapper.Map<FlowProcedureByNodeIdAddMiddlecs, Flow_NodeDefine>(List[i], nodeDefine_info);
+                _IFlowNodeDefineInfoRepository.Update(nodeDefine_info_update);
+            }
+            return _IFlowNodeDefineInfoRepository.SaveChanges();
+           
+        }
     }
     
 }

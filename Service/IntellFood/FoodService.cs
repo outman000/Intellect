@@ -151,9 +151,9 @@ namespace Dto.Service.IntellFood
         {
             int DeleteRowsNum = _IRelate_Food_UserRepository
                   .ByFoodIdDel(foodByUserPraiseDelViewModel);
-            
-                return DeleteRowsNum;
-          
+         
+            return DeleteRowsNum;
+         
         }
     }
 }

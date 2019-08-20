@@ -48,12 +48,12 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public string status { get; set; }
 
         /// <summary>
-        /// 到达时间（开始节点，数据默认为当前提交时间，其他节点为上一节点的提交时间（EndTime））
+        /// 到达时间（数据默认为当前提交时间）
         /// </summary>
         public DateTime? StartTime { get; set; }
-        /// <summary>
-        /// 提交时间（开始节点 StartTime=EndTime，其他节点不传）
-        /// </summary>
-        public DateTime? EndTime { get; set; }
+        ///// <summary>
+        ///// 提交时间（开始节点 StartTime=EndTime，其他节点不传）
+        ///// </summary>
+        //public DateTime? EndTime { get; set; }
     }
 }

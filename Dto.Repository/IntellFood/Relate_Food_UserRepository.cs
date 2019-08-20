@@ -61,10 +61,10 @@ namespace Dto.Repository.IntellFood
 
         #region 查询条件
         //根据条件查询点赞
-        private Expression<Func<User_Relate_Food, bool>> SearchDelRelateWhere(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        private Expression<Func<User_Relate_Food, bool>> SearchDelRelateWhere(int id)
         {
             var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
-            predicate = predicate.And(p => p.Food_InfoId == foodByUserPraiseDelViewModel.Food_InfoId);
+            predicate = predicate.And(p => p.Food_InfoId == id);
             return predicate;
         }
         #endregion
@@ -123,13 +123,31 @@ namespace Dto.Repository.IntellFood
         public int ByFoodIdDel(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
         {
 
-            var preciate = SearchDelRelateWhere(foodByUserPraiseDelViewModel);
-            var temp = DbSet.Where(preciate).ToList();
-            for(int i=0;i<temp.Count;i++)
-            {
-                DbSet.Remove(temp[i]);
-            }
-            return SaveChanges();
+            //var preciate = SearchDelRelateWhere(foodByUserPraiseDelViewModel);
+            //var temp = DbSet.Where(preciate).ToList();
+            //for(int i=0;i<temp.Count;i++)
+            //{
+            //    DbSet.Remove(temp[i]);
+            //}
+            //return SaveChanges();
+
+      
+                int DeleteRowNum = 1;
+                for (int i = 0; i < foodByUserPraiseDelViewModel.DeleleIdList.Count; i++)
+                {
+                    //var model = DbSet.Single(w => w.Food_InfoId == foodByUserPraiseDelViewModel.DeleleIdList[i]);
+                    var preciate = SearchDelRelateWhere(foodByUserPraiseDelViewModel.DeleleIdList[i]);
+                    var temp = DbSet.Where(preciate).ToList();
+                    for(int j=0;j<temp.Count;j++)
+                    {
+                        DbSet.Remove(temp[j]);
+                        SaveChanges();
+                      DeleteRowNum = i + 1;
+                    }   
+                   
+                }
+                return DeleteRowNum;
+ 
         }
 
         /// <summary>
@@ -160,7 +178,7 @@ namespace Dto.Repository.IntellFood
                  FoodId = k.Key.Food_InfoId,//主键Id
                  PraiseNum = k.Count()
                      
-                }).OrderBy(m => m.PraiseNum).ToList();
+                }).OrderByDescending(m => m.PraiseNum).ToList();
 
             foreach (var temp in food)
             {

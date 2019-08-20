@@ -71,5 +71,15 @@ namespace Dto.IService.IntellRepair
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         int Role_By_Node_Get_ALLNum(RoleByNodeSearchViewModel roleByNodeSearchViewModel);
+
+
+        /// <summary>
+        /// 根据流程定义增加节点  /   根据节点定义增加流程定义
+        /// </summary>
+        /// <param name="flowProcedureByNodeIdAddViewModel"></param>
+        /// <returns></returns>
+        int ProcedureDefine_To_Node_Add(FlowProcedureByNodeIdAddViewModel  flowProcedureByNodeIdAddViewModel);
+
+     
     }
 }

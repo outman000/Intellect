@@ -116,7 +116,7 @@ namespace Dto.Service.IntellRepair
                 //生成管理员流转信息
                 var NiWenFlow = _IMapper.Map<FlowNodePreMiddlecs, FlowInfoSearchViewModel>(currentAllInfo, flowInfoSearchViewModel);
                 NiWenFlow.User_InfoId = frn[0].id;
-                NiWenFlow.EndTime = null;
+        
                 currentAllInfo = Work_FlowNodeAll_Add(NiWenFlow);//生成拟文下一节点流转记录
             }
             return currentAllInfo;

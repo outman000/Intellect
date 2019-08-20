@@ -25,6 +25,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             CreateMap<FlowNodeDefineUpdateViewModel, Flow_NodeDefine>();
             CreateMap <RelateRoleByNodeAddModelcs,Flow_Relate_NodeRole>();
             CreateMap<User_Role, UserRoleSearChMiddles>();
+            CreateMap<FlowProcedureByNodeIdAddMiddlecs, Flow_NodeDefine>();
         }
     }
 }

@@ -138,6 +138,37 @@ namespace IntellRepair.Controllers
                 return BadRequest(flowNodeDefineUpdateResModel);
             }
         }
+        /// <summary>
+        /// 根据流程定义增加节点 / 根据节点定义增加流程定义
+        /// </summary>
+        /// <param name="flowProcedureByNodeIdAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_ProcedureDefineByNodeId_Add(FlowProcedureByNodeIdAddViewModel flowProcedureByNodeIdAddViewModel)
+        {
+            FlowProcedureByNodeIdAddResModel  flowProcedureByNodeIdAddResModel = new FlowProcedureByNodeIdAddResModel();
+            int UpdateRowNum = _IFlowNodeDefineService.ProcedureDefine_To_Node_Add(flowProcedureByNodeIdAddViewModel);
+            if (UpdateRowNum > 0)
+            {
+                flowProcedureByNodeIdAddResModel.IsSuccess = true;
+                flowProcedureByNodeIdAddResModel.AddCount = UpdateRowNum;
+                flowProcedureByNodeIdAddResModel.baseViewModel.Message = "根据流程定义增加节点/根据节点定义增加流程定义,成功";
+                flowProcedureByNodeIdAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据流程定义增加节点/根据节点定义增加流程定义,成功");
+                return Ok(flowProcedureByNodeIdAddResModel);
+            }
+            else
+            {
+                flowProcedureByNodeIdAddResModel.IsSuccess = false;
+                flowProcedureByNodeIdAddResModel.AddCount = 0;
+                flowProcedureByNodeIdAddResModel.baseViewModel.Message = "根据流程定义增加节点 / 根据节点定义增加流程定义，失败";
+                flowProcedureByNodeIdAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据流程定义增加节点/根据节点定义增加流程定义，失败");
+                return BadRequest(flowProcedureByNodeIdAddResModel);
+
+            }
+
+        }
 
         /// <summary>
         /// 给节点配置角色 

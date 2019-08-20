@@ -6,6 +6,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel
 {
     public class LineByStationAddViewModel
     {
+     
         /// <summary>
         /// 线路id
         /// </summary>

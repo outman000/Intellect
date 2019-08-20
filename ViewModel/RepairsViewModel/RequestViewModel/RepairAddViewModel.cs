@@ -54,8 +54,13 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// </summary>
         public string status { get; set; }
         /// <summary>
-        /// 表单类型（1-报修类型，2-意见类型）
+        /// 表单类型（1-报修类型，2-意见类型，3-班车类型）
         /// </summary>
         public string isHandler { get; set; }
+
+        /// <summary>
+        /// 流程定义主键Id
+        /// </summary>
+        public int Flow_ProcedureDefineId { get; set; }
     }
 }
