@@ -124,6 +124,29 @@ namespace Dto.Service.IntellFood
                 return 1;
             }
         }
+        /// <summary>
+        /// 根据用户和菜单增加差评信息
+        /// </summary>
+        /// <param name="foodByUserSearchViewMode"></param>
+        /// <returns></returns>
+        public int Food_Relate_User_ADD_Cp(FoodByUserAddCpViewModel  foodByUserAddCpViewModel)
+        {
+            int count = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserAddCpViewModel);
+
+            if (count > 0)
+            {
+
+                return -1;
+            }
+            else
+            {
+                var node_Info = _IMapper.Map<FoodByUserAddCpViewModel, User_Relate_Food>(foodByUserAddCpViewModel);
+                _IRelate_Food_UserRepository.Add(node_Info);
+                _IRelate_Food_UserRepository.SaveChanges();
+                return 1;
+            }
+        }
+
 
         public int Food_Relate_User_Del(FoodByUserPraiseViewModel foodByUserSearchViewModelt)
         {

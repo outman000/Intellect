@@ -111,6 +111,7 @@ namespace Dto.Repository.IntellUser
             var predicate = WhereExtension.True<User_Role>();//初始化where表达式
             predicate = predicate.And(p => p.RoleName.Contains(userRoleSearchViewModel.RoleName));
             predicate = predicate.And(p => p.Status.Contains(userRoleSearchViewModel.Status));
+            predicate = predicate.And(p => p.RoleType.Contains(userRoleSearchViewModel.RoleType));
             return predicate;
         }
 

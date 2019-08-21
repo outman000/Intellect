@@ -11,6 +11,9 @@ using ViewModel.FoodViewModel.MiddleModel;
 using ViewModel.FoodViewModel.RequestViewModel;
 using ViewModel.FoodViewModel.ResponseModel;
 using SystemFilter.PublicFilter;
+using ViewModel.SuggestBoxViewModel.RequestViewModel;
+using ViewModel.SuggestBoxViewModel.ResponseModel;
+using Dto.IService.IntellSuggestBox;
 
 namespace IntellFood.Controllers
 {
@@ -19,12 +22,14 @@ namespace IntellFood.Controllers
     public class FoodInfoController : ControllerBase
     {
         private readonly IFoodService _foodService;
+        private readonly ISuggestBoxService _suggestBoxService;
         private readonly ILogger _ILogger;
 
 
-        public FoodInfoController(IFoodService foodService, ILogger logger)
+        public FoodInfoController(IFoodService foodService, ISuggestBoxService suggestBoxService, ILogger logger)
         {
             _foodService = foodService;
+            _suggestBoxService = suggestBoxService;
             _ILogger = logger;
 
         }
@@ -210,7 +215,36 @@ namespace IntellFood.Controllers
                 return BadRequest(foodByUserSearchResModel);
             }
         }
+        /// <summary>
+        /// 根据用户id和菜单id增加差评信息
+        /// </summary>
+        /// <param name="foodByUserAddCpViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_FoodToUser_AddCp(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
+        {
+            FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
+            int SearchRowNum = _foodService.Food_Relate_User_ADD_Cp(foodByUserAddCpViewModel);
 
+            if (SearchRowNum > 0)
+            {
+                foodByUserSearchResModel.IsSuccess = true;
+                foodByUserSearchResModel.TotalNum = SearchRowNum;
+                foodByUserSearchResModel.baseViewModel.Message = "用户发表差评成功";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据用户id和菜单id，用户发表差评成功");
+                return Ok(foodByUserSearchResModel);
+            }
+            else
+            {
+                foodByUserSearchResModel.IsSuccess = false;
+                foodByUserSearchResModel.TotalNum = 0;
+                foodByUserSearchResModel.baseViewModel.Message = "该用户对该菜发表过评价，因此用户发表差评失败";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据用户id和菜单id，该用户对该菜发表过评价，因此用户发表差评失败");
+                return BadRequest(foodByUserSearchResModel);
+            }
+        }
         /// <summary>
         /// 查询菜单点赞数量
         /// </summary>
@@ -236,7 +270,7 @@ namespace IntellFood.Controllers
         /// <summary>
         /// 根据菜Id删除点赞信息
         /// </summary>
-        /// <param name="foodInfoDelViewModel"></param>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
         public ActionResult Manage_FoodId_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
@@ -261,6 +295,29 @@ namespace IntellFood.Controllers
                 _ILogger.Information("删除菜单点赞信息失败");
                 return BadRequest(foodByUserPraiseDelResModel);
             }
+        }
+
+        /// <summary>
+        /// 查询建议增加的菜信息
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Food_Search(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        {
+            SuggestBoxSearchResModel suggestBoxSearchResModel = new SuggestBoxSearchResModel();
+            var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);
+
+            // var TotalNum = _userService.User_Get_ALLNum();
+            var TotalNum = _suggestBoxService.SuggestBox_Get_ALLNum(suggestBoxSearchViewModel);
+            suggestBoxSearchResModel.suggestBoxInfo = BusSearchResult;
+            suggestBoxSearchResModel.IsSuccess = true;
+            suggestBoxSearchResModel.baseViewModel.Message = "查询成功";
+            suggestBoxSearchResModel.baseViewModel.ResponseCode = 200;
+            suggestBoxSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询意见箱表单信息成功");
+            return Ok(suggestBoxSearchResModel);
+
         }
     }
 }

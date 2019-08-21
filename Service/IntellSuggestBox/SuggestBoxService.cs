@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.SuggestBoxViewModel.MiddleModel;
 using ViewModel.SuggestBoxViewModel.RequestViewModel;
 
 namespace Dto.Service.IntellSuggestBox
@@ -69,10 +70,13 @@ namespace Dto.Service.IntellSuggestBox
         /// </summary>
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
-        public List<Suggest_Box> SuggestBox_Search(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        public List<SuggestInfoMiddlecs> SuggestBox_Search(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
         {
+            SuggestInfoMiddlecs suggestInfoMiddlecs = new SuggestInfoMiddlecs();
             List<Suggest_Box> suggestBox = _ISuggestBoxRepository.SearchSuggestBoxInfoByWhere(suggestBoxSearchViewModel);
-            return suggestBox;
+            var nodeSearchMiddle = _IMapper.Map<List<Suggest_Box>, List<SuggestInfoMiddlecs>>(suggestBox);
+
+            return nodeSearchMiddle;
         }
 
         public int SuggestBox_Get_ALLNum(SuggestBoxSearchViewModel suggestBoxSearchViewModel)

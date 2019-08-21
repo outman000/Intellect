@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20190821023009_repairId")]
+    partial class repairId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -463,7 +465,7 @@ namespace Dtol.Migrations
 
                     b.Property<DateTime?>("UpdateDate");
 
-                    b.Property<int?>("User_InfoId");
+                    b.Property<int>("User_InfoId");
 
                     b.Property<string>("isHandler");
 
@@ -636,15 +638,9 @@ namespace Dtol.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AddDate");
-
-                    b.Property<string>("Content");
-
                     b.Property<int>("Food_InfoId");
 
                     b.Property<int>("User_InfoId");
-
-                    b.Property<string>("status");
 
                     b.HasKey("Id");
 
@@ -894,7 +890,8 @@ namespace Dtol.Migrations
                 {
                     b.HasOne("Dtol.dtol.User_Info", "User_Info")
                         .WithMany()
-                        .HasForeignKey("User_InfoId");
+                        .HasForeignKey("User_InfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Dtol.dtol.User_Info", b =>

@@ -89,7 +89,7 @@ namespace Dto.Repository.IntellSuggestBox
             throw new NotImplementedException();
         }
         /// <summary>
-        /// 查询意见箱表单
+        /// 查询意见
         /// </summary>
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
@@ -100,7 +100,8 @@ namespace Dto.Repository.IntellSuggestBox
 
             //查询条件
             var predicate = SearchSggestBoxWhere(suggestBoxSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).Include(a=>a.User_Info)
+                        .ThenInclude(c => c.User_Depart)
                 .Skip(SkipNum)
                 .Take(suggestBoxSearchViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.SuggestDate).ToList();
@@ -114,8 +115,8 @@ namespace Dto.Repository.IntellSuggestBox
         {
             var predicate = WhereExtension.True<Suggest_Box>();//初始化where表达式
             predicate = predicate.And(p => p.SuggestDate.ToString().Contains(suggestBoxSearchViewModel.SuggestDate.ToString()));
-            predicate = predicate.And(p => p.Title.Contains(suggestBoxSearchViewModel.Title));
-            predicate = predicate.And(p => p.SuggestType.Contains(suggestBoxSearchViewModel.SuggestType));
+            predicate = predicate.And(p => p.Content.Contains(suggestBoxSearchViewModel.Content));
+
             return predicate;
         }
         /// <summary>

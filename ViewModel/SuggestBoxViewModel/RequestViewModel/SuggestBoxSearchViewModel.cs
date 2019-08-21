@@ -6,20 +6,15 @@ using ViewModel.PublicViewModel;
 namespace ViewModel.SuggestBoxViewModel.RequestViewModel
 {
     /// <summary>
-    /// 意见箱表单信息查询
+    /// 建议增加菜名信息查询
     /// </summary>
     public class SuggestBoxSearchViewModel
     {
+        
         /// <summary>
-        /// 意见箱表单标题
+        /// 建议增加的菜名
         /// </summary>
-        public string Title { get; set; }
-
-
-        /// <summary>
-        /// 意见箱表单分类
-        /// </summary>
-        public string SuggestType { get; set; }
+        public string Content { get; set; }
 
         /// <summary>
         /// 意见表单填写时间

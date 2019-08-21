@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.SuggestBoxViewModel.MiddleModel;
 using ViewModel.SuggestBoxViewModel.RequestViewModel;
 
 namespace Dto.IService.IntellSuggestBox
@@ -32,7 +33,7 @@ namespace Dto.IService.IntellSuggestBox
         /// 查询菜单信息
         /// </summary>
         /// <param name = "suggestBoxSearchViewModel" ></ param >
-        List<Suggest_Box> SuggestBox_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel);
+        List<SuggestInfoMiddlecs> SuggestBox_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel);
 
         /// <summary>
         /// 获取菜单总数

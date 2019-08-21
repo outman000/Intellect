@@ -7,9 +7,10 @@ namespace Dtol.dtol
     public class Suggest_Box
     {
         /// <summary>
-        /// 意见箱表单id
+        /// id
         /// </summary>
         public int id { get; set; }
+
         /// <summary>
         /// 意见箱表单标题
         /// </summary>
@@ -22,7 +23,7 @@ namespace Dtol.dtol
         public string SuggestType { get; set; }
 
         /// <summary>
-        /// 意见箱表单内容
+        /// 建议的菜名
         /// </summary>
         public string Content { get; set; }
 
@@ -61,7 +62,7 @@ namespace Dtol.dtol
         /// <summary>
         /// 用户id
         /// </summary>
-        public int User_InfoId { get; set; }
+        public int? User_InfoId { get; set; }
         public User_Info User_Info { get; set; }
 
 

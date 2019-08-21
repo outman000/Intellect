@@ -54,6 +54,12 @@ namespace Dto.IService.IntellFood
         int Food_Relate_User(FoodByUserPraiseViewModel foodByUserSearchViewMode);
 
         /// <summary>
+        /// 根据用户和菜单查询差评信息
+        /// </summary>
+        /// <param name="foodByUserAddCpViewModel"></param>
+        /// <returns></returns>
+        int Food_Relate_User_ADD_Cp(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
+        /// <summary>
         ///根据菜Id删除点赞数量
         /// </summary>
         /// <param name="foodByUserPraiseDelViewModel"></param>

@@ -13,9 +13,9 @@ namespace ViewModel.OpinionInfoViewModel.RequestViewModel
 
 
         /// <summary>
-        /// 意见箱表单id
+        /// 表单id
         /// </summary>
-        public int? Suggest_BoxId { get; set; }
+        public int? Repair_InfoId { get; set; }
 
         /// <summary>
         /// 节点id

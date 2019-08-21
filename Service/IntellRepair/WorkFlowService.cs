@@ -110,7 +110,21 @@ namespace Dto.Service.IntellRepair
             return userSearchMiddlecs;
         }
 
-
+        /// <summary>
+        /// 查询流程是否已经结束，如果结束应该显示写意见方法
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public int CurrentNodeSearch(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        {
+            List<Flow_Node> node_Infos = _IFlowNodeRepository.SearchInfoByNodeWhere(flowNodeSearchViewModel);
+            for (int i = 0; i < node_Infos.Count; i++)
+            {
+                if (node_Infos[i].User_InfoId == null && node_Infos[i].Pre_User_InfoId != null)//说明已经流转到结束节点
+                     return 1;
+            } 
+           return 0;
+        }
         /// <summary>
         /// 增加流转信息（*******此方法适用于任何节点,正常调用一次即可******）
         /// </summary>
@@ -144,7 +158,7 @@ namespace Dto.Service.IntellRepair
                 userLis.Flow_NextNodeDefineId = currentAllInfo.Flow_NextNodeDefineId.Value;//下一节点Id
                 userLis.RoleType = RepairType;//表单的类型与角色类型必须一致
                 List<UserSearchMiddlecs> frn = User_By_Node_Search(userLis);
-                if (frn.Count > 1)
+                if (frn.Count!=1)
                     return null;
                 //生成管理员流转信息
                 var NiWenFlow = _IMapper.Map<FlowNodePreMiddlecs, FlowInfoSearchViewModel>(currentAllInfo, flowInfoSearchViewModel);
@@ -171,6 +185,69 @@ namespace Dto.Service.IntellRepair
             if (nodepre_Infos[0].Parent_Flow_NodeDefineId == null) //说明是开始节点，需要把当前用户设置为null
                 nodepre_Infos[0].User_InfoId = null;//开始的当前处理人变为空，防止查出两条已办
             nodepre_Infos[0].operate = "2";//把未提交状态（1），改为已提交状态（2）
+            nodepre_Infos[0].EndTime = flowInfoSearchViewModel.StartTime;//用户提交时间，就是上一节点结束时间，是当前节点
+            _IFlowNodeRepository.Update(nodepre_Infos[0]);
+            if (currentNodeInfo.Flow_NextNodeDefineId == null)//说明是结束节点
+            {
+                nodeByrepair_Info.operate = "2";//把未提交状态（1），改为已提交状态（2）
+                nodeByrepair_Info.EndTime = nodeByrepair_Info.StartTime;//结束节点的开始时间和结束时间一样，都为上一节点的提交时间
+                _IFlowNodeRepository.Update(nodeByrepair_Info);
+                _IFlowNodeRepository.SaveChanges();
+                //把流程表结束时间赋上值
+                var procedure_Info = _IFlowProcedureInfoRepository.GetInfoByProcedureId(flowInfoSearchViewModel.Flow_ProcedureId);
+                procedure_Info.Endtime = nodeByrepair_Info.StartTime;
+                procedure_Info.remark = "2";//流程结束
+                _IFlowProcedureInfoRepository.Update(procedure_Info);
+                _IFlowProcedureInfoRepository.SaveChanges();
+            }
+        }
+
+
+
+        /// <summary>
+        /// 增加流转信息（*******此方法适用于【跳转】******）
+        /// </summary>
+        /// <param name="flowInfoSearchViewModel"></param>
+        /// <returns></returns>
+        public FlowNodePreMiddlecs Work_FlowNodeJump_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
+        {
+            string RepairType = flowInfoSearchViewModel.RepairType;//表单类型，也就是相对应的角色类型
+            //获取当前节点信息
+            var currentNodeInfo = _IFlowNodeDefineInfoRepository
+                           .GetInfoByNodeDefineId(flowInfoSearchViewModel.Flow_NodeDefineId);
+
+
+            var currentAllInfo = _IMapper.Map<Flow_NodeDefine, FlowNodePreMiddlecs>(currentNodeInfo);
+
+            //请求信息存入流转信息表
+            var nodeByrepair_Info = _IMapper.Map<FlowInfoSearchViewModel, Flow_Node>(flowInfoSearchViewModel);
+            currentAllInfo = _IMapper.Map<Flow_Node, FlowNodePreMiddlecs>(nodeByrepair_Info, currentAllInfo);
+
+            if (nodeByrepair_Info.Parent_Flow_NodeDefineId != null)//说明是非开始节点，包括（普通节点和结束节点）
+                Work_FlowNodeOperateJump_Update(flowInfoSearchViewModel, nodeByrepair_Info, currentNodeInfo);
+            if (nodeByrepair_Info.operate != "2")//说明不是结束节点
+                _IFlowNodeRepository.Add(nodeByrepair_Info);
+            _IFlowNodeRepository.SaveChanges();
+          
+            return currentAllInfo;
+        }
+
+
+        /// <summary>
+        /// 更新上一流转记录中的状态  operate变为3 （已跳转）
+        /// </summary>
+        /// <param name="flowInfoSearchViewModel"></param>
+        /// <param name="nodeByrepair_Info"></param>
+        /// <param name="currentNodeInfo"></param>
+        private void Work_FlowNodeOperateJump_Update(FlowInfoSearchViewModel flowInfoSearchViewModel,
+                                                              Flow_Node nodeByrepair_Info,
+                                                              Flow_NodeDefine currentNodeInfo)
+        {
+
+            var flowInfo = _IMapper.Map<Flow_Node, FlowInfoSearchViewModel>(nodeByrepair_Info);
+            List<Flow_Node> nodepre_Infos = _IFlowNodeRepository.SearchInfoByNodeWhere(flowInfo);//查询父节点操作信息
+           
+            nodepre_Infos[0].operate = "3";//把未提交状态（1），改为已跳转状态（3）
             nodepre_Infos[0].EndTime = flowInfoSearchViewModel.StartTime;//用户提交时间，就是上一节点结束时间，是当前节点
             _IFlowNodeRepository.Update(nodepre_Infos[0]);
             if (currentNodeInfo.Flow_NextNodeDefineId == null)//说明是结束节点

@@ -120,7 +120,7 @@ namespace IntellSuggest.Controllers
             }
         }
         /// <summary>
-        /// 查询意见箱表单信息
+        /// 查询建议增加的菜信息
         /// </summary>
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>

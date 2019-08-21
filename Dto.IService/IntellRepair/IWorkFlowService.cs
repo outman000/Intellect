@@ -24,6 +24,12 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         List<UserSearchMiddlecs> User_By_Node_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel);
 
+        /// <summary>
+        /// 查询当前节点是否是结束
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        int CurrentNodeSearch(FlowNodeSearchViewModel flowNodeSearchViewModel);
 
         /// <summary>
         ///  正式走流程
@@ -31,6 +37,16 @@ namespace Dto.IService.IntellRepair
         /// <param name="fLowInfoSearchViewModel"></param>
         /// <returns></returns>
         FlowNodePreMiddlecs Work_FlowNodeAll_Add(FlowInfoSearchViewModel fLowInfoSearchViewModel);
+
+
+        /// <summary>
+        ///  跳转走流程
+        /// </summary>
+        /// <param name="fLowInfoSearchViewModel"></param>
+        /// <returns></returns>
+        FlowNodePreMiddlecs Work_FlowNodeJump_Add(FlowInfoSearchViewModel fLowInfoSearchViewModel);
+
+        
     }
    
 

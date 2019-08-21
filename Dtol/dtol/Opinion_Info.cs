@@ -19,11 +19,17 @@ namespace Dtol.dtol
 
      
 
+        ///// <summary>
+        ///// 意见箱表单id
+        ///// </summary>
+        //public int? Suggest_BoxId { get; set; }
+        //public Suggest_Box Suggest_Box { get; set; }
+
         /// <summary>
-        /// 意见箱表单id
+        /// 表单外键id
         /// </summary>
-        public int? Suggest_BoxId { get; set; }
-        public Suggest_Box Suggest_Box { get; set; }
+        public int? Repair_InfoId { get; set; }
+        public Repair_Info Repair_Info { get; set; }
 
 
         /// <summary>

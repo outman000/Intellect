@@ -13,13 +13,16 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// <summary>
         /// 角色名称
         /// </summary>
-        public String RoleName { get; set; }
+        public string RoleName { get; set; }
         /// <summary>
         /// 角色状态 0停用1启用
         /// </summary>
-        public String Status { get; set; }
+        public string Status { get; set; }
 
-      
+        /// <summary>
+        /// 角色类型
+        /// </summary>
+        public string RoleType { get; set; }
         /// <summary>
         /// 页码
         /// </summary>

@@ -93,8 +93,26 @@ namespace Dto.Repository.IntellFood
                                           k.User_Info.status=="0").ToList();
             return queryResult.Count;
         }
+        /// <summary>
+        /// 根据用户id和菜id 去关系表查差评
+        /// </summary>
+        /// <param name="foodByUserSearchViewModel"></param>
+        /// <returns></returns>
+        public int SearchFoodInfoByWhere(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
+        {
 
-      
+            int userid = foodByUserAddCpViewModel.UserId;
+            int foodid = foodByUserAddCpViewModel.FoodId;
+            string status = foodByUserAddCpViewModel.status;
+            
+            var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
+                                          k.Food_InfoId == foodid &&
+                                          k.status == status &&
+                                          k.User_Info.status == "0"
+                                          ).ToList();
+            return queryResult.Count;
+        }
+
 
         public IQueryable<User_Relate_Food> GetAll()
         {

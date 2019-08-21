@@ -2,25 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dtol.dtol
+namespace ViewModel.FoodViewModel.RequestViewModel
 {
-    public class User_Relate_Food
+    public class FoodByUserAddCpViewModel
     {
-        public int Id { get; set; }
-        
         /// <summary>
-        /// 用户Id
+        /// 用户id
         /// </summary>
-        public int User_InfoId { get; set; }
-
-        public User_Info User_Info { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
-        /// 菜Id
+        /// 菜id
         /// </summary>
-        public int Food_InfoId { get; set; }
-
-        public Food_Info Food_Info { get; set; }
+        public int FoodId { get; set; }
 
         /// <summary>
         /// 点评标识  1-差评
@@ -36,7 +30,5 @@ namespace Dtol.dtol
         /// 增加时间
         /// </summary>
         public DateTime? AddDate { get; set; }
-
-
     }
 }

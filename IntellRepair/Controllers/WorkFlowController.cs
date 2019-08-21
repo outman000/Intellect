@@ -73,11 +73,44 @@ namespace IntellRepair.Controllers
             return Ok(userSearchResModel);
 
         }
+
+
+        /// <summary>
+        /// 查当前节点是否到达结束
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CurrentNode_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        {
+            FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
+           
+            int temp = _IWorkFlowService.CurrentNodeSearch(flowNodeSearchViewModel);
+            if (temp==1)
+            {
+                flowNodeSearchResModel.isSuccess = true;
+                flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前节点为结束";
+                flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询成功，当前节点为结束");
+                return Ok(temp);
+
+            }
+            else
+            {
+
+                flowNodeSearchResModel.isSuccess = false;
+                flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前节点不是结束";
+                flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询成功，当前节点不是结束");
+                return Ok(temp);
+            }
+           
+
+        }
         /// <summary>
         /// 增添报修以及流程信息(增加意见箱以及流程信息)
         /// </summary>
         /// <param name="repairAddViewModel"></param>
-        /// <param name="Flow_ProcedureDefineId"></param>
         /// <returns></returns>
 
         [HttpPost]
@@ -124,12 +157,49 @@ namespace IntellRepair.Controllers
             {
                 flowInfoSearchResModel.IsSuccess = false;
                 flowInfoSearchResModel.flowNodePreMiddlecs = null;
-                flowInfoSearchResModel.baseViewModel.Message = "生产当前节点未办失败，当前节点的当前类型角色下配有多个人，请检查当前类型的角色下的人";
+                flowInfoSearchResModel.baseViewModel.Message = "生产当前节点未办失败，当前节点的当前类型角色下配有多个人或没有配人，请检查当前类型的角色下的人";
                 flowInfoSearchResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("生产当前节点未办失败，当前节点的当前类型角色下配有多个人，请检查当前类型的角色");
+                _ILogger.Information("生产当前节点未办失败，当前节点的当前类型角色下配有多个人或没有配人，请检查当前类型的角色");
                 return BadRequest(flowInfoSearchResModel);
             }
              else if (flowNodePreMiddlecs.NodeType!="结束类型")
+            {
+                flowInfoSearchResModel.IsSuccess = true;
+                flowInfoSearchResModel.flowNodePreMiddlecs = flowNodePreMiddlecs;
+                flowInfoSearchResModel.baseViewModel.Message = "增加流转信息成功，该流程还没有结束";
+                flowInfoSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加流转信息成功，该流程还没有结束");
+                return Ok(flowInfoSearchResModel);
+            }
+            else
+            {
+                flowInfoSearchResModel.IsSuccess = false;
+                flowInfoSearchResModel.flowNodePreMiddlecs = null;
+                flowInfoSearchResModel.baseViewModel.Message = "所有流转信息增加完毕，本条流程已结束";
+                flowInfoSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("所有流转信息增加完毕，本条流程已结束");
+                return BadRequest(flowInfoSearchResModel);
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// 增加流转信息(【跳转】)
+        /// </summary>
+        /// <param name="flowInfoSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_WorkFlowInfoJump_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
+        {
+
+            FlowNodePreMiddlecs flowNodePreMiddlecs = new FlowNodePreMiddlecs();
+            flowNodePreMiddlecs = _IWorkFlowService.Work_FlowNodeJump_Add(flowInfoSearchViewModel);
+
+            FlowInfoSearchResModel flowInfoSearchResModel = new FlowInfoSearchResModel();
+           
+            if (flowNodePreMiddlecs.NodeType != "结束类型")
             {
                 flowInfoSearchResModel.IsSuccess = true;
                 flowInfoSearchResModel.flowNodePreMiddlecs = flowNodePreMiddlecs;
