@@ -252,5 +252,86 @@ namespace IntellRepair.Controllers
             return Ok(roleByNodeSearchResModel);
           
         }
+        /// <summary>
+        /// 给当前节点配下一节点
+        /// </summary>
+        /// <param name="currentNodeToNextNodeAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CurrentNodeToNextNode_Add(CurrentNodeToNextNodeAddViewModel currentNodeToNextNodeAddViewModel)
+        {
+            CurrentNodeToNextNodeAddResModel  currentNodeToNextNodeAddResModel = new CurrentNodeToNextNodeAddResModel();
+            int UpdateRowNum = _IFlowNodeDefineService.CurrentNodeToNextNode_Add(currentNodeToNextNodeAddViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                currentNodeToNextNodeAddResModel.IsSuccess = true;
+                currentNodeToNextNodeAddResModel.AddCount = UpdateRowNum;
+                currentNodeToNextNodeAddResModel.baseViewModel.Message = "给当前节点配下一节点成功";
+                currentNodeToNextNodeAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("给当前节点配下一节点成功");
+                return Ok(currentNodeToNextNodeAddResModel);
+            }
+            else
+            {
+                currentNodeToNextNodeAddResModel.IsSuccess = false;
+                currentNodeToNextNodeAddResModel.AddCount = 0;
+                currentNodeToNextNodeAddResModel.baseViewModel.Message = "给当前节点配下一节点失败";
+                currentNodeToNextNodeAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("给当前节点配下一节点失败");
+                return BadRequest(currentNodeToNextNodeAddResModel);
+            }
+        }
+
+        /// <summary>
+        /// 给当前节点删除下一节点
+        /// </summary>
+        /// <param name="currentNodeToNextNodeDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CurrentNodeToNextNode_Del(CurrentNodeToNextNodeDelViewModel currentNodeToNextNodeDelViewModel)
+        {
+            CurrentNodeToNextNodeDelResModel   currentNodeToNextNodeDelResModel = new CurrentNodeToNextNodeDelResModel();
+            int DeleteRowNum = _IFlowNodeDefineService.CurrentNodeToNextNode_Del(currentNodeToNextNodeDelViewModel);
+
+            if (DeleteRowNum > 0)
+            {
+                currentNodeToNextNodeDelResModel.IsSuccess = true;
+                currentNodeToNextNodeDelResModel.DelCount = DeleteRowNum;
+                currentNodeToNextNodeDelResModel.baseViewModel.Message = "给当前节点删除下一节点成功";
+                currentNodeToNextNodeDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("给当前节点删除下一节点成功");
+                return Ok(currentNodeToNextNodeDelResModel);
+            }
+            else
+            {
+                currentNodeToNextNodeDelResModel.IsSuccess = false;
+                currentNodeToNextNodeDelResModel.DelCount = 0;
+                currentNodeToNextNodeDelResModel.baseViewModel.Message = "给当前节点删除下一节点成功";
+                currentNodeToNextNodeDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("给当前节点删除下一节点成功");
+                return BadRequest(currentNodeToNextNodeDelResModel);
+            }
+        }
+        /// <summary>
+        /// 根据当前节点查下一节点信息
+        /// </summary>
+        /// <param name="nextNodeByCurrentNodeSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CurrentNodeToNextNode_Search(NextNodeByCurrentNodeSearchViewModel  nextNodeByCurrentNodeSearchViewModel)
+        {
+            FlowNodeDefineSearchResModel  flowNodeDefineSearchResModel = new FlowNodeDefineSearchResModel();
+            flowNodeDefineSearchResModel.flowNodeDefine_Info = _IFlowNodeDefineService.NextNodeDefine_Search(nextNodeByCurrentNodeSearchViewModel);
+
+
+            flowNodeDefineSearchResModel.isSuccess = true;
+            flowNodeDefineSearchResModel.TotalNum = _IFlowNodeDefineService.NodeDefine_Get_ALLNum(nextNodeByCurrentNodeSearchViewModel);
+            flowNodeDefineSearchResModel.baseViewModel.Message = "根据当前节点查下一节点信息成功";
+            flowNodeDefineSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据当前节点查下一节点信息成功");
+            return Ok(flowNodeDefineSearchResModel);
+
+        }
     }
 }

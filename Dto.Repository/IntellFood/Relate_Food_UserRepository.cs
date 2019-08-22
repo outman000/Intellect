@@ -54,6 +54,7 @@ namespace Dto.Repository.IntellFood
             var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
             predicate = predicate.And(p => p.Food_InfoId == foodByUserSearchViewModel.Food_InfoId);
             predicate = predicate.And(p => p.User_InfoId == foodByUserSearchViewModel.User_InfoId);
+            predicate = predicate.And(p => p.status != "1");
             return predicate;
         }
         #endregion
@@ -65,6 +66,7 @@ namespace Dto.Repository.IntellFood
         {
             var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
             predicate = predicate.And(p => p.Food_InfoId == id);
+            predicate = predicate.And(p => p.status != "1");
             return predicate;
         }
         #endregion
@@ -89,7 +91,8 @@ namespace Dto.Repository.IntellFood
             int userid = foodByUserSearchViewModel.User_InfoId;
             int foodid = foodByUserSearchViewModel.Food_InfoId;
             var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
-                                          k.Food_InfoId == foodid && 
+                                          k.Food_InfoId == foodid &&
+                                          k.status!="1"&&
                                           k.User_Info.status=="0").ToList();
             return queryResult.Count;
         }
@@ -101,18 +104,44 @@ namespace Dto.Repository.IntellFood
         public int SearchFoodInfoByWhere(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
 
-            int userid = foodByUserAddCpViewModel.UserId;
-            int foodid = foodByUserAddCpViewModel.FoodId;
+            int userid = foodByUserAddCpViewModel.User_InfoId;
+            int foodid = foodByUserAddCpViewModel.Food_InfoId;
             string status = foodByUserAddCpViewModel.status;
             
             var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
                                           k.Food_InfoId == foodid &&
-                                          k.status == status &&
+                                          k.status == "1" &&
                                           k.User_Info.status == "0"
                                           ).ToList();
             return queryResult.Count;
         }
 
+        /// <summary>
+        /// 根据用户id和菜id 去关系表查差评
+        /// </summary>
+        /// <param name="foodByUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<User_Relate_Food> SearchFoodInfoByWhere(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
+        {
+
+            var preciate = SearchFoodCPWhere(foodByUserSearchCpViewModel);
+            var temp = DbSet.Where(preciate).ToList();
+            return temp;
+        }
+        #region 查询条件
+        //根据条件查询菜单差评信息
+        private Expression<Func<User_Relate_Food, bool>> SearchFoodCPWhere(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
+        {
+            var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
+            if(foodByUserSearchCpViewModel.User_InfoId!=null)
+            predicate = predicate.And(p => p.User_InfoId == foodByUserSearchCpViewModel.User_InfoId.Value);
+            if (foodByUserSearchCpViewModel.Food_InfoId != null)
+                predicate = predicate.And(p => p.Food_InfoId == foodByUserSearchCpViewModel.Food_InfoId.Value);
+            predicate = predicate.And(p => p.status == "1");
+            predicate = predicate.And(p => p.User_Info.status == "0");
+            return predicate;
+        }
+        #endregion
 
         public IQueryable<User_Relate_Food> GetAll()
         {
@@ -185,6 +214,7 @@ namespace Dto.Repository.IntellFood
                 .Where(b => b.Food_Info.FoodType.Contains(foodtype)&& 
                         b.Food_Info.FoodName.Contains(foodName)&&
                         b.Food_Info.Remark.Contains(remark)&&
+                        b.status!="1"&&
                         b.User_Info.status=="0")
                 .GroupBy(m => new { m.Food_InfoId, m.Food_Info.FoodName,
                                     m.Food_Info.FoodType,m.Food_Info.Remark })

@@ -124,6 +124,18 @@ namespace Dto.Service.IntellFood
                 return 1;
             }
         }
+
+        /// <summary>
+        /// 根据用户和菜单查询差评信息
+        /// </summary>
+        /// <param name="foodByUserSearchCpViewModel"></param>
+        /// <returns></returns>
+        public List<FoodCpMiddlecs>  Food_Relate_User_Search_CP(FoodByUserSearchCpViewModel  foodByUserSearchCpViewModel)
+        {
+            List <User_Relate_Food>  user_Relate_Foods = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserSearchCpViewModel);
+            var Cp_Info = _IMapper.Map<List<User_Relate_Food>, List<FoodCpMiddlecs>>(user_Relate_Foods);
+            return Cp_Info;
+        }
         /// <summary>
         /// 根据用户和菜单增加差评信息
         /// </summary>
@@ -177,6 +189,15 @@ namespace Dto.Service.IntellFood
          
             return DeleteRowsNum;
          
+        }
+        /// <summary>
+        /// 食物差评数量
+        /// </summary>
+        /// <param name="foodByUserSearchCpViewModel"></param>
+        /// <returns></returns>
+        public int FoodCp_Get_ALLNum(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
+        {
+            return _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserSearchCpViewModel).Count();
         }
     }
 }

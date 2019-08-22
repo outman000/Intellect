@@ -17,12 +17,7 @@ namespace Dtol.dtol
         public string NodeName { get; set; }
         public DateTime? CreateTime{get;set;}
         public DateTime? UpdateTime{get;set;}
-        /// <summary>
-        /// 下一节点id
-        /// </summary>
 
-        public int? Flow_NextNodeDefineId { get; set; }
-        public Flow_NodeDefine Flow_NextNodeDefine { get; set; }
         /// <summary>
         /// 流程id
         /// </summary>
@@ -34,8 +29,6 @@ namespace Dtol.dtol
         /// </summary>
 
         public string NodeType { get; set; }
-
-
         /// <summary>
         /// 节点保持
         /// </summary>

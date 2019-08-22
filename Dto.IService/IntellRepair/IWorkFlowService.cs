@@ -25,12 +25,18 @@ namespace Dto.IService.IntellRepair
         List<UserSearchMiddlecs> User_By_Node_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel);
 
         /// <summary>
-        /// 查询当前节点是否是结束
+        /// 查询当前节点是否是结束（如果是结束，出现评论按钮）
         /// </summary>
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
         int CurrentNodeSearch(FlowNodeSearchViewModel flowNodeSearchViewModel);
 
+        /// <summary>
+        /// 查询当前是否超时（如果超时，出现催单按钮）
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        int CurrentNodeOverTimeSearch(FlowNodeSearchViewModel flowNodeSearchViewModel);
         /// <summary>
         ///  正式走流程
         /// </summary>
