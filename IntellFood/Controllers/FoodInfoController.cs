@@ -375,5 +375,36 @@ namespace IntellFood.Controllers
                 return BadRequest(suggestBoxAddResModel);
             }
         }
+
+        /// <summary>
+        /// 删除建议增加的菜信息
+        /// </summary>
+        /// <param name="suggestBoxDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Suggest_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
+        {
+            SuggestBoxDelResModel suggestBoxDelResModel = new SuggestBoxDelResModel();
+            int DeleteResult = _suggestBoxService.SuggestBox_Delete(suggestBoxDelViewModel);
+
+            if (DeleteResult > 0)
+            {
+                suggestBoxDelResModel.DelCount = DeleteResult;
+                suggestBoxDelResModel.IsSuccess = true;
+                suggestBoxDelResModel.baseViewModel.Message = "删除成功";
+                suggestBoxDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除意见箱表单信息成功");
+                return Ok(suggestBoxDelResModel);
+            }
+            else
+            {
+                suggestBoxDelResModel.DelCount = -1;
+                suggestBoxDelResModel.IsSuccess = false;
+                suggestBoxDelResModel.baseViewModel.Message = "删除失败";
+                suggestBoxDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除意见箱表单信息失败");
+                return BadRequest(suggestBoxDelResModel);
+            }
+        }
     }
 }
