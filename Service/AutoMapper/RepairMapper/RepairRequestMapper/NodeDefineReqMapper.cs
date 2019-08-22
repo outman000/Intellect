@@ -20,6 +20,8 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             .ForMember(s => s.NodeName, sp => sp.MapFrom(src => src.NodeName))
             .ForMember(s => s.FlowProcedureDefineName, sp => sp.MapFrom(src => src.Flow_ProcedureDefine.ProcedureName))
             .ForMember(s => s.NodeKeep, sp => sp.MapFrom(src => src.NodeKeep))
+            .ForMember(s => s.status, sp => sp.MapFrom(src => src.status))
+            .ForMember(s => s.Flow_ProcedureDefineId, sp => sp.MapFrom(src => src.Flow_ProcedureDefineId))
             .ForMember(s => s.NodeType, sp => sp.MapFrom(src => src.NodeType));
 
             CreateMap< Flow_CurrentNodeAndNextNode, FlowNodeDefineSearchMiddlecs> ()
@@ -37,7 +39,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             CreateMap <RelateRoleByNodeAddModelcs,Flow_Relate_NodeRole>();
             CreateMap<User_Role, UserRoleSearChMiddles>();
             CreateMap<FlowProcedureByNodeIdAddMiddlecs, Flow_NodeDefine>();
-            CreateMap< Flow_NodeDefine, FlowNodeDefineSearchMiddlecs >();
+
             CreateMap< CurrentNodeToNextNodeAddMiddlecs ,Flow_CurrentNodeAndNextNode>();
         }
     }
