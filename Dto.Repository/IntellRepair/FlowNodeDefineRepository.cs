@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Repository.IntellRepair
@@ -16,11 +17,12 @@ namespace Dto.Repository.IntellRepair
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<Flow_NodeDefine> DbSet;
-
+        protected readonly DbSet<Flow_CurrentNodeAndNextNode> DbSet2;
         public FlowNodeDefineRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<Flow_NodeDefine>();
+            DbSet2 = Db.Set<Flow_CurrentNodeAndNextNode>();
         }
 
         public virtual void Add(Flow_NodeDefine obj)
@@ -92,7 +94,7 @@ namespace Dto.Repository.IntellRepair
             var preciateByNodeDefine = SearchNodeDefineWhere(flowNodeDefineSearchViewModel);
             IQueryable<Flow_NodeDefine> NodeDefine_Infos = Db.flow_NodeDefine.Where(preciateByNodeDefine);
 
-            IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos.Include(a => a.Flow_NextNodeDefine)
+            IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos
                         .Include(a => a.Flow_ProcedureDefine)
                         .Skip(SkipNum)
                         .Take(flowNodeDefineSearchViewModel.pageViewModel.PageSize)
@@ -100,7 +102,38 @@ namespace Dto.Repository.IntellRepair
             return SearchResultTemp;
         }
 
+        /// <summary>
+        /// 根据当前节点查下一节点信息
+        /// </summary>
+        /// <param name="nextNodeByCurrentNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Flow_CurrentNodeAndNextNode> SearchNextNodeInfoByWhere(NextNodeByCurrentNodeSearchViewModel  nextNodeByCurrentNodeSearchViewModel)
+        {
+            int SkipNum = nextNodeByCurrentNodeSearchViewModel.pageViewModel.CurrentPageNum * nextNodeByCurrentNodeSearchViewModel.pageViewModel.PageSize;
+            int Flow_NodeDefineId = nextNodeByCurrentNodeSearchViewModel.Flow_NodeDefineId;
+            var queryResult = DbSet2.Where(k => k.Flow_NodeDefineId== Flow_NodeDefineId && 
+                                    k.Flow_NodeDefine.status == "0").Include(p => p.Flow_NextNodeDefine)
+                                    .ThenInclude(p => p.Flow_ProcedureDefine)
+                 .Skip(SkipNum)
+                .Take(nextNodeByCurrentNodeSearchViewModel.pageViewModel.PageSize)
+                 .OrderBy(o => o.Id)
+                .ToList();
+            return queryResult;
+        }
 
+        //根据当前节点查下一节点信息(重载)
+        public List<Flow_CurrentNodeAndNextNode> SearchNextNodeInfoByWhere(int id)
+        {
+           
+
+            var queryResult = DbSet2.Where(k => k.Flow_NodeDefineId == id &&
+                                        k.Flow_NodeDefine.status == "0").Include(p => p.Flow_NextNodeDefine)  
+                 .OrderBy(o => o.Id)
+                .ToList();
+            return queryResult;
+
+
+        }
         /// <summary>
         /// 根据id条件查询节点定义信息（重载）
         /// </summary>
@@ -110,7 +143,7 @@ namespace Dto.Repository.IntellRepair
         {
 
             IQueryable<Flow_NodeDefine> NodeDefine_Infos = Db.flow_NodeDefine.Where(p=>p.Id== ProduceKeyId);
-            IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos.Include(a => a.Flow_NextNodeDefine)
+            IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos
                         .Include(a => a.Flow_ProcedureDefine)
                         .OrderBy(o => o.CreateTime);
             return SearchResultTemp;
@@ -123,7 +156,7 @@ namespace Dto.Repository.IntellRepair
             predicate = predicate.And(p => p.NodeName.Contains(flowNodeDefineSearchViewModel.NodeName));
             predicate = predicate.And(p => p.NodeType.Contains(flowNodeDefineSearchViewModel.NodeType));
             predicate = predicate.And(p => p.status.Contains(flowNodeDefineSearchViewModel.status));
-            predicate = predicate.And(p => p.Flow_NextNodeDefine.NodeName.Contains(flowNodeDefineSearchViewModel.FlowNextName));
+       
             if(flowNodeDefineSearchViewModel.Flow_ProcedureDefineId!=null)
             predicate = predicate.And(p => p.Flow_ProcedureDefine.Id==flowNodeDefineSearchViewModel.Flow_ProcedureDefineId);
             predicate = predicate.And(p => p.Flow_ProcedureDefine.ProcedureName.Contains(flowNodeDefineSearchViewModel.ProcedureName));
@@ -153,7 +186,46 @@ namespace Dto.Repository.IntellRepair
 
             return DbSet.Where(predicate);
         }
+        /// <summary>
+        /// 给当前节点添加下一节点
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public int CurrentNodeAddNextNode(List<Flow_CurrentNodeAndNextNode> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                DbSet2.Add(list[i]);
+            }
 
-       
+            return SaveChanges();
+        }
+
+       /// <summary>
+       /// 给当前节点删除下一节点
+       /// </summary>
+       /// <param name="list"></param>
+       /// <returns></returns>
+        public int RelateCurrentNodeToNextNodeDel(List<CurrentNodeToNextNodeDelMiddlecs> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                var preciate = SearchDelRelateWhere(list[i]);
+                var temp = DbSet2.Single(preciate);
+                DbSet2.Remove(temp);
+            }
+
+            return SaveChanges();
+        }
+        #region 查询条件
+        //根据条件查询关系表
+        private Expression<Func<Flow_CurrentNodeAndNextNode, bool>> SearchDelRelateWhere(CurrentNodeToNextNodeDelMiddlecs  currentNodeToNextNodeDelMiddlecs)
+        {
+            var predicate = WhereExtension.True<Flow_CurrentNodeAndNextNode>();//初始化where表达式
+            predicate = predicate.And(p => p.Flow_NodeDefineId == currentNodeToNextNodeDelMiddlecs.Flow_NodeDefineId);
+            predicate = predicate.And(p => p.Flow_NextNodeDefineId == currentNodeToNextNodeDelMiddlecs.Flow_NextNodeDefineId);
+            return predicate;
+        }
+        #endregion
     }
 }

@@ -24,6 +24,12 @@ namespace Dto.IRepository.IntellOpinionInfo
         /// <returns></returns>
         int SearchFoodInfoByWhere(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
 
+        /// <summary>
+        /// 根据用户和菜单查差评信息
+        /// </summary>
+        /// <param name="foodByUserSearchCpViewModel"></param>
+        /// <returns></returns>
+        List<User_Relate_Food> SearchFoodInfoByWhere(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel);
 
         /// <summary>
         /// 给用户点赞关系表删数据

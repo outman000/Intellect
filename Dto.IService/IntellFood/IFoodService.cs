@@ -33,12 +33,16 @@ namespace Dto.IService.IntellFood
         /// </summary>
         /// <param name="foodInfoSearchViewModel"></param>
         List<Food_Info> Food_Search(FoodInfoSearchViewModel  foodInfoSearchViewModel);
-
         /// <summary>
         /// 获取菜单总数
         /// </summary>
         /// <returns></returns>
         int Food_Get_ALLNum(FoodInfoSearchViewModel foodInfoSearchViewModel);
+        /// <summary>
+        /// 获取菜单差评总数
+        /// </summary>
+        /// <returns></returns>
+        int FoodCp_Get_ALLNum(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel);
         /// <summary>
         /// 验证菜单的唯一性
         /// </summary>
@@ -59,6 +63,13 @@ namespace Dto.IService.IntellFood
         /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
         int Food_Relate_User_ADD_Cp(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
+
+        /// <summary>
+        /// 根据用户和菜单查询差评信息(重载)
+        /// </summary>
+        /// <param name="foodByUserSearchCpViewModel"></param>
+        /// <returns></returns>
+        List<FoodCpMiddlecs> Food_Relate_User_Search_CP(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel);
         /// <summary>
         ///根据菜Id删除点赞数量
         /// </summary>

@@ -27,7 +27,8 @@ namespace Dto.Service.IntellRepair
             _IMapper = mapper;
         }
 
-        
+
+     
 
         /// <summary>
         /// 节点定义查询
@@ -146,6 +147,17 @@ namespace Dto.Service.IntellRepair
         }
 
         /// <summary>
+        /// 根据当前节点查询下一节点数量
+        /// </summary>
+        /// <param name="nextNodeByCurrentNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public int NodeDefine_Get_ALLNum(NextNodeByCurrentNodeSearchViewModel nextNodeByCurrentNodeSearchViewModel)
+        {
+            return _IFlowNodeDefineInfoRepository.SearchNextNodeInfoByWhere(nextNodeByCurrentNodeSearchViewModel).Count();
+
+
+        }
+        /// <summary>
         /// 根据节点查角色数量
         /// </summary>
         /// <param name="roleByNodeSearchViewModel"></param>
@@ -173,6 +185,56 @@ namespace Dto.Service.IntellRepair
             }
             return _IFlowNodeDefineInfoRepository.SaveChanges();
            
+        }
+
+        /// <summary>
+        /// 给当前节点增加下一节点
+        /// </summary>
+        /// <param name="currentNodeToNextNodeAddViewModel"></param>
+        /// <returns></returns>
+        public int CurrentNodeToNextNode_Add(CurrentNodeToNextNodeAddViewModel currentNodeToNextNodeAddViewModel)
+        {
+            //获取视图集合
+            List<CurrentNodeToNextNodeAddMiddlecs> currentNodeAndNextNodeIdList = currentNodeToNextNodeAddViewModel.CurrentNodeAndNextNodeIdList;
+            //将视图模型和转为领域模型集合
+            List<Flow_CurrentNodeAndNextNode> currentNodeAndNextNode = _IMapper.Map<List<CurrentNodeToNextNodeAddMiddlecs>, List<Flow_CurrentNodeAndNextNode>>(currentNodeAndNextNodeIdList);
+
+            int AddNum = _IFlowNodeDefineInfoRepository
+                       .CurrentNodeAddNextNode(currentNodeAndNextNode);
+
+            return AddNum;
+        }
+        /// <summary>
+        /// 根据当前节点查下一节点信息
+        /// </summary>
+        /// <param name="flowNodeDefineSearchViewModel"></param>
+        /// <returns></returns>
+        public List<FlowNodeDefineSearchMiddlecs> NextNodeDefine_Search(NextNodeByCurrentNodeSearchViewModel nextNodeByCurrentNodeSearchViewModel)
+        {
+            List<FlowNodeDefineSearchMiddlecs> nodeDefineSearches = new List<FlowNodeDefineSearchMiddlecs>();
+            List<Flow_CurrentNodeAndNextNode> nodeDefine_Infos = _IFlowNodeDefineInfoRepository
+                                                    .SearchNextNodeInfoByWhere(nextNodeByCurrentNodeSearchViewModel);
+
+
+            //foreach (var item in nodeDefine_Infos)
+            //{
+                var user_role_temp = _IMapper.Map<List<Flow_CurrentNodeAndNextNode>, List< FlowNodeDefineSearchMiddlecs> >(nodeDefine_Infos);
+            //    nodeDefineSearches.Add(user_role_temp);
+            //}
+            return user_role_temp;
+        }
+
+    
+
+        // 给当前节点删下一节点
+        public int CurrentNodeToNextNode_Del(CurrentNodeToNextNodeDelViewModel  currentNodeToNextNodeDelViewModel)
+        {
+
+
+            int DelNum = _IFlowNodeDefineInfoRepository
+                       .RelateCurrentNodeToNextNodeDel(currentNodeToNextNodeDelViewModel.CurrentNodeAndNextNodeIdList);
+
+            return DelNum;
         }
     }
     

@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ViewModel.FoodViewModel.RequestViewModel
+namespace ViewModel.FoodViewModel.MiddleModel
 {
-    public class FoodByUserAddCpViewModel
+    public class FoodCpMiddlecs
     {
-        /// <summary>
-        /// 用户id
-        /// </summary>
-        public int User_InfoId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// 菜id
+        /// 用户Id
         /// </summary>
-        public int Food_InfoId { get; set; }
+        public string UserName { get; set; }
+
+     
 
         /// <summary>
-        /// 点评标识  1-差评
+        /// 菜名
         /// </summary>
-        public string status { get; set; }
+        public int FoodName { get; set; }
+
 
         /// <summary>
         /// 点评内容

@@ -25,7 +25,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
 
             CreateMap<Flow_NodeDefine, FlowNodePreMiddlecs>()
             .ForMember(s => s.Flow_NodeDefineId, sp => sp.MapFrom(src => src.Id))
-            .ForMember(s => s.Flow_NextNodeDefineId, sp => sp.MapFrom(src => src.Flow_NextNodeDefineId))
+        
             .ForMember(s => s.status, sp => sp.MapFrom(src => src.status));
 
 

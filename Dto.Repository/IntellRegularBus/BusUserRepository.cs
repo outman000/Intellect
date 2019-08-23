@@ -164,7 +164,8 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere(BusUserSearchViewModel  busUserSearchViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-
+            if(busUserSearchViewModel.Repair_InfoId!=null)
+            predicate = predicate.And(a => a.Repair_InfoId==busUserSearchViewModel.Repair_InfoId);
             predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
             predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
             predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );

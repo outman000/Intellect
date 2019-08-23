@@ -215,6 +215,28 @@ namespace IntellFood.Controllers
                 return BadRequest(foodByUserSearchResModel);
             }
         }
+
+
+        /// <summary>
+        /// 根据用户id和菜单id，查询差评信息
+        /// </summary>
+        /// <param name="foodByUserSearchCpViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_FoodToUser_Search_Cp(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
+        {
+            FoodByUserSearchCpResModel  foodByUserSearchCpResModel = new FoodByUserSearchCpResModel();
+            foodByUserSearchCpResModel.CpInfo = _foodService.Food_Relate_User_Search_CP(foodByUserSearchCpViewModel);
+            var TotalNum = _foodService.FoodCp_Get_ALLNum(foodByUserSearchCpViewModel);
+
+            foodByUserSearchCpResModel.IsSuccess = true;
+            foodByUserSearchCpResModel.TotalNum = TotalNum;
+                foodByUserSearchCpResModel.baseViewModel.Message = "查询用户发表的差评成功";
+                foodByUserSearchCpResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询用户发表的差评成功");
+                return Ok(foodByUserSearchCpResModel);
+            
+        }
         /// <summary>
         /// 根据用户id和菜单id增加差评信息
         /// </summary>
@@ -303,7 +325,7 @@ namespace IntellFood.Controllers
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Food_Search(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        public ActionResult Manage_Suggest_Add_Food(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
         {
             SuggestBoxSearchResModel suggestBoxSearchResModel = new SuggestBoxSearchResModel();
             var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);
@@ -318,6 +340,71 @@ namespace IntellFood.Controllers
             _ILogger.Information("查询意见箱表单信息成功");
             return Ok(suggestBoxSearchResModel);
 
+        }
+
+
+        /// <summary>
+        /// 增添建议增加的菜信息
+        /// </summary>
+        /// <param name="suggestBoxAddViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
+        {
+            int SuggestBox_Add_Count;
+            SuggestBox_Add_Count = _suggestBoxService.SuggestBox_Add(suggestBoxAddViewModel);
+            SuggestBoxAddResModel suggestBoxAddResModel = new SuggestBoxAddResModel();
+            if (SuggestBox_Add_Count > 0)
+            {
+                suggestBoxAddResModel.IsSuccess = true;
+                suggestBoxAddResModel.AddCount = SuggestBox_Add_Count;
+                suggestBoxAddResModel.baseViewModel.Message = "添加成功";
+                suggestBoxAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添建议增加的菜信息成功");
+                return Ok(suggestBoxAddResModel);
+            }
+            else
+            {
+                suggestBoxAddResModel.IsSuccess = false;
+                suggestBoxAddResModel.AddCount = 0;
+                suggestBoxAddResModel.baseViewModel.Message = "添加失败";
+                suggestBoxAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增添建议增加的菜信息失败");
+                return BadRequest(suggestBoxAddResModel);
+            }
+        }
+
+        /// <summary>
+        /// 删除建议增加的菜信息
+        /// </summary>
+        /// <param name="suggestBoxDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Suggest_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
+        {
+            SuggestBoxDelResModel suggestBoxDelResModel = new SuggestBoxDelResModel();
+            int DeleteResult = _suggestBoxService.SuggestBox_Delete(suggestBoxDelViewModel);
+
+            if (DeleteResult > 0)
+            {
+                suggestBoxDelResModel.DelCount = DeleteResult;
+                suggestBoxDelResModel.IsSuccess = true;
+                suggestBoxDelResModel.baseViewModel.Message = "删除成功";
+                suggestBoxDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除意见箱表单信息成功");
+                return Ok(suggestBoxDelResModel);
+            }
+            else
+            {
+                suggestBoxDelResModel.DelCount = -1;
+                suggestBoxDelResModel.IsSuccess = false;
+                suggestBoxDelResModel.baseViewModel.Message = "删除失败";
+                suggestBoxDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除意见箱表单信息失败");
+                return BadRequest(suggestBoxDelResModel);
+            }
         }
     }
 }

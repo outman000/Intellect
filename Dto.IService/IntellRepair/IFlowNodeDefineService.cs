@@ -21,7 +21,12 @@ namespace Dto.IService.IntellRepair
         /// <param name="flowNodeDefineSearchViewModel"></param>
         /// <returns></returns>
         int NodeDefine_Get_ALLNum(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel);
-
+        /// <summary>
+        /// 查询下一节点定义信息数量
+        /// </summary>
+        /// <param name="flowNodeDefineSearchViewModel"></param>
+        /// <returns></returns>
+        int NodeDefine_Get_ALLNum(NextNodeByCurrentNodeSearchViewModel nextNodeByCurrentNodeSearchViewModel);
         /// <summary>
         /// 添加节点定义信息
         /// </summary>
@@ -80,6 +85,27 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         int ProcedureDefine_To_Node_Add(FlowProcedureByNodeIdAddViewModel  flowProcedureByNodeIdAddViewModel);
 
-     
+
+        /// <summary>
+        /// 给当前节点分配下一节点
+        /// </summary>
+        /// <param name="currentNodeToNextNodeAddViewModel"></param>
+        /// <returns></returns>
+        int CurrentNodeToNextNode_Add(CurrentNodeToNextNodeAddViewModel  currentNodeToNextNodeAddViewModel);
+
+
+        /// <summary>
+        /// 给当前节点删除下一节点
+        /// </summary>
+        /// <param name="currentNodeToNextNodeDelViewModel"></param>
+        /// <returns></returns>
+        int CurrentNodeToNextNode_Del(CurrentNodeToNextNodeDelViewModel  currentNodeToNextNodeDelViewModel);
+        
+        /// <summary>
+        /// 根据当前节点查下一节点
+        /// </summary>
+        /// <param name="nextNodeByCurrentNodeSearchViewModel"></param>
+        /// <returns></returns>
+        List<FlowNodeDefineSearchMiddlecs> NextNodeDefine_Search(NextNodeByCurrentNodeSearchViewModel nextNodeByCurrentNodeSearchViewModel);
     }
 }

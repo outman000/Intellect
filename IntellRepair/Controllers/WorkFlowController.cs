@@ -74,9 +74,8 @@ namespace IntellRepair.Controllers
 
         }
 
-
         /// <summary>
-        /// 查当前节点是否到达结束
+        /// 查当前节点是否到达结束(如果结束，拟稿人可以对本次服务评价)
         /// </summary>
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
@@ -84,9 +83,9 @@ namespace IntellRepair.Controllers
         public ActionResult Manage_CurrentNode_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
-           
+
             int temp = _IWorkFlowService.CurrentNodeSearch(flowNodeSearchViewModel);
-            if (temp==1)
+            if (temp == 1)
             {
                 flowNodeSearchResModel.isSuccess = true;
                 flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前节点为结束";
@@ -102,6 +101,38 @@ namespace IntellRepair.Controllers
                 flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前节点不是结束";
                 flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("查询成功，当前节点不是结束");
+                return Ok(temp);
+            }
+
+
+        }
+        /// <summary>
+        /// 查当前节点是否超时(如果超时，拟稿人可以发起催单)
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CurrentNodeOverTime_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        {
+            FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
+           
+            int temp = _IWorkFlowService.CurrentNodeOverTimeSearch(flowNodeSearchViewModel);
+            if (temp==1)
+            {
+                flowNodeSearchResModel.isSuccess = true;
+                flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前流程已超时";
+                flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询成功，当前流程已超时");
+                return Ok(temp);
+
+            }
+            else
+            {
+
+                flowNodeSearchResModel.isSuccess = false;
+                flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前流程未超时";
+                flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询成功，当前流程未超时");
                 return Ok(temp);
             }
            

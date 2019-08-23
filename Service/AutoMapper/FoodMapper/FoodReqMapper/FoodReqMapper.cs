@@ -3,6 +3,7 @@ using Dtol.dtol;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.FoodViewModel.MiddleModel;
 using ViewModel.FoodViewModel.RequestViewModel;
 
 namespace Dto.Service.AutoMapper.FoodMapper.FoodReqMapper
@@ -19,6 +20,7 @@ namespace Dto.Service.AutoMapper.FoodMapper.FoodReqMapper
             CreateMap< FoodInfoUpdateViewModel, Food_Info >();
             CreateMap< FoodByUserPraiseViewModel, User_Relate_Food > ();
             CreateMap< FoodByUserAddCpViewModel, User_Relate_Food >();
+            CreateMap< User_Relate_Food, FoodCpMiddlecs >();
         }
     }
 }

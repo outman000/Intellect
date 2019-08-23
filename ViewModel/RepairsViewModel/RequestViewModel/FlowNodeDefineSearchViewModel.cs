@@ -18,11 +18,6 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// </summary>
         public string NodeName { get; set; }
 
-        /// <summary>
-        /// 下一节点名
-        /// </summary>
-
-        public string FlowNextName { get; set; }
 
         /// <summary>
         /// 流程id
