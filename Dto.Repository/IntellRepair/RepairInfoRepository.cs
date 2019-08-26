@@ -111,13 +111,13 @@ namespace Dto.Repository.IntellRepair
             int userKey = nodeEndSearchViewModel.User_InfoId;
             var IsEndInfoList = getIsEndInfo(nodeEndSearchViewModel.pageViewModel, userKey);//已经结束的流程
             var repair_Infos_User = DbSet.Where(a => a.User_InfoId == userKey);
-            var s = repair_Infos_User;
-            for (int i=0;i< IsEndInfoList.Count();i++)
-            {
-                s = s.Where(a => a.id != IsEndInfoList[i].RepairInfoId);
-            }
-            
-            return s;
+
+
+         
+
+
+  
+            return repair_Infos_User;
         }
 
 
