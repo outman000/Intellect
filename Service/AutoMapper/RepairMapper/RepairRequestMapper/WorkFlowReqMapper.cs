@@ -65,7 +65,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             .ForMember(s => s.User_InfoId, sp => sp.MapFrom(src => src.Pre_User_InfoId))
              
             ;
-
+            CreateMap <Repair_Info,RepairIsEndMiddlecs>();
         }
     }
 }

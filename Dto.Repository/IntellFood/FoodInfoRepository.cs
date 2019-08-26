@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.FoodViewModel.MiddleModel;
 using ViewModel.FoodViewModel.RequestViewModel;
 
 namespace Dto.Repository.IntellFood
@@ -16,11 +17,12 @@ namespace Dto.Repository.IntellFood
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<Food_Info> DbSet;
-
+        protected readonly DbSet<FoodTypeMiddlecs> DbSet2;
         public FoodInfoRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<Food_Info>();
+            DbSet2 = Db.Set<FoodTypeMiddlecs>();
         }
 
         public  void Add(Food_Info obj)
@@ -92,6 +94,21 @@ namespace Dto.Repository.IntellFood
 
             return result;
         }
+
+        //只查菜品类型
+        public List<string> SearchFoodTypeInfoByWhere(FoodInfoSearchViewModel foodInfoSearchViewModel)
+        {
+         
+            //查询条件
+            var predicate = SearchFoodWhere(foodInfoSearchViewModel);
+            var result = DbSet.Where(predicate).Select( a=>a.Picture)           
+                .Distinct()
+                .ToList();
+            return result;
+        }
+
+ 
+
         #region 查询条件
         //根据条件查询部门
         private Expression<Func<Food_Info, bool>> SearchFoodWhere(FoodInfoSearchViewModel foodInfoSearchViewModel)
@@ -101,6 +118,7 @@ namespace Dto.Repository.IntellFood
             predicate = predicate.And(p => p.FoodName.Contains(foodInfoSearchViewModel.FoodName));
             predicate = predicate.And(p => p.FoodType.Contains(foodInfoSearchViewModel.FoodType));
             predicate = predicate.And(p => p.Remark.Contains(foodInfoSearchViewModel.Remark));
+
             return predicate;
         }
         #endregion

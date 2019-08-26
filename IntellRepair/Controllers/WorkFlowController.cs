@@ -75,33 +75,70 @@ namespace IntellRepair.Controllers
         }
 
         /// <summary>
-        /// 查当前节点是否到达结束(如果结束，拟稿人可以对本次服务评价)
+        /// 查当前节点是否到达结束(已处理)
         /// </summary>
-        /// <param name="flowNodeSearchViewModel"></param>
+        /// <param name="nodeEndSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_CurrentNode_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        public ActionResult Manage_CurrentNode_Search(NodeEndSearchViewModel  nodeEndSearchViewModel)
         {
-            FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
 
-            int temp = _IWorkFlowService.CurrentNodeSearch(flowNodeSearchViewModel);
-            if (temp == 1)
+            RepairIsEndResModel  repairIsEndResModel = new RepairIsEndResModel();
+            repairIsEndResModel.repair = _IWorkFlowService.CurrentNodeSearch(nodeEndSearchViewModel);
+         
+            if (repairIsEndResModel.repair.Count >0)
             {
-                flowNodeSearchResModel.isSuccess = true;
-                flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前节点为结束";
-                flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
+                repairIsEndResModel.isSuccess = true;
+                repairIsEndResModel.baseViewModel.Message = "查询成功，当前节点为结束";
+                repairIsEndResModel.baseViewModel.ResponseCode = 200;
+                repairIsEndResModel.TotalNum = repairIsEndResModel.repair.Count;
                 _ILogger.Information("查询成功，当前节点为结束");
-                return Ok(temp);
+                return Ok(repairIsEndResModel);
 
             }
             else
             {
 
-                flowNodeSearchResModel.isSuccess = false;
-                flowNodeSearchResModel.baseViewModel.Message = "查询成功，当前节点不是结束";
-                flowNodeSearchResModel.baseViewModel.ResponseCode = 200;
+                repairIsEndResModel.isSuccess = false;
+                repairIsEndResModel.baseViewModel.Message = "查询成功，当前节点不是结束";
+                repairIsEndResModel.baseViewModel.ResponseCode = 200;
+                repairIsEndResModel.TotalNum = 0;
                 _ILogger.Information("查询成功，当前节点不是结束");
-                return Ok(temp);
+                return Ok(repairIsEndResModel);
+            }
+        }
+
+        /// <summary>
+        /// 查当前节点未到达结束(正在进行的)
+        /// </summary>
+        /// <param name="nodeEndSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CurrentNodeNoEnd_Search(NodeEndSearchViewModel nodeEndSearchViewModel)
+        {
+       
+            RepairIsEndResModel repairIsEndResModel = new RepairIsEndResModel();
+            repairIsEndResModel.repair = _IWorkFlowService.CurrentNodeSearchNoEnd(nodeEndSearchViewModel);
+
+            if (repairIsEndResModel.repair.Count > 1)
+            {
+                repairIsEndResModel.isSuccess = true;
+                repairIsEndResModel.baseViewModel.Message = "查询成功，存在未处理";
+                repairIsEndResModel.baseViewModel.ResponseCode = 200;
+                repairIsEndResModel.TotalNum = repairIsEndResModel.repair.Count;
+                _ILogger.Information("查询成功，存在未处理");
+                return Ok(repairIsEndResModel);
+
+            }
+            else
+            {
+
+                repairIsEndResModel.isSuccess = false;
+                repairIsEndResModel.baseViewModel.Message = "查询失败，不存在未处理";
+                repairIsEndResModel.baseViewModel.ResponseCode = 200;
+                repairIsEndResModel.TotalNum = 0;
+                _ILogger.Information("查询失败，不存在未处理");
+                return Ok(repairIsEndResModel);
             }
 
 

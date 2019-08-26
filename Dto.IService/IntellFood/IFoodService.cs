@@ -83,5 +83,7 @@ namespace Dto.IService.IntellFood
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         List<FoodPraiseNumMiddlecs> PraiseNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
+
+        List<string> FoodType_Search(FoodInfoSearchViewModel foodInfoSearchViewModel);
     }
 }

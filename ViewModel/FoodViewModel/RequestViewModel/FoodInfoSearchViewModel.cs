@@ -20,6 +20,8 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         /// 星期数
         /// </summary>
         public string Remark { get; set; }
+
+
         /// <summary>
         /// 食物地点分类
         /// </summary>

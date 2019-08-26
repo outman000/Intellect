@@ -37,6 +37,8 @@ namespace Dto.Service.IntellFood
             _IFoodInfoRepository.Add(food_Info);
             return _IFoodInfoRepository.SaveChanges();
         }
+
+      
         /// <summary>
         /// 删除菜单
         /// </summary>
@@ -75,9 +77,20 @@ namespace Dto.Service.IntellFood
         {
 
             List<Food_Info> user_Departs = _IFoodInfoRepository.SearchFoodInfoByWhere(foodInfoSearchViewModel);
+            //List<string> a=_IFoodInfoRepository.SearchFoodTypeInfoByWhere(foodInfoSearchViewModel);
+
             return user_Departs;
         }
-
+        /// 只查询菜品种类
+        /// </summary>
+        /// <param name="foodInfoSearchViewModel"></param>
+        /// <returns></returns>
+        public List<string> FoodType_Search(FoodInfoSearchViewModel foodInfoSearchViewModel)
+        {
+        
+            List<string> foodType = _IFoodInfoRepository.SearchFoodTypeInfoByWhere(foodInfoSearchViewModel);
+            return foodType;
+        }
         /// <summary>
         /// 更新菜单信息
         /// </summary>

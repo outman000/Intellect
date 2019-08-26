@@ -26,7 +26,8 @@ namespace Dto.IRepository.IntellOpinionInfo
        //IQueryable<Food_Info> SearchInfoByFoodWhere(FoodInfoSearchViewModel foodInfoSearchViewModel);
         //根据条件查人员缴费数量
         IQueryable<Food_Info> GetFoodAll(FoodInfoSearchViewModel foodInfoSearchViewModel);
+        List<string> SearchFoodTypeInfoByWhere(FoodInfoSearchViewModel foodInfoSearchViewModel);
 
-       
+
     }
 }

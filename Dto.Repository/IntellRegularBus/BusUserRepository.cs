@@ -36,8 +36,9 @@ namespace Dto.Repository.IntellRegularBus
             for (int i = 0; i < IdList.Count; i++)
             {
                 var model = DbSet.Single(w => w.Id == IdList[i]);
-            
-                DbSet.Remove(model);
+
+                model.status = "1";
+                DbSet.Update(model);
                 SaveChanges();
                 DeleteRowNum = i + 1;
             }

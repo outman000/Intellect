@@ -45,10 +45,11 @@ namespace IntellFood.Controllers
         {
             FoodInfoSearchResModel foodInfoSearchResModel = new FoodInfoSearchResModel();
             var BusSearchResult = _foodService.Food_Search(foodInfoSearchViewModel);
-
+            var foodtype= _foodService.FoodType_Search(foodInfoSearchViewModel);
             // var TotalNum = _userService.User_Get_ALLNum();
             var TotalNum = _foodService.Food_Get_ALLNum(foodInfoSearchViewModel);
             foodInfoSearchResModel.foodInfo = BusSearchResult;
+            foodInfoSearchResModel.foodType = foodtype;
             foodInfoSearchResModel.IsSuccess = true;
             foodInfoSearchResModel.baseViewModel.Message = "查询成功";
             foodInfoSearchResModel.baseViewModel.ResponseCode = 200;
@@ -262,9 +263,9 @@ namespace IntellFood.Controllers
                 foodByUserSearchResModel.IsSuccess = false;
                 foodByUserSearchResModel.TotalNum = 0;
                 foodByUserSearchResModel.baseViewModel.Message = "该用户对该菜发表过评价，因此用户发表差评失败";
-                foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("根据用户id和菜单id，该用户对该菜发表过评价，因此用户发表差评失败");
-                return BadRequest(foodByUserSearchResModel);
+                return Ok(foodByUserSearchResModel);
             }
         }
         /// <summary>

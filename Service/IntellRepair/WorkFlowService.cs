@@ -76,8 +76,10 @@ namespace Dto.Service.IntellRepair
                 RoleList.Add(User_RoleId);
 
             }
-            int userId = roleByNodeSearchViewModel.user_InfoId.Value;
-            int departId = roleByNodeSearchViewModel.departId.Value;
+           
+             int userId = roleByNodeSearchViewModel.user_InfoId.Value;
+             int departId = roleByNodeSearchViewModel.departId.Value;
+
             string nodeType = roleByNodeSearchViewModel.NodeKeep;
 
             List<User_Info> user_Relate_Info_Users = _IUserRelateInfoRoleRepository.SearchUserInfoByListWhere(RoleList);
@@ -115,15 +117,43 @@ namespace Dto.Service.IntellRepair
         /// </summary>
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
-        public int CurrentNodeSearch(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        public int CurrentNodeSearch1(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             List<Flow_Node> node_Infos = _IFlowNodeRepository.SearchInfoByNodeWhere(flowNodeSearchViewModel);
             for (int i = 0; i < node_Infos.Count; i++)
             {
                 if (node_Infos[i].User_InfoId == null && node_Infos[i].Pre_User_InfoId != null)//说明已经流转到结束节点
-                     return 1;
+                    return 1;
             } 
            return 0;
+        }
+
+
+        /// <summary>
+        /// 查询流程是否已经结束，如果结束应该显示写意见方法
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public List<RepairIsEndMiddlecs> CurrentNodeSearch(NodeEndSearchViewModel nodeEndSearchViewModel)
+        {
+            int userKey = nodeEndSearchViewModel.User_InfoId;
+            var RepairInfo = _IRepairInfoRepository.GetRepairinfoByUserid(nodeEndSearchViewModel).ToList();
+              
+            return RepairInfo;
+        }
+
+        /// <summary>
+        /// 查询流程是否已经结束，如果未结束，返回信息
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
+        public List<RepairIsEndMiddlecs> CurrentNodeSearchNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
+        {
+          
+            var RepairInfo = _IRepairInfoRepository.GetRepairinfoByUseridNoEnd(nodeEndSearchViewModel).ToList();
+            var repariNotEnd=_IMapper.Map<List<Repair_Info>, List<RepairIsEndMiddlecs>>(RepairInfo);
+
+            return repariNotEnd;
         }
 
 

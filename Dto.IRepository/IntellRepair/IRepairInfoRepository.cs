@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.PublicViewModel;
+using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.IRepository.IntellRepair
@@ -20,5 +22,12 @@ namespace Dto.IRepository.IntellRepair
         Repair_Info GetById(int id);
         //查询报修信息数量
         IQueryable<Repair_Info> GetInfoByRepairAll(RepairInfoSearchViewModel repairInfoSearchViewMode);
+        //根据用户主键查询已处理（流程已结束）
+        List<RepairIsEndMiddlecs> GetRepairinfoByUserid(NodeEndSearchViewModel nodeEndSearchViewModel);
+        //根据用户主键查询未处理（流程未结束）
+        IQueryable<Repair_Info> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
+
+
+        List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView, int userKey);
     }
 }

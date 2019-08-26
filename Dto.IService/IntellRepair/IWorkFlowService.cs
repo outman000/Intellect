@@ -29,7 +29,7 @@ namespace Dto.IService.IntellRepair
         /// </summary>
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
-        int CurrentNodeSearch(FlowNodeSearchViewModel flowNodeSearchViewModel);
+        List<RepairIsEndMiddlecs> CurrentNodeSearch(NodeEndSearchViewModel  nodeEndSearchViewModel);
 
         /// <summary>
         /// 查询当前是否超时（如果超时，出现催单按钮）
@@ -52,7 +52,7 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         FlowNodePreMiddlecs Work_FlowNodeJump_Add(FlowInfoSearchViewModel fLowInfoSearchViewModel);
 
-        
+        List<RepairIsEndMiddlecs> CurrentNodeSearchNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
     }
    
 

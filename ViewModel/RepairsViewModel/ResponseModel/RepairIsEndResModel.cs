@@ -6,14 +6,13 @@ using ViewModel.RepairsViewModel.MiddleModel;
 
 namespace ViewModel.RepairsViewModel.ResponseModel
 {
-    public class FlowNodeSearchResModel
+    public class RepairIsEndResModel
     {
         public bool isSuccess;
-        public List<FlowNodeSearchMiddlecs> flowNodeDefine_Info;
+        public List<RepairIsEndMiddlecs> repair;
         public BaseViewModel baseViewModel;
         public int TotalNum;
-        public int Temp;
-        public FlowNodeSearchResModel()
+        public RepairIsEndResModel()
         {
             baseViewModel = new BaseViewModel();
         }

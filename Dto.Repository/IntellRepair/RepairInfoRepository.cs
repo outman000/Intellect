@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.PublicViewModel;
+using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Repository.IntellRepair
@@ -96,6 +98,46 @@ namespace Dto.Repository.IntellRepair
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+        //查询当前用户下已经结束的流程
+        public List<RepairIsEndMiddlecs> GetRepairinfoByUserid(NodeEndSearchViewModel nodeEndSearchViewModel)
+        {
+            return getIsEndInfo(nodeEndSearchViewModel.pageViewModel, nodeEndSearchViewModel.User_InfoId);
+        }
+
+
+        //查询当前用户下未结束的流程
+        public IQueryable<Repair_Info> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
+        {
+            int userKey = nodeEndSearchViewModel.User_InfoId;
+            var IsEndInfoList = getIsEndInfo(nodeEndSearchViewModel.pageViewModel, userKey);//已经结束的流程
+            var repair_Infos_User = DbSet.Where(a => a.User_InfoId == userKey);
+            var s = repair_Infos_User;
+            for (int i=0;i< IsEndInfoList.Count();i++)
+            {
+                s = s.Where(a => a.id != IsEndInfoList[i].RepairInfoId);
+            }
+            
+            return s;
+        }
+
+
+        public List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView,int userKey )
+        {
+            int SkipNum = pageView.CurrentPageNum * pageView.PageSize;
+            var EndRepairInfo = DbSet.Where(a => a.User_InfoId == userKey).Join(Db.flow_Node, a => a.id, b => b.Repair_InfoId,
+            (a, b) => new RepairIsEndMiddlecs
+            {
+                Title = a.RepairsTitle,
+                RepairInfoId = a.id,
+                User_InfoId = b.User_InfoId,
+                Pre_User_InfoId = b.Pre_User_InfoId,
+                repairsDate = a.repairsDate
+            }
+            ).Where(w => w.User_InfoId == null && w.Pre_User_InfoId != null)
+              .Skip(SkipNum)
+              .Take(pageView.PageSize).OrderBy(o => o.repairsDate).ToList();
+            return EndRepairInfo;
+        }
 
         //根据条件查询报修
         private Expression<Func<Repair_Info, bool>> SearchRepairWhere(RepairInfoSearchViewModel repairInfoSearchViewModel)
@@ -115,5 +157,7 @@ namespace Dto.Repository.IntellRepair
 
             return DbSet.Where(predicate);
         }
+
+      
     }
 }
