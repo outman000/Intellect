@@ -106,18 +106,21 @@ namespace Dto.Repository.IntellRepair
 
 
         //查询当前用户下未结束的流程
-        public IQueryable<Repair_Info> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
+        public IQueryable<RepairNoEndMiddlecs> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
             int userKey = nodeEndSearchViewModel.User_InfoId;
             var IsEndInfoList = getIsEndInfo(nodeEndSearchViewModel.pageViewModel, userKey);//已经结束的流程
             var repair_Infos_User = DbSet.Where(a => a.User_InfoId == userKey);
-
-
-         
-
-
-  
-            return repair_Infos_User;
+            var NotEndRepairInfo = from a in repair_Infos_User
+                     where !IsEndInfoList.Any(b => b.RepairInfoId == a.id) 
+                     select new RepairNoEndMiddlecs
+                     {
+                         Title = a.RepairsTitle,
+                         RepairInfoId = a.id,
+                         User_InfoId = a.User_InfoId,
+                         repairsDate = a.repairsDate
+                     };
+            return NotEndRepairInfo;
         }
 
 

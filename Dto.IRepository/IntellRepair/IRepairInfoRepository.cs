@@ -25,9 +25,9 @@ namespace Dto.IRepository.IntellRepair
         //根据用户主键查询已处理（流程已结束）
         List<RepairIsEndMiddlecs> GetRepairinfoByUserid(NodeEndSearchViewModel nodeEndSearchViewModel);
         //根据用户主键查询未处理（流程未结束）
-        IQueryable<Repair_Info> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
+        IQueryable<RepairNoEndMiddlecs> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
 
-
+        
         List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView, int userKey);
     }
 }
