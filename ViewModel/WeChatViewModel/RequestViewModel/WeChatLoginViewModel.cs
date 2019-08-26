@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.PublicViewModel;
 
 namespace ViewModel.WeChatViewModel.RequestViewModel
 {
@@ -14,5 +15,7 @@ namespace ViewModel.WeChatViewModel.RequestViewModel
         /// 密码
         /// </summary>
         public string UserPwd { get; set; }
+
+   
     }
 }

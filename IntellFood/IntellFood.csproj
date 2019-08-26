@@ -9,6 +9,7 @@
     <DocumentationFile>bin\Debug\netcoreapp2.2\IntellFood.xml</DocumentationFile>
     <OutputPath>bin\Debug\netcoreapp2.2\</OutputPath>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

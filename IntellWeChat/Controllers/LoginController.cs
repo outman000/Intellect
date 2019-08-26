@@ -30,7 +30,6 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public ActionResult Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
@@ -114,18 +113,13 @@ namespace IntellWeChat.Controllers
                 weChatLoginResModel.IsSuccess = true;
                 weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
                 weChatLoginResModel.baseViewModel.ResponseCode = 200;
+                weChatLoginResModel.tokenViewModel.code ="200";
+                weChatLoginResModel.tokenViewModel.data  = "2728b712288da12fffd103af3bd616ff" ;
+
                 _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
 
-                var tk = new { token = "2728b712288da12fffd103af3bd616ff" };
-                return Ok(
 
-                    new
-                    {
-                        code = "200",
-                        data = tk
-                    }
-                    );
-
+                return Ok(weChatLoginResModel);
 
             }
         }
