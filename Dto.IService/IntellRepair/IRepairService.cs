@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.RepairsViewModel.MiddleModel;
@@ -43,5 +44,13 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
 
         int Repair_Update(RepairUpdateViewModel repairUpdateViewModel);
+
+
+        /// <summary>
+        /// 根据表单主键查表单信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        RepairInfoSearchMiddlecs GetInfoByRepairId(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel);
     }
 }

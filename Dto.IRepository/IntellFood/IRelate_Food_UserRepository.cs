@@ -40,17 +40,42 @@ namespace Dto.IRepository.IntellOpinionInfo
         int RelateFoodToUserDel(FoodByUserPraiseViewModel foodByUserSearchViewModelt);
 
         /// <summary>
-        /// 根据菜ID给用户点赞关系表删数据
+        /// 根据菜ID给用户点赞关系表删点赞数据
         /// </summary>
         /// <param name="foodByUserPraiseDelViewModel"></param>
         /// <returns></returns>
         int ByFoodIdDel(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel);
-
+        /// <summary>
+        /// 根据菜ID给用户点赞关系表删差评数据
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        int ByFoodIdDelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel);
         /// <summary>
         /// 根据菜单id查询关系表
         /// </summary>
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
+
+        /// <summary>
+        /// 根据用户查差评信息
+        /// </summary>
+        /// <param name="foodByUserCpViewModel"></param>
+        /// <returns></returns>
+        int SearchFoodCpInfoByWhere(FoodByUserCpViewModel foodByUserCpViewModel);
+
+        /// <summary>
+        /// 根据用户和菜Id删差评信息
+        /// </summary>
+        /// <param name="foodByUserCpViewModel"></param>
+        /// <returns></returns>
+        int RelateFoodToUserDelCp(FoodByUserCpViewModel foodByUserCpViewModel);
+        /// <summary>
+        /// 查询差评数量
+        /// </summary>
+        /// <param name="praiseNumSearchMiddlecs"></param>
+        /// <returns></returns>
+        List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdCpSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
     }
 }

@@ -26,6 +26,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
              CreateMap<RepairUpdateViewModel, Repair_Info>();
              CreateMap<RepairAddViewModel, Repair_Info>();
 
+
         }
     }
 }

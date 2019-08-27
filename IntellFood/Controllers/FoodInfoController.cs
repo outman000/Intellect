@@ -201,25 +201,55 @@ namespace IntellFood.Controllers
             {
                 foodByUserSearchResModel.IsSuccess = true;
                 foodByUserSearchResModel.TotalNum = SearchRowNum;
-                foodByUserSearchResModel.baseViewModel.Message = "用户点赞/取消赞成功";
+                foodByUserSearchResModel.baseViewModel.Message = "用户点赞成功";
                 foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("根据用户id和菜单id，用户点赞/取消赞成功");
+                _ILogger.Information("根据用户id和菜单id，用户点赞成功");
                 return Ok(foodByUserSearchResModel);
             }
             else
             {
                 foodByUserSearchResModel.IsSuccess = false;
                 foodByUserSearchResModel.TotalNum = 0;
-                foodByUserSearchResModel.baseViewModel.Message = "用户点赞/取消赞成功";
+                foodByUserSearchResModel.baseViewModel.Message = "用户取消赞成功";
                 foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("根据用户id和菜单id，用户点赞/取消赞成功");
+                _ILogger.Information("根据用户id和菜单id，用户取消赞成功");
+                return BadRequest(foodByUserSearchResModel);
+            }
+        }
+        /// <summary>
+        /// 根据用户id和菜单id点差评/取消差评
+        /// </summary>
+        /// <param name="foodByUserCpViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_FoodToUserCp_Del(FoodByUserCpViewModel foodByUserCpViewModel)
+        {
+            FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
+            int SearchRowNum = _foodService.Food_Relate_UserCp(foodByUserCpViewModel);
+
+            if (SearchRowNum > 0)
+            {
+                foodByUserSearchResModel.IsSuccess = true;
+                foodByUserSearchResModel.TotalNum = SearchRowNum;
+                foodByUserSearchResModel.baseViewModel.Message = "用户点差评成功";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据用户id和菜单id，用户点差评成功");
+                return Ok(foodByUserSearchResModel);
+            }
+            else
+            {
+                foodByUserSearchResModel.IsSuccess = false;
+                foodByUserSearchResModel.TotalNum = 0;
+                foodByUserSearchResModel.baseViewModel.Message = "用户取消差评成功";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据用户id和菜单id，用户取消赞成功");
                 return BadRequest(foodByUserSearchResModel);
             }
         }
 
 
         /// <summary>
-        /// 根据用户id和菜单id，查询差评信息
+        /// 根据用户id和菜单id，查询评价信息
         /// </summary>
         /// <param name="foodByUserSearchCpViewModel"></param>
         /// <returns></returns>
@@ -239,7 +269,7 @@ namespace IntellFood.Controllers
             
         }
         /// <summary>
-        /// 根据用户id和菜单id增加差评信息
+        /// 根据用户id和菜单id增加评价信息
         /// </summary>
         /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
@@ -247,7 +277,7 @@ namespace IntellFood.Controllers
         public ActionResult Manage_FoodToUser_AddCp(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
             FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
-            int SearchRowNum = _foodService.Food_Relate_User_ADD_Cp(foodByUserAddCpViewModel);
+            int SearchRowNum = _foodService.Food_Relate_User_ADD_Pj(foodByUserAddCpViewModel);
 
             if (SearchRowNum > 0)
             {
@@ -282,10 +312,31 @@ namespace IntellFood.Controllers
 
             foodIdSearchResModel.PraiseInfo = BusSearchResult;
             foodIdSearchResModel.IsSuccess = true;
-            foodIdSearchResModel.baseViewModel.Message = "查询成功";
+            foodIdSearchResModel.baseViewModel.Message = "查询菜单点赞数量成功";
             foodIdSearchResModel.baseViewModel.ResponseCode = 200;
             foodIdSearchResModel.TotalNum = BusSearchResult.Count;
             _ILogger.Information("查询菜单点赞数量，查询成功");
+            return Ok(foodIdSearchResModel);
+
+        }
+        /// <summary>
+        /// 查询菜单差评数量
+        /// </summary>
+        /// <param name="praiseNumSearchMiddlecs"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_CpNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
+        {
+            FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
+            var BusSearchResult = _foodService.CpNumByFoodId(praiseNumSearchMiddlecs);
+
+
+            foodIdSearchResModel.PraiseInfo = BusSearchResult;
+            foodIdSearchResModel.IsSuccess = true;
+            foodIdSearchResModel.baseViewModel.Message = "查询菜单差评数量成功";
+            foodIdSearchResModel.baseViewModel.ResponseCode = 200;
+            foodIdSearchResModel.TotalNum = BusSearchResult.Count;
+            _ILogger.Information(" 查询菜单差评数量，查询成功");
             return Ok(foodIdSearchResModel);
 
         }
@@ -319,7 +370,35 @@ namespace IntellFood.Controllers
                 return BadRequest(foodByUserPraiseDelResModel);
             }
         }
-
+        /// <summary>
+        /// 根据菜Id删除差评信息
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_FoodId_DelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+            FoodByUserPraiseDelResModel foodByUserPraiseDelResModel = new FoodByUserPraiseDelResModel();
+            int DeleteResult = _foodService.By_Food_Id_DelCp(foodByUserPraiseDelViewModel);
+            if (DeleteResult > 0)
+            {
+                foodByUserPraiseDelResModel.DelCount = DeleteResult;
+                foodByUserPraiseDelResModel.IsSuccess = true;
+                foodByUserPraiseDelResModel.baseViewModel.Message = "根据菜Id删除差评信息成功";
+                foodByUserPraiseDelResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除菜单差评信息成功");
+                return Ok(foodByUserPraiseDelResModel);
+            }
+            else
+            {
+                foodByUserPraiseDelResModel.DelCount = -1;
+                foodByUserPraiseDelResModel.IsSuccess = false;
+                foodByUserPraiseDelResModel.baseViewModel.Message = "根据菜Id删除差评信息失败";
+                foodByUserPraiseDelResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除菜单差评信息失败");
+                return BadRequest(foodByUserPraiseDelResModel);
+            }
+        }
         /// <summary>
         /// 查询建议增加的菜信息
         /// </summary>

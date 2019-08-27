@@ -11,6 +11,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 当前节点操作人员
         /// </summary>
         public int User_InfoId { get; set; }
+        /// <summary>
+        /// 表单类型（1-报修类型，2-意见类型，3-班车缴费类型）
+        /// </summary>
+        public string isHandler { get; set; }
 
         /// <summary>
         /// 分页

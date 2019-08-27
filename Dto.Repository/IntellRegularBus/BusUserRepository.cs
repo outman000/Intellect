@@ -172,6 +172,7 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );
             predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.Bus_StationId) );
             predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId) );
+            predicate = predicate.And(a => a.status.Contains(busUserSearchViewModel.status));
             predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
             if(busUserSearchViewModel.carDate!=null)
             predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year

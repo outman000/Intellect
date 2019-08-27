@@ -52,7 +52,7 @@ namespace Dto.Repository.IntellRepair
 
         public Repair_Info GetInfoByRepairId(int id)
         {
-            Repair_Info  repair_Info = DbSet.Single(uid => uid.id.Equals(id));
+            Repair_Info  repair_Info = DbSet.Single(uid => uid.id.Equals(id) && uid.status=="0");
             return repair_Info;
         }
 
@@ -101,33 +101,46 @@ namespace Dto.Repository.IntellRepair
         //查询当前用户下已经结束的流程
         public List<RepairIsEndMiddlecs> GetRepairinfoByUserid(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
-            return getIsEndInfo(nodeEndSearchViewModel.pageViewModel, nodeEndSearchViewModel.User_InfoId);
+            return getIsEndInfo(nodeEndSearchViewModel.pageViewModel, nodeEndSearchViewModel.User_InfoId, nodeEndSearchViewModel.isHandler);
         }
 
 
         //查询当前用户下未结束的流程
         public IQueryable<RepairNoEndMiddlecs> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
+            int SkipNum = nodeEndSearchViewModel.pageViewModel.CurrentPageNum * nodeEndSearchViewModel.pageViewModel.PageSize;
             int userKey = nodeEndSearchViewModel.User_InfoId;
-            var IsEndInfoList = getIsEndInfo(nodeEndSearchViewModel.pageViewModel, userKey);//已经结束的流程
-            var repair_Infos_User = DbSet.Where(a => a.User_InfoId == userKey);
+            string isHandler = nodeEndSearchViewModel.isHandler;
+            var IsEndInfoList = getIsEndInfoMiddle(userKey,isHandler);//已经结束的流程
+            var repair_Infos_User = DbSet.Where(a => a.User_InfoId == userKey && a.isHandler ==isHandler && a.status=="0");
             var NotEndRepairInfo = from a in repair_Infos_User
-                     where !IsEndInfoList.Any(b => b.RepairInfoId == a.id) 
-                     select new RepairNoEndMiddlecs
-                     {
-                         Title = a.RepairsTitle,
-                         RepairInfoId = a.id,
-                         User_InfoId = a.User_InfoId,
-                         repairsDate = a.repairsDate
-                     };
+                                   where !IsEndInfoList.Any(b => b.RepairInfoId == a.id)
+                                   select new RepairNoEndMiddlecs
+                                   {
+                                       Title = a.RepairsTitle,
+                                       RepairInfoId = a.id,
+                                       User_InfoId = a.User_InfoId,
+                                       repairsDate = a.repairsDate
+                                   };
+
+                          NotEndRepairInfo.Skip(SkipNum)
+                          .Take(nodeEndSearchViewModel.pageViewModel.PageSize)
+                          .OrderBy(o => o.repairsDate).ToList();
             return NotEndRepairInfo;
         }
 
-
-        public List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView,int userKey )
+        /// <summary>
+        /// 查询该用户的当前表单类型的已经结束的表单
+        /// </summary>
+        /// <param name="pageView"></param>
+        /// <param name="userKey"></param>
+        /// <param name="isHandler"></param>
+        /// <returns></returns>
+        public List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView,int userKey ,string isHandler)
         {
             int SkipNum = pageView.CurrentPageNum * pageView.PageSize;
-            var EndRepairInfo = DbSet.Where(a => a.User_InfoId == userKey).Join(Db.flow_Node, a => a.id, b => b.Repair_InfoId,
+            var EndRepairInfo = DbSet.Where(a => a.User_InfoId == userKey&& a.isHandler == isHandler && a.status=="0")
+                                            .Join(Db.flow_Node, a => a.id, b => b.Repair_InfoId,
             (a, b) => new RepairIsEndMiddlecs
             {
                 Title = a.RepairsTitle,
@@ -142,6 +155,29 @@ namespace Dto.Repository.IntellRepair
             return EndRepairInfo;
         }
 
+        /// <summary>
+        /// 查询该用户当前表单类型未结束的表单，中间方法（内部使用）
+        /// </summary>
+        /// <param name="userKey"></param>
+        /// <param name="isHandler"></param>
+        /// <returns></returns>
+        private List<RepairIsEndMiddlecs> getIsEndInfoMiddle(int userKey, string isHandler)
+        {
+
+            var EndRepairInfo = DbSet.Where(a => a.User_InfoId == userKey && a.isHandler == isHandler && a.status=="0")
+                                            .Join(Db.flow_Node, a => a.id, b => b.Repair_InfoId,
+            (a, b) => new RepairIsEndMiddlecs
+            {
+                Title = a.RepairsTitle,
+                RepairInfoId = a.id,
+                User_InfoId = b.User_InfoId,
+                Pre_User_InfoId = b.Pre_User_InfoId,
+                repairsDate = a.repairsDate
+            }
+            ).Where(w => w.User_InfoId == null && w.Pre_User_InfoId != null)
+             .OrderBy(o => o.repairsDate).ToList();
+            return EndRepairInfo;
+        }
         //根据条件查询报修
         private Expression<Func<Repair_Info, bool>> SearchRepairWhere(RepairInfoSearchViewModel repairInfoSearchViewModel)
         {

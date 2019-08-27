@@ -58,7 +58,16 @@ namespace Dto.Repository.IntellFood
             return predicate;
         }
         #endregion
-
+        #region 查询条件
+        //根据条件查询点赞
+        private Expression<Func<User_Relate_Food, bool>> SearchDelCpRelateWhere(int id)
+        {
+            var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
+            predicate = predicate.And(p => p.Food_InfoId == id);
+            predicate = predicate.And(p => p.status == "2");
+            return predicate;
+        }
+        #endregion
 
         #region 查询条件
         //根据条件查询点赞
@@ -66,7 +75,7 @@ namespace Dto.Repository.IntellFood
         {
             var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
             predicate = predicate.And(p => p.Food_InfoId == id);
-            predicate = predicate.And(p => p.status != "1");
+            predicate = predicate.And(p => p.status == null);
             return predicate;
         }
         #endregion
@@ -81,7 +90,7 @@ namespace Dto.Repository.IntellFood
             GC.SuppressFinalize(this);
         }
         /// <summary>
-        /// 根据用户id和菜id 去关系表查
+        /// 根据用户id和菜id 去关系表查好评
         /// </summary>
         /// <param name="foodByUserSearchViewModel"></param>
         /// <returns></returns>
@@ -92,12 +101,28 @@ namespace Dto.Repository.IntellFood
             int foodid = foodByUserSearchViewModel.Food_InfoId;
             var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
                                           k.Food_InfoId == foodid &&
-                                          k.status!="1"&&
+                                          k.status==null&&
                                           k.User_Info.status=="0").ToList();
             return queryResult.Count;
         }
-        /// <summary>
+
         /// 根据用户id和菜id 去关系表查差评
+        /// </summary>
+        /// <param name="foodByUserSearchViewModel"></param>
+        /// <returns></returns>
+        public int SearchFoodCpInfoByWhere(FoodByUserCpViewModel foodByUserCpViewModel)
+        {
+
+            int userid = foodByUserCpViewModel.User_InfoId;
+            int foodid = foodByUserCpViewModel.Food_InfoId;
+            var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
+                                          k.Food_InfoId == foodid &&
+                                          k.status == "2" &&
+                                          k.User_Info.status == "0").ToList();
+            return queryResult.Count;
+        }
+        /// <summary>
+        /// 根据用户id和菜id 去关系表查评价
         /// </summary>
         /// <param name="foodByUserSearchViewModel"></param>
         /// <returns></returns>
@@ -129,7 +154,7 @@ namespace Dto.Repository.IntellFood
             return temp;
         }
         #region 查询条件
-        //根据条件查询菜单差评信息
+        //根据条件查询菜单评价信息
         private Expression<Func<User_Relate_Food, bool>> SearchFoodCPWhere(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
         {
             var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
@@ -162,6 +187,22 @@ namespace Dto.Repository.IntellFood
            
             return SaveChanges();
         }
+
+        /// <summary>
+        /// 根据用户id和菜id删 差评
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public int RelateFoodToUserDelCp(FoodByUserCpViewModel foodByUserCpViewModel)
+        {
+            int userid = foodByUserCpViewModel.User_InfoId;
+            int foodid = foodByUserCpViewModel.Food_InfoId;
+            string status = foodByUserCpViewModel.status;
+            var temp = DbSet.Single(a=>a.User_InfoId==userid && a.Food_InfoId==foodid && a.status==status);
+            DbSet.Remove(temp);
+
+            return SaveChanges();
+        }
         /// <summary>
         /// 根据菜id删 点赞
         /// </summary>
@@ -169,20 +210,9 @@ namespace Dto.Repository.IntellFood
         /// <returns></returns>
         public int ByFoodIdDel(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
         {
-
-            //var preciate = SearchDelRelateWhere(foodByUserPraiseDelViewModel);
-            //var temp = DbSet.Where(preciate).ToList();
-            //for(int i=0;i<temp.Count;i++)
-            //{
-            //    DbSet.Remove(temp[i]);
-            //}
-            //return SaveChanges();
-
-      
                 int DeleteRowNum = 1;
                 for (int i = 0; i < foodByUserPraiseDelViewModel.DeleleIdList.Count; i++)
-                {
-                    //var model = DbSet.Single(w => w.Food_InfoId == foodByUserPraiseDelViewModel.DeleleIdList[i]);
+                {            
                     var preciate = SearchDelRelateWhere(foodByUserPraiseDelViewModel.DeleleIdList[i]);
                     var temp = DbSet.Where(preciate).ToList();
                     for(int j=0;j<temp.Count;j++)
@@ -196,6 +226,31 @@ namespace Dto.Repository.IntellFood
                 return DeleteRowNum;
  
         }
+
+        /// <summary>
+        /// 根据菜id删 差评
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        public int ByFoodIdDelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+            int DeleteRowNum = 1;
+            for (int i = 0; i < foodByUserPraiseDelViewModel.DeleleIdList.Count; i++)
+            {
+                var preciate = SearchDelCpRelateWhere(foodByUserPraiseDelViewModel.DeleleIdList[i]);
+                var temp = DbSet.Where(preciate).ToList();
+                for (int j = 0; j < temp.Count; j++)
+                {
+                    DbSet.Remove(temp[j]);
+                    SaveChanges();
+                    DeleteRowNum = i + 1;
+                }
+
+            }
+            return DeleteRowNum;
+
+        }
+
 
         /// <summary>
         /// 查询点赞数量
@@ -214,7 +269,7 @@ namespace Dto.Repository.IntellFood
                 .Where(b => b.Food_Info.FoodType.Contains(foodtype)&& 
                         b.Food_Info.FoodName.Contains(foodName)&&
                         b.Food_Info.Remark.Contains(remark)&&
-                        b.status!="1"&&
+                        b.status==null &&
                         b.User_Info.status=="0")
                 .GroupBy(m => new { m.Food_InfoId, m.Food_Info.FoodName,
                                     m.Food_Info.FoodType,m.Food_Info.Remark })
@@ -235,7 +290,48 @@ namespace Dto.Repository.IntellFood
             return fpnm;
 
         }
+        /// <summary>
+        /// 查询差评数量
+        /// </summary>
+        /// <param name="foodByFoodIdSearchViewModel"></param>
+        /// <returns></returns>
+        public List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdCpSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
+        {
+            string foodtype = praiseNumSearchMiddlecs.FoodType;
+            string foodName = praiseNumSearchMiddlecs.FoodName;
+            string remark = praiseNumSearchMiddlecs.Remark;
 
+            List<FoodPraiseNumMiddlecs> fpnm = new List<FoodPraiseNumMiddlecs>();
+            //var p = SearchFoodWhere(praiseNumSearchMiddlecs);
+            var food = DbSet.Include(a => a.Food_Info)
+                .Where(b => b.Food_Info.FoodType.Contains(foodtype) &&
+                        b.Food_Info.FoodName.Contains(foodName) &&
+                        b.Food_Info.Remark.Contains(remark) &&
+                        b.status == "2" &&
+                        b.User_Info.status == "0")
+                .GroupBy(m => new {
+                    m.Food_InfoId,
+                    m.Food_Info.FoodName,
+                    m.Food_Info.FoodType,
+                    m.Food_Info.Remark
+                })
+                .Select(k => new
+                {
+                    ft = k.Key.FoodType,//地点类型
+                    rm = k.Key.Remark,//星期
+                    fn = k.Key.FoodName,//菜名
+                    FoodId = k.Key.Food_InfoId,//主键Id
+                    PraiseNum = k.Count()
+
+                }).OrderByDescending(m => m.PraiseNum).ToList();
+
+            foreach (var temp in food)
+            {
+                fpnm.Add(new FoodPraiseNumMiddlecs() { Food_InfoId = temp.FoodId, FoodName = temp.fn, FoodType = temp.ft, Remark = temp.rm, PraiseNum = temp.PraiseNum });
+            }
+            return fpnm;
+
+        }
         #region 查询条件
         //根据条件查询部门
         private Expression<Func<Food_Info, bool>> SearchFoodWhere(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)

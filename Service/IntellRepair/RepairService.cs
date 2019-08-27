@@ -116,5 +116,19 @@ namespace Dto.Service.IntellRepair
         {
             return _IRepairInfoRepository.GetInfoByRepairAll(repairInfoSearchViewModel).Count();
         }
+        /// <summary>
+        /// 根据表单主键ID 查询表单信息
+        /// </summary>
+        /// <param name="repairIdSearchInfoViewModel"></param>
+        /// <returns></returns>
+        public RepairInfoSearchMiddlecs GetInfoByRepairId(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel)
+        {
+          
+            Repair_Info line_Infos = _IRepairInfoRepository.GetInfoByRepairId(repairIdSearchInfoViewModel.Repair_InfoId);
+
+            var repairSearchMiddlecs = _IMapper.Map<Repair_Info,RepairInfoSearchMiddlecs>(line_Infos);
+
+            return repairSearchMiddlecs;
+        }
     }
 }

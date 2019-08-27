@@ -127,13 +127,38 @@ namespace Dto.Service.IntellFood
                 int DelNum = _IRelate_Food_UserRepository
                          .RelateFoodToUserDel(foodByUserSearchViewMode);
             
-                return DelNum;
+                return 0;
             }
             else
             {
                 var node_Info = _IMapper.Map<FoodByUserPraiseViewModel, User_Relate_Food>(foodByUserSearchViewMode);
                 _IRelate_Food_UserRepository.Add(node_Info);
                  _IRelate_Food_UserRepository.SaveChanges();
+                return 1;
+            }
+        }
+        /// <summary>
+        /// 根据用户和菜单点差评
+        /// </summary>
+        /// <param name="foodByUserCpViewModel"></param>
+        /// <returns></returns>
+        public int Food_Relate_UserCp(FoodByUserCpViewModel  foodByUserCpViewModel)
+        {
+            int count = _IRelate_Food_UserRepository.SearchFoodCpInfoByWhere(foodByUserCpViewModel);
+
+            if (count > 0)
+            {
+
+                int DelNum = _IRelate_Food_UserRepository
+                         .RelateFoodToUserDelCp(foodByUserCpViewModel);
+
+                return 0;
+            }
+            else
+            {
+                var node_Info = _IMapper.Map<FoodByUserCpViewModel, User_Relate_Food>(foodByUserCpViewModel);
+                _IRelate_Food_UserRepository.Add(node_Info);
+                _IRelate_Food_UserRepository.SaveChanges();
                 return 1;
             }
         }
@@ -150,11 +175,11 @@ namespace Dto.Service.IntellFood
             return Cp_Info;
         }
         /// <summary>
-        /// 根据用户和菜单增加差评信息
+        /// 根据用户和菜单增加评价信息
         /// </summary>
         /// <param name="foodByUserSearchViewMode"></param>
         /// <returns></returns>
-        public int Food_Relate_User_ADD_Cp(FoodByUserAddCpViewModel  foodByUserAddCpViewModel)
+        public int Food_Relate_User_ADD_Pj(FoodByUserAddCpViewModel  foodByUserAddCpViewModel)
         {
             int count = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserAddCpViewModel);
 
@@ -190,6 +215,17 @@ namespace Dto.Service.IntellFood
             List < FoodPraiseNumMiddlecs > fp= _IRelate_Food_UserRepository.RelateFoodToFoodIdSearch(praiseNumSearchMiddlecs);
             return fp;
         }
+
+        /// <summary>
+        /// 差评数量
+        /// </summary>
+        /// <param name="praiseNumSearchMiddlecs"></param>
+        /// <returns></returns>
+        public List<FoodPraiseNumMiddlecs> CpNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
+        {
+            List<FoodPraiseNumMiddlecs> fp = _IRelate_Food_UserRepository.RelateFoodToFoodIdCpSearch(praiseNumSearchMiddlecs);
+            return fp;
+        }
         /// <summary>
         ///根据菜Id删除点赞数量
         /// </summary>
@@ -202,6 +238,19 @@ namespace Dto.Service.IntellFood
          
             return DeleteRowsNum;
          
+        }
+        /// <summary>
+        ///根据菜Id删除差评数量
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        public int By_Food_Id_DelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        {
+            int DeleteRowsNum = _IRelate_Food_UserRepository
+                  .ByFoodIdDelCp(foodByUserPraiseDelViewModel);
+
+            return DeleteRowsNum;
+
         }
         /// <summary>
         /// 食物差评数量

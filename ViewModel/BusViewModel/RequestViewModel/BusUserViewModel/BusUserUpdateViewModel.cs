@@ -89,6 +89,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public int? Repair_InfoId { get; set; }
 
         /// <summary>
+        /// 乘车时间
+        /// </summary>
+        public DateTime? carDate { get; set; }
+
+        /// <summary>
         /// 修改日期
         /// </summary>
         public DateTime? updateDate { get; set; }

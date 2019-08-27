@@ -52,7 +52,12 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         FlowNodePreMiddlecs Work_FlowNodeJump_Add(FlowInfoSearchViewModel fLowInfoSearchViewModel);
 
-        List<RepairIsEndMiddlecs> CurrentNodeSearchNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
+        /// <summary>
+        /// 查询当前流程是否结束（如果没结束，应出现在正在处理中）
+        /// </summary>
+        /// <param name="nodeEndSearchViewModel"></param>
+        /// <returns></returns>
+        List<RepairNoEndMiddlecs> CurrentNodeSearchNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
     }
    
 

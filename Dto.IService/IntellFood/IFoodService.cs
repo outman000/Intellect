@@ -62,7 +62,7 @@ namespace Dto.IService.IntellFood
         /// </summary>
         /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
-        int Food_Relate_User_ADD_Cp(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
+        int Food_Relate_User_ADD_Pj(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
 
         /// <summary>
         /// 根据用户和菜单查询差评信息(重载)
@@ -78,6 +78,13 @@ namespace Dto.IService.IntellFood
         int By_Food_Id_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel);
 
         /// <summary>
+        ///根据菜Id删除点赞数量
+        /// </summary>
+        /// <param name="foodByUserPraiseDelViewModel"></param>
+        /// <returns></returns>
+        int By_Food_Id_DelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel);
+
+        /// <summary>
         ///根据用户和菜单查询点赞数量
         /// </summary>
         /// <param name="praiseNumSearchMiddlecs"></param>
@@ -85,5 +92,19 @@ namespace Dto.IService.IntellFood
         List<FoodPraiseNumMiddlecs> PraiseNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
 
         List<string> FoodType_Search(FoodInfoSearchViewModel foodInfoSearchViewModel);
+
+        /// <summary>
+        /// 根据用户id和菜id 增加或者减少差评
+        /// </summary>
+        /// <param name="foodByUserCpViewModel"></param>
+        /// <returns></returns>
+        int Food_Relate_UserCp(FoodByUserCpViewModel foodByUserCpViewModel);
+
+        /// <summary>
+        /// 查询差评数量
+        /// </summary>
+        /// <param name="praiseNumSearchMiddlecs"></param>
+        /// <returns></returns>
+        List<FoodPraiseNumMiddlecs> CpNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
     }
 }

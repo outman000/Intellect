@@ -43,7 +43,23 @@ namespace IntellRepair.Controllers
             _ILogger.Information("查询报修信息成功");
             return Ok(repairInfoSearchResModel);
         }
-
+        /// <summary>
+        /// 根据报修ID查询报修信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult RepairID_Search(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel)
+        {
+            RepairInfoByIdSearchResModel  repairInfoByIdSearchResModel = new RepairInfoByIdSearchResModel();
+            var repairSearchResult = _IRepairService.GetInfoByRepairId(repairIdSearchInfoViewModel);
+            repairInfoByIdSearchResModel.repair_Infos = repairSearchResult;
+            repairInfoByIdSearchResModel.isSuccess = true;
+            repairInfoByIdSearchResModel.baseViewModel.Message = "查询成功";
+            repairInfoByIdSearchResModel.baseViewModel.ResponseCode = 200;
+            repairInfoByIdSearchResModel.TotalNum = 1;
+            _ILogger.Information("查询报修信息成功");
+            return Ok(repairInfoByIdSearchResModel);
+        }
 
         /// <summary>
         /// 增添报修以及流程信息

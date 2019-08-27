@@ -23,7 +23,7 @@ namespace Dtol.dtol
         public Food_Info Food_Info { get; set; }
 
         /// <summary>
-        /// 点评标识  1-差评
+        /// 点评标识  1-评价，2-差评
         /// </summary>
         public string status { get; set; }
 

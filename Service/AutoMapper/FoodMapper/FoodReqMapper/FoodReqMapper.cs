@@ -21,6 +21,7 @@ namespace Dto.Service.AutoMapper.FoodMapper.FoodReqMapper
             CreateMap< FoodByUserPraiseViewModel, User_Relate_Food > ();
             CreateMap< FoodByUserAddCpViewModel, User_Relate_Food >();
             CreateMap< User_Relate_Food, FoodCpMiddlecs >();
+            CreateMap< FoodByUserCpViewModel, User_Relate_Food >();
         }
     }
 }

@@ -147,13 +147,13 @@ namespace Dto.Service.IntellRepair
         /// </summary>
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
-        public List<RepairIsEndMiddlecs> CurrentNodeSearchNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
+        public List<RepairNoEndMiddlecs> CurrentNodeSearchNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
           
             var RepairInfo = _IRepairInfoRepository.GetRepairinfoByUseridNoEnd(nodeEndSearchViewModel).ToList();
-            var repariNotEnd=_IMapper.Map<List<Repair_Info>, List<RepairIsEndMiddlecs>>(RepairInfo);
+            
 
-            return repariNotEnd;
+            return RepairInfo;
         }
 
 

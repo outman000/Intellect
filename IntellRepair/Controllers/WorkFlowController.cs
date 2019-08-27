@@ -94,11 +94,9 @@ namespace IntellRepair.Controllers
                 repairIsEndResModel.TotalNum = repairIsEndResModel.repair.Count;
                 _ILogger.Information("查询成功，当前节点为结束");
                 return Ok(repairIsEndResModel);
-
             }
             else
             {
-
                 repairIsEndResModel.isSuccess = false;
                 repairIsEndResModel.baseViewModel.Message = "查询成功，当前节点不是结束";
                 repairIsEndResModel.baseViewModel.ResponseCode = 200;
@@ -116,29 +114,29 @@ namespace IntellRepair.Controllers
         [HttpPost]
         public ActionResult Manage_CurrentNodeNoEnd_Search(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
-       
-            RepairIsEndResModel repairIsEndResModel = new RepairIsEndResModel();
-            repairIsEndResModel.repair = _IWorkFlowService.CurrentNodeSearchNoEnd(nodeEndSearchViewModel);
 
-            if (repairIsEndResModel.repair.Count > 1)
+            RepairNoEndResModel  repairNoEndResModel = new RepairNoEndResModel();
+            repairNoEndResModel.repair = _IWorkFlowService.CurrentNodeSearchNoEnd(nodeEndSearchViewModel);
+
+            if (repairNoEndResModel.repair.Count > 1)
             {
-                repairIsEndResModel.isSuccess = true;
-                repairIsEndResModel.baseViewModel.Message = "查询成功，存在未处理";
-                repairIsEndResModel.baseViewModel.ResponseCode = 200;
-                repairIsEndResModel.TotalNum = repairIsEndResModel.repair.Count;
+                repairNoEndResModel.isSuccess = true;
+                repairNoEndResModel.baseViewModel.Message = "查询成功，存在未处理";
+                repairNoEndResModel.baseViewModel.ResponseCode = 200;
+                repairNoEndResModel.TotalNum = repairNoEndResModel.repair.Count;
                 _ILogger.Information("查询成功，存在未处理");
-                return Ok(repairIsEndResModel);
+                return Ok(repairNoEndResModel);
 
             }
             else
             {
 
-                repairIsEndResModel.isSuccess = false;
-                repairIsEndResModel.baseViewModel.Message = "查询失败，不存在未处理";
-                repairIsEndResModel.baseViewModel.ResponseCode = 200;
-                repairIsEndResModel.TotalNum = 0;
+                repairNoEndResModel.isSuccess = false;
+                repairNoEndResModel.baseViewModel.Message = "查询失败，不存在未处理";
+                repairNoEndResModel.baseViewModel.ResponseCode = 200;
+                repairNoEndResModel.TotalNum = 0;
                 _ILogger.Information("查询失败，不存在未处理");
-                return Ok(repairIsEndResModel);
+                return Ok(repairNoEndResModel);
             }
 
 

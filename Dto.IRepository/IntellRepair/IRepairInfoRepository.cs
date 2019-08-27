@@ -28,6 +28,6 @@ namespace Dto.IRepository.IntellRepair
         IQueryable<RepairNoEndMiddlecs> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
 
         
-        List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView, int userKey);
+        List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView, int userKey,string isHandler);
     }
 }
