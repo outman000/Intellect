@@ -145,5 +145,25 @@ namespace Dto.Repository.IntellBulletinBoard
             Bulletin_Board bulletin_Info = DbSet.Single(uid => uid.Id.Equals(id));
             return bulletin_Info;
         }
+
+        /// <summary>
+        /// 根据公告栏主键查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IQueryable<Bulletin_Board> SearchByBulletinId(int id)
+        {
+            var p = SearchRepairIdWhere(id);
+            var bulletin_Info = DbSet.Where(p);
+            return bulletin_Info;
+        }
+        private Expression<Func<Bulletin_Board, bool>> SearchRepairIdWhere(int id)
+        {
+            var predicate = WhereExtension.True<Bulletin_Board>();//初始化where表达式
+            predicate = predicate.And(p => p.Id == id);
+            predicate = predicate.And(p => p.status == "0");
+
+            return predicate;
+        }
     }
 }

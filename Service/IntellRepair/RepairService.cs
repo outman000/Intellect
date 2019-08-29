@@ -124,9 +124,9 @@ namespace Dto.Service.IntellRepair
         public RepairInfoSearchMiddlecs GetInfoByRepairId(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel)
         {
           
-            Repair_Info line_Infos = _IRepairInfoRepository.GetInfoByRepairId(repairIdSearchInfoViewModel.Repair_InfoId);
+            var line_Infos = _IRepairInfoRepository.GetInfoByRepairIdSingle(repairIdSearchInfoViewModel.Repair_InfoId).ToList();
 
-            var repairSearchMiddlecs = _IMapper.Map<Repair_Info,RepairInfoSearchMiddlecs>(line_Infos);
+            var repairSearchMiddlecs = _IMapper.Map<Repair_Info,RepairInfoSearchMiddlecs>(line_Infos[0]);
 
             return repairSearchMiddlecs;
         }

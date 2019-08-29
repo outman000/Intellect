@@ -6,10 +6,10 @@ namespace ViewModel.FoodViewModel.MiddleModel
 {
     public class FoodCpMiddlecs
     {
-        public int Id { get; set; }
+      
 
         /// <summary>
-        /// 用户Id
+        /// 用户姓名
         /// </summary>
         public string UserName { get; set; }
 
@@ -18,8 +18,12 @@ namespace ViewModel.FoodViewModel.MiddleModel
         /// <summary>
         /// 菜名
         /// </summary>
-        public int FoodName { get; set; }
+        public string FoodName { get; set; }
 
+        /// <summary>
+        /// 部门名
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// 点评内容

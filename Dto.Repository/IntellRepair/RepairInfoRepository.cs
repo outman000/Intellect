@@ -49,10 +49,33 @@ namespace Dto.Repository.IntellRepair
         {
             DbSet.Remove(DbSet.Find(id));
         }
+        //根据条件查询报修
+        private Expression<Func<Repair_Info, bool>> SearchRepairIdWhere(int id)
+        {
+            var predicate = WhereExtension.True<Repair_Info>();//初始化where表达式
+            predicate = predicate.And(p => p.id==id);
+            predicate = predicate.And(p => p.status == "0");
+
+            return predicate;
+        }
 
         public Repair_Info GetInfoByRepairId(int id)
         {
-            Repair_Info  repair_Info = DbSet.Single(uid => uid.id.Equals(id) && uid.status=="0");
+            Repair_Info repair_Info = DbSet.Single(a=>a.id==id && a.status=="0");
+            return repair_Info;
+
+        }
+        /// <summary>
+        /// 根据表单主键id 查询表单信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IQueryable<Repair_Info> GetInfoByRepairIdSingle(int id)
+        {
+            var p=SearchRepairIdWhere(id);
+
+            var repair_Info = DbSet.Where(p).Include(a => a.User_Info).ThenInclude(b => b.User_Depart);
+
             return repair_Info;
         }
 

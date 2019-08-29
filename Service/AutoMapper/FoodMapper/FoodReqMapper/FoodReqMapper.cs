@@ -20,7 +20,11 @@ namespace Dto.Service.AutoMapper.FoodMapper.FoodReqMapper
             CreateMap< FoodInfoUpdateViewModel, Food_Info >();
             CreateMap< FoodByUserPraiseViewModel, User_Relate_Food > ();
             CreateMap< FoodByUserAddCpViewModel, User_Relate_Food >();
-            CreateMap< User_Relate_Food, FoodCpMiddlecs >();
+            CreateMap< User_Relate_Food, FoodCpMiddlecs >()
+            .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName))
+            .ForMember(s => s.FoodName, sp => sp.MapFrom(src => src.Food_Info.FoodName))
+            .ForMember(s => s.Content, sp => sp.MapFrom(src => src.Content))
+            .ForMember(s => s.Name, sp => sp.MapFrom(src => src.User_Info.User_Depart.Name));
             CreateMap< FoodByUserCpViewModel, User_Relate_Food >();
         }
     }

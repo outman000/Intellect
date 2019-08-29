@@ -54,7 +54,7 @@ namespace Dto.Repository.IntellFood
             var predicate = WhereExtension.True<User_Relate_Food>();//初始化where表达式
             predicate = predicate.And(p => p.Food_InfoId == foodByUserSearchViewModel.Food_InfoId);
             predicate = predicate.And(p => p.User_InfoId == foodByUserSearchViewModel.User_InfoId);
-            predicate = predicate.And(p => p.status != "1");
+            predicate = predicate.And(p => p.status== null);
             return predicate;
         }
         #endregion
@@ -110,11 +110,11 @@ namespace Dto.Repository.IntellFood
         /// </summary>
         /// <param name="foodByUserSearchViewModel"></param>
         /// <returns></returns>
-        public int SearchFoodCpInfoByWhere(FoodByUserCpViewModel foodByUserCpViewModel)
+        public int SearchFoodCpInfoByWhere(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
 
-            int userid = foodByUserCpViewModel.User_InfoId;
-            int foodid = foodByUserCpViewModel.Food_InfoId;
+            int userid = foodByUserAddCpViewModel.User_InfoId;
+            int foodid = foodByUserAddCpViewModel.Food_InfoId;
             var queryResult = DbSet.Where(k => k.User_InfoId == userid &&
                                           k.Food_InfoId == foodid &&
                                           k.status == "2" &&
@@ -140,7 +140,7 @@ namespace Dto.Repository.IntellFood
                                           ).ToList();
             return queryResult.Count;
         }
-
+       
         /// <summary>
         /// 根据用户id和菜id 去关系表查差评
         /// </summary>
@@ -150,7 +150,9 @@ namespace Dto.Repository.IntellFood
         {
 
             var preciate = SearchFoodCPWhere(foodByUserSearchCpViewModel);
-            var temp = DbSet.Where(preciate).ToList();
+            var temp = DbSet.Where(preciate).Include(a=>a.User_Info).ThenInclude(c=>c.User_Depart)
+                        .Include(b=>b.Food_Info) 
+                .ToList();
             return temp;
         }
         #region 查询条件
@@ -162,7 +164,7 @@ namespace Dto.Repository.IntellFood
             predicate = predicate.And(p => p.User_InfoId == foodByUserSearchCpViewModel.User_InfoId.Value);
             if (foodByUserSearchCpViewModel.Food_InfoId != null)
                 predicate = predicate.And(p => p.Food_InfoId == foodByUserSearchCpViewModel.Food_InfoId.Value);
-            predicate = predicate.And(p => p.status == "1");
+            predicate = predicate.And(p => p.status == foodByUserSearchCpViewModel.status);
             predicate = predicate.And(p => p.User_Info.status == "0");
             return predicate;
         }

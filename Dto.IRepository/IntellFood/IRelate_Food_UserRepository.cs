@@ -61,9 +61,9 @@ namespace Dto.IRepository.IntellOpinionInfo
         /// <summary>
         /// 根据用户查差评信息
         /// </summary>
-        /// <param name="foodByUserCpViewModel"></param>
+        /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
-        int SearchFoodCpInfoByWhere(FoodByUserCpViewModel foodByUserCpViewModel);
+        int SearchFoodCpInfoByWhere(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
 
         /// <summary>
         /// 根据用户和菜Id删差评信息

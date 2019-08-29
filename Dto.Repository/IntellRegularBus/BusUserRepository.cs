@@ -183,7 +183,7 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere(BusPaymentUpdateViewModel  busPamentUpdateViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-        
+            predicate = predicate.And(a => a.status == "0");
             predicate = predicate.And(a => a.User_DepartId==busPamentUpdateViewModel.User_DepartId);
             predicate = predicate.And(a => a.carDate.Value.Year== busPamentUpdateViewModel.carDate.Year 
                                     && a.carDate.Value.Month== busPamentUpdateViewModel.carDate.Month);

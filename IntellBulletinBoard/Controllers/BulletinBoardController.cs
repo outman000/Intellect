@@ -80,7 +80,27 @@ namespace IntellBulletinBoard.Controllers
             return Ok(bulletinBoardSearchResModel);
 
         }
+        /// <summary>
+        /// 根据主键ID查询公告栏信息
+        /// </summary>
+        /// <param name="bulletinBoardSearchSingleViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_BulletinBoardSingle_Search(BulletinBoardSearchSingleViewModel bulletinBoardSearchSingleViewModel)
+        {
+            BulletinBoardSearchSingleResModel  bulletinBoardSearchSingleResModel = new BulletinBoardSearchSingleResModel();
+            var BusSearchResult = _bulletinBoardService.Bulletin_Board_SearchSingle(bulletinBoardSearchSingleViewModel);
 
+
+            bulletinBoardSearchSingleResModel.bulletinBoard_Infos = BusSearchResult;
+            bulletinBoardSearchSingleResModel.isSuccess = true;
+            bulletinBoardSearchSingleResModel.baseViewModel.Message = "查询成功";
+            bulletinBoardSearchSingleResModel.baseViewModel.ResponseCode = 200;
+            bulletinBoardSearchSingleResModel.TotalNum = 1;
+            _ILogger.Information("查询公告栏信息成功");
+            return Ok(bulletinBoardSearchSingleResModel);
+
+        }
         /// <summary>
         /// 更新菜单信息
         /// </summary>

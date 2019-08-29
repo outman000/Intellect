@@ -94,11 +94,11 @@ namespace Dto.IService.IntellFood
         List<string> FoodType_Search(FoodInfoSearchViewModel foodInfoSearchViewModel);
 
         /// <summary>
-        /// 根据用户id和菜id 增加或者减少差评
+        /// 根据用户id和菜id 增加
         /// </summary>
         /// <param name="foodByUserCpViewModel"></param>
         /// <returns></returns>
-        int Food_Relate_UserCp(FoodByUserCpViewModel foodByUserCpViewModel);
+        int Food_Relate_UserCp(FoodByUserAddCpViewModel foodByUserAddCpViewModel);
 
         /// <summary>
         /// 查询差评数量

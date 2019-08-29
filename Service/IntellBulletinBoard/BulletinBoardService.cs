@@ -133,6 +133,21 @@ namespace Dto.Service.IntellBulletinBoard
             }
             return boardSearchMiddlecs;
         }
+
+
+        /// <summary>
+        /// 查询公告栏信息
+        /// </summary>
+        /// <param name="bulletinBoardSearchSingleViewModel"></param>
+        /// <returns></returns>
+        public BulletinBoardSearchMiddlecs Bulletin_Board_SearchSingle(BulletinBoardSearchSingleViewModel  bulletinBoardSearchSingleViewModel)
+        {
+           var bulletin_Board = _IBulletinBoardRepository.SearchByBulletinId(bulletinBoardSearchSingleViewModel.Id).ToList();
+           
+                var BusSearchMiddlecs = _IMapper.Map<Bulletin_Board, BulletinBoardSearchMiddlecs>(bulletin_Board[0]);
+         
+            return BusSearchMiddlecs;
+        }
         /// <summary>
         /// 根据公告栏查角色总数
         /// </summary>
@@ -201,8 +216,24 @@ namespace Dto.Service.IntellBulletinBoard
                     }
                 }
             }
+            int SkipNum = bulletinByUserSearchViewModel.pageViewModel.CurrentPageNum * bulletinByUserSearchViewModel.pageViewModel.PageSize;
+            int pageSiez = bulletinByUserSearchViewModel.pageViewModel.PageSize;
+            List<Bulletin_Board> bulletin_BoardTrue = new List<Bulletin_Board>();
+            if(pageSiez > bulletin_Boards.Count)
+                pageSiez = bulletin_Boards.Count;//篇幅不能超过 数组最长长度
 
-            bulletinBoardRoleSearchMiddlecs.Bulletin_Board = bulletin_Boards;
+
+            for (int j= 0; j< pageSiez; j++)
+            {
+                if (SkipNum >= bulletin_Boards.Count)
+                {
+                    continue;
+                }                
+                bulletin_BoardTrue.Add(bulletin_Boards[SkipNum]);
+                SkipNum++;
+            }
+
+            bulletinBoardRoleSearchMiddlecs.Bulletin_Board = bulletin_BoardTrue;
             return bulletinBoardRoleSearchMiddlecs;
         }
 

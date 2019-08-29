@@ -211,21 +211,21 @@ namespace IntellFood.Controllers
                 foodByUserSearchResModel.IsSuccess = false;
                 foodByUserSearchResModel.TotalNum = 0;
                 foodByUserSearchResModel.baseViewModel.Message = "用户取消赞成功";
-                foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("根据用户id和菜单id，用户取消赞成功");
-                return BadRequest(foodByUserSearchResModel);
+                return Ok(foodByUserSearchResModel);
             }
         }
         /// <summary>
-        /// 根据用户id和菜单id点差评/取消差评
+        /// 根据用户id和菜单id点差评
         /// </summary>
-        /// <param name="foodByUserCpViewModel"></param>
+        /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodToUserCp_Del(FoodByUserCpViewModel foodByUserCpViewModel)
+        public ActionResult Manage_FoodToUserCp_Del(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
             FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
-            int SearchRowNum = _foodService.Food_Relate_UserCp(foodByUserCpViewModel);
+            int SearchRowNum = _foodService.Food_Relate_UserCp(foodByUserAddCpViewModel);
 
             if (SearchRowNum > 0)
             {
@@ -240,16 +240,16 @@ namespace IntellFood.Controllers
             {
                 foodByUserSearchResModel.IsSuccess = false;
                 foodByUserSearchResModel.TotalNum = 0;
-                foodByUserSearchResModel.baseViewModel.Message = "用户取消差评成功";
-                foodByUserSearchResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("根据用户id和菜单id，用户取消赞成功");
-                return BadRequest(foodByUserSearchResModel);
+                foodByUserSearchResModel.baseViewModel.Message = "用户已经点过差评";
+                foodByUserSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("用户已经点过差评");
+                return Ok(foodByUserSearchResModel);
             }
         }
 
 
         /// <summary>
-        /// 根据用户id和菜单id，查询评价信息
+        /// 根据用户id和菜单id，查询评价信息(包括差评)
         /// </summary>
         /// <param name="foodByUserSearchCpViewModel"></param>
         /// <returns></returns>

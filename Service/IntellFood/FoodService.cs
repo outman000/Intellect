@@ -142,21 +142,18 @@ namespace Dto.Service.IntellFood
         /// </summary>
         /// <param name="foodByUserCpViewModel"></param>
         /// <returns></returns>
-        public int Food_Relate_UserCp(FoodByUserCpViewModel  foodByUserCpViewModel)
+        public int Food_Relate_UserCp(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
-            int count = _IRelate_Food_UserRepository.SearchFoodCpInfoByWhere(foodByUserCpViewModel);
+            int count = _IRelate_Food_UserRepository.SearchFoodCpInfoByWhere(foodByUserAddCpViewModel);
 
             if (count > 0)
             {
 
-                int DelNum = _IRelate_Food_UserRepository
-                         .RelateFoodToUserDelCp(foodByUserCpViewModel);
-
-                return 0;
+                return -1;
             }
             else
             {
-                var node_Info = _IMapper.Map<FoodByUserCpViewModel, User_Relate_Food>(foodByUserCpViewModel);
+                var node_Info = _IMapper.Map<FoodByUserAddCpViewModel, User_Relate_Food>(foodByUserAddCpViewModel);
                 _IRelate_Food_UserRepository.Add(node_Info);
                 _IRelate_Food_UserRepository.SaveChanges();
                 return 1;
@@ -170,6 +167,7 @@ namespace Dto.Service.IntellFood
         /// <returns></returns>
         public List<FoodCpMiddlecs>  Food_Relate_User_Search_CP(FoodByUserSearchCpViewModel  foodByUserSearchCpViewModel)
         {
+
             List <User_Relate_Food>  user_Relate_Foods = _IRelate_Food_UserRepository.SearchFoodInfoByWhere(foodByUserSearchCpViewModel);
             var Cp_Info = _IMapper.Map<List<User_Relate_Food>, List<FoodCpMiddlecs>>(user_Relate_Foods);
             return Cp_Info;

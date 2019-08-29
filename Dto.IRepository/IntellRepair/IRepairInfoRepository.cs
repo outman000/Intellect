@@ -11,9 +11,10 @@ namespace Dto.IRepository.IntellRepair
 {
     public interface IRepairInfoRepository : IRepository<Repair_Info>
     {
-
         //根据报修主键id查询
-        Repair_Info GetInfoByRepairId(int id);
+       Repair_Info GetInfoByRepairId(int id);
+        //根据报修主键id查询
+        IQueryable<Repair_Info> GetInfoByRepairIdSingle(int id);
         //批量删除
         int DeleteByRepairIdList(List<int> IdList);
         // 根据条件查报修信息

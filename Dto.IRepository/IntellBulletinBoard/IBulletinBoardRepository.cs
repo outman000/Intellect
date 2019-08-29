@@ -17,6 +17,8 @@ namespace Dto.IRepository.IntellBulletinBoard
         IQueryable<Bulletin_Board> GetBulletinBoardAll(BulletinBoardSearchViewModel  bulletinBoardSearchViewModel);
         //根据公告栏主键id查询
         Bulletin_Board GetInfoByBulletinId(int id);
+        //根据公告栏主键id查询
+        IQueryable<Bulletin_Board> SearchByBulletinId(int id);
 
     }
 }

@@ -70,5 +70,12 @@ namespace Dto.IService.IntellBulletinBoard
         int BulletinBoardToRole_Del(RoleByBulletinDelViewModel  roleByBulletinDelViewModel);
 
         BulletinBoardRoleSearchMiddlecs BulletinByUserId_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel);
+
+        /// <summary>
+        /// 根据主键ID查询公告栏信息
+        /// </summary>
+        /// <param name="bulletinBoardSearchSingleViewModel"></param>
+        /// <returns></returns>
+        BulletinBoardSearchMiddlecs Bulletin_Board_SearchSingle(BulletinBoardSearchSingleViewModel bulletinBoardSearchSingleViewModel);
     }
 }
