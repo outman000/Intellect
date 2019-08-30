@@ -244,9 +244,9 @@ namespace IntellRepair.Controllers
                 flowInfoSearchResModel.IsSuccess = false;
                 flowInfoSearchResModel.flowNodePreMiddlecs = null;
                 flowInfoSearchResModel.baseViewModel.Message = "所有流转信息增加完毕，本条流程已结束";
-                flowInfoSearchResModel.baseViewModel.ResponseCode = 400;
+                flowInfoSearchResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("所有流转信息增加完毕，本条流程已结束");
-                return BadRequest(flowInfoSearchResModel);
+                return Ok(flowInfoSearchResModel);
             }
 
         }

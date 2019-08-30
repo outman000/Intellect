@@ -54,7 +54,7 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// </summary>
         public string status { get; set; }
         /// <summary>
-        /// 报修状态
+        /// 表单类型  1-报修，2-意见，3-班车缴费
         /// </summary>
         public string isHandler { get; set; }
     }

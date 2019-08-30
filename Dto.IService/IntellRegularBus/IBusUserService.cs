@@ -66,5 +66,12 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busUserValideViewModel"></param>
         IDictionary<int, String> Bus_Payment_valide(BusUserValideViewModel busUserValideViewModel);
+
+        /// <summary>
+        /// 查询当前条件下缴费人员的应缴费用总和
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        int Bus_UserExpen_Search(BusUserSearchViewModel busUserSearchViewModel);
     }
 }

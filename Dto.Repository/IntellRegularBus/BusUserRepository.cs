@@ -90,19 +90,19 @@ namespace Dto.Repository.IntellRegularBus
         }
 
         /// <summary>
-        /// 根据班车id查询数量
+        /// 根据线路id查询数量
         /// </summary>
         /// <param name="busSearchByIdViewModel"></param>
         /// <returns></returns>
-        public IQueryable<Bus_Payment> SearchInfoByBusIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
+        public IQueryable<Bus_Payment> SearchInfoByLineIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             var preciateBydepart = SearchBusUserByIdWhere(busSearchByIdViewModel);
-            IQueryable<Bus_Payment> bus_Payments = Db.bus_Payment.Where(preciateBydepart)
-                .OrderByDescending(o => o.createDate);
-            DateTime cd = bus_Payments.ToList()[0].createDate.Value;//获取最新日期
+            IQueryable<Bus_Payment> bus_Payments = DbSet.Where(preciateBydepart);
+            //    .OrderByDescending(o => o.createDate);
+            //DateTime cd = bus_Payments.ToList()[0].createDate.Value;//获取最新日期
 
-            var result = bus_Payments.Where(e => e.createDate.Value.Year== cd.Year && e.createDate.Value.Month == cd.Month);
-            return result;
+            //var result = bus_Payments.Where(e => e.createDate.Value.Year== cd.Year && e.createDate.Value.Month == cd.Month);
+            return bus_Payments;
         }
         /// <summary>
         /// 查询人员缴费信息（重载,最普通的查询）
@@ -198,8 +198,9 @@ namespace Dto.Repository.IntellRegularBus
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
            
-            predicate = predicate.And(a => a.Bus_InfoId==busSearchByIdViewModel.Id);
-
+            predicate = predicate.And(a => a.Bus_LineId==busSearchByIdViewModel.Bus_LineId);
+            predicate = predicate.And(a => a.carDate.Value.Year == busSearchByIdViewModel.carDate.Year
+                                     && a.carDate.Value.Month == busSearchByIdViewModel.carDate.Month);
             return predicate;
         }
         #endregion

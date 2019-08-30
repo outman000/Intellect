@@ -7,9 +7,14 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel
     public class BusSearchByIdViewModel
     {
         /// <summary>
-        /// 班车id
+        /// 线路id
         /// </summary>
-        public int Id { get; set; }
- 
+        public int Bus_LineId { get; set; }
+
+        /// <summary>
+        /// 乘车时间
+        /// </summary>
+        public DateTime carDate { get; set; }
+
     }
 }

@@ -164,12 +164,25 @@ namespace Dto.Service.IntellRegularBus
 
             List<Bus_Payment> bus_Payments  =  _IBusUserRepository.SearchInfoByBusWhere(busUserSearchViewModel).ToList();
 
-            var bus_User_Search = _IMapper.Map<List<Bus_Payment>, List<BusUserSearchMiddlecs>>(bus_Payments);
-
+            var bus_User_Search = _IMapper.Map<List<Bus_Payment>, List<BusUserSearchMiddlecs>>(bus_Payments); 
 
             return bus_User_Search;
         }
-
+        /// <summary>
+        /// 查询当前条件下所有人的缴费总和
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public int Bus_UserExpen_Search(BusUserSearchViewModel busUserSearchViewModel)
+        {
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere(busUserSearchViewModel).ToList();
+            int TotalExpen = 0;
+            for (int i = 0; i < bus_Payments.Count; i++)
+            {
+                TotalExpen += Convert.ToInt32(bus_Payments[i].Expense);//当前条件下，每个人应交费用总和
+            }
+            return TotalExpen;
+        }
         /// <summary>
         /// 查询班车缴费清单表
         /// </summary>
@@ -180,28 +193,20 @@ namespace Dto.Service.IntellRegularBus
             return _IBusUserRepository.GetInfoByBusAll(busUserSearchViewModell).Count();
         }
 
-
-
-
-
+        /// <summary>
+        /// 根据当前乘车时间和线路，判断座位有没有满员
+        /// </summary>
+        /// <param name="busSearchByIdViewModel"></param>
+        /// <returns></returns>
         public int ByBusIdSearchNum(BusSearchByIdViewModel busSearchByIdViewModel)
         {
-
-
-            Bus_Info bus_Payments = _IBusInfoRepository.GetInfoByBusId(busSearchByIdViewModel.Id);
-            int seatNume = Convert.ToInt32(bus_Payments.SeatNum);//班车座位数
-            var bus_User=_IBusUserRepository.SearchInfoByBusIdWhere(busSearchByIdViewModel).ToList();//最新月份坐该班车的各部门信息
-            if (bus_User.Count == 0)//没查到该班车信息，可以添加该班车
-            {
+            Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(busSearchByIdViewModel.Bus_LineId);//根据线路Id查班车
+            int seatNume = Convert.ToInt32(bus_Info.SeatNum);//班车座位数
+            var bus_User=_IBusUserRepository.SearchInfoByLineIdWhere(busSearchByIdViewModel).ToList();//最新月份坐该班车的各部门信息
+            if (bus_User.Count < seatNume)//该线路乘车人未满员，可以继续选择该线路
                 return 0;
-            }
-    
-            else if (bus_User.Count== seatNume)//说明该班车已坐满人
-            {
+            else //说明该线路已坐满人
                 return -1;
-            }
-            else
-            return 0;
         }
 
         /// <summary>

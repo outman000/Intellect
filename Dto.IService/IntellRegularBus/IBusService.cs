@@ -72,6 +72,13 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
         List<Bus_Info> Bus_By_Line_Search(BusByLineSearchViewModel busByLineSearchViewModel);
 
+        /// <summary>
+        ///根据线路查班车（重载）
+        /// </summary>
+        /// <param name="bus_LineId"></param>
+        /// <returns></returns>
+        Bus_Info Bus_By_Line_Search(int bus_LineId);
+
         //根据线路查班车数量
         int Bus_By_Line_Get_ALLNum(BusByLineSearchViewModel busByLineSearchViewModel);
         /// <summary>

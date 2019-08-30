@@ -170,5 +170,16 @@ namespace Dto.Service.IntellRegularBus
         {
             return _IBusInfoRepository.GetLineInfoByBusAll(lineByBusSearchViewModel).Count();
         }
+
+        /// <summary>
+        /// 根据线路查班车
+        /// </summary>
+        /// <param name="bus_LineId"></param>
+        /// <returns></returns>
+        public Bus_Info Bus_By_Line_Search(int bus_LineId)
+        {
+             Bus_Info Bus_Relate_Line = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_LineId);
+            return Bus_Relate_Line;
+        }
     }
 }

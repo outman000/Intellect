@@ -194,5 +194,16 @@ namespace Dto.Repository.IntellRegularBus
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 根据线路查班车
+        /// </summary>
+        /// <param name="bus_LineId"></param>
+        /// <returns></returns>
+        public Bus_Info SearchBusInfoSingleByLineWhere(int bus_LineId)
+        {
+            var queryResult = DbSet.Single(k => k.Bus_LineId == bus_LineId && k.status == "0");
+            return queryResult;
+        }
     }
  }

@@ -97,12 +97,15 @@ namespace IntellRegularBus.Controllers
         {
             BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_User_Search(busUserSearchViewModel);
+            int TotalExpen= _IBusUserService.Bus_UserExpen_Search(busUserSearchViewModel);//应缴费用总和
+
             var TotalNum = _IBusUserService.Bus_User_Get_ALLNum(busUserSearchViewModel);
             busUserSearchResModel.bus_user_Info = BusUserSearchResult;
             busUserSearchResModel.isSuccess = true;
             busUserSearchResModel.baseViewModel.Message = "查询成功";
             busUserSearchResModel.baseViewModel.ResponseCode = 200;
             busUserSearchResModel.TotalNum = TotalNum;
+            busUserSearchResModel.TotalExpen = TotalExpen;
             _ILogger.Information("查询所有用户缴费信息成功");
             return Ok(busUserSearchResModel);
         }
@@ -138,7 +141,7 @@ namespace IntellRegularBus.Controllers
         }
 
         /// <summary>
-        /// 根据班车Id查询该班车是否坐满人
+        /// 根据线路Id查询该班车是否坐满人
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -149,18 +152,18 @@ namespace IntellRegularBus.Controllers
              if(Result==-1)
              {
                     busSearchByIdResModel.isSuccess = false;
-                    busSearchByIdResModel.baseViewModel.Message = "该班车已坐满人，请重新选择";
-                    busSearchByIdResModel.baseViewModel.ResponseCode = 400;
-                    _ILogger.Information("该班车已满员，请重新选择");
-                   return BadRequest(busSearchByIdResModel);
+                    busSearchByIdResModel.baseViewModel.Message = "该线路已坐满人，请重新选择";
+                    busSearchByIdResModel.baseViewModel.ResponseCode = 200;
+                    _ILogger.Information("该线路已满员，请重新选择");
+                   return Ok(busSearchByIdResModel);
 
             }
             else
             {
                 busSearchByIdResModel.isSuccess = true;
-                busSearchByIdResModel.baseViewModel.Message = "该班车未坐满人，可以添加该班车";
+                busSearchByIdResModel.baseViewModel.Message = "该线路未坐满人，可以添加该线路";
                 busSearchByIdResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("该班车未坐满人，可以添加该班车");
+                _ILogger.Information("该线路未坐满人，可以添加该线路");
                 return Ok(busSearchByIdResModel);
 
             }

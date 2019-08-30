@@ -125,8 +125,14 @@ namespace Dto.Service.IntellRepair
         {
           
             var line_Infos = _IRepairInfoRepository.GetInfoByRepairIdSingle(repairIdSearchInfoViewModel.Repair_InfoId).ToList();
-
+ 
             var repairSearchMiddlecs = _IMapper.Map<Repair_Info,RepairInfoSearchMiddlecs>(line_Infos[0]);
+            if (repairSearchMiddlecs.isHandler=="2"&&repairSearchMiddlecs.RepairsEmergency == "匿名")
+            {
+                repairSearchMiddlecs.UserName = "匿名";
+                repairSearchMiddlecs.Name = "匿名";
+                repairSearchMiddlecs.telephone= "匿名";
+            }
 
             return repairSearchMiddlecs;
         }
