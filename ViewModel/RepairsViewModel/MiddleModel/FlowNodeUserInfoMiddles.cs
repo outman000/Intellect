@@ -11,9 +11,14 @@ namespace ViewModel.RepairsViewModel.MiddleModel
     public class FlowNodeUserInfoMiddles
     {
         /// <summary>
-        /// 拟稿人
+        /// 当前操作人姓名
         /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// 当前操作人手机号
+        /// </summary>
+        public string PhoneCall { get; set; }
         /// <summary>
         /// 部门信息
         /// </summary>
