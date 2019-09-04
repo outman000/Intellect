@@ -23,9 +23,9 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public string LineName { get; set; }
         /// <summary>
-        /// 班车名
+        /// 表单id-----外键
         /// </summary>
-        public string BusName { get; set; }
+        public int? Repair_InfoId { get; set; }
         /// <summary>
         /// 站点名
         /// </summary>

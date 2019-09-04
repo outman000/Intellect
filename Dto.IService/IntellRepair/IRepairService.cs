@@ -52,5 +52,7 @@ namespace Dto.IService.IntellRepair
         /// <param name="id"></param>
         /// <returns></returns>
         RepairInfoSearchMiddlecs GetInfoByRepairId(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel);
+
+       
     }
 }

@@ -28,6 +28,10 @@ namespace Dto.IRepository.IntellRegularBus
         // 根据线路Id查人员缴费数量
         IQueryable<Bus_Payment> SearchInfoByLineIdWhere(BusSearchByIdViewModel  busSearchByIdViewModel);
 
-
+        /// <summary>
+        /// 查询所有时间列表
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<string> SearchInfoTimeWhere(BusUserSearchTimeViewModel busUserSearchTimeViewModel);
     }
 }

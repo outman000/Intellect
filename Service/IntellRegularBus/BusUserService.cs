@@ -152,7 +152,17 @@ namespace Dto.Service.IntellRegularBus
             }
             return _IBusUserRepository.SaveChanges();
         }
-
+        /// <summary>
+        ///  查询出所有时间
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<string> Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
+        {
+       
+            List<string> bus_Payments = _IBusUserRepository.SearchInfoTimeWhere(busUserSearchTimeViewModel).ToList();
+            return bus_Payments;
+        }
         /// <summary>
         ///  查询出人员缴费信息
         /// </summary>

@@ -102,7 +102,8 @@ namespace Dto.Repository.IntellWeChat
                                             .ThenInclude(c => c.User_Relate_Role_Right)
                                             .ThenInclude(
                                               d => d.User_Rights
-                                            ).ToList();
+                                            )
+                                            .ToList();
          
             return userAllInfo;
         }

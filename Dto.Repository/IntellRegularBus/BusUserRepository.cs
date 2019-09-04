@@ -127,6 +127,36 @@ namespace Dto.Repository.IntellRegularBus
 
         }
         /// <summary>
+        /// 查询本部门缴费时间列表
+        /// </summary>
+        /// <param name="busUserSearchTimeViewModel"></param>
+        /// <returns></returns>
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserDateWhere(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            predicate = predicate.And(a => a.status == "0");
+            predicate = predicate.And(a => a.User_DepartId.Value == busUserSearchTimeViewModel.User_DepartId);
+            return predicate;
+        }
+        /// <summary>
+        /// 查询本部门人员缴费时间列表信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<string> SearchInfoTimeWhere(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
+        {
+         
+            var predicate = SearchBusUserDateWhere(busUserSearchTimeViewModel);
+
+            var result = DbSet.Where(predicate).OrderByDescending(b => b.carDate)
+                .Select(a=>a.carDate.Value.ToString("yyyy-MM")).Distinct();
+
+            return result;
+
+
+        }
+
+        /// <summary>
         /// 查询人员缴费信息(重载，用户初始化当月的班车缴费清单而查询模板清单的方法)
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
