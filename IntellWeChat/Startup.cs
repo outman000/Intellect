@@ -12,6 +12,7 @@ using AutofacSerilogIntegration;
 using AutoMapper;
 using Dtol;
 using FluentValidation.AspNetCore;
+using IntellWeChat.Clients;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using ViewModel.WeChatViewModel.MiddleModel;
 
 namespace IntellWeChat
 {
@@ -75,6 +77,20 @@ namespace IntellWeChat
                     };
 
                 });
+            #endregion
+            #region HttpClientFactory
+            
+            services.AddHttpClient("WeChatToken", client =>
+            {
+                client.BaseAddress = new Uri("https://api.weixin.qq.com/cgi-bin/token");
+                client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+                client.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactoryTesting");
+            });
+
+            #endregion
+            #region
+            services.AddOptions();
+            services.Configure<WeChartTokenMiddles>(Configuration.GetSection("WeChatToken"));
             #endregion
 
             #region EFCore

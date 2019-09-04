@@ -49,6 +49,7 @@
     <ProjectReference Include="..\Dto.Repository\Dto.Repository.csproj" />
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
     <ProjectReference Include="..\Service\Dto.Service.csproj" />
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>

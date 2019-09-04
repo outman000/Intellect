@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Dto.IService.IntellWeChat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using Serilog;
+using ViewModel.WeChatViewModel.MiddleModel;
 using ViewModel.WeChatViewModel.RequestViewModel;
 using ViewModel.WeChatViewModel.ResponseModel;
 
@@ -16,13 +21,19 @@ namespace IntellWeChat.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+        private IOptions<WeChartTokenMiddles> _IOptions;
+
+
         private readonly ILoginService  _loginService;
         readonly ILogger _ILogger;
 
-        public LoginController(ILoginService loginService, ILogger logger)
+        public LoginController(IOptions<WeChartTokenMiddles> iOptions, ILoginService loginService, ILogger logger, IHttpClientFactory httpClientFactory)
         {
+               _IOptions = iOptions;
                _loginService = loginService;
                _ILogger = logger;
+               _httpClientFactory = httpClientFactory;
         }
         /// <summary>
         /// 根据用户id查询用户信息
@@ -44,7 +55,6 @@ namespace IntellWeChat.Controllers
             }
             else
             {
-
                 weChatInfoResModel.userInfo = UserSearchResult;
                 weChatInfoResModel.IsSuccess = true;
                 weChatInfoResModel.baseViewModel.Message = "存在该用户，查询成功";
@@ -122,6 +132,21 @@ namespace IntellWeChat.Controllers
                 return Ok(weChatLoginResModel);
 
             }
+        }
+        /// <summary>
+        /// 微信测试
+        /// </summary>
+
+        [HttpPost]
+        public void wechartToken()
+        {
+            var client = _httpClientFactory.CreateClient("WeChatToken");//必须和services.AddHttpClient()中指定的名称对应
+         
+            var content = "?grant_type = "+ _IOptions.Value.grant_type + "&appid = "+ _IOptions.Value.appid + "&secret = "+ _IOptions.Value.secret;
+            var uri = new Uri(client.BaseAddress, content);
+            var response= client.GetAsync(uri);
+            var weChartTokenMiddles  =response.Result.Content.ReadAsStringAsync();
+
         }
     }
 }

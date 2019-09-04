@@ -26,6 +26,7 @@ namespace Dto.Service.IntellWeChat
                             IUserInfoRepository userInfoRepository,
                             IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                             IUserRelateRoleRightRepository userRelateRoleRightRepository,
+
                             IMapper mapper)
         {
             _ILoginRepository = loginRepository;
