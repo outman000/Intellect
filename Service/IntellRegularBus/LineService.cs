@@ -34,7 +34,7 @@ namespace Dto.Service.IntellRegularBus
             return _IBusLineRepository.SaveChanges();
         }
         /// <summary>
-        /// 线裤查询
+        /// 线路查询
         /// </summary>
         /// <param name="lineSearchViewModel"></param>
         /// <returns></returns>

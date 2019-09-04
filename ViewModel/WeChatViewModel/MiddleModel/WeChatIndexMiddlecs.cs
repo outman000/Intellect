@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace ViewModel.WeChatViewModel.MiddleModel
 {
@@ -41,7 +42,7 @@ namespace ViewModel.WeChatViewModel.MiddleModel
         /// <summary>
         /// 权限id
         /// </summary>
-        public List<User_Rights> User_Rights { get; set; }
+        public List<RightsParentSearchMiddlecs> User_Rights { get; set; }
 
     }
 }

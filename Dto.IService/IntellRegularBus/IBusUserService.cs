@@ -73,5 +73,11 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
         int Bus_UserExpen_Search(BusUserSearchViewModel busUserSearchViewModel);
+
+        /// <summary>
+        /// 查询所有缴费时间列表
+        /// </summary>
+        /// <returns></returns>
+        List<string> Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel);
     }
 }

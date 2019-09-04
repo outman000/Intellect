@@ -136,5 +136,7 @@ namespace Dto.Service.IntellRepair
 
             return repairSearchMiddlecs;
         }
+
+      
     }
 }

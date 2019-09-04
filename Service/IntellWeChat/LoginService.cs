@@ -6,6 +6,7 @@ using Dtol.dtol;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
@@ -40,6 +41,11 @@ namespace Dto.Service.IntellWeChat
             WeChatIndexMiddlecs weChatIndexMiddlecs = new WeChatIndexMiddlecs();
             //用户权限集合
             List<User_Rights> user_Rights = new List<User_Rights>();
+            List<User_Rights> user_RightsQc = new List<User_Rights>();
+            List<RightsParentSearchMiddlecs> right_chlid = new List<RightsParentSearchMiddlecs>();
+           // List<RightsParentSearchMiddlecs> right_chlid2 = new List<RightsParentSearchMiddlecs>();
+            List<RightsParentSearchMiddlecs> right_parent = new List<RightsParentSearchMiddlecs>();
+           
             //获取用户信息
             var user_info = _IUserInfoRepository.GetInfoAndDepartByUserid(weChatInfoViewModel.UserUid);
             //获取用户相关所有信息（部门，权限，角色等等）
@@ -54,13 +60,87 @@ namespace Dto.Service.IntellWeChat
                 {
                     //将外键变为空
                     var tempRights = user_Infos_All[i].User_Role.User_Relate_Role_Right[j].User_Rights;
+                   
                     user_Rights.Add(tempRights);
                 }
+               
             }
-            weChatIndexMiddlecs.User_Rights = user_Rights;
+           
+            foreach (User_Rights user in user_Rights)//去重
+            {
+                if (user_RightsQc.Exists(x => x.Id == user.Id) == false)
+                {
+                    user_RightsQc.Add(user);
+                }
+            }
+            var user_All= _IMapper.Map<List<User_Rights>, List<RightsParentSearchMiddlecs>>(user_RightsQc);
+            BianLi(user_All, right_chlid, right_parent, user_RightsQc);
+             weChatIndexMiddlecs.User_Rights = right_parent;
             return weChatIndexMiddlecs;
         }
+        private void BianLi(List<RightsParentSearchMiddlecs> user_All, 
+                            List<RightsParentSearchMiddlecs> right_chlid, 
+                            List<RightsParentSearchMiddlecs> right_parent,
+                            List<User_Rights> user_Rights)
+        {
+            for (int j = 0; j < user_Rights.Count; j++)
+            {
+                if (user_Rights[j].ParentId == "0")
+                {
+                    right_parent.Add(user_All[j]);//遍历出所有父权限   
+                }
+                else
+                {
+                    right_chlid.Add(user_All[j]);//遍历出所有子权限
+                }
+            }
+            List<RightsParentSearchMiddlecs> right_chlid5 = new List<RightsParentSearchMiddlecs>();
+            for (int n = 0; n < right_parent.Count; n++)//父权限
+            {
+                List<RightsParentSearchMiddlecs> right_chlid2 = new List<RightsParentSearchMiddlecs>();
+                for (int z = 0; z < right_chlid.Count; z++)//子权限
+                {
+                    if (right_chlid[z].ParentId == right_parent[n].Id.ToString())
+                    {
+                        right_chlid2.Add(right_chlid[z]);
+                        right_chlid5.Add(right_chlid[z]);
+                    }
+                   
+                }
+                if (right_chlid2.Count != 0)
+                    right_parent[n].Children = right_chlid2;
+            }
+           
+         
+            if (right_chlid.Count!= right_chlid5.Count)//存在三级权限
+            {
+                List<RightsParentSearchMiddlecs> right_chlid3 = new List<RightsParentSearchMiddlecs>();
+              
+                right_chlid3 = Enumerable.Except(right_chlid.Union(right_chlid5), right_chlid.Intersect(right_chlid5)).ToList();
+                for (int i = 0; i < right_parent.Count; i++)
+                {
+                    if(right_parent[i].Children!=null)
+                    {
+                        for (int j = 0; j < right_parent[i].Children.Count; j++)
+                        {
+                            List<RightsParentSearchMiddlecs> right_chlid4 = new List<RightsParentSearchMiddlecs>();
+                            for (int z = 0; z < right_chlid3.Count; z++)
+                            {
+                                if (right_chlid3[z].ParentId == right_parent[i].Children[j].Id.ToString())
+                                {
+                                    right_chlid4.Add(right_chlid3[z]);
+                                }
+                            }
+                            if (right_chlid4.Count != 0)
+                                right_parent[i].Children[j].Children = right_chlid4;
 
+                        }
+                    }
+                    
+                }
+            }   
+
+        }
 
         public WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
         {

@@ -20,7 +20,7 @@ namespace Dto.Service.AutoMapper.WeChatMapper
             CreateMap<User_Info, WeChatIndexMiddlecs>();
             CreateMap<User_Info, WeChatLoginMiddlecs>();
 
-
+            CreateMap<User_Rights, RightsParentSearchMiddlecs>();
 
 
         }

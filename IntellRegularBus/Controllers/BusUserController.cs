@@ -88,11 +88,30 @@ namespace IntellRegularBus.Controllers
                 return BadRequest(busUserDelResModel);
             }
         }
+
+        /// <summary>
+        /// 查询本部门所有缴费时间列表信息（降序显示）
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
+        {
+            BusUserTimeListSearchResModel  busUserTimeListSearchResModel = new BusUserTimeListSearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_User_TimeList_Search(busUserSearchTimeViewModel);
+
+            busUserTimeListSearchResModel.bus_user_time_Info = BusUserSearchResult;
+            busUserTimeListSearchResModel.isSuccess = true;
+            busUserTimeListSearchResModel.baseViewModel.Message = "查询成功";
+            busUserTimeListSearchResModel.baseViewModel.ResponseCode = 200;
+            busUserTimeListSearchResModel.TotalNum = BusUserSearchResult.Count;
+            _ILogger.Information("查询所有用户缴费信息成功");
+            return Ok(busUserTimeListSearchResModel);
+        }
         /// <summary>
         /// 查询所有用户缴费信息
         /// </summary>
         /// <returns></returns>
-       [HttpPost]
+        [HttpPost]
         public ActionResult Bus_User_Search(BusUserSearchViewModel busUserSearchViewModel)
         {
             BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
