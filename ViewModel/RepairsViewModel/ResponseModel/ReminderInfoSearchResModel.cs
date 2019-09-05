@@ -6,13 +6,13 @@ using ViewModel.RepairsViewModel.MiddleModel;
 
 namespace ViewModel.RepairsViewModel.ResponseModel
 {
-    public class SatisfactionInfoSearchResModel
+    public class ReminderInfoSearchResModel
     {
         public bool isSuccess;
-        public List<SatisfactionInfoSearchMiddlecs> SatisfactionInfo_Info;
+        public List<ReminderInfoSearchMiddlecs> Reminder_Info;
         public BaseViewModel baseViewModel;
         public int TotalNum;
-        public SatisfactionInfoSearchResModel()
+        public ReminderInfoSearchResModel()
         {
             baseViewModel = new BaseViewModel();
         }

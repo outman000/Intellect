@@ -13,6 +13,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public string UserName { get; set; }
 
         /// <summary>
+        /// 部门姓名
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
         /// 表单外键id
         /// </summary>
         public int? Repair_InfoId { get; set; }
@@ -36,10 +40,6 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 增加时间
         /// </summary>
         public DateTime? AddDate { get; set; }
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public DateTime? updateDate { get; set; }
 
         /// <summary>
         /// 分页

@@ -8,20 +8,20 @@ using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
 {
-    public class SatisfactionInfoReqMapper : Profile
-
+    public class ReminderInfoReqMapper : Profile
     {
         /// <summary>
         /// 配置构造函数，用来创建关系映射
         /// </summary>
-        public SatisfactionInfoReqMapper()
+        public ReminderInfoReqMapper()
         {
 
-            CreateMap<Satisfaction_Info, SatisfactionInfoSearchMiddlecs>()
+            CreateMap<Reminder_Info, ReminderInfoSearchMiddlecs>()
             .ForMember(s => s.Name, sp => sp.MapFrom(src => src.User_Info.User_Depart.Name))
-            .ForMember(s => s.RepairsTitle, sp => sp.MapFrom(src => src.Repair_Info.RepairsTitle))
+            .ForMember(s => s.RepairTitle, sp => sp.MapFrom(src => src.Repair_Info.RepairsTitle))
             .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName));
-            CreateMap<SatisfactionInfoAddViewModel, Satisfaction_Info>();
+            CreateMap<ReminderInfoAddViewModel, Reminder_Info>();
+
         }
     }
 }

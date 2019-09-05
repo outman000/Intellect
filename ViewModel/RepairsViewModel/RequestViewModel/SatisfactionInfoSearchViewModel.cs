@@ -11,7 +11,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 用户姓名
         /// </summary>
         public string UserName { get; set; }
-
+        /// <summary>
+        /// 部门名
+        /// </summary>
+        public string Name { get; set; }
         /// <summary>
         /// 表单外键id
         /// </summary>

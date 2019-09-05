@@ -82,13 +82,13 @@ namespace Dto.Repository.IntellRepair
         {
             var predicate = WhereExtension.True<Satisfaction_Info>();//初始化where表达式
             predicate = predicate.And(p => p.status.Contains(satisfactionInfoSearchViewModel.status));
-          
-                predicate = predicate.And(p => p.User_Info.UserName == satisfactionInfoSearchViewModel.UserName);
+            predicate = predicate.And(p => p.User_Info.User_Depart.Name.Contains(satisfactionInfoSearchViewModel.Name));
+            predicate = predicate.And(p => p.User_Info.UserName.Contains(satisfactionInfoSearchViewModel.UserName));
             if (satisfactionInfoSearchViewModel.Repair_InfoId != null)
                 predicate = predicate.And(p => p.Repair_InfoId == satisfactionInfoSearchViewModel.Repair_InfoId);
             if (satisfactionInfoSearchViewModel.AddDate != null)
                 predicate = predicate.And(p => p.AddDate == satisfactionInfoSearchViewModel.AddDate);
-            predicate = predicate.And(p => p.Repair_Info.RepairsTitle == satisfactionInfoSearchViewModel.RepairTitle);
+            predicate = predicate.And(p => p.Repair_Info.RepairsTitle.Contains(satisfactionInfoSearchViewModel.RepairTitle));
             return predicate;
         }
     }

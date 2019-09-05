@@ -219,7 +219,8 @@ namespace Dto.Service.IntellBulletinBoard
             int SkipNum = bulletinByUserSearchViewModel.pageViewModel.CurrentPageNum * bulletinByUserSearchViewModel.pageViewModel.PageSize;
             int pageSiez = bulletinByUserSearchViewModel.pageViewModel.PageSize;
             List<Bulletin_Board> bulletin_BoardTrue = new List<Bulletin_Board>();
-            if(pageSiez > bulletin_Boards.Count)
+            List<Bulletin_Board> bulletin_BoardQc = new List<Bulletin_Board>();
+            if (pageSiez > bulletin_Boards.Count)
                 pageSiez = bulletin_Boards.Count;//篇幅不能超过 数组最长长度
 
 
@@ -233,7 +234,14 @@ namespace Dto.Service.IntellBulletinBoard
                 SkipNum++;
             }
 
-            bulletinBoardRoleSearchMiddlecs.Bulletin_Board = bulletin_BoardTrue;
+            foreach (Bulletin_Board bulletin in bulletin_BoardTrue)//去重
+            {
+                if (bulletin_BoardQc.Exists(x => x.Id == bulletin.Id) == false)
+                {
+                    bulletin_BoardQc.Add(bulletin);
+                }
+            }
+            bulletinBoardRoleSearchMiddlecs.Bulletin_Board = bulletin_BoardQc;
             return bulletinBoardRoleSearchMiddlecs;
         }
 
