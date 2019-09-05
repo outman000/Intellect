@@ -31,7 +31,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Reminder_Add(ReminderInfoAddViewModel reminderInfoAddViewModel)
+        public ActionResult<ReminderInfoAddResModel> Manage_Reminder_Add(ReminderInfoAddViewModel reminderInfoAddViewModel)
         {
             int Node_Add_Count;
             Node_Add_Count = _IReminderInfoService.ReminderInfo_Add(reminderInfoAddViewModel);
@@ -62,7 +62,7 @@ namespace IntellRepair.Controllers
         /// <param name="reminderInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Satisfaction_Search(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
+        public ActionResult<ReminderInfoSearchResModel> Manage_Satisfaction_Search(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
         {
             ReminderInfoSearchResModel  reminderInfoSearchResModel = new ReminderInfoSearchResModel();
             var satisfactionSearchResult = _IReminderInfoService.ReminderInfo_Search(reminderInfoSearchViewModel);

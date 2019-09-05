@@ -28,7 +28,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_UserRole_add(UserRoleAddViewModel  userRoleAddViewModel)
+        public ActionResult<UserRoleAddResModel> Manage_UserRole_add(UserRoleAddViewModel  userRoleAddViewModel)
         {
             int User_Add_Count;
             User_Add_Count = _roleService.User_Role_Add(userRoleAddViewModel);
@@ -61,7 +61,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_UserRole_Single(UserRoleSingleViewModel userRoleSingleViewModel)
+        public ActionResult<UserRoleSingleResModel> Manage_UserRole_Single(UserRoleSingleViewModel userRoleSingleViewModel)
         {
             bool IsSuccess = _roleService.User_Role_Single(userRoleSingleViewModel);
             UserRoleSingleResModel  userRoleSingleResModel =new UserRoleSingleResModel();
@@ -88,7 +88,7 @@ namespace IntellUser.Controllers
         /// <param name="userRoleDeleteViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_UserRole_Delete(UserRoleDeleteViewModel  userRoleDeleteViewModel)
+        public ActionResult<UserRoleDeleteResModel> Manage_UserRole_Delete(UserRoleDeleteViewModel  userRoleDeleteViewModel)
         {
             UserRoleDeleteResModel userRoleDeleteResModel = new UserRoleDeleteResModel();
             int DeleteResult = _roleService.User_Role_Delete(userRoleDeleteViewModel);
@@ -119,7 +119,7 @@ namespace IntellUser.Controllers
         /// <param name="userRoleSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_UserRole_Search(UserRoleSearchViewModel  userRoleSearchViewModel)
+        public ActionResult<UserRoleSearchResModel> Manage_UserRole_Search(UserRoleSearchViewModel  userRoleSearchViewModel)
         {
             UserRoleSearchResModel userRoleSearchResModel=new UserRoleSearchResModel();
             var UserRoleSearchResult = _roleService.User_Role_Search(userRoleSearchViewModel);
@@ -142,7 +142,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_UserRole_Update(UserRoleUpdateViewModel  userRoleUpdateViewModel)
+        public ActionResult<UserUpdateResModel> Manage_UserRole_Update(UserRoleUpdateViewModel  userRoleUpdateViewModel)
         {
             UserUpdateResModel userUpdateResModel = new UserUpdateResModel();
             int UpdateRowNum = _roleService.User_Role_Update(userRoleUpdateViewModel);
@@ -173,7 +173,7 @@ namespace IntellUser.Controllers
         /// <param name="relateRoleToUserAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_UserRoleToUser_Add(RelateRoleToUserAddViewModel  relateRoleToUserAddViewModel)
+        public ActionResult<RelateRoleToUserAddResModel> Manage_UserRoleToUser_Add(RelateRoleToUserAddViewModel  relateRoleToUserAddViewModel)
         {
            RelateRoleToUserAddResModel relateRoleToUserAddResModel=new RelateRoleToUserAddResModel();
             int UpdateRowNum = _roleService.User_RoleToUser_Add(relateRoleToUserAddViewModel);
@@ -204,7 +204,7 @@ namespace IntellUser.Controllers
         /// <param name="relateRoleToUserDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_UserRoleToUser_Del(RelateRoleToUserDelViewModel relateRoleToUserDelViewModel)
+        public ActionResult<RelateRoleToRightDelResModel> Manage_UserRoleToUser_Del(RelateRoleToUserDelViewModel relateRoleToUserDelViewModel)
         {
             RelateRoleToRightDelResModel relateRoleToUserDelResModel = new RelateRoleToRightDelResModel();
             int DeleteRowNum = _roleService.User_RoleToUser_Del(relateRoleToUserDelViewModel);
@@ -237,7 +237,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_UserRoleToRight_Add(RelateRoleToRightAddViewModel relateRoleToRightAddViewModel)
+        public ActionResult<RelateRoleToRightAddResModel> Manage_UserRoleToRight_Add(RelateRoleToRightAddViewModel relateRoleToRightAddViewModel)
         {
             RelateRoleToRightAddResModel relateRoleToRightAddResModel = new RelateRoleToRightAddResModel();
             int AddRowNum = _roleService.User_RoleToRights_Add(relateRoleToRightAddViewModel);
@@ -269,7 +269,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
        
-        public ActionResult Manage_UserRoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightDelViewModel)
+        public ActionResult<RelateRoleToRightDelResModel> Manage_UserRoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightDelViewModel)
         {
             RelateRoleToRightDelResModel relateRoleToRightDelResModel = new RelateRoleToRightDelResModel();
             int DeleteRowNum = _roleService.User_RoleToRight_Del(relateRoleToRightDelViewModel);
@@ -301,7 +301,7 @@ namespace IntellUser.Controllers
         /// <param name="roleByUserSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel)
+        public ActionResult<RoleByUserSearchResModel> Manage_Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel)
         {
             RoleByUserSearchResModel roleByUserSearchResModel = new RoleByUserSearchResModel();
             roleByUserSearchResModel.userRoles = _roleService.Role_By_User_Search(roleByUserSearchViewModel);
@@ -323,7 +323,7 @@ namespace IntellUser.Controllers
         /// <param name="roleByRightsSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
+        public ActionResult<RoleByRightsSearchResModel> Manage_Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
         {
             RoleByRightsSearchResModel roleByRightsSearchResModel = new RoleByRightsSearchResModel();
             roleByRightsSearchResModel.userRoles = _roleService.Role_By_Rights_Search(roleByRightsSearchViewModel);

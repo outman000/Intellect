@@ -36,7 +36,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Depart_add(DepartAddViewModel departAddViewModel)
+        public ActionResult<DepartAddResModel> Manage_Depart_add(DepartAddViewModel departAddViewModel)
         {
             int Depart_Add_Count;
             Depart_Add_Count = _departService.Depart_Add(departAddViewModel);
@@ -69,7 +69,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Depart_ValideRepeat(DepartValideRepeat departValideRepeat)
+        public ActionResult<DepartValideResRepeat> Manage_Depart_ValideRepeat(DepartValideRepeat departValideRepeat)
         {
             DepartValideResRepeat departValideResRepeat = new DepartValideResRepeat();
             bool ValideResutlt = _departService.Depart_Single(departValideRepeat);
@@ -98,7 +98,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public ActionResult Manage_Depart_Delete(DepartDeleteViewModel departDeleteViewModel)
+        public ActionResult<DepartDeleteResModel> Manage_Depart_Delete(DepartDeleteViewModel departDeleteViewModel)
         {
             DepartDeleteResModel departDeleteResModel = new DepartDeleteResModel();
             int DeleteResult = _departService.Depart_Delete(departDeleteViewModel);
@@ -131,7 +131,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Depart_Update(DepartUpdateViewModel departUpdateViewModel)
+        public ActionResult<DepartUpdateResModel> Manage_Depart_Update(DepartUpdateViewModel departUpdateViewModel)
         {
             DepartUpdateResModel departValideResRepeat = new DepartUpdateResModel();
             int UpdateRowNum = _departService.Depart_Update(departUpdateViewModel);
@@ -162,7 +162,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
 
-        public ActionResult Manage_Depart_Search(DepartSearchViewModel departSearchViewModel)
+        public ActionResult<DepartSearchResModel> Manage_Depart_Search(DepartSearchViewModel departSearchViewModel)
         {
             DepartSearchResModel departSearchResModel = new DepartSearchResModel();
             var DepartSearchResult = _departService.Depart_Search(departSearchViewModel);

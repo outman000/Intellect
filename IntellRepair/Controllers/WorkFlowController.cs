@@ -43,7 +43,7 @@ namespace IntellRepair.Controllers
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Role_By_User_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
+        public ActionResult<UserSearchResModel> Manage_Role_By_User_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
         {
             UserSearchResModel  userSearchResModel = new UserSearchResModel();
             userSearchResModel.user_Infos = _IWorkFlowService.User_By_Node_Search(roleByNodeSearchViewModel);
@@ -61,7 +61,7 @@ namespace IntellRepair.Controllers
         /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Role_By_Search(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel)
+        public ActionResult<UserSearchResModel> Manage_Role_By_Search(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel)
         {
             UserSearchResModel userSearchResModel = new UserSearchResModel();
             userSearchResModel.user_Infos = _IWorkFlowService.User_By_Node_Search(roleByNodeSearchSingleViewModel);
@@ -80,7 +80,7 @@ namespace IntellRepair.Controllers
         /// <param name="nodeEndSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_CurrentNode_Search(NodeEndSearchViewModel  nodeEndSearchViewModel)
+        public ActionResult<RepairIsEndResModel> Manage_CurrentNode_Search(NodeEndSearchViewModel  nodeEndSearchViewModel)
         {
 
             RepairIsEndResModel  repairIsEndResModel = new RepairIsEndResModel();
@@ -112,7 +112,7 @@ namespace IntellRepair.Controllers
         /// <param name="nodeEndSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_CurrentNodeNoEnd_Search(NodeEndSearchViewModel nodeEndSearchViewModel)
+        public ActionResult<RepairNoEndResModel> Manage_CurrentNodeNoEnd_Search(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
 
             RepairNoEndResModel  repairNoEndResModel = new RepairNoEndResModel();
@@ -147,7 +147,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_CurrentNodeOverTime_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        public ActionResult<FlowNodeSearchResModel> Manage_CurrentNodeOverTime_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
            
@@ -183,7 +183,7 @@ namespace IntellRepair.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Repair_Add(RepairAddViewModel repairAddViewModel)
+        public ActionResult<RepairAddResModel> Manage_Repair_Add(RepairAddViewModel repairAddViewModel)
         {
             WorkFlowFistReturnIdList  workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
             workFlowFistReturnIdList = _IRepairService.Repair_Add(repairAddViewModel, repairAddViewModel.Flow_ProcedureDefineId);
@@ -214,7 +214,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_WorkFlowInfo_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
+        public ActionResult<FlowInfoSearchResModel> Manage_WorkFlowInfo_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
         {
 
             FlowNodePreMiddlecs flowNodePreMiddlecs = new FlowNodePreMiddlecs();
@@ -259,7 +259,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_WorkFlowInfoJump_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
+        public ActionResult<FlowInfoSearchResModel> Manage_WorkFlowInfoJump_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
         {
 
             FlowNodePreMiddlecs flowNodePreMiddlecs = new FlowNodePreMiddlecs();

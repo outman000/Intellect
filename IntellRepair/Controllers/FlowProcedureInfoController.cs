@@ -29,7 +29,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Procedure_Search(FlowProcedureSearchViewModel  flowProcedureSearchViewModel)
+        public ActionResult<FlowProcedureSearchResModel> Manage_Procedure_Search(FlowProcedureSearchViewModel  flowProcedureSearchViewModel)
         {
             FlowProcedureSearchResModel  flowProcedureSearchResModel = new FlowProcedureSearchResModel();
             var nodeSearchResult = _IFlowProcedureInfoService.Procedure_Search(flowProcedureSearchViewModel);
@@ -50,7 +50,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Procedure_Delete(FlowProcedureDelViewModel flowProcedureDelViewModel)
+        public ActionResult<FlowProcedureDelResModel> Manage_Procedure_Delete(FlowProcedureDelViewModel flowProcedureDelViewModel)
         {
             FlowProcedureDelResModel  flowProcedureDelResModel = new FlowProcedureDelResModel();
             int DeleteResult = _IFlowProcedureInfoService.Procedure_Delete(flowProcedureDelViewModel);
@@ -81,7 +81,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Procedure_Update(FlowProcedureUpdateViewModel flowProcedureUpdateViewModel)
+        public ActionResult<FlowProcedureUpdateResModel> Manage_Procedure_Update(FlowProcedureUpdateViewModel flowProcedureUpdateViewModel)
         {
             FlowProcedureUpdateResModel  flowProcedureUpdateResModel = new FlowProcedureUpdateResModel();
             int UpdateRowNum = _IFlowProcedureInfoService.Procedure_Update(flowProcedureUpdateViewModel);
@@ -113,7 +113,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Procedure_Add(FlowProcedureAddViewModel flowProcedureAddViewModel)
+        public ActionResult<FlowProcedureAddResModel> Manage_Procedure_Add(FlowProcedureAddViewModel flowProcedureAddViewModel)
         {
             int Node_Add_Count;
             Node_Add_Count = _IFlowProcedureInfoService.Procedure_Add(flowProcedureAddViewModel);

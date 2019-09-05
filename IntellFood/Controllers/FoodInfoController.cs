@@ -41,7 +41,7 @@ namespace IntellFood.Controllers
         /// <param name="foodInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Food_Search(FoodInfoSearchViewModel foodInfoSearchViewModel)
+        public ActionResult<FoodInfoSearchResModel> Manage_Food_Search(FoodInfoSearchViewModel foodInfoSearchViewModel)
         {
             FoodInfoSearchResModel foodInfoSearchResModel = new FoodInfoSearchResModel();
             var BusSearchResult = _foodService.Food_Search(foodInfoSearchViewModel);
@@ -67,7 +67,7 @@ namespace IntellFood.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_Add(FoodInfoAddViewModel foodInfoAddViewModel)
+        public ActionResult<FoodInfoAddResModel> Manage_Food_Add(FoodInfoAddViewModel foodInfoAddViewModel)
         {
             int Food_Add_Count;
             Food_Add_Count = _foodService.Food_Add(foodInfoAddViewModel);
@@ -98,7 +98,7 @@ namespace IntellFood.Controllers
         /// <param name="foodInfoDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Food_Delete(FoodInfoDelViewModel foodInfoDelViewModel)
+        public ActionResult<FoodInfoDelResModel> Manage_Food_Delete(FoodInfoDelViewModel foodInfoDelViewModel)
         {
             FoodInfoDelResModel foodInfoDelResModel = new FoodInfoDelResModel();
             int DeleteResult = _foodService.Food_Delete(foodInfoDelViewModel);
@@ -130,7 +130,7 @@ namespace IntellFood.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_Update(FoodInfoUpdateViewModel foodInfoUpdateViewModel)
+        public ActionResult<FoodInfoUpdateResModel> Manage_Food_Update(FoodInfoUpdateViewModel foodInfoUpdateViewModel)
         {
             FoodInfoUpdateResModel foodInfoUpdateResModel = new FoodInfoUpdateResModel();
             int UpdateRowNum = _foodService.Food_Update(foodInfoUpdateViewModel);
@@ -161,7 +161,7 @@ namespace IntellFood.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_ValideRepeat(FoodInfoValideRepeat foodInfoValideRepeat)
+        public ActionResult<FoodInfoValideResRepeat> Manage_Food_ValideRepeat(FoodInfoValideRepeat foodInfoValideRepeat)
         {
             FoodInfoValideResRepeat foodInfoValideResRepeat = new FoodInfoValideResRepeat();
             bool ValideResutlt = _foodService.Food_Single(foodInfoValideRepeat);
@@ -192,7 +192,7 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserPraiseViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodToUser_Del(FoodByUserPraiseViewModel foodByUserPraiseViewModel)
+        public ActionResult<FoodByUserSearchResModel> Manage_FoodToUser_Del(FoodByUserPraiseViewModel foodByUserPraiseViewModel)
         {
             FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
             int SearchRowNum = _foodService.Food_Relate_User(foodByUserPraiseViewModel);
@@ -222,7 +222,7 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodToUserCp_Del(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
+        public ActionResult<FoodByUserSearchResModel> Manage_FoodToUserCp_Del(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
             FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
             int SearchRowNum = _foodService.Food_Relate_UserCp(foodByUserAddCpViewModel);
@@ -254,7 +254,7 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserSearchCpViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodToUser_Search_Cp(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
+        public ActionResult<FoodByUserSearchCpResModel> Manage_FoodToUser_Search_Cp(FoodByUserSearchCpViewModel foodByUserSearchCpViewModel)
         {
             FoodByUserSearchCpResModel  foodByUserSearchCpResModel = new FoodByUserSearchCpResModel();
             foodByUserSearchCpResModel.CpInfo = _foodService.Food_Relate_User_Search_CP(foodByUserSearchCpViewModel);
@@ -274,7 +274,7 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserAddCpViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodToUser_AddCp(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
+        public ActionResult<FoodByUserSearchResModel> Manage_FoodToUser_AddCp(FoodByUserAddCpViewModel foodByUserAddCpViewModel)
         {
             FoodByUserSearchResModel foodByUserSearchResModel = new FoodByUserSearchResModel();
             int SearchRowNum = _foodService.Food_Relate_User_ADD_Pj(foodByUserAddCpViewModel);
@@ -304,7 +304,7 @@ namespace IntellFood.Controllers
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_PraiseNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
+        public ActionResult<FoodByFoodIdSearchResModel> Manage_PraiseNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
             FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
             var BusSearchResult = _foodService.PraiseNumByFoodId(praiseNumSearchMiddlecs);
@@ -325,7 +325,7 @@ namespace IntellFood.Controllers
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_CpNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
+        public ActionResult<FoodByFoodIdSearchResModel> Manage_CpNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
             FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
             var BusSearchResult = _foodService.CpNumByFoodId(praiseNumSearchMiddlecs);
@@ -347,7 +347,7 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserPraiseDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodId_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        public ActionResult<FoodByUserPraiseDelResModel> Manage_FoodId_Del(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
         {
             FoodByUserPraiseDelResModel foodByUserPraiseDelResModel = new FoodByUserPraiseDelResModel();
             int DeleteResult = _foodService.By_Food_Id_Del(foodByUserPraiseDelViewModel);
@@ -376,7 +376,7 @@ namespace IntellFood.Controllers
         /// <param name="foodByUserPraiseDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_FoodId_DelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
+        public ActionResult<FoodByUserPraiseDelResModel> Manage_FoodId_DelCp(FoodByUserPraiseDelViewModel foodByUserPraiseDelViewModel)
         {
             FoodByUserPraiseDelResModel foodByUserPraiseDelResModel = new FoodByUserPraiseDelResModel();
             int DeleteResult = _foodService.By_Food_Id_DelCp(foodByUserPraiseDelViewModel);
@@ -405,7 +405,7 @@ namespace IntellFood.Controllers
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Suggest_Add_Food(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        public ActionResult<SuggestBoxSearchResModel> Manage_Suggest_Add_Food(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
         {
             SuggestBoxSearchResModel suggestBoxSearchResModel = new SuggestBoxSearchResModel();
             var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);
@@ -431,7 +431,7 @@ namespace IntellFood.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
+        public ActionResult<SuggestBoxAddResModel> Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
         {
             int SuggestBox_Add_Count;
             SuggestBox_Add_Count = _suggestBoxService.SuggestBox_Add(suggestBoxAddViewModel);
@@ -462,7 +462,7 @@ namespace IntellFood.Controllers
         /// <param name="suggestBoxDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Suggest_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
+        public ActionResult<SuggestBoxDelResModel> Manage_Suggest_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
         {
             SuggestBoxDelResModel suggestBoxDelResModel = new SuggestBoxDelResModel();
             int DeleteResult = _suggestBoxService.SuggestBox_Delete(suggestBoxDelViewModel);

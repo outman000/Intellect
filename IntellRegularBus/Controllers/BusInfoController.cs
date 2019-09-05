@@ -38,7 +38,7 @@ namespace IntellRegularBus.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Bus_Add(BusAddViewModel busAddViewModel)
+        public ActionResult<BusAddResModel> Manage_Bus_Add(BusAddViewModel busAddViewModel)
         {
             int Bus_Add_Count;
             Bus_Add_Count = _busService.Bus_Add(busAddViewModel);
@@ -70,7 +70,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Bus_ValideRepeat(BusValideRepeat busValideRepeat)
+        public ActionResult<BusValideResRepeat> Manage_Bus_ValideRepeat(BusValideRepeat busValideRepeat)
         {
             BusValideResRepeat busValideResRepeat = new BusValideResRepeat();
             bool ValideResutlt = _busService.Bus_Single(busValideRepeat);
@@ -98,7 +98,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="busSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Bus_Search(BusSearchViewModel busSearchViewModel)
+        public ActionResult<BusSearchResModel> Manage_Bus_Search(BusSearchViewModel busSearchViewModel)
         {
             BusSearchResModel busSearchResModel = new BusSearchResModel();
             var BusSearchResult = _busService.Bus_Search(busSearchViewModel);
@@ -121,7 +121,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Bus_Update(BusUpdateViewModel busUpdateViewModel)
+        public ActionResult<BusUpdateResModel> Manage_Bus_Update(BusUpdateViewModel busUpdateViewModel)
         {
             BusUpdateResModel busUpdateResModel = new BusUpdateResModel();
             int UpdateRowNum = _busService.Bus_Update(busUpdateViewModel);
@@ -152,7 +152,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="busDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Bus_Delete(BusDelViewModel busDelViewModel)
+        public ActionResult<BusDelResModel> Manage_Bus_Delete(BusDelViewModel busDelViewModel)
         {
             BusDelResModel busDelResModel = new BusDelResModel();
             int DeleteResult = _busService.Bus_Delete(busDelViewModel);
@@ -183,7 +183,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="lineByBusAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Bus_Line(LineByBusAddViewModel lineByBusAddViewModel)
+        public ActionResult<LineByBusAddResModel> Manage_Bus_Line(LineByBusAddViewModel lineByBusAddViewModel)
         {
             LineByBusAddResModel lineByBusAddResModel = new LineByBusAddResModel();
             int UpdateRowNum = _busService.Bus_To_Line_Add(lineByBusAddViewModel);  
@@ -215,7 +215,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="busByLineAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Line_Bus(BusByLineAddViewModel busByLineAddViewModel)
+        public ActionResult<BusByLineAddResModel> Manage_Line_Bus(BusByLineAddViewModel busByLineAddViewModel)
         {
             BusByLineAddResModel busByLineAddResModel = new BusByLineAddResModel();
             int UpdateRowNum = _busService.Line_To_Bus_Add(busByLineAddViewModel);
@@ -247,7 +247,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="busByLineSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Line_Bus_Search(BusByLineSearchViewModel busByLineSearchViewModel)
+        public ActionResult<BusByLineSearchResModel> Manage_Line_Bus_Search(BusByLineSearchViewModel busByLineSearchViewModel)
         {
             BusByLineSearchResModel busByLineSearchResModel = new BusByLineSearchResModel();
             busByLineSearchResModel.busInfo= _busService.Bus_By_Line_Search(busByLineSearchViewModel);
@@ -271,7 +271,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="lineByBusSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Bus_Line_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
+        public ActionResult<LineByBusSearchResModel> Manage_Bus_Line_Search(LineByBusSearchViewModel lineByBusSearchViewModel)
         {
             LineByBusSearchResModel lineByBusSearchResModel = new LineByBusSearchResModel();
             lineByBusSearchResModel.line_Infos = _busService.Line_By_Bus_Search(lineByBusSearchViewModel);

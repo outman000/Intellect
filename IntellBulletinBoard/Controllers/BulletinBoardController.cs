@@ -34,7 +34,7 @@ namespace IntellBulletinBoard.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Food_Add(BulletinBoardAddViewModel bulletinBoardAddViewModel)
+        public ActionResult<BulletinBoardAddResModel> Manage_Food_Add(BulletinBoardAddViewModel bulletinBoardAddViewModel)
         {
             int BulletinBoard_Add_Count;
             BulletinBoard_Add_Count = _bulletinBoardService.BulletinBoard_Add(bulletinBoardAddViewModel);
@@ -64,7 +64,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinBoardSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_BulletinBoard_Search(BulletinBoardSearchViewModel bulletinBoardSearchViewModel)
+        public ActionResult<BulletinBoardSearchResModel> Manage_BulletinBoard_Search(BulletinBoardSearchViewModel bulletinBoardSearchViewModel)
         {
             BulletinBoardSearchResModel  bulletinBoardSearchResModel = new BulletinBoardSearchResModel();
             var BusSearchResult = _bulletinBoardService.Bulletin_Board_Search(bulletinBoardSearchViewModel);
@@ -86,7 +86,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinBoardSearchSingleViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_BulletinBoardSingle_Search(BulletinBoardSearchSingleViewModel bulletinBoardSearchSingleViewModel)
+        public ActionResult<BulletinBoardSearchSingleResModel> Manage_BulletinBoardSingle_Search(BulletinBoardSearchSingleViewModel bulletinBoardSearchSingleViewModel)
         {
             BulletinBoardSearchSingleResModel  bulletinBoardSearchSingleResModel = new BulletinBoardSearchSingleResModel();
             var BusSearchResult = _bulletinBoardService.Bulletin_Board_SearchSingle(bulletinBoardSearchSingleViewModel);
@@ -108,7 +108,7 @@ namespace IntellBulletinBoard.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_BulletinBoard_Update(BulletinBoardUpdateViewModel bulletinBoardUpdateViewModel)
+        public ActionResult<BulletinBoardUpdateResModel> Manage_BulletinBoard_Update(BulletinBoardUpdateViewModel bulletinBoardUpdateViewModel)
         {
             BulletinBoardUpdateResModel  bulletinBoardUpdateResModel = new BulletinBoardUpdateResModel();
             int UpdateRowNum = _bulletinBoardService.BulletinBoard_Update(bulletinBoardUpdateViewModel);
@@ -138,7 +138,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinBoardDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_BulletinBoard_Delete(BulletinBoardDelViewModel  bulletinBoardDelViewModel)
+        public ActionResult<BulletinBoardDelResModel> Manage_BulletinBoard_Delete(BulletinBoardDelViewModel  bulletinBoardDelViewModel)
         {
             BulletinBoardDelResModel  bulletinBoardDelResModel = new BulletinBoardDelResModel();
             int DeleteResult = _bulletinBoardService.BulletinBoard_Delete(bulletinBoardDelViewModel);
@@ -169,7 +169,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="roleByBulletinSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Role_By_Bulletin_Search(RoleByBulletinSearchViewModel  roleByBulletinSearchViewModel)
+        public ActionResult<RoleByBulletinSearchResModel> Manage_Role_By_Bulletin_Search(RoleByBulletinSearchViewModel  roleByBulletinSearchViewModel)
         {
             RoleByBulletinSearchResModel  roleByBulletinSearchResModel = new RoleByBulletinSearchResModel();
             roleByBulletinSearchResModel.userRoles = _bulletinBoardService.Role_By_Bulletin_Search(roleByBulletinSearchViewModel);
@@ -189,7 +189,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="roleByBulletinAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_BulletinBoardToRole_Add(RoleByBulletinAddViewModel  roleByBulletinAddViewModel)
+        public ActionResult<RoleByBulletinAddResModel> Manage_BulletinBoardToRole_Add(RoleByBulletinAddViewModel  roleByBulletinAddViewModel)
         {
             RoleByBulletinAddResModel  roleByBulletinAddResModel = new RoleByBulletinAddResModel();
             int UpdateRowNum = _bulletinBoardService.BulletinBoardToRole_Add(roleByBulletinAddViewModel);
@@ -219,7 +219,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="roleByBulletinDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_UserRoleToUser_Del(RoleByBulletinDelViewModel  roleByBulletinDelViewModel)
+        public ActionResult<RoleByBulletinDelResModel> Manage_UserRoleToUser_Del(RoleByBulletinDelViewModel  roleByBulletinDelViewModel)
         {
             RoleByBulletinDelResModel roleByBulletinDelResModel = new RoleByBulletinDelResModel();
             int DeleteRowNum = _bulletinBoardService.BulletinBoardToRole_Del(roleByBulletinDelViewModel);
@@ -250,7 +250,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinByUserSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_BulletinByLogin_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel)
+        public ActionResult<BulletinByUserSearchResModel> Manage_BulletinByLogin_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel)
         {
             BulletinByUserSearchResModel  bulletinByUserSearchResModel = new BulletinByUserSearchResModel();
             var UserSearchResult = _bulletinBoardService.BulletinByUserId_Search(bulletinByUserSearchViewModel);

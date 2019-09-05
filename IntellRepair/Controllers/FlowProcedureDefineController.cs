@@ -33,7 +33,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_ProcedureDefine_Add(FlowProcedureDefineAddViewModel  flowProcedureDefineAddViewModel)
+        public ActionResult<FlowProcedureDefineAddResModel> Manage_ProcedureDefine_Add(FlowProcedureDefineAddViewModel  flowProcedureDefineAddViewModel)
         {
             int Node_Add_Count;
             Node_Add_Count = _IFlowProcedureDefineService.ProcedureDefine_Add(flowProcedureDefineAddViewModel);
@@ -63,7 +63,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureDefineSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ProcedureDefine_Search(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel)
+        public ActionResult<FlowProcedureDefineSearchResModel> ProcedureDefine_Search(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel)
         {
             FlowProcedureDefineSearchResModel  flowProcedureDefineSearchResModel = new FlowProcedureDefineSearchResModel();
             var procedurSearchResult = _IFlowProcedureDefineService.ProcedureDefine_Search(flowProcedureDefineSearchViewModel);
@@ -83,7 +83,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureDefineDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_ProcedureDefine_Delete(FlowProcedureDefineDelViewModel  flowProcedureDefineDelViewModel)
+        public ActionResult<FlowProcedureDefineDelResModel> Manage_ProcedureDefine_Delete(FlowProcedureDefineDelViewModel  flowProcedureDefineDelViewModel)
         {
             FlowProcedureDefineDelResModel  flowProcedureDefineDelResModel = new FlowProcedureDefineDelResModel();
             int DeleteResult = _IFlowProcedureDefineService.ProcedureDefine_Delete(flowProcedureDefineDelViewModel);
@@ -115,7 +115,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_ProcedureDefine_Update(FlowProcedureDefineUpdateViewModel  flowProcedureDefineUpdateViewModel)
+        public ActionResult<FlowProcedureDefineUpdateResModel> Manage_ProcedureDefine_Update(FlowProcedureDefineUpdateViewModel  flowProcedureDefineUpdateViewModel)
         {
             FlowProcedureDefineUpdateResModel  flowProcedureDefineUpdateResModel = new FlowProcedureDefineUpdateResModel();
             int UpdateRowNum = _IFlowProcedureDefineService.ProcedureDefine_Update(flowProcedureDefineUpdateViewModel);
@@ -147,7 +147,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_ProcedureDefine_Single(FlowProcedureDefineSingleViewModel  flowProcedureDefineSingleViewModel)
+        public ActionResult<FlowProcedureDefineSingleResModel> Manage_ProcedureDefine_Single(FlowProcedureDefineSingleViewModel  flowProcedureDefineSingleViewModel)
         {
             FlowProcedureDefineSingleResModel  flowProcedureDefineSingleResModel = new FlowProcedureDefineSingleResModel();
             bool ValideResutlt = _IFlowProcedureDefineService.ProcedureDefine_Single(flowProcedureDefineSingleViewModel);

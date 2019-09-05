@@ -42,7 +42,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
+        public ActionResult<WeChatInfoResModel> Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
             var UserSearchResult = _loginService.WeChatLogin_Search(weChatInfoViewModel);
@@ -71,7 +71,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
+        public ActionResult<WeChatLoginResModel> Manage_WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
         {
             WeChatLoginResModel  weChatLoginResModel = new WeChatLoginResModel();
             var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);

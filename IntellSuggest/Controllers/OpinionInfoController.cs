@@ -34,7 +34,7 @@ namespace IntellSuggest.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_OpinionInfo_Add(OpinionInfoAddViewModel opinionInfoAddViewModel)
+        public ActionResult<OpinionInfoAddResModel> Manage_OpinionInfo_Add(OpinionInfoAddViewModel opinionInfoAddViewModel)
         {
             int OpinionInfo_Add_Count;
             OpinionInfo_Add_Count = _opinionInfoService.OpinionInfo_Add(opinionInfoAddViewModel);
@@ -66,7 +66,7 @@ namespace IntellSuggest.Controllers
         /// <param name="opinionInfoDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_OpinionInfo_Delete(OpinionInfoDelViewModel  opinionInfoDelViewModel)
+        public ActionResult<OpinionInfoDelResModel> Manage_OpinionInfo_Delete(OpinionInfoDelViewModel  opinionInfoDelViewModel)
         {
             OpinionInfoDelResModel  opinionInfoDelResModel = new OpinionInfoDelResModel();
             int DeleteResult = _opinionInfoService.OpinionInfo_Delete(opinionInfoDelViewModel);
@@ -96,7 +96,7 @@ namespace IntellSuggest.Controllers
         /// <param name="opinionInfoUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_OpinionInfo_Update(OpinionInfoUpdateViewModel  opinionInfoUpdateViewModel)
+        public ActionResult<OpinionInfoUpdateResModel> Manage_OpinionInfo_Update(OpinionInfoUpdateViewModel  opinionInfoUpdateViewModel)
         {
             OpinionInfoUpdateResModel  opinionInfoUpdateResModel = new OpinionInfoUpdateResModel();
             int UpdateRowNum = _opinionInfoService.OpinionInfo_Update(opinionInfoUpdateViewModel);
@@ -127,7 +127,7 @@ namespace IntellSuggest.Controllers
         /// <param name="opinionInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_OpinionInfo_Search(OpinionInfoSearchViewModel opinionInfoSearchViewModel)
+        public ActionResult<OpinionInfoSearchResModel> Manage_OpinionInfo_Search(OpinionInfoSearchViewModel opinionInfoSearchViewModel)
         {
             OpinionInfoSearchResModel  opinionInfoSearchResModel = new OpinionInfoSearchResModel();
             var BusSearchResult = _opinionInfoService.OpinionInfo_Search(opinionInfoSearchViewModel);

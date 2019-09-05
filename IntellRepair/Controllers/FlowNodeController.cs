@@ -31,7 +31,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Node_Add(FlowNodeAddViewModel flowNodeAddViewModel)
+        public ActionResult<FlowNodeAddResModel> Manage_Node_Add(FlowNodeAddViewModel flowNodeAddViewModel)
         {
             int Node_Add_Count;
             Node_Add_Count = _IFlowNodeService.FlowNode_Add(flowNodeAddViewModel);
@@ -63,7 +63,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Node_Update(FlowNodeUpdateViewModel flowNodeUpdateViewModel)
+        public ActionResult<FlowNodeUpdateResModels> Manage_Node_Update(FlowNodeUpdateViewModel flowNodeUpdateViewModel)
         {
             FlowNodeUpdateResModels  flowNodeUpdateResModels = new FlowNodeUpdateResModels();
             int UpdateRowNum = _IFlowNodeService.FlowNode_Update(flowNodeUpdateViewModel);
@@ -91,10 +91,10 @@ namespace IntellRepair.Controllers
         /// <summary>
         /// 删除流转信息
         /// </summary>
-        /// <param name="flowNodeDefineDelViewModel"></param>
+        /// <param name="flowNodeDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Node_Delete(FlowNodeDelViewModel flowNodeDelViewModel)
+        public ActionResult<FlowNodeDelResModel> Manage_Node_Delete(FlowNodeDelViewModel flowNodeDelViewModel)
         {
             FlowNodeDelResModel flowNodeDelResModel = new FlowNodeDelResModel();
             int DeleteResult = _IFlowNodeService.Node_Delete(flowNodeDelViewModel);
@@ -125,7 +125,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Node_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
+        public ActionResult<FlowNodeSearchResModel> Manage_Node_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
             var nodeSearchResult = _IFlowNodeService.Node_Search(flowNodeSearchViewModel);

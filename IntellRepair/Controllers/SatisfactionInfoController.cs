@@ -33,7 +33,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Satisfaction_Add(SatisfactionInfoAddViewModel satisfactionInfoAddViewModel)
+        public ActionResult<SatisfactionInfoAddResModel> Manage_Satisfaction_Add(SatisfactionInfoAddViewModel satisfactionInfoAddViewModel)
         {
             int Node_Add_Count;
             Node_Add_Count = _ISatisfactionInfoService.SatisfactionInfo_Add(satisfactionInfoAddViewModel);
@@ -64,7 +64,7 @@ namespace IntellRepair.Controllers
         /// <param name="satisfactionInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Satisfaction_Search(SatisfactionInfoSearchViewModel satisfactionInfoSearchViewModel)
+        public ActionResult<SatisfactionInfoSearchResModel> Manage_Satisfaction_Search(SatisfactionInfoSearchViewModel satisfactionInfoSearchViewModel)
         {
             SatisfactionInfoSearchResModel  satisfactionInfoSearchResModel = new SatisfactionInfoSearchResModel();
             var satisfactionSearchResult = _ISatisfactionInfoService.Satisfaction_Search(satisfactionInfoSearchViewModel);

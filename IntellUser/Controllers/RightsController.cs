@@ -32,7 +32,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Rights_add(RightsAddViewModel rightsAddViewModel)
+        public ActionResult<RightsAddResModel> Manage_Rights_add(RightsAddViewModel rightsAddViewModel)
         {
             int Rights_Add_Count;
             Rights_Add_Count = _rightsService.Rights_Add(rightsAddViewModel);
@@ -65,7 +65,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Rights_ValideRepeat(RightsValideRepeat rightsValideRepeat)
+        public ActionResult<RightsValideResRepeat> Manage_Rights_ValideRepeat(RightsValideRepeat rightsValideRepeat)
         {
             RightsValideResRepeat rightsValideResRepeat = new RightsValideResRepeat();
             bool ValideResutlt = _rightsService.Rights_Single(rightsValideRepeat);
@@ -95,7 +95,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public ActionResult Manage_Rights_Delete(RightsDeleteViewModel rightsDeleteViewModel)
+        public ActionResult<RightsDeleteResModel> Manage_Rights_Delete(RightsDeleteViewModel rightsDeleteViewModel)
         {
             RightsDeleteResModel rightsDeleteResModel = new RightsDeleteResModel();
             int DeleteResult = _rightsService.Rights_Delete(rightsDeleteViewModel);
@@ -128,7 +128,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Rights_Update(RightsUpdateViewModel rightsUpdateViewModel)
+        public ActionResult<RightsUpdateResModel> Manage_Rights_Update(RightsUpdateViewModel rightsUpdateViewModel)
         {
             RightsUpdateResModel rightsValideResRepeat = new RightsUpdateResModel();
             int UpdateRowNum = _rightsService.Rights_Update(rightsUpdateViewModel);
@@ -159,7 +159,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
 
-        public ActionResult Manage_Rights_Search(RightsSearchViewModel rightsSearchViewModel)
+        public ActionResult<RightsSearchResModel> Manage_Rights_Search(RightsSearchViewModel rightsSearchViewModel)
         {
             RightsSearchResModel rightsSearchResModel = new RightsSearchResModel();
             var RightsSearchResult = _rightsService.Rights_Search(rightsSearchViewModel);
@@ -180,7 +180,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
+        public ActionResult<RightsByRoleSearchResModel> Manage_Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
         {
             RightsByRoleSearchResModel rightsByRoleSearchResModel = new RightsByRoleSearchResModel();
             rightsByRoleSearchResModel.userRights = _rightsService.Rights_By_Role_Search(rightsByRoleSearchViewModel);

@@ -34,7 +34,7 @@ namespace IntellSuggest.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
+        public ActionResult<SuggestBoxAddResModel> Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
         {
             int SuggestBox_Add_Count;
             SuggestBox_Add_Count = _suggestBoxService.SuggestBox_Add(suggestBoxAddViewModel);
@@ -64,7 +64,7 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_SuggestBox_Update(SuggestBoxUpdateViewModel suggestBoxUpdateViewModel)
+        public ActionResult<SuggestBoxUpdateResModel> Manage_SuggestBox_Update(SuggestBoxUpdateViewModel suggestBoxUpdateViewModel)
         {
             SuggestBoxUpdateResModel suggestBoxUpdateResModel = new SuggestBoxUpdateResModel();
             int UpdateRowNum = _suggestBoxService.SuggestBox_Update(suggestBoxUpdateViewModel);
@@ -95,7 +95,7 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Food_Delete(SuggestBoxDelViewModel  suggestBoxDelViewModel)
+        public ActionResult<SuggestBoxDelResModel> Manage_Food_Delete(SuggestBoxDelViewModel  suggestBoxDelViewModel)
         {
             SuggestBoxDelResModel  suggestBoxDelResModel = new SuggestBoxDelResModel();
             int DeleteResult = _suggestBoxService.SuggestBox_Delete(suggestBoxDelViewModel);
@@ -125,7 +125,7 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Food_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel)
+        public ActionResult<SuggestBoxSearchResModel> Manage_Food_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel)
         {
             SuggestBoxSearchResModel   suggestBoxSearchResModel = new SuggestBoxSearchResModel();
             var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);

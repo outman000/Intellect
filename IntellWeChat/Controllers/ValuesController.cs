@@ -80,7 +80,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_WeChatLogin_User123123(WeChatLoginViewModel weChatLoginViewModel)
+        public ActionResult<WeChatLoginResModel> Manage_WeChatLogin_User123123(WeChatLoginViewModel weChatLoginViewModel)
         {
             WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
             var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
@@ -119,7 +119,7 @@ namespace IntellWeChat.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult GetJWTToken1(WeChatInfoViewModel weChatInfoViewModel)
+        public ActionResult<WeChatInfoResModel> GetJWTToken1(WeChatInfoViewModel weChatInfoViewModel)
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
             var UserSearchResult = _loginService.WeChatLogin_Search(weChatInfoViewModel);

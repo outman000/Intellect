@@ -37,7 +37,7 @@ namespace IntellUser.Controllers
        
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_add(UserAddViewModel userAddViewModel)
+        public ActionResult<UserAddResModel> Manage_User_add(UserAddViewModel userAddViewModel)
         {
            
 
@@ -70,7 +70,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_ValideRepeat(UserValideRepeat userValideRepeat)
+        public ActionResult<UserValideResRepeat> Manage_User_ValideRepeat(UserValideRepeat userValideRepeat)
         {
             UserValideResRepeat userValideResRepeat = new UserValideResRepeat();
             bool ValideResutlt= _userService.User_Single(userValideRepeat);
@@ -101,7 +101,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public ActionResult Manage_User_Delete(UserDeleteViewModel userDeleteViewModel)
+        public ActionResult<UserDeleteResModel> Manage_User_Delete(UserDeleteViewModel userDeleteViewModel)
         {
             UserDeleteResModel userDeleteResModel = new UserDeleteResModel();
             int DeleteResult= _userService.User_Delete(userDeleteViewModel);
@@ -136,7 +136,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_Update(UserUpdateViewModel userUpdateViewModel)
+        public ActionResult<UserUpdateResModel> Manage_User_Update(UserUpdateViewModel userUpdateViewModel)
         {
             UserUpdateResModel userValideResRepeat = new UserUpdateResModel();
             int UpdateRowNum = _userService.User_Update(userUpdateViewModel);
@@ -167,7 +167,7 @@ namespace IntellUser.Controllers
         /// <param name="userSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_User_Search(UserSearchViewModel userSearchViewModel)
+        public ActionResult<UserSearchResModel> Manage_User_Search(UserSearchViewModel userSearchViewModel)
         {
            UserSearchResModel userSearchResModel = new UserSearchResModel();
             var UserSearchResult = _userService.User_Search(userSearchViewModel);
@@ -190,7 +190,7 @@ namespace IntellUser.Controllers
         /// <param name="relateDepartToUserAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_User_Depart(RelateDepartToUserAddViewModel relateDepartToUserAddViewModel)
+        public ActionResult<RelateDepartToUserAddResModel> Manage_User_Depart(RelateDepartToUserAddViewModel relateDepartToUserAddViewModel)
         {
             RelateDepartToUserAddResModel relateDepartToUserAddResModel = new RelateDepartToUserAddResModel();
             int UpdateRowNum = _userService.Depart_User_Add(relateDepartToUserAddViewModel);
@@ -233,7 +233,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
+        public ActionResult<UserByRoleSearchResModel> Manage_User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
         {
             UserByRoleSearchResModel userByRoleSearchResModel = new UserByRoleSearchResModel();
             userByRoleSearchResModel.userInfos = _userService.User_By_Role_Search(userByRoleSearchViewModel);
@@ -249,11 +249,11 @@ namespace IntellUser.Controllers
         /// <summary>
         /// 根据角色查用户列表
         /// </summary>
-        /// <param name="userByRoleSearchViewModel"></param>
+        /// <param name="RoleList"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_By_RoleList_Search(List<int> RoleList)
+        public ActionResult<List<User_Info>> Manage_User_By_RoleList_Search(List<int> RoleList)
         {
             List<User_Info> ui= _userService.User_By_RoleList_Search(RoleList);
             _ILogger.Information("根据角色查用户列表成功");
@@ -289,7 +289,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_User_By_Depart_Search(UserByDepartSearchViewModel userByDepartSearchViewModel)
+        public ActionResult<UserByDepartSearchResModel> Manage_User_By_Depart_Search(UserByDepartSearchViewModel userByDepartSearchViewModel)
         {
             UserByDepartSearchResModel  userByDepartSearchResModel = new UserByDepartSearchResModel();
             userByDepartSearchResModel.userInfo = _userService.User_By_Depart_Search(userByDepartSearchViewModel);

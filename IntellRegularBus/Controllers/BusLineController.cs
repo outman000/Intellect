@@ -33,7 +33,7 @@ namespace IntellRegularBus.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Line_Add(LineAddViewModel lineAddViewModel)
+        public ActionResult<LineAddResModel> Manage_Line_Add(LineAddViewModel lineAddViewModel)
         {
             int Line_Add_Count;
             Line_Add_Count = _lineService.Line_Add(lineAddViewModel);
@@ -64,7 +64,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="lineSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Line_Search(LineSearchViewModel lineSearchViewModel)
+        public ActionResult<LineSearchResModel> Manage_Line_Search(LineSearchViewModel lineSearchViewModel)
         {
             LineSearchResModel lineSearchResModel = new LineSearchResModel();
             var LineSearchResult = _lineService.Line_Search(lineSearchViewModel);
@@ -84,10 +84,10 @@ namespace IntellRegularBus.Controllers
         /// <summary>
         /// 删除线路
         /// </summary>
-        /// <param name="busDelViewModel"></param>
+        /// <param name="lineDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_Line_Del(LineDelViewModel lineDelViewModel)
+        public ActionResult<LineDelResModel> Manage_Line_Del(LineDelViewModel lineDelViewModel)
         {
             LineDelResModel lineDelResModel = new LineDelResModel();
             int DeleteResult = _lineService.Line_Delete(lineDelViewModel);
@@ -119,7 +119,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Line_ValideRepeat(BusValideRepeat busValideRepeat)
+        public ActionResult<BusValideResRepeat> Manage_Line_ValideRepeat(BusValideRepeat busValideRepeat)
         {
             BusValideResRepeat busValideResRepeat = new BusValideResRepeat();
             bool ValideResutlt = _lineService.Line_Single(busValideRepeat);
@@ -149,7 +149,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult Manage_Line_Update(LineUpdateViewModel lineUpdateViewModel)
+        public ActionResult<LineUpdateResModel> Manage_Line_Update(LineUpdateViewModel lineUpdateViewModel)
         {
             LineUpdateResModel lineUpdateResModel = new LineUpdateResModel();
             int UpdateRowNum = _lineService.Line_Update(lineUpdateViewModel);

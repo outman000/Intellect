@@ -32,7 +32,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>       
        [HttpPost]
-        public ActionResult Bus_User_Add(BusUserAddViewModel busUserAddViewModel)
+        public ActionResult<BusUserAddResModel> Bus_User_Add(BusUserAddViewModel busUserAddViewModel)
         {
        
             int Bus_User_Add_Count;
@@ -64,7 +64,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
          [HttpPost]
-        public ActionResult Bus_User_Delete(BusUserDelViewModel busUserDelViewModel)
+        public ActionResult<BusUserDelResModel> Bus_User_Delete(BusUserDelViewModel busUserDelViewModel)
         {
             BusUserDelResModel busUserDelResModel = new BusUserDelResModel();
             int DeleteResult = _IBusUserService.Bus_User_Delete(busUserDelViewModel);
@@ -94,7 +94,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
+        public ActionResult<BusUserTimeListSearchResModel> Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
         {
             BusUserTimeListSearchResModel  busUserTimeListSearchResModel = new BusUserTimeListSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_User_TimeList_Search(busUserSearchTimeViewModel);
@@ -112,7 +112,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_User_Search(BusUserSearchViewModel busUserSearchViewModel)
+        public ActionResult<BusUserSearchResModel> Bus_User_Search(BusUserSearchViewModel busUserSearchViewModel)
         {
             BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_User_Search(busUserSearchViewModel);
@@ -133,7 +133,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_PayMent_Template_Add(BusUserSearchViewModel busUserSearchViewModel)
+        public ActionResult<BusUserAddResModel> Bus_PayMent_Template_Add(BusUserSearchViewModel busUserSearchViewModel)
         {
 
             int Bus_User_Add_Count;
@@ -164,7 +164,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_Id_Search(BusSearchByIdViewModel busSearchByIdViewModel)
+        public ActionResult<BusSearchByIdResModel> Bus_Id_Search(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             BusSearchByIdResModel  busSearchByIdResModel = new BusSearchByIdResModel();
             int Result = _IBusUserService.ByBusIdSearchNum(busSearchByIdViewModel);
@@ -193,7 +193,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_User_Update(BusUserUpdateViewModel busUserUpdateViewModel)
+        public ActionResult<BusUserUpdateResModel> Bus_User_Update(BusUserUpdateViewModel busUserUpdateViewModel)
         {
             BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
             int UpdateRowNum = _IBusUserService.Bus_User_Update(busUserUpdateViewModel);
@@ -222,7 +222,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_Payment_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
+        public ActionResult<BusPaymentUpdateResModel> Bus_Payment_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
         {
             BusPaymentUpdateResModel  busPamentUpdateResModel = new BusPaymentUpdateResModel();
             int UpdateRowNum = _IBusUserService.Bus_PayMent_Update(busPamentUpdateViewModel);
@@ -252,7 +252,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Bus_Payment_Valide(BusUserValideViewModel  busUserValideViewModel)
+        public ActionResult<BuUserValideResModel> Bus_Payment_Valide(BusUserValideViewModel  busUserValideViewModel)
         {
             BuUserValideResModel buUserValideResModel = new BuUserValideResModel();
             IDictionary<int, String> errorResult = _IBusUserService.Bus_Payment_valide(busUserValideViewModel);
