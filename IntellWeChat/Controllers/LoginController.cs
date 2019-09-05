@@ -23,17 +23,18 @@ namespace IntellWeChat.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private IOptions<WeChartTokenMiddles> _IOptions;
-
+        private readonly IWeChatHttpClientService _weChatHttpClientService;
 
         private readonly ILoginService  _loginService;
-        readonly ILogger _ILogger;
+        private readonly ILogger _ILogger;
 
-        public LoginController(IOptions<WeChartTokenMiddles> iOptions, ILoginService loginService, ILogger logger, IHttpClientFactory httpClientFactory)
+        public LoginController(IWeChatHttpClientService weChatHttpClientService, IOptions<WeChartTokenMiddles> iOptions, ILoginService loginService, ILogger logger, IHttpClientFactory httpClientFactory)
         {
                _IOptions = iOptions;
                _loginService = loginService;
                _ILogger = logger;
                _httpClientFactory = httpClientFactory;
+               _weChatHttpClientService = weChatHttpClientService;
         }
         /// <summary>
         /// 根据用户id查询用户信息
@@ -104,7 +105,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Manage_XuXuLogin_User(WeChatLoginViewModel weChatLoginViewModel)
+        public ActionResult<WeChatLoginResModel> Manage_XuXuLogin_User(WeChatLoginViewModel weChatLoginViewModel)
         {
             WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
             var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
@@ -134,19 +135,13 @@ namespace IntellWeChat.Controllers
             }
         }
         /// <summary>
-        /// 微信测试
+        /// 获取微信token
         /// </summary>
-
         [HttpPost]
-        public void wechartToken()
+        public async Task<ActionResult<WeChatTokenResModel>> wechartTokenAsync()
         {
-            var client = _httpClientFactory.CreateClient("WeChatToken");//必须和services.AddHttpClient()中指定的名称对应
-         
-            var content = "?grant_type = "+ _IOptions.Value.grant_type + "&appid = "+ _IOptions.Value.appid + "&secret = "+ _IOptions.Value.secret;
-            var uri = new Uri(client.BaseAddress, content);
-            var response= client.GetAsync(uri);
-            var weChartTokenMiddles  =response.Result.Content.ReadAsStringAsync();
-
+            var weChatTokenResModel =await _weChatHttpClientService.getWeChatTokenAsync();
+            return Ok(weChatTokenResModel);
         }
     }
 }

@@ -88,7 +88,7 @@ namespace IntellWeChat
             });
 
             #endregion
-            #region
+            #region 配置文件
             services.AddOptions();
             services.Configure<WeChartTokenMiddles>(Configuration.GetSection("WeChatToken"));
             #endregion
@@ -150,7 +150,6 @@ namespace IntellWeChat
             });
             #endregion
             #region AutoMapper
-
             services.AddAutoMapper(Service);
             #endregion
             #region mvc服务
