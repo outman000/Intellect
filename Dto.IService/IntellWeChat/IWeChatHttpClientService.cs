@@ -17,6 +17,6 @@ namespace Dto.IService.IntellWeChat
         /// <summary>
         /// 
         /// </summary>
-        void getWeCHatTokenAsync();
+      //  void getWeCHatTokenAsync();
     }
 }
