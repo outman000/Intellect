@@ -55,5 +55,26 @@ namespace IntellRepair.Controllers
                 return BadRequest(reminderInfoAddResModel);
             }
         }
+
+        /// <summary>
+        /// 查询催单信息
+        /// </summary>
+        /// <param name="reminderInfoSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Manage_Satisfaction_Search(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
+        {
+            ReminderInfoSearchResModel  reminderInfoSearchResModel = new ReminderInfoSearchResModel();
+            var satisfactionSearchResult = _IReminderInfoService.ReminderInfo_Search(reminderInfoSearchViewModel);
+            var TotalNum = _IReminderInfoService.ReminderInfo_Get_ALLNum(reminderInfoSearchViewModel);
+            reminderInfoSearchResModel.Reminder_Info = satisfactionSearchResult;
+            reminderInfoSearchResModel.isSuccess = true;
+            reminderInfoSearchResModel.baseViewModel.Message = "查询成功";
+            reminderInfoSearchResModel.baseViewModel.ResponseCode = 200;
+            reminderInfoSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询催单信息成功");
+            return Ok(reminderInfoSearchResModel);
+
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace Dto.Repository.IntellRepair
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
-        public List<Reminder_Info> SearchInfoByRepairWhere(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
+        public List<Reminder_Info> SearchInfoByReminderWhere(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
         {
             int SkipNum = reminderInfoSearchViewModel.pageViewModel.CurrentPageNum * reminderInfoSearchViewModel.pageViewModel.PageSize;
             //查询条件
@@ -75,18 +75,18 @@ namespace Dto.Repository.IntellRepair
             return result.ToList();
         }
 
-        //根据条件查询报修
+        //根据条件查询催单
         private Expression<Func<Reminder_Info, bool>> SearchSatisfactionWhere(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
         {
             var predicate = WhereExtension.True<Reminder_Info>();//初始化where表达式
             predicate = predicate.And(p => p.status.Contains(reminderInfoSearchViewModel.status));
-
-            predicate = predicate.And(p => p.User_Info.UserName == reminderInfoSearchViewModel.UserName);
+            predicate = predicate.And(p => p.User_Info.User_Depart.Name.Contains(reminderInfoSearchViewModel.Name));
+            predicate = predicate.And(p => p.User_Info.UserName.Contains(reminderInfoSearchViewModel.UserName));
             if (reminderInfoSearchViewModel.Repair_InfoId != null)
                 predicate = predicate.And(p => p.Repair_InfoId == reminderInfoSearchViewModel.Repair_InfoId);
             if (reminderInfoSearchViewModel.AddDate != null)
                 predicate = predicate.And(p => p.AddDate == reminderInfoSearchViewModel.AddDate);
-            predicate = predicate.And(p => p.Repair_Info.RepairsTitle == reminderInfoSearchViewModel.RepairTitle);
+            predicate = predicate.And(p => p.Repair_Info.RepairsTitle.Contains(reminderInfoSearchViewModel.RepairTitle));
             return predicate;
         }
     }
