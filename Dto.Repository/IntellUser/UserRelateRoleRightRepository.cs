@@ -93,12 +93,6 @@ namespace Dto.Repository.IntellUser
             predicate = predicate.And(p => p.User_RoleId == relateRoleRightDelMiddlecs.User_RoleId);
             return predicate;
         }
-
-
-
-
-
-
         #endregion
         /// <summary>
         /// 根据权限查角色
@@ -148,7 +142,7 @@ namespace Dto.Repository.IntellUser
             return queryResult;
         }
         /// <summary>
-        /// 各局权限查角色数量
+        /// 根据权限查角色数量
         /// </summary>
         /// <param name="roleByRightsSearchViewModel"></param>
         /// <returns></returns>

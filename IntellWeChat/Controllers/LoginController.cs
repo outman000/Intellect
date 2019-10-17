@@ -25,17 +25,18 @@ namespace IntellWeChat.Controllers
         private IOptions<WeChartTokenMiddles> _IOptions;
         private readonly IWeChatHttpClientService _weChatHttpClientService;
 
-        private readonly ILoginService  _loginService;
+        private readonly ILoginService _loginService;
         private readonly ILogger _ILogger;
 
         public LoginController(IWeChatHttpClientService weChatHttpClientService, IOptions<WeChartTokenMiddles> iOptions, ILoginService loginService, ILogger logger, IHttpClientFactory httpClientFactory)
         {
-               _IOptions = iOptions;
-               _loginService = loginService;
-               _ILogger = logger;
-               _httpClientFactory = httpClientFactory;
-               _weChatHttpClientService = weChatHttpClientService;
+            _IOptions = iOptions;
+            _loginService = loginService;
+            _ILogger = logger;
+            _httpClientFactory = httpClientFactory;
+            _weChatHttpClientService = weChatHttpClientService;
         }
+
         /// <summary>
         /// 根据用户id查询用户信息
         /// </summary>

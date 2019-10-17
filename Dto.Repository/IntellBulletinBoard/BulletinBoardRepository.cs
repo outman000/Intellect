@@ -95,7 +95,7 @@ namespace Dto.Repository.IntellBulletinBoard
             return result;
         }
         #region 查询条件
-        //根据条件查询公告栏
+        //根据条件查询行业信息
         private Expression<Func<Bulletin_Board, bool>> SearchBulletinBoardWhere(BulletinBoardSearchViewModel bulletinBoardSearchViewModel)
         {
             var predicate = WhereExtension.True<Bulletin_Board>();//初始化where表达式
