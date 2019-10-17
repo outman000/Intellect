@@ -36,16 +36,18 @@ namespace Dto.Service.IntellWeChat
             _userRelateRoleRightRepository = userRelateRoleRightRepository;
             _IMapper = mapper;
         }
-
+        /// <summary>
+        /// 查询一个用户所拥有的权限
+        /// </summary>
+        /// <param name="weChatInfoViewModel"></param>
+        /// <returns></returns>
         public WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel weChatInfoViewModel)
         {
             WeChatIndexMiddlecs weChatIndexMiddlecs = new WeChatIndexMiddlecs();
             //用户权限集合
             List<User_Rights> user_Rights = new List<User_Rights>();
             List<User_Rights> user_RightsQc = new List<User_Rights>();
-            List<RightsParentSearchMiddlecs> right_chlid = new List<RightsParentSearchMiddlecs>();
-           // List<RightsParentSearchMiddlecs> right_chlid2 = new List<RightsParentSearchMiddlecs>();
-            List<RightsParentSearchMiddlecs> right_parent = new List<RightsParentSearchMiddlecs>();
+   
             List<RightsParentSearchMiddlecs> result = new List<RightsParentSearchMiddlecs>();
             //获取用户信息
             var user_info = _IUserInfoRepository.GetInfoAndDepartByUserid(weChatInfoViewModel.UserUid);
@@ -67,21 +69,19 @@ namespace Dto.Service.IntellWeChat
                
             }
            
-            foreach (User_Rights user in user_Rights)//去重
+            foreach (User_Rights user in user_Rights)//去重(因为用户可能拥有多个角色，每个角色之间有重叠的权限)
             {
                 if (user_RightsQc.Exists(x => x.Id == user.Id) == false)
                 {
                     user_RightsQc.Add(user);
                 }
             }
-            var user_All= _IMapper.Map<List<User_Rights>, List<RightsParentSearchMiddlecs>>(user_RightsQc);
+            var user_All= _IMapper.Map<List<User_Rights>, List<RightsParentSearchMiddlecs>>(user_RightsQc);//所有权限集合
             result.AddRange(user_All.Where(p => p.ParentId == "0").ToList());//父节点集合
             foreach (var el in result)
             {
                 AddPermission(user_All, el);
-            }
-            //right_parent= BianLi(user_All, right_chlid, right_parent, user_RightsQc);
-         //weChatIndexMiddlecs.User_Rights = right_parent;
+            }     
             weChatIndexMiddlecs.User_Rights = result;
             return weChatIndexMiddlecs;
         }
@@ -173,6 +173,11 @@ namespace Dto.Service.IntellWeChat
 
         //}
 
+        /// <summary>
+        /// 根据账号和密码查询用户信息（用于存储session）
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
         public WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
         {
             WeChatLoginMiddlecs weChatLoginMiddlecs = new WeChatLoginMiddlecs();
