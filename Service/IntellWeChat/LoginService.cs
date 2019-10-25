@@ -76,6 +76,7 @@ namespace Dto.Service.IntellWeChat
             }
             var user_All= _IMapper.Map<List<User_Rights>, List<RightsParentSearchMiddlecs>>(user_RightsQc);
             result.AddRange(user_All.Where(p => p.ParentId == "0").ToList());//父节点集合
+            result = result.OrderBy(x => x.Sort).ToList();//按照sort 字段排序
             foreach (var el in result)
             {
                 AddPermission(user_All, el);
@@ -94,7 +95,11 @@ namespace Dto.Service.IntellWeChat
         public void AddPermission(List<RightsParentSearchMiddlecs> list, RightsParentSearchMiddlecs curPermission)
         {
             List<RightsParentSearchMiddlecs> sonPermissions = list.Where(p => p.ParentId==curPermission.Id.ToString()).ToList();
-            curPermission.Children = sonPermissions;
+            if (sonPermissions.Count != 0)
+            {
+                sonPermissions = sonPermissions.OrderBy(x => x.Sort).ToList();//按照sort 字段排序
+                curPermission.Children = sonPermissions;
+            }
             foreach (var p in sonPermissions)
             {
                 AddPermission(list, p);
