@@ -57,6 +57,6 @@ namespace Dtol
         public DbSet<Satisfaction_Info> satisfaction_Infos { get; set; }
         public DbSet<Reminder_Info>  reminder_Infos { get; set; }
 
-
+        public DbSet<Bus_Payment_Order> bus_Payment_Order { get; set; }
     }
 }

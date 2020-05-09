@@ -10,6 +10,9 @@ using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusInfoResModel;
+using Dto.IService.IntellRepair;
+using ViewModel.RepairsViewModel.RequestViewModel;
+using ViewModel.RepairsViewModel.MiddleModel;
 
 namespace IntellRegularBus.Controllers
 {
@@ -20,10 +23,12 @@ namespace IntellRegularBus.Controllers
 
 
         private readonly IBusUserService _IBusUserService;
+        private readonly IRepairService _IRepairService;
         private readonly ILogger _ILogger;
-        public BusUserController(IBusUserService lineService, ILogger logger)
+        public BusUserController(IBusUserService lineService, IRepairService repairService,  ILogger logger)
         {
             _IBusUserService = lineService;
+            _IRepairService = repairService;
             _ILogger = logger;
         }
 
@@ -277,5 +282,41 @@ namespace IntellRegularBus.Controllers
             }
 
         }
+
+
+        ///// <summary>
+        ///// 缴费
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ActionResult<BusPaymentUpdateResModel> Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId,
+        //                                                          BusPaymentUpdateViewModel busPamentUpdateViewModel)
+        //{
+        //    WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
+        //    var a = _IBusUserService.Bus_Payment(repairAddViewModel, Flow_ProcedureDefineId);
+
+        //    RepairAddResModel repairAddResModel = new RepairAddResModel();
+        //    if (UpdateRowNum > 0)
+        //    {
+        //        busPamentUpdateResModel.IsSuccess = true;
+        //        busPamentUpdateResModel.AddCount = UpdateRowNum;
+        //        busPamentUpdateResModel.baseViewModel.Message = "更新成功";
+        //        busPamentUpdateResModel.baseViewModel.ResponseCode = 200;
+        //        _ILogger.Information("增加用户缴费表单id信息成功");
+        //        return Ok(busPamentUpdateResModel);
+        //    }
+        //    else
+        //    {
+        //        busPamentUpdateResModel.IsSuccess = false;
+        //        busPamentUpdateResModel.AddCount = 0;
+        //        busPamentUpdateResModel.baseViewModel.Message = "更新失败";
+        //        busPamentUpdateResModel.baseViewModel.ResponseCode = 400;
+        //        _ILogger.Information("增加用户缴费表单id信息失败");
+        //        return BadRequest(busPamentUpdateResModel);
+        //    }
+        //}
+
+
+
     }
 }

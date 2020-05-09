@@ -33,5 +33,7 @@ namespace Dto.IRepository.IntellRegularBus
         /// </summary>
         /// <returns></returns>
         IQueryable<string> SearchInfoTimeWhere(BusUserSearchTimeViewModel busUserSearchTimeViewModel);
+
+
     }
 }

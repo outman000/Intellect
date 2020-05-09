@@ -11,10 +11,16 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// </summary>
         public int User_DepartId { get; set; }
 
+        ///// <summary>
+        ///// 表单id
+        ///// </summary>
+        //public int Repair_InfoId { get; set; }
+
         /// <summary>
-        /// 表单id
+        /// 订单id
         /// </summary>
-        public int Repair_InfoId { get; set; }
+        public int Bus_Payment_OrderId { get; set; }
+        
 
         // <summary>
         /// 乘车时间

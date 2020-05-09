@@ -86,6 +86,12 @@ namespace Dtol.dtol
         public Repair_Info Repair_Info { get; set; }
 
         /// <summary>
+        /// 订单id-----外键
+        /// </summary>
+        public int? Bus_Payment_OrderId { get; set; }
+        public Bus_Payment_Order Bus_Payment_Order { get; set; }
+
+        /// <summary>
         /// 乘车时间
         /// </summary>
         public DateTime? carDate { get; set; }

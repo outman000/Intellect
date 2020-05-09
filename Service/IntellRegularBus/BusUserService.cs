@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dto.IRepository.IntellRegularBus;
+using Dto.IRepository.IntellRepair;
 using Dto.IRepository.IntellUser;
 using Dto.IService.IntellRegularBus;
 using Dtol.dtol;
@@ -13,6 +14,8 @@ using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
+using ViewModel.RepairsViewModel.MiddleModel;
+using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.Service.IntellRegularBus
 {
@@ -26,7 +29,9 @@ namespace Dto.Service.IntellRegularBus
         private readonly IBusLineRepository _IBusLineRepository;
         private readonly IBusStationRepository _IBusStationRepository;
         private readonly IBusInfoRepository _IBusInfoRepository;
-
+        private readonly IRepairInfoRepository _IRepairInfoRepository;
+        private readonly IFlowProcedureInfoRepository _IFlowProcedureInfoRepository;
+        private readonly IFlowNodeDefineInfoRepository _IFlowNodeDefineInfoRepository;
 
         public BusUserService(IBusUserRepository busUserRepository ,
                                 IBusInfoRepository busInfoRepository,
@@ -34,7 +39,10 @@ namespace Dto.Service.IntellRegularBus
                                 IUserInfoRepository userInfoRepository,
                                 IUserDepartRepository userDepartRepository, 
                                 IBusLineRepository busLineRepository,
-                                IBusStationRepository busStationRepository)
+                                IBusStationRepository busStationRepository,
+                                IFlowProcedureInfoRepository iflowProcedureInfoRepository,
+                                IFlowNodeDefineInfoRepository iflowNodeDefineInfoRepository,
+                                IRepairInfoRepository irepairInfoRepository)
         {
             _IBusUserRepository = busUserRepository;
             _IMapper = mapper;
@@ -43,6 +51,9 @@ namespace Dto.Service.IntellRegularBus
             _IBusLineRepository = busLineRepository;
             _IBusStationRepository = busStationRepository;
             _IBusInfoRepository = busInfoRepository;
+            _IRepairInfoRepository = irepairInfoRepository;
+            _IFlowProcedureInfoRepository = iflowProcedureInfoRepository;
+            _IFlowNodeDefineInfoRepository = iflowNodeDefineInfoRepository;
         }
 
         /// <summary>
@@ -56,6 +67,20 @@ namespace Dto.Service.IntellRegularBus
             //RandName = "E://东疆智慧后勤/IntellRegularBus/HeadImg/" + RandName;//头像存储路径
             //busUserAddViewModel.Userpicture = RandName;
             var bus_Info = _IMapper.Map<BusUserAddViewModel, Bus_Payment>(busUserAddViewModel);
+            _IBusUserRepository.Add(bus_Info);
+            return _IBusUserRepository.SaveChanges();
+        }
+
+
+        /// <summary>
+        /// 添加缴费订单信息
+        /// </summary>
+        /// <param name="busUserAddViewModel"></param>
+        /// <returns></returns>
+        public int Bus_Payment_OrderAdd(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
+        {
+
+            var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
             _IBusUserRepository.Add(bus_Info);
             return _IBusUserRepository.SaveChanges();
         }
@@ -345,5 +370,33 @@ namespace Dto.Service.IntellRegularBus
             
             return PayErrorList;
         }
+
+        //public int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId, BusPaymentUpdateViewModel busPamentUpdateViewModel)
+        //{
+        //    //存入表单信息
+        //    var repair_Info = _IMapper.Map<RepairAddViewModel, Repair_Info>(repairAddViewModel);
+        //    _IRepairInfoRepository.Add(repair_Info);
+        //    _IRepairInfoRepository.SaveChanges();
+
+        //    //存入流程信息（只有在开始节点的时候才会存入一条数据）
+        //    var flowProcedureAddViewModel = _IMapper.Map<Repair_Info, FlowProcedureAddViewModel>(repair_Info);
+        //    var procedure_Info = _IMapper.Map<FlowProcedureAddViewModel, Flow_Procedure>(flowProcedureAddViewModel);
+        //    procedure_Info.remark = "1";//流程开始
+        //    _IFlowProcedureInfoRepository.Add(procedure_Info);
+        //    _IFlowProcedureInfoRepository.SaveChanges();
+
+        //    //通过流程定义Id去查开始节点的主键id
+        //    var ProcedureDefine = _IFlowNodeDefineInfoRepository.GetInfoByProcedureDefineId(Flow_ProcedureDefineId);
+        //    int FirstNodeId = ProcedureDefine.Id;
+        //    //返回三个Id
+        //    WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
+        //    workFlowFistReturnIdList.Repair_InfoId = repair_Info.id;//表单主键Id
+        //    workFlowFistReturnIdList.RepairType = repair_Info.RepairsType;//填写的类型与角色类相对应
+        //    workFlowFistReturnIdList.User_InfoId = repair_Info.User_InfoId;//填写表单的用户Id
+        //    workFlowFistReturnIdList.Flow_ProcedureId = procedure_Info.Id;//流程Id
+        //    workFlowFistReturnIdList.Flow_NodeDefineId = FirstNodeId;//该流程第一个节点Id
+
+          
+        //}
     }
 }

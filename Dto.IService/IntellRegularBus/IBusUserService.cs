@@ -4,6 +4,7 @@ using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
+using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.IService.IntellRegularBus
 {
@@ -79,5 +80,13 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <returns></returns>
         List<string> Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel);
+
+
+        ///// <summary>
+        /////添加缴费订单信息
+        ///// </summary>
+        ///// <param name="busUserAddViewModel"></param>
+        ///// <returns></returns>
+        //int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId,   BusPaymentUpdateViewModel busPamentUpdateViewModel);
     }
 }
