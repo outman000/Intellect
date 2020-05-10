@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.PublicViewModel;
 
 namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
 {
-    public class Bus_Payment_OrderAddViewModel
+    public class Bus_Payment_OrderSearchViewModel
     {
         /// <summary>
         /// 订单号
@@ -22,6 +23,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public DateTime? confirmDate { get; set; }
 
         /// <summary>
+        /// 部门名称
+        /// </summary>
+        public string departName { get; set; }
+
+        /// <summary>
         /// 确认标识
         /// </summary>
         public string confirmStatus { get; set; }
@@ -30,11 +36,6 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// 支付标识
         /// </summary>
         public string paymentStatus { get; set; }
-
-        /// <summary>
-        /// 部门名称
-        /// </summary>
-        public string departName { get; set; }
 
 
         /// <summary>
@@ -53,19 +54,35 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// 增加时间
         /// </summary>
         public DateTime? AddDate { get; set; }
-      
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime? updateDate { get; set; }
 
         /// <summary>
         /// 创建人
         /// </summary>
         public string createUser { get; set; }
-
+        /// <summary>
+        /// 修改人
+        /// </summary>
+        public string updateUser { get; set; }
 
 
         /// <summary>
         /// 表单id-----外键
         /// </summary>
         public int? Repair_InfoId { get; set; }
-
+        /// <summary>
+        /// 分页
+        /// </summary>
+        public PageViewModel pageViewModel { get; set; }
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        Bus_Payment_OrderSearchViewModel()
+        {
+            pageViewModel = new PageViewModel();
+        }
     }
 }

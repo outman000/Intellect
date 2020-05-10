@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dtol.dtol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
@@ -89,13 +90,24 @@ namespace Dto.IService.IntellRegularBus
         int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel);
 
         /// <summary>
-        /// 增加订单信息
+        /// 修改订单信息
         /// </summary>
         /// <param name="bus_Payment_OrderAddViewModel"></param>
         /// <returns></returns>
-        int Bus_Payment_Order_Update(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel);
+        int Bus_Payment_Order_Update(Bus_Payment_OrderUpdateViewModel bus_Payment_OrderUpdateViewModel);
 
 
+        /// <summary>
+        /// 查询所有订单信息
+        /// </summary>
+        /// <param name="bus_Payment_OrderSearchViewModel"></param>
+        List<Bus_Payment_Order> Bus_Payment_Order_Search(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel);
+
+        /// <summary>
+        /// 查询所有订单信息数量
+        /// </summary>
+        /// <param name="busUserSearchViewModell"></param>
+        int Bus_Payment_Order_Get_ALLNum(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel);
         ///// <summary>
         /////添加缴费订单信息
         ///// </summary>

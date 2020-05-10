@@ -49,6 +49,10 @@ namespace Dtol.dtol
         /// </summary>
         public string status { get; set; }
 
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public string departName { get; set; }
 
         /// <summary>
         /// 增加时间

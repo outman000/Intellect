@@ -63,7 +63,7 @@ namespace IntellRegularBus.Controllers
             }
        
 
-    }
+        }
         /// <summary>
         /// 删除用户缴费信息
         /// </summary>
@@ -283,7 +283,89 @@ namespace IntellRegularBus.Controllers
 
         }
 
+        /// <summary>
+        ///  增加用户缴费订单信息
+        /// </summary>
+        /// <returns></returns>       
+        [HttpPost]
+        public ActionResult<BusUserAddResModel> Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
+        {
 
+            int Bus_User_Add_Count;
+            Bus_User_Add_Count = _IBusUserService.Bus_Payment_Order_Add(bus_Payment_OrderAddViewModel);
+            BusUserAddResModel busUserAddResModel = new BusUserAddResModel();
+            if (Bus_User_Add_Count > 0)
+            {
+                busUserAddResModel.IsSuccess = true;
+                busUserAddResModel.AddCount = Bus_User_Add_Count;
+                busUserAddResModel.baseViewModel.Message = "添加成功";
+                busUserAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增加用户缴费订单信息成功");
+                return Ok(busUserAddResModel);
+            }
+            else
+            {
+                busUserAddResModel.IsSuccess = false;
+                busUserAddResModel.AddCount = 0;
+                busUserAddResModel.baseViewModel.Message = "添加失败";
+                busUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("增加用户缴费订单信息失败");
+                return BadRequest(busUserAddResModel);
+            }
+
+
+        }
+
+        /// <summary>
+        /// 修改用户缴费订单信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<BusUserUpdateResModel> Bus_Payment_Order_Update(Bus_Payment_OrderUpdateViewModel  bus_Payment_OrderUpdateViewModel)
+        {
+            BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_Payment_Order_Update(bus_Payment_OrderUpdateViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                busUserUpdateResModel.IsSuccess = true;
+                busUserUpdateResModel.AddCount = UpdateRowNum;
+                busUserUpdateResModel.baseViewModel.Message = "更新成功";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("修改用户缴费订单信息成功");
+                return Ok(busUserUpdateResModel);
+            }
+            else
+            {
+                busUserUpdateResModel.IsSuccess = false;
+                busUserUpdateResModel.AddCount = 0;
+                busUserUpdateResModel.baseViewModel.Message = "更新失败";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("修改用户缴费订单信息失败");
+                return BadRequest(busUserUpdateResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 查询用户缴费订单信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<BusUserSearchResModel> Bus_Payment_Order_Search(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel)
+        {
+            Bus_Payment_OrderSearchResModel  bus_Payment_OrderSearchResModel = new Bus_Payment_OrderSearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_Payment_Order_Search(bus_Payment_OrderSearchViewModel);
+        
+            var TotalNum = _IBusUserService.Bus_Payment_Order_Get_ALLNum(bus_Payment_OrderSearchViewModel);
+            bus_Payment_OrderSearchResModel.bus_Payment_Orders = BusUserSearchResult;
+            bus_Payment_OrderSearchResModel.isSuccess = true;
+            bus_Payment_OrderSearchResModel.baseViewModel.Message = "查询成功";
+            bus_Payment_OrderSearchResModel.baseViewModel.ResponseCode = 200;
+            bus_Payment_OrderSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询用户缴费订单信息成功");
+            return Ok(bus_Payment_OrderSearchResModel);
+        }
         ///// <summary>
         ///// 缴费
         ///// </summary>

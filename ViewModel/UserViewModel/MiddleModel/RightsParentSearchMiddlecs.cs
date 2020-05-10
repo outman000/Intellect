@@ -14,6 +14,7 @@ namespace ViewModel.UserViewModel.MiddleModel
         public int? Sort { get; set; }
         public string ParentId { get; set; }
         public string Type { get; set; }
+        public string Remark { get; set; }
         public List<RightsParentSearchMiddlecs> Children { get; set; }
     }
 }

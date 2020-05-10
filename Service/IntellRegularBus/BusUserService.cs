@@ -75,19 +75,7 @@ namespace Dto.Service.IntellRegularBus
         }
 
 
-        /// <summary>
-        /// 添加缴费订单信息
-        /// </summary>
-        /// <param name="busUserAddViewModel"></param>
-        /// <returns></returns>
-        public int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
-        {
-          //  bus_Payment_OrderAddViewModel.AddDate = DateTime.Now;
-            bus_Payment_OrderAddViewModel.OrderId = DateTime.Now.ToString("yyyyMMddHHmmssffff");
-            var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
-            _IBusPaymentOrderRepository.Add(bus_Info);
-            return _IBusPaymentOrderRepository.SaveChanges();
-        }
+   
         /// <summary>
         /// 获得头像名称
         /// </summary>
@@ -375,6 +363,53 @@ namespace Dto.Service.IntellRegularBus
             return PayErrorList;
         }
 
+        /// <summary>
+        /// 更新缴费订单信息
+        /// </summary>
+        /// <param name="bus_Payment_OrderUpdateViewModel"></param>
+        /// <returns></returns>
+        public int Bus_Payment_Order_Update(Bus_Payment_OrderUpdateViewModel bus_Payment_OrderUpdateViewModel)
+        {
+            var bus_user_Info = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(bus_Payment_OrderUpdateViewModel.Id);
+            var bus_user_Info_update = _IMapper.Map<Bus_Payment_OrderUpdateViewModel, Bus_Payment_Order>(bus_Payment_OrderUpdateViewModel, bus_user_Info);
+            _IBusPaymentOrderRepository.Update(bus_user_Info_update);
+            return _IBusPaymentOrderRepository.SaveChanges();
+        }
+
+        /// <summary>
+        /// 查询缴费订单
+        /// </summary>
+        /// <param name="bus_Payment_OrderSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Payment_Order> Bus_Payment_Order_Search(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel)
+        {
+         
+            List<Bus_Payment_Order> bus_Payment_Order = _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel).ToList();
+            return bus_Payment_Order;
+        }
+        /// <summary>
+        /// 添加缴费订单信息
+        /// </summary>
+        /// <param name="busUserAddViewModel"></param>
+        /// <returns></returns>
+        public int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel)
+        {
+            //  bus_Payment_OrderAddViewModel.AddDate = DateTime.Now;
+            bus_Payment_OrderAddViewModel.OrderId = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
+            _IBusPaymentOrderRepository.Add(bus_Info);
+            return _IBusPaymentOrderRepository.SaveChanges();
+        }
+
+        /// <summary>
+        /// 查询班车缴费订单数量
+        /// </summary>
+        /// <param name="busUserSearchViewModell"></param>
+        /// <returns></returns>
+        public int Bus_Payment_Order_Get_ALLNum(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel)
+        {
+            return _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel).ToList().Count;
+        }
         //public int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId, BusPaymentUpdateViewModel busPamentUpdateViewModel)
         //{
         //    //存入表单信息
@@ -400,7 +435,7 @@ namespace Dto.Service.IntellRegularBus
         //    workFlowFistReturnIdList.Flow_ProcedureId = procedure_Info.Id;//流程Id
         //    workFlowFistReturnIdList.Flow_NodeDefineId = FirstNodeId;//该流程第一个节点Id
 
-          
+
         //}
     }
 }
