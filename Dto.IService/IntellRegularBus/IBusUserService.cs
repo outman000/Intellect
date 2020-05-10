@@ -81,6 +81,20 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
         List<string> Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel);
 
+        /// <summary>
+        /// 增加订单信息
+        /// </summary>
+        /// <param name="bus_Payment_OrderAddViewModel"></param>
+        /// <returns></returns>
+        int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel);
+
+        /// <summary>
+        /// 增加订单信息
+        /// </summary>
+        /// <param name="bus_Payment_OrderAddViewModel"></param>
+        /// <returns></returns>
+        int Bus_Payment_Order_Update(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel);
+
 
         ///// <summary>
         /////添加缴费订单信息

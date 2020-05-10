@@ -55,10 +55,6 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// </summary>
         public string createUser { get; set; }
 
-        /// <summary>
-        /// 修改人
-        /// </summary>
-        public string updateUser { get; set; }
 
 
         /// <summary>

@@ -32,6 +32,7 @@ namespace Dto.Service.IntellRegularBus
         private readonly IRepairInfoRepository _IRepairInfoRepository;
         private readonly IFlowProcedureInfoRepository _IFlowProcedureInfoRepository;
         private readonly IFlowNodeDefineInfoRepository _IFlowNodeDefineInfoRepository;
+        private readonly IBusPaymentOrderRepository _IBusPaymentOrderRepository;
 
         public BusUserService(IBusUserRepository busUserRepository ,
                                 IBusInfoRepository busInfoRepository,
@@ -42,7 +43,8 @@ namespace Dto.Service.IntellRegularBus
                                 IBusStationRepository busStationRepository,
                                 IFlowProcedureInfoRepository iflowProcedureInfoRepository,
                                 IFlowNodeDefineInfoRepository iflowNodeDefineInfoRepository,
-                                IRepairInfoRepository irepairInfoRepository)
+                                IRepairInfoRepository irepairInfoRepository,
+                                IBusPaymentOrderRepository ibusPaymentOrderRepository)
         {
             _IBusUserRepository = busUserRepository;
             _IMapper = mapper;
@@ -54,6 +56,7 @@ namespace Dto.Service.IntellRegularBus
             _IRepairInfoRepository = irepairInfoRepository;
             _IFlowProcedureInfoRepository = iflowProcedureInfoRepository;
             _IFlowNodeDefineInfoRepository = iflowNodeDefineInfoRepository;
+            _IBusPaymentOrderRepository = ibusPaymentOrderRepository;
         }
 
         /// <summary>
@@ -77,12 +80,13 @@ namespace Dto.Service.IntellRegularBus
         /// </summary>
         /// <param name="busUserAddViewModel"></param>
         /// <returns></returns>
-        public int Bus_Payment_OrderAdd(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
+        public int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
         {
-
+          //  bus_Payment_OrderAddViewModel.AddDate = DateTime.Now;
+            bus_Payment_OrderAddViewModel.OrderId = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
-            _IBusUserRepository.Add(bus_Info);
-            return _IBusUserRepository.SaveChanges();
+            _IBusPaymentOrderRepository.Add(bus_Info);
+            return _IBusPaymentOrderRepository.SaveChanges();
         }
         /// <summary>
         /// 获得头像名称
