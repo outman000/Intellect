@@ -366,6 +366,23 @@ namespace IntellRegularBus.Controllers
             _ILogger.Information("查询用户缴费订单信息成功");
             return Ok(bus_Payment_OrderSearchResModel);
         }
+
+        /// <summary>
+        /// 根据表单ID查询订单下所有用户缴费详细信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<Bus_Payment_OrderSearchResModel> Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel bus_OrderByRepairsIdSearchViewModel)
+        {
+            Bus_OrderByRepairsSearchResModel  bus_OrderByRepairsSearchResModel = new Bus_OrderByRepairsSearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_Payment_Order_BySearch(bus_OrderByRepairsIdSearchViewModel);
+            bus_OrderByRepairsSearchResModel.bus_Payment_OrderSearchMiddle = BusUserSearchResult;
+            bus_OrderByRepairsSearchResModel.isSuccess = true;
+            bus_OrderByRepairsSearchResModel.baseViewModel.Message = "查询成功";
+            bus_OrderByRepairsSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据表单ID查询订单下所有用户缴费详细信息成功");
+            return Ok(bus_OrderByRepairsSearchResModel);
+        }
         ///// <summary>
         ///// 缴费
         ///// </summary>

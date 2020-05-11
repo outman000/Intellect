@@ -45,6 +45,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// 表单id-----外键
         /// </summary>
         public int? Repair_InfoId { get; set; }
+
+        /// <summary>
+        /// 订单id-----外键
+        /// </summary>
+        public int? Bus_Payment_OrderId { get; set; }
         /// <summary>
         /// 乘车时间
         /// </summary>

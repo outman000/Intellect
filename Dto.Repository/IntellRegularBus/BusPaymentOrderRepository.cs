@@ -95,5 +95,12 @@ namespace Dto.Repository.IntellRegularBus
         }
         #endregion
 
+        public Bus_Payment_Order GetInfoByRepair_InfoId(int id)
+        {
+            Bus_Payment_Order busPayment_Info = DbSet.Single(uid => uid.Repair_InfoId.Equals(id));
+            return busPayment_Info;
+        }
+       
+
     }
 }

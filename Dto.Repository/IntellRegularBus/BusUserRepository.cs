@@ -196,7 +196,9 @@ namespace Dto.Repository.IntellRegularBus
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
             if(busUserSearchViewModel.Repair_InfoId!=null)
-            predicate = predicate.And(a => a.Repair_InfoId==busUserSearchViewModel.Repair_InfoId);
+                predicate = predicate.And(a => a.Repair_InfoId==busUserSearchViewModel.Repair_InfoId);
+            if (busUserSearchViewModel.Bus_Payment_OrderId != null)
+                predicate = predicate.And(a => a.Bus_Payment_OrderId == busUserSearchViewModel.Bus_Payment_OrderId);
             predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
             predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
             predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );
@@ -247,6 +249,19 @@ namespace Dto.Repository.IntellRegularBus
         }
 
 
+
+
         #endregion
+
+        /// <summary>
+        /// 根据订单ID查询缴费人员信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<Bus_Payment> GetInfoByBusPaymentOrderId(int id)
+        {
+           List< Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Bus_Payment_OrderId.Equals(id)).ToList();
+            return busPayment_Info;
+        }
     }
 }

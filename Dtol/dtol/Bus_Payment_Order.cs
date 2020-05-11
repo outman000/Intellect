@@ -37,7 +37,10 @@ namespace Dtol.dtol
         /// </summary>
         public string paymentStatus { get; set; }
 
-
+        /// <summary>
+        /// 缴费金额
+        /// </summary>
+        public decimal? Expense { get; set; }
         /// <summary>
         /// 删除状态  0-启用 1-禁用
         /// </summary>

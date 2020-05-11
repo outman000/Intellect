@@ -1,5 +1,4 @@
-﻿using Dtol.dtol;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
@@ -7,16 +6,14 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.BusViewModel.ResponseModel.BusUserResModel
 {
-    public class Bus_Payment_OrderSearchResModel
+    public class Bus_OrderByRepairsSearchResModel
     {
         public bool isSuccess;
-        public List<Bus_Payment_Order> bus_Payment_Orders;
+        public Bus_Payment_OrderSearchMiddle bus_Payment_OrderSearchMiddle;
         public BaseViewModel baseViewModel;
-        public int TotalNum;
-        public Bus_Payment_OrderSearchResModel()
+        public Bus_OrderByRepairsSearchResModel()
         {
             baseViewModel = new BaseViewModel();
         }
-       
     }
 }

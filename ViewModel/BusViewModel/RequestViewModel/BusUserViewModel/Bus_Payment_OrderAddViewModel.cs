@@ -22,6 +22,10 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public DateTime? confirmDate { get; set; }
 
         /// <summary>
+        /// 缴费金额
+        /// </summary>
+        public decimal? Expense { get; set; }
+        /// <summary>
         /// 确认标识
         /// </summary>
         public string confirmStatus { get; set; }

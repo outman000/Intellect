@@ -410,6 +410,20 @@ namespace Dto.Service.IntellRegularBus
         {
             return _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel).ToList().Count;
         }
+
+        /// <summary>
+        /// 根据表单ID查询订单和缴费人员信息信息
+        /// </summary>
+        /// <param name="bus_OrderByRepairsIdSearchViewModel"></param>
+        /// <returns></returns>
+        public Bus_Payment_OrderSearchMiddle Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel bus_OrderByRepairsIdSearchViewModel)
+        {
+            Bus_Payment_OrderSearchMiddle bus_Payment_OrderSearchMiddle = new Bus_Payment_OrderSearchMiddle();
+            bus_Payment_OrderSearchMiddle.bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByRepair_InfoId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
+            bus_Payment_OrderSearchMiddle.bus_Payments= _IBusUserRepository.GetInfoByBusPaymentOrderId(bus_Payment_OrderSearchMiddle.bus_Payment_Order.Id);
+
+            return bus_Payment_OrderSearchMiddle;
+        }
         //public int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId, BusPaymentUpdateViewModel busPamentUpdateViewModel)
         //{
         //    //存入表单信息

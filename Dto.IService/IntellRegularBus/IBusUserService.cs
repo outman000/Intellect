@@ -108,6 +108,13 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busUserSearchViewModell"></param>
         int Bus_Payment_Order_Get_ALLNum(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel);
+
+        /// <summary>
+        /// 根据表单Id查询所有订单详细信息
+        /// </summary>
+        /// <param name="bus_OrderByRepairsIdSearchViewModel"></param>
+       Bus_Payment_OrderSearchMiddle Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel  bus_OrderByRepairsIdSearchViewModel);
+
         ///// <summary>
         /////添加缴费订单信息
         ///// </summary>

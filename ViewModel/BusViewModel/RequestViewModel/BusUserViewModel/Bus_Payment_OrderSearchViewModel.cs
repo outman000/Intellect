@@ -12,15 +12,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// </summary>
         public string OrderId { get; set; }
 
-        /// <summary>
-        /// 支付时间
-        /// </summary>
-        public DateTime? PlaceAnOrderDate { get; set; }
-
-        /// <summary>
-        /// 确认时间
-        /// </summary>
-        public DateTime? confirmDate { get; set; }
+     
 
         /// <summary>
         /// 部门名称
@@ -48,25 +40,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// 公共状态  0-启用 1-禁用
         /// </summary>
         public string status { get; set; }
-
-
-        /// <summary>
-        /// 增加时间
-        /// </summary>
-        public DateTime? AddDate { get; set; }
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public DateTime? updateDate { get; set; }
-
+       
         /// <summary>
         /// 创建人
         /// </summary>
         public string createUser { get; set; }
-        /// <summary>
-        /// 修改人
-        /// </summary>
-        public string updateUser { get; set; }
 
 
         /// <summary>
