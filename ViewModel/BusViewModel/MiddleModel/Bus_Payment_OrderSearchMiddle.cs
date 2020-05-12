@@ -7,7 +7,7 @@ namespace ViewModel.BusViewModel.MiddleModel
 {
     public class Bus_Payment_OrderSearchMiddle
     {
-        public List<Bus_Payment>  bus_Payments { get; set; }
+        public List<Bus_Payment_Search>  bus_Payments { get; set; }
         public  Bus_Payment_Order  bus_Payment_Order { get; set; }
     }
 }

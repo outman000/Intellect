@@ -426,8 +426,10 @@ namespace Dto.Service.IntellRegularBus
         {
             Bus_Payment_OrderSearchMiddle bus_Payment_OrderSearchMiddle = new Bus_Payment_OrderSearchMiddle();
             bus_Payment_OrderSearchMiddle.bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByRepair_InfoId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
-            bus_Payment_OrderSearchMiddle.bus_Payments= _IBusUserRepository.GetInfoByBusPaymentOrderId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
-
+    
+            var temp= _IBusUserRepository.GetInfoByBusPaymentOrderId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
+            var bus_Payment = _IMapper.Map<List<Bus_Payment>, List< Bus_Payment_Search>>(temp);
+            bus_Payment_OrderSearchMiddle.bus_Payments = bus_Payment;
             return bus_Payment_OrderSearchMiddle;
         }
         //public int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId, BusPaymentUpdateViewModel busPamentUpdateViewModel)
