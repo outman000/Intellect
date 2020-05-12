@@ -16,8 +16,8 @@ namespace ViewModel.BusViewModel.ResponseModel.BusUserResModel
 
             public bool IsSuccess;
             public int AddCount;
-
-            public BaseViewModel baseViewModel;
+            public int Bus_Payment_Order_ID;
+        public BaseViewModel baseViewModel;
 
     }
 }

@@ -260,7 +260,7 @@ namespace Dto.Repository.IntellRegularBus
         /// <returns></returns>
         public List<Bus_Payment> GetInfoByBusPaymentOrderId(int id)
         {
-           List< Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Bus_Payment_OrderId.Equals(id)).ToList();
+           List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Repair_InfoId==id).ToList();
             return busPayment_Info;
         }
     }

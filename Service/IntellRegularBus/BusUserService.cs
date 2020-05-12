@@ -131,14 +131,18 @@ namespace Dto.Service.IntellRegularBus
         public int Bus_PayMent_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
         {
             List<Bus_Payment> bus_user_Info = _IBusUserRepository.SearchInfoByBusWhere(busPamentUpdateViewModel).ToList();
-      
+            int TotalExpen = 0;
             for (int i=0; i< bus_user_Info.Count;i++)
             {
               var temp=_IMapper.Map<BusPaymentUpdateViewModel, Bus_Payment>(busPamentUpdateViewModel, bus_user_Info[i]);
                 _IBusUserRepository.Update(temp);
+                TotalExpen += Convert.ToInt32(bus_user_Info[i].Expense);//当前条件下，每个人应交费用总和
             }
-           
-            return _IBusUserRepository.SaveChanges();
+            _IBusUserRepository.SaveChanges();
+            Bus_Payment_Order bus_Payment_Order =_IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(busPamentUpdateViewModel.Bus_Payment_OrderId);
+            bus_Payment_Order.Expense = TotalExpen;
+           _IBusPaymentOrderRepository.Update(bus_Payment_Order);
+            return _IBusPaymentOrderRepository.SaveChanges();
         }
 
         /// <summary>
@@ -371,6 +375,7 @@ namespace Dto.Service.IntellRegularBus
         public int Bus_Payment_Order_Update(Bus_Payment_OrderUpdateViewModel bus_Payment_OrderUpdateViewModel)
         {
             var bus_user_Info = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(bus_Payment_OrderUpdateViewModel.Id);
+            bus_user_Info.updateDate = DateTime.Now;
             var bus_user_Info_update = _IMapper.Map<Bus_Payment_OrderUpdateViewModel, Bus_Payment_Order>(bus_Payment_OrderUpdateViewModel, bus_user_Info);
             _IBusPaymentOrderRepository.Update(bus_user_Info_update);
             return _IBusPaymentOrderRepository.SaveChanges();
@@ -394,11 +399,12 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel)
         {
-            //  bus_Payment_OrderAddViewModel.AddDate = DateTime.Now;
+            bus_Payment_OrderAddViewModel.AddDate = DateTime.Now;
             bus_Payment_OrderAddViewModel.OrderId = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
             _IBusPaymentOrderRepository.Add(bus_Info);
-            return _IBusPaymentOrderRepository.SaveChanges();
+            _IBusPaymentOrderRepository.SaveChanges();
+            return bus_Info.Id;
         }
 
         /// <summary>
@@ -420,7 +426,7 @@ namespace Dto.Service.IntellRegularBus
         {
             Bus_Payment_OrderSearchMiddle bus_Payment_OrderSearchMiddle = new Bus_Payment_OrderSearchMiddle();
             bus_Payment_OrderSearchMiddle.bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByRepair_InfoId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
-            bus_Payment_OrderSearchMiddle.bus_Payments= _IBusUserRepository.GetInfoByBusPaymentOrderId(bus_Payment_OrderSearchMiddle.bus_Payment_Order.Id);
+            bus_Payment_OrderSearchMiddle.bus_Payments= _IBusUserRepository.GetInfoByBusPaymentOrderId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
 
             return bus_Payment_OrderSearchMiddle;
         }

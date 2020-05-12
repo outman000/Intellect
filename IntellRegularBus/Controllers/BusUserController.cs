@@ -230,26 +230,14 @@ namespace IntellRegularBus.Controllers
         public ActionResult<BusPaymentUpdateResModel> Bus_Payment_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
         {
             BusPaymentUpdateResModel  busPamentUpdateResModel = new BusPaymentUpdateResModel();
-            int UpdateRowNum = _IBusUserService.Bus_PayMent_Update(busPamentUpdateViewModel);
-
-            if (UpdateRowNum > 0)
-            {
+            int Add = _IBusUserService.Bus_PayMent_Update(busPamentUpdateViewModel);
                 busPamentUpdateResModel.IsSuccess = true;
-                busPamentUpdateResModel.AddCount = UpdateRowNum;
+                busPamentUpdateResModel.Add = Add;
                 busPamentUpdateResModel.baseViewModel.Message = "更新成功";
                 busPamentUpdateResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("增加用户缴费表单id信息成功");
                 return Ok(busPamentUpdateResModel);
-            }
-            else
-            {
-                busPamentUpdateResModel.IsSuccess = false;
-                busPamentUpdateResModel.AddCount = 0;
-                busPamentUpdateResModel.baseViewModel.Message = "更新失败";
-                busPamentUpdateResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("增加用户缴费表单id信息失败");
-                return BadRequest(busPamentUpdateResModel);
-            }
+          
         }
 
         /// <summary>
@@ -291,27 +279,18 @@ namespace IntellRegularBus.Controllers
         public ActionResult<BusUserAddResModel> Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
         {
 
-            int Bus_User_Add_Count;
-            Bus_User_Add_Count = _IBusUserService.Bus_Payment_Order_Add(bus_Payment_OrderAddViewModel);
+            int Bus_Payment_Order_ID;
+            Bus_Payment_Order_ID = _IBusUserService.Bus_Payment_Order_Add(bus_Payment_OrderAddViewModel);
             BusUserAddResModel busUserAddResModel = new BusUserAddResModel();
-            if (Bus_User_Add_Count > 0)
-            {
+ 
                 busUserAddResModel.IsSuccess = true;
-                busUserAddResModel.AddCount = Bus_User_Add_Count;
+                busUserAddResModel.Bus_Payment_Order_ID = Bus_Payment_Order_ID;
                 busUserAddResModel.baseViewModel.Message = "添加成功";
                 busUserAddResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("增加用户缴费订单信息成功");
                 return Ok(busUserAddResModel);
-            }
-            else
-            {
-                busUserAddResModel.IsSuccess = false;
-                busUserAddResModel.AddCount = 0;
-                busUserAddResModel.baseViewModel.Message = "添加失败";
-                busUserAddResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("增加用户缴费订单信息失败");
-                return BadRequest(busUserAddResModel);
-            }
+          
+         
 
 
         }
