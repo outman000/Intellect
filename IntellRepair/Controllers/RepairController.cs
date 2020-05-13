@@ -157,5 +157,37 @@ namespace IntellRepair.Controllers
             }
         }
 
+
+        /// <summary>
+        /// 更新表单的缴费状态
+        /// </summary>
+        /// <param name="repairUpdateIsPassViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult<RepairUpdateResModel> Manage_Repair_Update_IsPass(RepairUpdateIsPassViewModel repairUpdateIsPassViewModel)
+        {
+            RepairUpdateResModel repairUpdateResModel = new RepairUpdateResModel();
+            int UpdateRowNum = _IRepairService.Repair_Update_IsPass(repairUpdateIsPassViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                repairUpdateResModel.IsSuccess = true;
+                repairUpdateResModel.AddCount = UpdateRowNum;
+                repairUpdateResModel.baseViewModel.Message = "更新成功";
+                repairUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新报修信息成功");
+                return Ok(repairUpdateResModel);
+            }
+            else
+            {
+                repairUpdateResModel.IsSuccess = false;
+                repairUpdateResModel.AddCount = 0;
+                repairUpdateResModel.baseViewModel.Message = "更新失败";
+                repairUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新报修信息失败");
+                return BadRequest(repairUpdateResModel);
+            }
+        }
     }
 }

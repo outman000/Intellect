@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.PublicViewModel;
 using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
@@ -65,6 +66,8 @@ namespace Dto.Repository.IntellRepair
             return repair_Info;
 
         }
+
+ 
         /// <summary>
         /// 根据表单主键id 查询表单信息
         /// </summary>

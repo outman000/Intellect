@@ -100,7 +100,14 @@ namespace Dto.Repository.IntellRegularBus
             Bus_Payment_Order busPayment_Info = DbSet.Single(uid => uid.Repair_InfoId.Equals(id));
             return busPayment_Info;
         }
-       
 
+        public List<Bus_Payment_Order> SearchInfoByUserIdWhere(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel)
+        {
+            List<Bus_Payment_Order> busPayment_Info = DbSet.Where(uid => uid.createUser == bus_OrderIsPassSearchViewModel.User_InfoId &&
+                                                  uid.Repair_Info.isPass == bus_OrderIsPassSearchViewModel.isPass).ToList();
+            return busPayment_Info;
+
+
+        }
     }
 }

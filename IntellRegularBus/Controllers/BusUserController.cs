@@ -103,7 +103,12 @@ namespace IntellRegularBus.Controllers
         {
             BusUserTimeListSearchResModel  busUserTimeListSearchResModel = new BusUserTimeListSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_User_TimeList_Search(busUserSearchTimeViewModel);
-
+            if (BusUserSearchResult.Count == 0)
+            {
+                BusUserSearchResult.Add(DateTime.Now.ToString("yyyy-MM"));
+                BusUserSearchResult.Add(DateTime.Now.AddMonths(1).ToString("yyyy-MM"));  
+            }
+               
             busUserTimeListSearchResModel.bus_user_time_Info = BusUserSearchResult;
             busUserTimeListSearchResModel.isSuccess = true;
             busUserTimeListSearchResModel.baseViewModel.Message = "查询成功";
@@ -360,6 +365,25 @@ namespace IntellRegularBus.Controllers
             bus_OrderByRepairsSearchResModel.baseViewModel.Message = "查询成功";
             bus_OrderByRepairsSearchResModel.baseViewModel.ResponseCode = 200;
             _ILogger.Information("根据表单ID查询订单下所有用户缴费详细信息成功");
+            return Ok(bus_OrderByRepairsSearchResModel);
+        }
+
+
+        /// <summary>
+        /// 根据表单ID查询订单和缴费人员信息信息（局务列表）
+        /// </summary>
+        /// <param name="bus_OrderIsPassSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<Bus_Payment_OrderSearchResModel> Bus_Payment_Order_IsPassSearch(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel)
+        {
+            Bus_Payment_OrderSearchResModel bus_OrderByRepairsSearchResModel = new Bus_Payment_OrderSearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_Payment_Order_SearchByUserid(bus_OrderIsPassSearchViewModel);
+            bus_OrderByRepairsSearchResModel.bus_Payment_Orders = BusUserSearchResult;
+            bus_OrderByRepairsSearchResModel.isSuccess = true;
+            bus_OrderByRepairsSearchResModel.baseViewModel.Message = "查询成功";
+            bus_OrderByRepairsSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据表单ID查询订单和缴费人员信息信息（局务列表）成功");
             return Ok(bus_OrderByRepairsSearchResModel);
         }
         ///// <summary>

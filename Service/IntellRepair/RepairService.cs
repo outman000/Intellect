@@ -107,6 +107,19 @@ namespace Dto.Service.IntellRepair
             _IRepairInfoRepository.Update(repair_Info_update);
             return _IRepairInfoRepository.SaveChanges();
         }
+
+        /// <summary>
+        /// 更新表单的缴费状态
+        /// </summary>
+        /// <param name="repairUpdateViewModel"></param>
+        /// <returns></returns>
+        public int Repair_Update_IsPass(RepairUpdateIsPassViewModel  repairUpdateIsPassViewModel)
+        {
+            var repair_Info = _IRepairInfoRepository.GetInfoByRepairId(repairUpdateIsPassViewModel.id);
+            var repair_Info_update = _IMapper.Map<RepairUpdateIsPassViewModel, Repair_Info>(repairUpdateIsPassViewModel, repair_Info);
+            _IRepairInfoRepository.Update(repair_Info_update);
+            return _IRepairInfoRepository.SaveChanges();
+        }
         /// <summary>
         /// 查询报修数量
         /// </summary>

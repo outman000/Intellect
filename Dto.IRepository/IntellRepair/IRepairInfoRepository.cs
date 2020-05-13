@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.PublicViewModel;
 using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
@@ -28,7 +29,6 @@ namespace Dto.IRepository.IntellRepair
         //根据用户主键查询未处理（流程未结束）
         IQueryable<RepairNoEndMiddlecs> GetRepairinfoByUseridNoEnd(NodeEndSearchViewModel nodeEndSearchViewModel);
 
-        
         List<RepairIsEndMiddlecs> getIsEndInfo(PageViewModel pageView, int userKey,string isHandler);
     }
 }

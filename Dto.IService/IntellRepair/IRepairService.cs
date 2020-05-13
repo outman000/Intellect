@@ -53,6 +53,11 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         RepairInfoSearchMiddlecs GetInfoByRepairId(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel);
 
-       
+        /// <summary>
+        /// 更新表单的缴费状态
+        /// </summary>
+        /// <param name="repairUpdateIsPassViewModel"></param>
+        /// <returns></returns>
+        int Repair_Update_IsPass(RepairUpdateIsPassViewModel repairUpdateIsPassViewModel);
     }
 }

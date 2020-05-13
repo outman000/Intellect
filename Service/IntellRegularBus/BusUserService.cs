@@ -57,6 +57,7 @@ namespace Dto.Service.IntellRegularBus
             _IFlowProcedureInfoRepository = iflowProcedureInfoRepository;
             _IFlowNodeDefineInfoRepository = iflowNodeDefineInfoRepository;
             _IBusPaymentOrderRepository = ibusPaymentOrderRepository;
+            _IRepairInfoRepository = irepairInfoRepository;
         }
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace Dto.Service.IntellRegularBus
             }
             //按照模板添加后，更新日期为当前年份和月份
             NowDateUpdateViewModel nowDateUpdateViewModel = new NowDateUpdateViewModel();
-            nowDateUpdateViewModel.carDate = DateTime.Now;//当前年月
+            nowDateUpdateViewModel.carDate = DateTime.Now.AddMonths(1);//当前年月
             for(int i=0;i< bus_Payments.Count;i++)
             {
                 var bus_user_Info = _IMapper.Map<NowDateUpdateViewModel, BusUserAddViewModel>(nowDateUpdateViewModel, busUserAddViewModel[i]);
@@ -393,6 +394,18 @@ namespace Dto.Service.IntellRegularBus
             return bus_Payment_Order;
         }
         /// <summary>
+        /// 查询缴费订单(根据用户ID)
+        /// </summary>
+        /// <param name="bus_Payment_OrderSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Payment_Order> Bus_Payment_Order_SearchByUserid(Bus_OrderIsPassSearchViewModel  bus_OrderIsPassSearchViewModel)
+        {
+
+            List<Bus_Payment_Order> bus_Payment_Order = _IBusPaymentOrderRepository.SearchInfoByUserIdWhere(bus_OrderIsPassSearchViewModel);
+            return bus_Payment_Order;
+        }
+
+        /// <summary>
         /// 添加缴费订单信息
         /// </summary>
         /// <param name="busUserAddViewModel"></param>
@@ -416,6 +429,10 @@ namespace Dto.Service.IntellRegularBus
         {
             return _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel).ToList().Count;
         }
+
+
+
+
 
         /// <summary>
         /// 根据表单ID查询订单和缴费人员信息信息

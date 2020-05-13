@@ -25,8 +25,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
              .ForMember(s => s.status, sp => sp.MapFrom(src => src.status));
              CreateMap<RepairUpdateViewModel, Repair_Info>();
              CreateMap<RepairAddViewModel, Repair_Info>();
-
-
+             CreateMap<RepairUpdateIsPassViewModel, Repair_Info>();
         }
     }
 }

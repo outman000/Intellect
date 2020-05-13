@@ -57,5 +57,10 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 表单类型  1-报修，2-意见，3-班车缴费
         /// </summary>
         public string isHandler { get; set; }
+
+        /// <summary>
+        /// 是否通过（通过，未通过）
+        /// </summary>
+        public string isPass { get; set; }
     }
 }

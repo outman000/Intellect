@@ -15,5 +15,8 @@ namespace Dto.IRepository.IntellRegularBus
         Bus_Payment_Order GetInfoByRepair_InfoId(int id);
         // 根据条件查人员缴费
         IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderWhere(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel);
+
+        // 根据条件查人员缴费
+        List<Bus_Payment_Order> SearchInfoByUserIdWhere(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
     }
 }

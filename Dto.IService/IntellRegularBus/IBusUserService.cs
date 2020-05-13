@@ -115,11 +115,12 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="bus_OrderByRepairsIdSearchViewModel"></param>
        Bus_Payment_OrderSearchMiddle Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel  bus_OrderByRepairsIdSearchViewModel);
 
-        ///// <summary>
-        /////添加缴费订单信息
-        ///// </summary>
-        ///// <param name="busUserAddViewModel"></param>
-        ///// <returns></returns>
-        //int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId,   BusPaymentUpdateViewModel busPamentUpdateViewModel);
+        /// <summary>
+        /// 根据用户ID查询缴费详情
+        /// </summary>
+        /// <param name="bus_OrderIsPassSearchViewModel"></param>
+        /// <returns></returns>
+        List<Bus_Payment_Order> Bus_Payment_Order_SearchByUserid(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
+
     }
 }
