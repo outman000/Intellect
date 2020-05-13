@@ -13,7 +13,10 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 当前节点id
         /// </summary>
         public int? Flow_NodeDefineId { get; set; }
-
+        /// <summary>
+        /// 当前节点名称
+        /// </summary>
+        public string Flow_NodeDefineName { get; set; }
         /// <summary>
         /// 父节点id
         /// </summary>

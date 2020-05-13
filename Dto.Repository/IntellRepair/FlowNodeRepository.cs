@@ -99,6 +99,7 @@ namespace Dto.Repository.IntellRepair
                                                .Include(d=>d.Pre_User_Info)
                                                .ThenInclude(c=>c.User_Depart)
                                                .Include(a => a.Repair_Info )
+                                               .Include(a => a.Flow_NodeDefine)
                                                .Where(s=>s.User_Info.status!="1"&&
                                                        s.Pre_User_Info.status != "1"&&
                                                        s.Repair_Info.status!="1")
