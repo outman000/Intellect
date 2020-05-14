@@ -63,6 +63,33 @@ namespace Dto.Repository.IntellRegularBus
             Bus_Payment_Order busPayment_Info = DbSet.Single(uid => uid.Id.Equals(id));
             return busPayment_Info;
         }
+        public List<Bus_Payment_Order> SearchInfoWhere()
+        {       
+
+            var predicate = SearchBusPaymentWhere();
+            if (DbSet.Where(predicate).ToList().Count==0)
+            {
+                return null;
+            }
+            else
+            {
+                var result = DbSet.Where(predicate).OrderByDescending(o => o.AddDate).ToList();
+                return result;
+            }
+           
+        }
+
+        #region 条件
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment_Order, bool>> SearchBusPaymentWhere()
+        {
+            var predicate = WhereExtension.True<Bus_Payment_Order>();//初始化where表达式
+           
+            predicate = predicate.And(a => a.isDelete=="0");
+            predicate = predicate.And(a => a.AddDate.Value.Year == DateTime.Now.Year && a.AddDate.Value.Month== DateTime.Now.Month);
+            return predicate;
+        }
+        #endregion
 
         public IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderWhere(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel)
         {
@@ -104,7 +131,7 @@ namespace Dto.Repository.IntellRegularBus
         public List<Bus_Payment_Order> SearchInfoByUserIdWhere(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel)
         {
             List<Bus_Payment_Order> busPayment_Info = DbSet.Where(uid => uid.createUser == bus_OrderIsPassSearchViewModel.User_InfoId &&
-                                                  uid.Repair_Info.isPass == bus_OrderIsPassSearchViewModel.isPass).ToList();
+                                                  uid.Repair_Info.isEnd == bus_OrderIsPassSearchViewModel.isPass).ToList();
             return busPayment_Info;
 
 

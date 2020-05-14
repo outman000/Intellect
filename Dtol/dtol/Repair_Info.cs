@@ -59,9 +59,9 @@ namespace Dtol.dtol
         public string isHandler { get; set; }
 
         /// <summary>
-        /// 是否通过（通过，未通过）
+        /// 流程是否结束（通过，未通过）
         /// </summary>
-        public string isPass { get; set; }
+        public string isEnd { get; set; }
 
     }
 }

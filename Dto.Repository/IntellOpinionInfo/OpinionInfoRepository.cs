@@ -129,5 +129,16 @@ namespace Dto.Repository.IntellOpinionInfo
 
             return DbSet.Where(predicate);
         }
+
+        public List<Opinion_Info> GetInfoByRepair_InfoId(int id)
+        {
+            if(DbSet.Where(uid => uid.Repair_InfoId == id).ToList().Count>0)
+            {
+                List<Opinion_Info> opinion_Info = DbSet.Where(uid => uid.Repair_InfoId == id).OrderByDescending(a => a.AddDate).ToList();
+                return opinion_Info;
+            }
+            else
+            return null;
+        }
     }
 }

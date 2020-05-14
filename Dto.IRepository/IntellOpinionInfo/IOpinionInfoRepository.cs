@@ -21,6 +21,9 @@ namespace Dto.IRepository.IntellOpinionInfo
         /// <returns></returns>
         IQueryable<Opinion_Info> SearchOpinionInfoByWhere(OpinionInfoSearchViewModel  opinionInfoSearchViewModel);
 
+        //根据菜单主键id查询
+        List<Opinion_Info> GetInfoByRepair_InfoId(int id);
+
         //根据条件查询领导意见数量
         IQueryable<Opinion_Info> GetOpinionInfoAll(OpinionInfoSearchViewModel opinionInfoSearchViewModel);
     }

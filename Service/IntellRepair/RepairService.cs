@@ -39,6 +39,8 @@ namespace Dto.Service.IntellRepair
             RepairInfoSearchMiddlecs repairSearches = new RepairInfoSearchMiddlecs();
             List<Repair_Info> line_Infos = _IRepairInfoRepository.SearchInfoByRepairWhere(repairInfoSearchViewModel).ToList();
 
+           
+
             var repairSearchMiddlecs = _IMapper.Map< List<Repair_Info>, List<RepairInfoSearchMiddlecs>>(line_Infos);
              
             return repairSearchMiddlecs;

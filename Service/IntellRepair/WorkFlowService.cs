@@ -265,6 +265,14 @@ namespace Dto.Service.IntellRepair
                 procedure_Info.remark = "2";//流程结束
                 _IFlowProcedureInfoRepository.Update(procedure_Info);
                 _IFlowProcedureInfoRepository.SaveChanges();
+
+
+                //更新表单对应流程的状态为结束状态
+                var repair_Info = _IRepairInfoRepository.GetInfoByRepairId(flowInfoSearchViewModel.Repair_InfoId);
+                repair_Info.isEnd = "结束";
+                _IRepairInfoRepository.Update(repair_Info);
+                _IRepairInfoRepository.SaveChanges();
+
             }
         }
 

@@ -18,5 +18,6 @@ namespace Dto.IRepository.IntellRegularBus
 
         // 根据条件查人员缴费
         List<Bus_Payment_Order> SearchInfoByUserIdWhere(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
+        List<Bus_Payment_Order> SearchInfoWhere();
     }
 }

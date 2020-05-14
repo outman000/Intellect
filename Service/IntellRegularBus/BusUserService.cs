@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dto.IRepository.IntellOpinionInfo;
 using Dto.IRepository.IntellRegularBus;
 using Dto.IRepository.IntellRepair;
 using Dto.IRepository.IntellUser;
@@ -14,6 +15,7 @@ using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
+using ViewModel.OpinionInfoViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
@@ -33,6 +35,7 @@ namespace Dto.Service.IntellRegularBus
         private readonly IFlowProcedureInfoRepository _IFlowProcedureInfoRepository;
         private readonly IFlowNodeDefineInfoRepository _IFlowNodeDefineInfoRepository;
         private readonly IBusPaymentOrderRepository _IBusPaymentOrderRepository;
+        private readonly IOpinionInfoRepository _IOpinionInfoRepository;
 
         public BusUserService(IBusUserRepository busUserRepository ,
                                 IBusInfoRepository busInfoRepository,
@@ -44,6 +47,7 @@ namespace Dto.Service.IntellRegularBus
                                 IFlowProcedureInfoRepository iflowProcedureInfoRepository,
                                 IFlowNodeDefineInfoRepository iflowNodeDefineInfoRepository,
                                 IRepairInfoRepository irepairInfoRepository,
+                                IOpinionInfoRepository opinionInfoRepository,
                                 IBusPaymentOrderRepository ibusPaymentOrderRepository)
         {
             _IBusUserRepository = busUserRepository;
@@ -58,6 +62,7 @@ namespace Dto.Service.IntellRegularBus
             _IFlowNodeDefineInfoRepository = iflowNodeDefineInfoRepository;
             _IBusPaymentOrderRepository = ibusPaymentOrderRepository;
             _IRepairInfoRepository = irepairInfoRepository;
+            _IOpinionInfoRepository = opinionInfoRepository;
         }
 
         /// <summary>
@@ -413,7 +418,20 @@ namespace Dto.Service.IntellRegularBus
         public int Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel bus_Payment_OrderAddViewModel)
         {
             bus_Payment_OrderAddViewModel.AddDate = DateTime.Now;
-            bus_Payment_OrderAddViewModel.OrderId = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            var list = Bus_Payment();
+            if (list==null)
+            {
+              
+                bus_Payment_OrderAddViewModel.OrderId = "221338" + DateTime.Now.ToString("yyyyMM") + "000";
+            }
+               
+            else
+            {
+                //var temp = Convert.ToInt64(list[0].OrderId.Substring(12));
+                //bus_Payment_OrderAddViewModel.OrderId = list[0].OrderId.Substring(0,11) + (temp+1).ToString();
+                bus_Payment_OrderAddViewModel.OrderId =(Convert.ToInt64(list[0].OrderId) + 1).ToString();
+            }
+               
             var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
             _IBusPaymentOrderRepository.Add(bus_Info);
             _IBusPaymentOrderRepository.SaveChanges();
@@ -431,6 +449,18 @@ namespace Dto.Service.IntellRegularBus
         }
 
 
+        /// <summary>
+        /// 查询班车缴费订单数量
+        /// </summary>
+        /// <param name="busUserSearchViewModell"></param>
+        /// <returns></returns>
+        public List<Bus_Payment_Order> Bus_Payment()
+        {
+  
+             var Bus_Payment_Order =  _IBusPaymentOrderRepository.SearchInfoWhere();
+
+            return Bus_Payment_Order;
+        }
 
 
 
@@ -443,38 +473,16 @@ namespace Dto.Service.IntellRegularBus
         {
             Bus_Payment_OrderSearchMiddle bus_Payment_OrderSearchMiddle = new Bus_Payment_OrderSearchMiddle();
             bus_Payment_OrderSearchMiddle.bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByRepair_InfoId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
-    
+
+            var OpinionInfoList = _IOpinionInfoRepository.GetInfoByRepair_InfoId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);//意见列表
+            var repairSearchMiddlecs = _IMapper.Map<List<Opinion_Info>, List<OpinionInfoSearchMiddlecs>>(OpinionInfoList);
+            bus_Payment_OrderSearchMiddle.opinion_Infos = repairSearchMiddlecs;
+
             var temp= _IBusUserRepository.GetInfoByBusPaymentOrderId(bus_OrderByRepairsIdSearchViewModel.Repair_InfoId);
             var bus_Payment = _IMapper.Map<List<Bus_Payment>, List< Bus_Payment_Search>>(temp);
             bus_Payment_OrderSearchMiddle.bus_Payments = bus_Payment;
             return bus_Payment_OrderSearchMiddle;
         }
-        //public int Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId, BusPaymentUpdateViewModel busPamentUpdateViewModel)
-        //{
-        //    //存入表单信息
-        //    var repair_Info = _IMapper.Map<RepairAddViewModel, Repair_Info>(repairAddViewModel);
-        //    _IRepairInfoRepository.Add(repair_Info);
-        //    _IRepairInfoRepository.SaveChanges();
-
-        //    //存入流程信息（只有在开始节点的时候才会存入一条数据）
-        //    var flowProcedureAddViewModel = _IMapper.Map<Repair_Info, FlowProcedureAddViewModel>(repair_Info);
-        //    var procedure_Info = _IMapper.Map<FlowProcedureAddViewModel, Flow_Procedure>(flowProcedureAddViewModel);
-        //    procedure_Info.remark = "1";//流程开始
-        //    _IFlowProcedureInfoRepository.Add(procedure_Info);
-        //    _IFlowProcedureInfoRepository.SaveChanges();
-
-        //    //通过流程定义Id去查开始节点的主键id
-        //    var ProcedureDefine = _IFlowNodeDefineInfoRepository.GetInfoByProcedureDefineId(Flow_ProcedureDefineId);
-        //    int FirstNodeId = ProcedureDefine.Id;
-        //    //返回三个Id
-        //    WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
-        //    workFlowFistReturnIdList.Repair_InfoId = repair_Info.id;//表单主键Id
-        //    workFlowFistReturnIdList.RepairType = repair_Info.RepairsType;//填写的类型与角色类相对应
-        //    workFlowFistReturnIdList.User_InfoId = repair_Info.User_InfoId;//填写表单的用户Id
-        //    workFlowFistReturnIdList.Flow_ProcedureId = procedure_Info.Id;//流程Id
-        //    workFlowFistReturnIdList.Flow_NodeDefineId = FirstNodeId;//该流程第一个节点Id
-
-
-        //}
+     
     }
 }
