@@ -55,7 +55,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public string isHandler { get; set; }
 
         /// <summary>
-        /// 是否通过（通过，未通过）
+        /// 是否通过（结束，未结束）
         /// </summary>
         public string isPass { get; set; }
     }

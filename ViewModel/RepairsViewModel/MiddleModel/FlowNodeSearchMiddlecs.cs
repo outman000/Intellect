@@ -68,6 +68,12 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         public int? Pre_User_InfoId { get; set; }
 
         /// <summary>
+        /// 用户保持
+        /// </summary>
+        public string NodeKeep { get; set; }
+        
+
+        /// <summary>
         /// 是否删除
         /// </summary>
         public string status { get; set; }

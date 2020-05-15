@@ -49,7 +49,7 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        FlowNodeSearchViewModel()
+        public FlowNodeSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }

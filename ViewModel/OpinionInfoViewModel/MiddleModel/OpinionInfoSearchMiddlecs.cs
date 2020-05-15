@@ -20,7 +20,10 @@ namespace ViewModel.OpinionInfoViewModel.MiddleModel
         /// 用户名
         /// </summary>
         public string UserName { get; set; }
-
+        /// <summary>
+        /// 部门名
+        /// </summary>
+        public string DepartName { get; set; }
 
 
         /// <summary>

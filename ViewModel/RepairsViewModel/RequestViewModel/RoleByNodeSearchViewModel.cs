@@ -31,6 +31,14 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         public int? departId { get; set; }
 
         /// <summary>
+        /// 表单id(此属性可以为空)
+        /// </summary>
+        public int? Repair_InfoId { get; set; }
+        /// <summary>
+        /// 表单类型（1-报修类型，2-意见类型,3-班车类型）
+        /// </summary>
+        public string isHandler { get; set; }
+        /// <summary>
         /// 分页
         /// </summary>
         public PageViewModel pageViewModel { get; set; }

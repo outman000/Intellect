@@ -17,15 +17,72 @@ namespace Dtol.dtol
         /// </summary>
         public string OrderId { get; set; }
 
+
+        /// <summary>
+        /// 订单币种
+        /// </summary>
+        public string curCode { get; set; }
+
         /// <summary>
         /// 支付时间
         /// </summary>
         public DateTime? PlaceAnOrderDate { get; set; }
 
         /// <summary>
+        ///订单时间
+        /// </summary>
+        public string orderTime { get; set; }
+
+
+        /// <summary>
+        ///交易终端类型
+        /// </summary>
+        public string terminalChnl { get; set; }
+
+        /// <summary>
+        ///交易类型
+        /// </summary>
+        public string tradeType { get; set; }
+
+
+
+        /// <summary>
+        /// 设备号
+        /// </summary>
+        public string deviceInfo { get; set; }
+
+        /// <summary>
+        /// 终端ip
+        /// </summary>
+        public string spbillCreateIp { get; set; }
+
+        /// <summary>
+        /// 证件类型
+        /// </summary>
+        public string identityType { get; set; }
+
+
+        /// <summary>
+        /// 证件号
+        /// </summary>
+        public string identityNumb { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string identityName { get; set; }
+
+        
+
+        /// <summary>
         /// 确认时间
         /// </summary>
         public DateTime? confirmDate { get; set; }
+
+
+
+
+
 
         /// <summary>
         /// 确认标识

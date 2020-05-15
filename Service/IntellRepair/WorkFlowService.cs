@@ -76,8 +76,24 @@ namespace Dto.Service.IntellRepair
                 RoleList.Add(User_RoleId);
 
             }
-           
-             int userId = roleByNodeSearchViewModel.user_InfoId.Value;
+
+            /***********************查询当前节点处理人的上一步处理人**************************/
+
+            FlowNodeSearchViewModel flowNodeSearchViewModel = new FlowNodeSearchViewModel();
+            flowNodeSearchViewModel.Repair_InfoId = roleByNodeSearchViewModel.Repair_InfoId.Value;
+            flowNodeSearchViewModel.operate = "1";
+            flowNodeSearchViewModel.User_InfoId= roleByNodeSearchViewModel.user_InfoId.Value;
+            flowNodeSearchViewModel.status = "0";
+            flowNodeSearchViewModel.isHandler = roleByNodeSearchViewModel.isHandler;
+            flowNodeSearchViewModel.pageViewModel.CurrentPageNum = 0;
+            flowNodeSearchViewModel.pageViewModel.PageSize = 99;
+            List<Flow_Node> node_Infos = _IFlowNodeRepository.SearchInfoByNodeWhere(flowNodeSearchViewModel);
+
+            /***********************查询当前节点处理人的上一步处理人**************************/
+
+
+
+            int userId = node_Infos[0].Pre_User_InfoId.Value;
              int departId = roleByNodeSearchViewModel.departId.Value;
 
             string nodeType = roleByNodeSearchViewModel.NodeKeep;

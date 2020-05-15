@@ -62,5 +62,10 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
         /// 流程定义主键Id
         /// </summary>
         public int Flow_ProcedureDefineId { get; set; }
+
+        /// <summary>
+        /// 流程是否结束（结束，未结束）
+        /// </summary>
+        public string isEnd { get; set; }
     }
 }
