@@ -134,7 +134,8 @@ namespace Dto.Repository.IntellOpinionInfo
         {
             if(DbSet.Where(uid => uid.Repair_InfoId == id).ToList().Count>0)
             {
-                List<Opinion_Info> opinion_Info = DbSet.Where(uid => uid.Repair_InfoId == id).OrderByDescending(a => a.AddDate).ToList();
+                List<Opinion_Info> opinion_Info = DbSet.Where(uid => uid.Repair_InfoId == id).Include(a=>a.User_Info).Include(a=>a.Flow_NodeDefine).
+                                                       OrderByDescending(a => a.AddDate).ToList();
                 return opinion_Info;
             }
             else

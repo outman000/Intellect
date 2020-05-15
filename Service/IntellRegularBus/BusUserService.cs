@@ -422,15 +422,14 @@ namespace Dto.Service.IntellRegularBus
             if (list==null)
             {
                 bus_Payment_OrderAddViewModel.OrderId = "221338" + DateTime.Now.ToString("yyyyMM") + "000";
-            }
-               
+            }           
             else
             {
                 bus_Payment_OrderAddViewModel.OrderId =(Convert.ToInt64(list[0].OrderId) + 1).ToString();
             }
                
             var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
-            bus_Info.orderTime = bus_Payment_OrderAddViewModel.AddDate.Value.ToString("yyyyMMddhhmmss");//订单时间格式
+            bus_Info.orderTime = bus_Payment_OrderAddViewModel.AddDate.Value.ToString("yyyyMMddHHMMss");//订单时间格式
             bus_Info.curCode = "001";//币种
             _IBusPaymentOrderRepository.Add(bus_Info);
             _IBusPaymentOrderRepository.SaveChanges();

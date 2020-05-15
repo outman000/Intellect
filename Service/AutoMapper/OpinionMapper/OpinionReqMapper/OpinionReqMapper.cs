@@ -18,6 +18,7 @@ namespace Dto.Service.AutoMapper.OpinionMapper.OpinionReqMapper
             CreateMap<OpinionInfoUpdateViewModel, Opinion_Info>();
             CreateMap<OpinionInfoAddViewModel, Opinion_Info>();
             CreateMap<Opinion_Info, OpinionInfoSearchMiddlecs>()
+            .ForMember(s => s.NodeName, sp => sp.MapFrom(src => src.Flow_NodeDefine.NodeName))     
             .ForMember(s => s.DepartName, sp => sp.MapFrom(src => src.User_Info.User_Depart.Name))
             .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName));
 
