@@ -45,6 +45,11 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// </summary>
         public string WorkExperience { get; set; }
 
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        public string Idcard { get; set; }
+
         ///// <summary>
         ///// 头像存储路径
         ///// </summary>

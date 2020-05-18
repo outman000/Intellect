@@ -183,7 +183,29 @@ namespace IntellUser.Controllers
             return Ok(userSearchResModel);
 
         }
-      
+
+        /// <summary>
+        /// 查询用户信息(根据用户)
+        /// </summary>
+        /// <param name="userSearchByUserIdViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<UserSearchResModel> Manage_User_Single_Search(UserSearchByUserIdViewModel  userSearchByUserIdViewModel)
+        {
+            UserSearchSingleResModel  userSearchSingleResModel = new UserSearchSingleResModel();
+            var UserSearchResult = _userService.User_Single_Search(userSearchByUserIdViewModel);
+
+            var TotalNum = 1;
+            userSearchSingleResModel.user_Infos = UserSearchResult;
+            userSearchSingleResModel.isSuccess = true;
+            userSearchSingleResModel.baseViewModel.Message = "查询成功";
+            userSearchSingleResModel.baseViewModel.ResponseCode = 200;
+            userSearchSingleResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询用户信息，查询成功");
+            return Ok(userSearchSingleResModel);
+
+        }
+        
         /// <summary>
         /// 根据部门 添加/删除 用户
         /// </summary>

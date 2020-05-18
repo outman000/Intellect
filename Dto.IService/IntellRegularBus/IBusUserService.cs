@@ -122,5 +122,12 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
         List<Bus_Payment_Order> Bus_Payment_Order_SearchByUserid(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
 
+
+        int Bus_Payment_Order_Count(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
+
+        int ByBusIdSearchNum2(BusSearchByIdViewModel busSearchByIdViewModel, int count);
+
+
+        void Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel);
     }
 }

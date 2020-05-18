@@ -93,6 +93,8 @@ namespace Dto.IService.IntellUser
         /// <param name="iformFile"></param>
 
         String GetUserHead(IFormFile iformFile);
+
+       User_Info User_Single_Search(UserSearchByUserIdViewModel  userSearchByUserIdViewModel);
     }
 }
 

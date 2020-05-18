@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.PublicViewModel;
 
 namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
 {
@@ -14,5 +15,17 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// 是否通过（通过，未通过）
         /// </summary>
         public string isPass { get; set; }
+
+        /// <summary>
+        /// 分页
+        /// </summary>
+        public PageViewModel pageViewModel { get; set; }
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        Bus_OrderIsPassSearchViewModel()
+        {
+            pageViewModel = new PageViewModel();
+        }
     }
 }

@@ -57,6 +57,30 @@ namespace Dtol.dtol
         public string UserName { get; set; }
 
 
+        /// <summary>
+        /// 用户Id
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// 用户身份证号
+        /// </summary>
+        public string IDNumber { get; set; }
+
+        /// <summary>
+        /// 用户手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 更新码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
+        /// 更新码的时间
+        /// </summary>
+        public DateTime? UpdateCodeDate { get; set; }
 
         /// <summary>
         /// 用户照片
@@ -105,5 +129,7 @@ namespace Dtol.dtol
         /// 修改缴费时间
         /// </summary>
         public DateTime? updateDate { get; set; }
+
+
     }
 }

@@ -103,5 +103,20 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public DateTime? carDate { get; set; }
 
         public DateTime? createDate { get; set; }
+
+        /// <summary>
+        /// 用户Id
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// 用户身份证号
+        /// </summary>
+        public string IDNumber { get; set; }
+
+        /// <summary>
+        /// 用户手机号
+        /// </summary>
+        public string Phone { get; set; }
     }
 }

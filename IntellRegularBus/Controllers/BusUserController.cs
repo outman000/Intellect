@@ -379,8 +379,10 @@ namespace IntellRegularBus.Controllers
         {
             Bus_Payment_OrderSearchResModel bus_OrderByRepairsSearchResModel = new Bus_Payment_OrderSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_Payment_Order_SearchByUserid(bus_OrderIsPassSearchViewModel);
+            var count = _IBusUserService.Bus_Payment_Order_Count(bus_OrderIsPassSearchViewModel);
             bus_OrderByRepairsSearchResModel.bus_Payment_Orders = BusUserSearchResult;
             bus_OrderByRepairsSearchResModel.isSuccess = true;
+            bus_OrderByRepairsSearchResModel.TotalNum = count;
             bus_OrderByRepairsSearchResModel.baseViewModel.Message = "查询成功";
             bus_OrderByRepairsSearchResModel.baseViewModel.ResponseCode = 200;
             _ILogger.Information("根据表单ID查询订单和缴费人员信息信息（局务列表）成功");

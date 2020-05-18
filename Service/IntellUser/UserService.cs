@@ -42,6 +42,15 @@ namespace Dto.Service.IntellUser
             return (Queryable_UserInfo.Count() < 1) ?
                    true : false;
         }
+        public User_Info User_Single_Search(UserSearchByUserIdViewModel userSearchByUserIdViewModel)
+        {
+            User_Info Queryable_UserInfo = _IUserInfoRepository
+                                                        .GetInfoByUserid(userSearchByUserIdViewModel.UserId);
+            return Queryable_UserInfo;
+                  
+        }
+
+
         //删除用户（一个或者多个）
         public int User_Delete(UserDeleteViewModel userDeleteViewModel)
         {

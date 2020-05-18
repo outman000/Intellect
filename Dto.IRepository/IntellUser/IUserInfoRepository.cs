@@ -12,6 +12,8 @@ namespace Dto.IRepository.IntellUser
     {
         //根据用户id查询
         IQueryable<User_Info>  GetInfoByUserid(string userid);
+
+
         //根据主键id查询
         User_Info GetInfoByUserid(int id);
         //根据主键id查询用户信息和部门信息

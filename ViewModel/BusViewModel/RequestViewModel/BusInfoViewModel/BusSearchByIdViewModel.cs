@@ -12,6 +12,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel
         public int Bus_LineId { get; set; }
 
         /// <summary>
+        /// 线路个数
+        /// </summary>
+        public int count { get; set; }
+
+        /// <summary>
         /// 乘车时间
         /// </summary>
         public DateTime carDate { get; set; }

@@ -126,6 +126,28 @@ namespace Dto.Repository.IntellRegularBus
 
 
         }
+
+        /// <summary>
+        /// 查询人员缴费信息（重载,最普通的查询）
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<int> SearchInfoByBusDistinctWhere(BusUserSearchViewModel busUserSearchViewModel)
+        {
+            //int SkipNum = busUserSearchViewModel.pageViewModel.CurrentPageNum * busUserSearchViewModel.pageViewModel.PageSize;
+
+            var predicate = SearchBusUserWhere2(busUserSearchViewModel);
+
+
+            var result = DbSet.Where(predicate).Select(a => a.Bus_LineId.Value).Distinct()
+               .ToList();
+
+
+            return result;
+
+
+        }
+
         /// <summary>
         /// 查询本部门缴费时间列表
         /// </summary>
@@ -189,6 +211,18 @@ namespace Dto.Repository.IntellRegularBus
            
         }
 
+
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere2(BusUserSearchViewModel busUserSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
+            if (busUserSearchViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
+            predicate = predicate.And(a => a.status=="0");
+            return predicate;
+        }
 
         #region 条件
         //根据条件查询班车
@@ -254,13 +288,25 @@ namespace Dto.Repository.IntellRegularBus
         #endregion
 
         /// <summary>
-        /// 根据订单ID查询缴费人员信息
+        /// 根据表单ID查询缴费人员信息
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public List<Bus_Payment> GetInfoByBusPaymentOrderId(int id)
         {
-           List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Repair_InfoId==id).ToList();
+           List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Repair_InfoId==id && uid.status=="0").ToList();
+            return busPayment_Info;
+        }
+
+
+        /// <summary>
+        /// 根据订单ID查询缴费人员信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<Bus_Payment> GetInfoByBus(int id)
+        {
+            List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Bus_Payment_OrderId == id && uid.status == "0").ToList();
             return busPayment_Info;
         }
     }
