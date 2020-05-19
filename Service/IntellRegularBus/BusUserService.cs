@@ -420,6 +420,26 @@ namespace Dto.Service.IntellRegularBus
         }
 
         /// <summary>
+        /// 更新缴费订单信息(金额)
+        /// </summary>
+        /// <param name="bus_Payment_OrderUpdateViewModel"></param>
+        /// <returns></returns>
+        public int Bus_Payment_Order_UpdateExpense(Bus_Payment_OrderUpdateExpenseViewModel  bus_Payment_OrderUpdateExpenseViewModel)
+        {
+
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.GetInfoByBus(bus_Payment_OrderUpdateExpenseViewModel.Bus_Payment_OrderId).ToList();
+            int TotalExpen = 0;
+            for (int i = 0; i < bus_Payments.Count; i++)
+            {
+                TotalExpen += Convert.ToInt32(bus_Payments[i].Expense);//当前条件下，每个人应交费用总和
+            }   
+            var bus_user_Info = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(bus_Payment_OrderUpdateExpenseViewModel.Bus_Payment_OrderId);
+            bus_user_Info.updateDate = DateTime.Now;
+            bus_user_Info.Expense = TotalExpen;
+            _IBusPaymentOrderRepository.Update(bus_user_Info);
+            return _IBusPaymentOrderRepository.SaveChanges();
+        }
+        /// <summary>
         /// 查询缴费订单
         /// </summary>
         /// <param name="bus_Payment_OrderSearchViewModel"></param>
@@ -537,13 +557,79 @@ namespace Dto.Service.IntellRegularBus
         {
           
           var bus_Payment = _IBusUserRepository.GetInfoByBus(bus_OrderByOrderIdSearchViewModel.Bus_Payment_OrderId);
-            for(int i=0;i< bus_Payment.Count;i++)
+            var updateDate= DateTime.Now; 
+            for (int i=0;i< bus_Payment.Count;i++)
             {
                 bus_Payment[i].Code= Guid.NewGuid().ToString();
-                bus_Payment[i].UpdateCodeDate = DateTime.Now;
+                bus_Payment[i].UpdateCodeDate = updateDate;
+            } 
+
+        }
+
+
+        /// <summary>
+        /// 根据动态码查询缴费人员信息
+        /// </summary>
+        /// <param name="bus_OrderByCodeSearchViewModel"></param>
+        /// <returns></returns>
+        public Bus_Payment Bus_PaymentSearchByCode(Bus_OrderByCodeSearchViewModel  bus_OrderByCodeSearchViewModel)
+        {
+
+            var bus_Payment = _IBusUserRepository.GetInfoByCode(bus_OrderByCodeSearchViewModel.Code);
+            var updateDate = DateTime.Now;
+          
+            if(bus_Payment.Count==0)//二维码过期
+            {
+                return null;
+            }
+            else
+            {
+                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                {
+                    return bus_Payment[0];
+                }
+                else//二维码过期
+                {
+                    return null;
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// 根据身份证号查询缴费人员信息
+        /// </summary>
+        /// <param name="bus_OrderByCodeSearchViewModel"></param>
+        /// <returns></returns>
+        public Bus_Payment Bus_PaymentSearchByIdCard(Bus_OrderByIdCardSearchViewModel  bus_OrderByIdCardSearchViewModel)
+        {
+
+            var bus_Payment = _IBusUserRepository.GetInfoByIdCard(bus_OrderByIdCardSearchViewModel);
+            var updateDate = DateTime.Now;
+
+            if (bus_Payment.Count == 0)//不存在该人员过期
+            {
+                return null;
+            }
+            else
+            {
+                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                {
+                    return bus_Payment[0];
+                }
+                else//二维码过期
+                {
+                    var bus_user_Info = _IBusUserRepository.GetInfoByBusUserId(bus_Payment[0].Id);
+                    bus_user_Info.Code = Guid.NewGuid().ToString();
+                    bus_user_Info.UpdateCodeDate = updateDate;
+                    bus_user_Info.updateDate = updateDate;
+                    _IBusUserRepository.Update(bus_user_Info);
+                    _IBusUserRepository.SaveChanges();  
+                    return bus_user_Info;
+                }
             }
 
-            
 
         }
 

@@ -227,6 +227,39 @@ namespace IntellRegularBus.Controllers
                 return BadRequest(busUserUpdateResModel);
             }
         }
+
+
+        /// <summary>
+        /// 根据订单ID修改用户缴费总金额信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<BusUserUpdateResModel> Bus_Payment_Order_UpdateExpense(Bus_Payment_OrderUpdateExpenseViewModel bus_Payment_OrderUpdateExpenseViewModel)
+        {
+            BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_Payment_Order_UpdateExpense(bus_Payment_OrderUpdateExpenseViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                busUserUpdateResModel.IsSuccess = true;
+                busUserUpdateResModel.AddCount = UpdateRowNum;
+                busUserUpdateResModel.baseViewModel.Message = "更新成功";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据订单ID修改用户缴费总金额信息成功");
+                return Ok(busUserUpdateResModel);
+            }
+            else
+            {
+                busUserUpdateResModel.IsSuccess = false;
+                busUserUpdateResModel.AddCount = 0;
+                busUserUpdateResModel.baseViewModel.Message = "更新失败";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据订单ID修改用户缴费总金额信息失败");
+                return BadRequest(busUserUpdateResModel);
+            }
+        }
+
+
         /// <summary>
         /// 修改用户缴费表单id信息
         /// </summary>
@@ -388,39 +421,41 @@ namespace IntellRegularBus.Controllers
             _ILogger.Information("根据表单ID查询订单和缴费人员信息信息（局务列表）成功");
             return Ok(bus_OrderByRepairsSearchResModel);
         }
-        ///// <summary>
-        ///// 缴费
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public ActionResult<BusPaymentUpdateResModel> Bus_Payment(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId,
-        //                                                          BusPaymentUpdateViewModel busPamentUpdateViewModel)
-        //{
-        //    WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
-        //    var a = _IBusUserService.Bus_Payment(repairAddViewModel, Flow_ProcedureDefineId);
-
-        //    RepairAddResModel repairAddResModel = new RepairAddResModel();
-        //    if (UpdateRowNum > 0)
-        //    {
-        //        busPamentUpdateResModel.IsSuccess = true;
-        //        busPamentUpdateResModel.AddCount = UpdateRowNum;
-        //        busPamentUpdateResModel.baseViewModel.Message = "更新成功";
-        //        busPamentUpdateResModel.baseViewModel.ResponseCode = 200;
-        //        _ILogger.Information("增加用户缴费表单id信息成功");
-        //        return Ok(busPamentUpdateResModel);
-        //    }
-        //    else
-        //    {
-        //        busPamentUpdateResModel.IsSuccess = false;
-        //        busPamentUpdateResModel.AddCount = 0;
-        //        busPamentUpdateResModel.baseViewModel.Message = "更新失败";
-        //        busPamentUpdateResModel.baseViewModel.ResponseCode = 400;
-        //        _ILogger.Information("增加用户缴费表单id信息失败");
-        //        return BadRequest(busPamentUpdateResModel);
-        //    }
-        //}
 
 
+        /// <summary>
+        /// 根据动态码查询用户缴费信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<BusUserSearchByCodeResModel> Bus_UserByCode_Search(Bus_OrderByCodeSearchViewModel bus_OrderByCodeSearchViewModel)
+        {
+            BusUserSearchByCodeResModel  busUserSearchByCodeResModel = new BusUserSearchByCodeResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_PaymentSearchByCode(bus_OrderByCodeSearchViewModel);
+            busUserSearchByCodeResModel.bus_user_Info = BusUserSearchResult;
+            busUserSearchByCodeResModel.isSuccess = true;
+            busUserSearchByCodeResModel.baseViewModel.Message = "查询成功";
+            busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information(" 根据动态码查询用户缴费信息成功");
+            return Ok(busUserSearchByCodeResModel);
+        }
+
+        /// <summary>
+        /// 根据身份证号查询用户缴费信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<BusUserSearchByCodeResModel> Bus_UserByIdCard_Search(Bus_OrderByIdCardSearchViewModel bus_OrderByIdCardSearchViewModel)
+        {
+            BusUserSearchByCodeResModel busUserSearchByCodeResModel = new BusUserSearchByCodeResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_PaymentSearchByIdCard(bus_OrderByIdCardSearchViewModel);
+            busUserSearchByCodeResModel.bus_user_Info = BusUserSearchResult;
+            busUserSearchByCodeResModel.isSuccess = true;
+            busUserSearchByCodeResModel.baseViewModel.Message = "查询成功";
+            busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据身份证号查询用户缴费信息成功");
+            return Ok(busUserSearchByCodeResModel);
+        }
 
     }
 }

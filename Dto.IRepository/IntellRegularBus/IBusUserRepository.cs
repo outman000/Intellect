@@ -15,6 +15,11 @@ namespace Dto.IRepository.IntellRegularBus
         int DeleteByBusUserIdList(List<int> IdList);
         //根据人员缴费主键id查询
         Bus_Payment GetInfoByBusUserId(int id);
+        //根据人员缴费动态码查询
+        List<Bus_Payment> GetInfoByCode(string id);
+
+        //根据人员身份证查询
+        List<Bus_Payment> GetInfoByIdCard(Bus_OrderByIdCardSearchViewModel bus_OrderByIdCardSearchViewModel);
 
         List<Bus_Payment> GetInfoByBusPaymentOrderId(int id);
         List<Bus_Payment> GetInfoByBus(int id);

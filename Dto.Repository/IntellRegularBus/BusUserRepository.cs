@@ -309,5 +309,19 @@ namespace Dto.Repository.IntellRegularBus
             List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Bus_Payment_OrderId == id && uid.status == "0").ToList();
             return busPayment_Info;
         }
+
+        public List<Bus_Payment> GetInfoByCode(string id)
+        {
+            List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Code== id && uid.status == "0").ToList();
+            return busPayment_Info;
+        }
+
+        public List<Bus_Payment> GetInfoByIdCard(Bus_OrderByIdCardSearchViewModel bus_OrderByIdCardSearchViewModel)
+        {
+            List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.IDNumber == bus_OrderByIdCardSearchViewModel.IDNumber &&
+            uid.carDate.Value.Year == bus_OrderByIdCardSearchViewModel.CarDate.Year && uid.carDate.Value.Month == bus_OrderByIdCardSearchViewModel.CarDate.Month 
+            && uid.status == "0").ToList();
+            return busPayment_Info;
+        }
     }
 }

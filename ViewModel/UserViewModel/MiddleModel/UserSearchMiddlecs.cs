@@ -11,6 +11,7 @@ namespace ViewModel.UserViewModel.MiddleModel
         public string UserId { get; set; }
         public string PhoneCall { get; set; }
         public string Email { get; set; }
+        public string Idcard { get; set; }
         public string status { get; set; }
         public string Levels { get; set; }
         public int? user_DepartId { get; set; }

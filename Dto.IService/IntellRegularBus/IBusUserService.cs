@@ -5,6 +5,7 @@ using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
+using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
 namespace Dto.IService.IntellRegularBus
@@ -129,5 +130,25 @@ namespace Dto.IService.IntellRegularBus
 
 
         void Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel);
+        /// <summary>
+        /// 根据身份证号查询人员缴费信息
+        /// </summary>
+        /// <param name="bus_OrderByIdCardSearchViewModel"></param>
+        /// <returns></returns>
+
+        Bus_Payment Bus_PaymentSearchByIdCard(Bus_OrderByIdCardSearchViewModel bus_OrderByIdCardSearchViewModel);
+        /// <summary>
+        /// 根据动态码查询人员缴费信息
+        /// </summary>
+        /// <param name="bus_OrderByCodeSearchViewModel"></param>
+        /// <returns></returns>
+        Bus_Payment Bus_PaymentSearchByCode(Bus_OrderByCodeSearchViewModel bus_OrderByCodeSearchViewModel);
+
+        /// <summary>
+        /// 更新缴费订单信息(金额)
+        /// </summary>
+        /// <param name="bus_Payment_OrderUpdateViewModel"></param>
+        /// <returns></returns>
+        int Bus_Payment_Order_UpdateExpense(Bus_Payment_OrderUpdateExpenseViewModel bus_Payment_OrderUpdateExpenseViewModel);
     }
 }
