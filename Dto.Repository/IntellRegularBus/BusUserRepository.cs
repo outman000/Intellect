@@ -320,7 +320,7 @@ namespace Dto.Repository.IntellRegularBus
         {
             List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.IDNumber == bus_OrderByIdCardSearchViewModel.IDNumber &&
             uid.carDate.Value.Year == bus_OrderByIdCardSearchViewModel.CarDate.Year && uid.carDate.Value.Month == bus_OrderByIdCardSearchViewModel.CarDate.Month 
-            && uid.status == "0").ToList();
+            && uid.status == "0" && uid.Code!=null).ToList();
             return busPayment_Info;
         }
     }
