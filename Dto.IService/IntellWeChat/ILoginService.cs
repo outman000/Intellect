@@ -21,5 +21,11 @@ namespace Dto.IService.IntellWeChat
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
         WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel);
+
+        UserBind UserBindSearch(string openid);
+
+        int AddUserBind(string openid, string userId,string passWord);
+
+        int WeChatLogin_User_Update(WeChatUpdateViewModel weChatUpdateViewModel);
     }
 }

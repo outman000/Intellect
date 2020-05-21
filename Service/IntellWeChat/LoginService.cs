@@ -21,19 +21,21 @@ namespace Dto.Service.IntellWeChat
         private readonly IUserInfoRepository _IUserInfoRepository;
         private readonly IUserRelateInfoRoleRepository _userRelateInfoRoleRepository;
         private readonly IUserRelateRoleRightRepository _userRelateRoleRightRepository;
+        private readonly IUserBindRepository _userBindRepository;
         private readonly IMapper _IMapper;
 
         public LoginService(ILoginRepository loginRepository,
                             IUserInfoRepository userInfoRepository,
                             IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                             IUserRelateRoleRightRepository userRelateRoleRightRepository,
-
+                            IUserBindRepository userBindRepository,
                             IMapper mapper)
         {
             _ILoginRepository = loginRepository;
             _IUserInfoRepository = userInfoRepository;
             _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
             _userRelateRoleRightRepository = userRelateRoleRightRepository;
+            _userBindRepository = userBindRepository;
             _IMapper = mapper;
         }
         /// <summary>
@@ -190,6 +192,64 @@ namespace Dto.Service.IntellWeChat
 
            var user_session=_IMapper.Map(user_Infos, weChatLoginMiddlecs);
             return user_session;
+        }
+
+        /// <summary>
+        /// 根据账号和密码查询用户信息（用于存储session）
+        /// </summary>
+        /// <param name="weChatUpdateViewModel"></param>
+        /// <returns></returns>
+        public int WeChatLogin_User_Update(WeChatUpdateViewModel  weChatUpdateViewModel)
+        {
+       
+            var user_Infos = _ILoginRepository.ValideNewUserInfo(weChatUpdateViewModel);
+            if (user_Infos.Count == 0)
+                return 0;
+            else
+            {
+
+                var user_Info = _IUserInfoRepository.GetInfoByUserid(user_Infos[0].Id);
+                user_Info.UserPwd = weChatUpdateViewModel.NewUserPwd;
+                _IUserInfoRepository.Update(user_Info);
+                _IUserInfoRepository.SaveChanges();
+                return 1;
+
+            }
+         
+        }
+
+
+
+        /// <summary>
+        /// 根据账号和密码查询用户信息（用于存储session）
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
+        public UserBind UserBindSearch(string openid)
+        {
+
+            var user_Bind = _userBindRepository.GetoUserBindStr(openid);
+
+            return user_Bind;
+        }
+
+        public int AddUserBind(string openid, string userId, string passWord)
+        {
+            int result = 0;
+            UserBind model = new UserBind();
+            model.ID = Guid.NewGuid().ToString();
+            model.OpenId = openid;
+            model.userId = userId;
+            model.passWord = passWord;
+            model.CreateUser = openid;
+            model.CreateTime = DateTime.Now;
+            model.UpdateUser = openid;
+            model.UpdateTime = DateTime.Now;
+            model.isDelete = "0";
+   
+            _userBindRepository.Add(model);
+            return _userBindRepository.SaveChanges();
+            
         }
     }
 }

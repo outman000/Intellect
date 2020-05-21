@@ -58,5 +58,9 @@ namespace Dtol
         public DbSet<Reminder_Info>  reminder_Infos { get; set; }
 
         public DbSet<Bus_Payment_Order> bus_Payment_Order { get; set; }
+
+        public DbSet<UserBind> UserBind { get; set; }
+
+        
     }
 }

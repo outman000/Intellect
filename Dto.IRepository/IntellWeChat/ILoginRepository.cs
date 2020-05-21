@@ -13,6 +13,6 @@ namespace Dto.IRepository.IntellWeChat
         List<User_Relate_Info_Role> SearchInfoByWhere(int id);
         User_Info ValideUserInfo(WeChatLoginViewModel weChatLoginViewModel);
         // 根据账号密码登录
-
+        List<User_Info> ValideNewUserInfo(WeChatUpdateViewModel weChatUpdateViewModel);
     }
 }

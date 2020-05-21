@@ -88,6 +88,18 @@ namespace Dto.Repository.IntellWeChat
                                         .FirstOrDefault();
             return SearchResultTemp;
         }
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
+        public List<User_Info> ValideNewUserInfo(WeChatUpdateViewModel weChatUpdateViewModel)
+        {
+
+            List<User_Info> SearchResultTemp = DbSet.Where(a=>a.UserId== weChatUpdateViewModel.UserId && a.UserPwd== weChatUpdateViewModel.UserPwd && a.status=="0")
+                                        .ToList();
+            return SearchResultTemp;
+        }
 
         /// <summary>
         /// 根据用户信息获取所有相关信息（权限，部门，角色）

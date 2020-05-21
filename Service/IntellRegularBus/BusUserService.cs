@@ -578,7 +578,7 @@ namespace Dto.Service.IntellRegularBus
             var bus_Payment = _IBusUserRepository.GetInfoByCode(bus_OrderByCodeSearchViewModel.Code);
             var updateDate = DateTime.Now;
           
-            if(bus_Payment.Count==0)//二维码过期
+            if(bus_Payment.Count==0)//二维码过期，动态码已刷新
             {
                 return null;
             }
@@ -588,7 +588,7 @@ namespace Dto.Service.IntellRegularBus
                 {
                     return bus_Payment[0];
                 }
-                else//二维码过期
+                else//二维码过期，但是动态码还未刷新
                 {
                     return null;
                 }
@@ -608,7 +608,7 @@ namespace Dto.Service.IntellRegularBus
             var bus_Payment = _IBusUserRepository.GetInfoByIdCard(bus_OrderByIdCardSearchViewModel);
             var updateDate = DateTime.Now;
 
-            if (bus_Payment.Count == 0)//不存在该人员过期
+            if (bus_Payment.Count == 0)//不存在该人员
             {
                 return null;
             }

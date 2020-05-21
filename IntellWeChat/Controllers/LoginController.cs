@@ -4,13 +4,17 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using AuthentValitor.Common;
 using Dto.IService.IntellWeChat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using ViewModel.UserViewModel.MiddleModel;
+using ViewModel.UserViewModel.ResponseModel;
 using ViewModel.WeChatViewModel.MiddleModel;
 using ViewModel.WeChatViewModel.RequestViewModel;
 using ViewModel.WeChatViewModel.ResponseModel;
@@ -135,6 +139,38 @@ namespace IntellWeChat.Controllers
 
             }
         }
+
+        /// <summary>
+        /// 根据用户账号和密码修改用户密码信息
+        /// </summary>
+        /// <param name="weChatUpdateViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<WeChatLoginResModel> Manage_User_UpdatePassword(WeChatUpdateViewModel weChatUpdateViewModel)
+        {
+            WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
+            var UserSearchResult = _loginService.WeChatLogin_User_Update(weChatUpdateViewModel);
+
+            if (UserSearchResult == 0)
+            {
+                weChatLoginResModel.IsSuccess = false;
+                weChatLoginResModel.baseViewModel.Message = "用户名不存在或者密码错误";
+                weChatLoginResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("用户名不存在或者密码错误，修改密码失败");
+                return BadRequest(weChatLoginResModel);
+            }
+            else
+            {
+     
+                weChatLoginResModel.IsSuccess = true;
+                weChatLoginResModel.baseViewModel.Message = "存在该用户，修改密码成功";
+                weChatLoginResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询用户信息，存在该用户，修改密码成功");
+                return Ok(weChatLoginResModel);
+            }
+        }
+
+
         /// <summary>
         /// 获取微信token
         /// </summary>
@@ -144,5 +180,106 @@ namespace IntellWeChat.Controllers
             var weChatTokenResModel =await _weChatHttpClientService.getWeChatTokenAsync();
             return Ok(weChatTokenResModel);
         }
+
+
+
+        /// <summary>
+        /// 获取Openid 模型参考UserBindResModel
+        /// </summary>
+        /// <param name="code">用户code</param>
+        /// <returns></returns>
+        [HttpGet("Visit/GetVisitOpenID")]
+        public ActionResult<UserBindResModel> GetVisitOpenID(string code)
+        {
+            try
+            {
+                UserBindResModel result = new UserBindResModel();
+                //code = "021TpyAf1wXPEt0fp9Df1BVRAf1TpyAY";
+                WeChatAppDecrypt decrypt = new WeChatAppDecrypt();
+                string openIdAndSessionKeyString = decrypt.GetOpenIdAndSessionKeyString(code);
+                string openId = "";
+                if (openIdAndSessionKeyString != "")
+                {
+                    OpenIdAndSessionKey open = (OpenIdAndSessionKey)JsonConvert.DeserializeObject<OpenIdAndSessionKey>(openIdAndSessionKeyString);
+                    openId = open.openid;
+                }
+                //string mobile = _UserBindService.GetMoble(openId);
+               var userBind_Infos = _loginService.UserBindSearch(openId); 
+                string msg = string.Empty;
+                result.Status = "0";
+                
+                if (userBind_Infos == null)
+                {
+                    result.BindStatus = "0";
+                    result.OpenID = openId;
+                    msg += "用户待绑定";
+                    result.Msg = msg;
+                }
+                else
+                {
+                    result.BindStatus = "1";
+                    result.OpenID = openId;
+                    result.RoleName = "0";
+                    result.Moblie = userBind_Infos.Moblie;
+                    msg += "用户已绑定；";
+                    
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
+
+        /// <summary>
+        /// 身份绑定并获取用户身份信息 模型参考UserBindResModel
+        /// </summary>
+        /// <param name="openID">小程序的openId </param>
+        /// <param name="mobile">电话</param>
+        /// <returns></returns>
+        [HttpGet("Visit/GetVisitInfo")]
+        public ActionResult<UserBindResModel> GetVisitInfo(string openID, string userId,string passWord)
+        {
+            UserBindResModel result = new UserBindResModel();
+            int count = 0;
+            WeChatLoginViewModel weChatLoginViewModel = new WeChatLoginViewModel();
+            weChatLoginViewModel.UserId = userId;
+            weChatLoginViewModel.UserPwd = passWord;
+            var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
+            if (UserSearchResult == null)
+            {
+                result.BindStatus = "0";
+                result.Msg = "绑定失败，账号或者密码在存问题";
+            }
+            else
+            {
+                count = _loginService.AddUserBind(openID, userId, passWord);
+            }
+              
+            string msg = string.Empty;
+            if (count > 0)
+            {
+                msg = "账号绑定成功；";
+                result.BindStatus = "1";
+                result.OpenID = openID;
+                result.RoleName = "0";
+                result.Status = "0";
+            
+            }
+            else
+            {
+                result.BindStatus = "0";
+                result.Msg = "绑定失败，参数存在问题";
+            }
+
+            return Ok(result);
+        }
+
+
+
+
+
     }
 }

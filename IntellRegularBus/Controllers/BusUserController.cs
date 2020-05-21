@@ -457,5 +457,6 @@ namespace IntellRegularBus.Controllers
             return Ok(busUserSearchByCodeResModel);
         }
 
+ 
     }
 }
