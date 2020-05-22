@@ -187,7 +187,7 @@ namespace IntellBulletinBoard
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "公告栏管理文档 V1");
+                c.SwaggerEndpoint("./swagger/v1/swagger.json", "公告栏管理文档 V1");
                 c.RoutePrefix = string.Empty;
             });
 

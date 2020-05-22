@@ -237,7 +237,8 @@ namespace IntellWeChat.Controllers
         /// 身份绑定并获取用户身份信息 模型参考UserBindResModel
         /// </summary>
         /// <param name="openID">小程序的openId </param>
-        /// <param name="mobile">电话</param>
+        /// <param name="userId">电话</param>
+        /// <param name="passWord">电话</param>
         /// <returns></returns>
         [HttpGet("Visit/GetVisitInfo")]
         public ActionResult<UserBindResModel> GetVisitInfo(string openID, string userId,string passWord)
