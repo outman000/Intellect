@@ -1,4 +1,5 @@
 ﻿using AuthentValitor.AuthHelper;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,7 @@ namespace AuthentValitor.Common
         /// <returns>Json数据包</returns>  
         public string GetOpenIdAndSessionKeyString(string code)
         {
-            string temp = "https://api.weixin.qq.com/sns/jscode2session?" +
+            string temp = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
                 "appid=" + appId
                 + "&secret=" + appSecret
                 + "&js_code=" + code
@@ -41,6 +42,40 @@ namespace AuthentValitor.Common
             //return GetUrltoHtml(temp, "post");
 
         }
+      /// <summary>
+ 	  /// 通过code换取网页授权access_token地址
+     /// </summary>
+ 	public  string Web_Access_token_URL {
+         get
+         {
+                return string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&grant_type=authorization_code&code=", appId, appSecret);
+         }
+      }
+        /// <summary>
+        /// 获取用户的OpenId
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public  string GetOpenID(string code)
+ 	{
+ 		var openid = "";
+ 		using (var wl = new WebClient())
+ 		{
+ 			wl.Headers.Add(HttpRequestHeader.Accept, "json");
+			wl.Headers.Add(HttpRequestHeader.ContentType, "application/json;charset=UTF-8");
+			wl.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/4.0");
+ 			wl.Encoding = Encoding.UTF8;
+              
+                openid = wl.DownloadString(Web_Access_token_URL + code);
+		}
+		if (!string.IsNullOrEmpty(openid))
+		{
+			var token = JObject.Parse(openid).SelectToken("openid");
+			if (token != null)
+				openid = token.ToString();
+		}
+		return openid;
+	}
         public string GetPage(string posturl, string postData)
         {
             Stream outstream = null;

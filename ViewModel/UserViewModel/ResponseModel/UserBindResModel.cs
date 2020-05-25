@@ -27,6 +27,14 @@ namespace ViewModel.UserViewModel.ResponseModel
         public string Status;
 
         /// <summary>
+        /// 账号
+        /// </summary>
+        public string userId { get; set; }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string passWord { get; set; }
+        /// <summary>
         /// 身份证
         /// </summary>
         public string CertificateID { get; set; }

@@ -64,9 +64,9 @@ namespace Dto.Repository.IntellWeChat
             throw new NotImplementedException();
         }
 
-        public UserBind GetoUserBindStr(string openid)
+        public List<UserBind> GetoUserBindStr(string openid)
         {
-            UserBind user_Bind = DbSet.Single(uid => uid.OpenId  == openid);
+            List<UserBind> user_Bind = DbSet.Where(uid => uid.OpenId  == openid).ToList();
             return user_Bind;
         }
     }

@@ -7,6 +7,6 @@ namespace Dto.IRepository.IntellWeChat
 {
     public interface IUserBindRepository : IRepository<UserBind>
     {
-        UserBind GetoUserBindStr(string openid);
+        List<UserBind> GetoUserBindStr(string openid);
     }
 }

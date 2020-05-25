@@ -194,21 +194,17 @@ namespace IntellWeChat.Controllers
             try
             {
                 UserBindResModel result = new UserBindResModel();
-                //code = "021TpyAf1wXPEt0fp9Df1BVRAf1TpyAY";
                 WeChatAppDecrypt decrypt = new WeChatAppDecrypt();
-                string openIdAndSessionKeyString = decrypt.GetOpenIdAndSessionKeyString(code);
+                string openIdAndSessionKeyString = decrypt.GetOpenID(code);
                 string openId = "";
-                if (openIdAndSessionKeyString != "")
-                {
-                    OpenIdAndSessionKey open = (OpenIdAndSessionKey)JsonConvert.DeserializeObject<OpenIdAndSessionKey>(openIdAndSessionKeyString);
-                    openId = open.openid;
-                }
-                //string mobile = _UserBindService.GetMoble(openId);
+
+                openId = openIdAndSessionKeyString;
+      
                var userBind_Infos = _loginService.UserBindSearch(openId); 
                 string msg = string.Empty;
                 result.Status = "0";
-                
-                if (userBind_Infos == null)
+               
+                if (userBind_Infos.Count==0)
                 {
                     result.BindStatus = "0";
                     result.OpenID = openId;
@@ -220,7 +216,9 @@ namespace IntellWeChat.Controllers
                     result.BindStatus = "1";
                     result.OpenID = openId;
                     result.RoleName = "0";
-                    result.Moblie = userBind_Infos.Moblie;
+                    result.Moblie = userBind_Infos[0].Moblie;
+                    result.userId = userBind_Infos[0].userId;
+                    result.passWord = userBind_Infos[0].passWord;
                     msg += "用户已绑定；";
                     
                 }
@@ -267,6 +265,7 @@ namespace IntellWeChat.Controllers
                 result.OpenID = openID;
                 result.RoleName = "0";
                 result.Status = "0";
+
             
             }
             else

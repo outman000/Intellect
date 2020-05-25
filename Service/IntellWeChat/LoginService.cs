@@ -225,7 +225,7 @@ namespace Dto.Service.IntellWeChat
         /// </summary>
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
-        public UserBind UserBindSearch(string openid)
+        public List<UserBind> UserBindSearch(string openid)
         {
 
             var user_Bind = _userBindRepository.GetoUserBindStr(openid);

@@ -22,7 +22,7 @@ namespace Dto.IService.IntellWeChat
         /// <returns></returns>
         WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel);
 
-        UserBind UserBindSearch(string openid);
+        List<UserBind> UserBindSearch(string openid);
 
         int AddUserBind(string openid, string userId,string passWord);
 
