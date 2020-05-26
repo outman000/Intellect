@@ -52,6 +52,12 @@
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\东疆OA用车系统\RestSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

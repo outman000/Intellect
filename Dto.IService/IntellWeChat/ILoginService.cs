@@ -27,5 +27,7 @@ namespace Dto.IService.IntellWeChat
         int AddUserBind(string openid, string userId,string passWord);
 
         int WeChatLogin_User_Update(WeChatUpdateViewModel weChatUpdateViewModel);
+
+        string SmsMessage(string phone, string message);
     }
 }

@@ -21,4 +21,10 @@
     <Folder Include="AutoMapper\UserMapper\RoleResponseMapper\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\东疆OA用车系统\RestSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

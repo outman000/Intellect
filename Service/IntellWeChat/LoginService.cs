@@ -12,6 +12,7 @@ using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.WeChatViewModel.MiddleModel;
 using ViewModel.WeChatViewModel.RequestViewModel;
+using RestSharp;
 
 namespace Dto.Service.IntellWeChat
 {
@@ -250,6 +251,24 @@ namespace Dto.Service.IntellWeChat
             _userBindRepository.Add(model);
             return _userBindRepository.SaveChanges();
             
+        }
+
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public string SmsMessage(string phone, string message)
+        {
+            var client = new RestClient("http://172.30.10.240/SmsOutNetwork.asmx/SendMessage");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            //request.AddParameter("phone", "15822059136");
+            //request.AddParameter("content", "154564452");
+            request.AddParameter("tets", "phone=" + phone + "&content=" + message, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            return response.StatusCode.ToString();
         }
     }
 }

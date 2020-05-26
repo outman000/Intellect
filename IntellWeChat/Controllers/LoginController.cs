@@ -278,7 +278,19 @@ namespace IntellWeChat.Controllers
         }
 
 
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpGet("Visit/SendMessage")]
+        public string Manage_SendMessage(string phone, string message)
 
+        {
+            var result=_loginService.SmsMessage(phone, message);
+            return result;
+        }
 
 
     }
