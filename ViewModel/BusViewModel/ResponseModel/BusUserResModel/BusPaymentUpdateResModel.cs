@@ -15,7 +15,7 @@ namespace ViewModel.BusViewModel.ResponseModel.BusUserResModel
 
         public bool IsSuccess;
         public int Add;
-
+        public string status;
         public BaseViewModel baseViewModel;
     }
 }

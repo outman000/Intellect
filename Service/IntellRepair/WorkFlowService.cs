@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dto.IRepository.IntellRegularBus;
 using Dto.IRepository.IntellRepair;
 using Dto.IRepository.IntellUser;
 using Dto.IService.IntellRepair;
@@ -21,6 +22,7 @@ namespace Dto.Service.IntellRepair
         private readonly IUserRelateInfoRoleRepository _IUserRelateInfoRoleRepository;
         private readonly IFlowNodeRepository _IFlowNodeRepository;
         private readonly IFlowProcedureInfoRepository _IFlowProcedureInfoRepository;
+        private readonly IBusPaymentOrderRepository _IBusPaymentOrderRepository;
         private readonly IMapper _IMapper;
 
         public WorkFlowService(IFlowNodeDefineInfoRepository flowNodeDefineInfoRepository,
@@ -29,6 +31,7 @@ namespace Dto.Service.IntellRepair
                                IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                                IFlowNodeRepository iflowNodeRepository,
                                IFlowProcedureInfoRepository iflowProcedureInfoRepository,
+                               IBusPaymentOrderRepository busPaymentOrderRepository,
                                IMapper mapper)
         {
                 _IFlowNodeDefineInfoRepository = flowNodeDefineInfoRepository;
@@ -37,6 +40,7 @@ namespace Dto.Service.IntellRepair
                 _IUserRelateInfoRoleRepository = userRelateInfoRoleRepository;
                 _IFlowNodeRepository = iflowNodeRepository;
                 _IFlowProcedureInfoRepository = iflowProcedureInfoRepository;
+                _IBusPaymentOrderRepository = busPaymentOrderRepository;
                 _IMapper = mapper;
         }
         /// <summary>
@@ -289,6 +293,11 @@ namespace Dto.Service.IntellRepair
                 _IRepairInfoRepository.Update(repair_Info);
                 _IRepairInfoRepository.SaveChanges();
 
+
+                var OrderInfo = _IBusPaymentOrderRepository.GetInfoByRepair_InfoId(flowInfoSearchViewModel.Repair_InfoId);//订单信息
+                OrderInfo.paymentStatus = "1";//待缴费
+                _IBusPaymentOrderRepository.Update(OrderInfo);
+                _IBusPaymentOrderRepository.SaveChanges();
             }
         }
 

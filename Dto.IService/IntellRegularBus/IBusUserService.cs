@@ -37,7 +37,7 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
-        int Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel);
+        string Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel);
 
         /// <summary>
         /// 更新人员缴费表单id信息
@@ -150,5 +150,9 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="bus_Payment_OrderUpdateViewModel"></param>
         /// <returns></returns>
         int Bus_Payment_Order_UpdateExpense(Bus_Payment_OrderUpdateExpenseViewModel bus_Payment_OrderUpdateExpenseViewModel);
+
+        string Bus_PayMent_Update_Verification(BusPaymentUpdateViewModel busPamentUpdateViewModel);
+
+        int Bus_PayMent_Single_Verification(SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel);
     }
 }

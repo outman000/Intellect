@@ -42,5 +42,7 @@ namespace Dto.IRepository.IntellRegularBus
         IQueryable<string> SearchInfoTimeWhere(BusUserSearchTimeViewModel busUserSearchTimeViewModel);
 
         List<int> SearchInfoByBusDistinctWhere(BusUserSearchViewModel busUserSearchViewModel);
+
+        List<Bus_Payment> SearchInfoByDateAndIdWhere(SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel);
     }
 }

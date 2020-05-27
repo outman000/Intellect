@@ -145,6 +145,25 @@ namespace Dto.Repository.IntellRegularBus
 
             return result;
 
+        }
+
+
+
+        /// <summary>
+        /// 查询人员缴费信息（重载,最普通的查询）
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Payment> SearchInfoByDateAndIdWhere(SearchByIdCardAndCarDateViewModel  searchByIdCardAndCarDateViewModel)
+        {
+
+            var result = DbSet.Where(a => a.IDNumber == searchByIdCardAndCarDateViewModel.IDNumber &&
+                              a.carDate.Value.Year == searchByIdCardAndCarDateViewModel.carDate.Value.Year
+                              && a.carDate.Value.Month == searchByIdCardAndCarDateViewModel.carDate.Value.Month && a.status=="0").ToList();
+
+
+            return result;
+
 
         }
 
@@ -233,6 +252,7 @@ namespace Dto.Repository.IntellRegularBus
                 predicate = predicate.And(a => a.Repair_InfoId==busUserSearchViewModel.Repair_InfoId);
             if (busUserSearchViewModel.Bus_Payment_OrderId != null)
                 predicate = predicate.And(a => a.Bus_Payment_OrderId == busUserSearchViewModel.Bus_Payment_OrderId);
+            predicate = predicate.And(a => a.Bus_Payment_OrderId == null);
             predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
             predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
             predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );
@@ -250,6 +270,7 @@ namespace Dto.Repository.IntellRegularBus
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
             predicate = predicate.And(a => a.status == "0");
+            predicate = predicate.And(a => a.Bus_Payment_OrderId==null);
             predicate = predicate.And(a => a.User_DepartId==busPamentUpdateViewModel.User_DepartId);
             predicate = predicate.And(a => a.carDate.Value.Year== busPamentUpdateViewModel.carDate.Year 
                                     && a.carDate.Value.Month== busPamentUpdateViewModel.carDate.Month);
