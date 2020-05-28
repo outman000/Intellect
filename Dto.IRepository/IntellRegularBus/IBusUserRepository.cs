@@ -43,6 +43,10 @@ namespace Dto.IRepository.IntellRegularBus
 
         List<int> SearchInfoByBusDistinctWhere(BusUserSearchViewModel busUserSearchViewModel);
 
+        List<int> SearchInfoByBusDistinctWhere2(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel);
+
         List<Bus_Payment> SearchInfoByDateAndIdWhere(SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel);
+
+        IQueryable<Bus_Payment> SearchInfoByBusWhere2(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel);
     }
 }

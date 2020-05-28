@@ -198,6 +198,39 @@ namespace IntellRegularBus.Controllers
             }
            
         }
+
+
+        /// <summary>
+        /// 根据乘车时间和部门查
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<BusSearchByIdResModel> Bus_PayMent_Verification(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
+            BusSearchByIdResModel busSearchByIdResModel = new BusSearchByIdResModel();
+            string Result = _IBusUserService.Bus_PayMent_Verification(busUserSearchByDeaprtIdViewModel);
+            if (!Result.Equals("true"))
+            {
+                busSearchByIdResModel.isSuccess = false;
+                busSearchByIdResModel.baseViewModel.Message = Result + "该线路已坐满人，请重新选择";
+                busSearchByIdResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information(Result+"线路已满员，请重新选择");
+                return Ok(busSearchByIdResModel);
+
+            }
+            else
+            {
+                busSearchByIdResModel.isSuccess = true;
+                busSearchByIdResModel.baseViewModel.Message = "该线路未坐满人，可以添加该线路";
+                busSearchByIdResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("该线路未坐满人，可以添加该线路");
+                return Ok(busSearchByIdResModel);
+
+            }
+
+        }
+
+
         /// <summary>
         /// 修改单个用户缴费信息
         /// </summary>

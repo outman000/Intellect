@@ -157,5 +157,11 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
         #endregion
+        public List<Bus_Payment_Order> GetOrderInfoByRepair_InfoId(int id)
+        {
+            List<Bus_Payment_Order> busPayment_Info = DbSet.Where(uid => uid.Repair_InfoId == id && uid.status == "0").ToList();
+            return busPayment_Info;
+        }
+       
     }
 }

@@ -128,6 +128,24 @@ namespace Dto.Repository.IntellRegularBus
         }
 
         /// <summary>
+        /// 查询人员缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusWhere2(BusUserSearchByDeaprtIdViewModel  busUserSearchByDeaprtIdViewModel)
+        {
+    
+            var predicate = SearchBusUserWhere3(busUserSearchByDeaprtIdViewModel);
+            var result = DbSet.Where(predicate);
+               
+            return result;
+
+
+        }
+
+
+
+        /// <summary>
         /// 查询人员缴费信息（重载,最普通的查询）
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
@@ -146,7 +164,24 @@ namespace Dto.Repository.IntellRegularBus
             return result;
 
         }
+        /// <summary>
+        /// 查询人员缴费信息（重载,最普通的查询）
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<int> SearchInfoByBusDistinctWhere2(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
+         
 
+            var predicate = SearchBusUserWhere3(busUserSearchByDeaprtIdViewModel);
+
+            var result = DbSet.Where(predicate).Select(a => a.Bus_LineId.Value).Distinct()
+               .ToList();
+
+
+            return result;
+
+        }
 
 
         /// <summary>
@@ -242,6 +277,18 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.status=="0");
             return predicate;
         }
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere3(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchByDeaprtIdViewModel.User_DepartId));
+            if (busUserSearchByDeaprtIdViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchByDeaprtIdViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busUserSearchByDeaprtIdViewModel.carDate.Value.Month);
+            predicate = predicate.And(a => a.status == "0");
+            return predicate;
+        }
+
 
         #region 条件
         //根据条件查询班车

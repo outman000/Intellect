@@ -201,11 +201,41 @@ namespace Dto.Service.IntellRegularBus
                 return 0;
         }
 
-            /// <summary>
-            ///  根据以前某月的缴费信息，生成当前月的缴费信息
-            /// </summary>
-            /// <param name="busUserSearchViewModel"></param>
-            /// <returns></returns>
+        /// <summary>
+        /// 验证线路是否坐满人
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public string Bus_PayMent_Verification(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
+
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere2(busUserSearchByDeaprtIdViewModel).ToList();
+ 
+                List<int> bus_lineId = _IBusUserRepository.SearchInfoByBusDistinctWhere2(busUserSearchByDeaprtIdViewModel);
+            BusSearchByIdViewModel busSearchByIdViewModel = new BusSearchByIdViewModel();
+            for (int i = 0; i < bus_lineId.Count; i++)//检查线路是否坐满
+            {
+                int b = bus_Payments.Where(c => c.Bus_LineId == bus_lineId[i]).Count();
+                busSearchByIdViewModel.Bus_LineId = bus_lineId[i];
+                busSearchByIdViewModel.carDate = DateTime.Now.AddMonths(1);
+                int a = ByBusIdSearchNum2(busSearchByIdViewModel, b);
+
+                if (a == -1)
+                {
+                    var e = bus_Payments.Where(d => d.Bus_LineId == bus_lineId[i]).ToList();
+                    return e[0].LineName;
+                }
+
+            }
+            return "true";
+        }
+
+
+        /// <summary>
+        ///  根据以前某月的缴费信息，生成当前月的缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
         public string Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel)
         {
             List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere(busUserSearchViewModel).ToList();
@@ -224,29 +254,26 @@ namespace Dto.Service.IntellRegularBus
 
             }
 
-
-
-
-                List<int>   bus_lineId=_IBusUserRepository.SearchInfoByBusDistinctWhere(busUserSearchViewModel);
+              //  List<int>   bus_lineId=_IBusUserRepository.SearchInfoByBusDistinctWhere(busUserSearchViewModel);
             //先以之前的月份为模板进行添加
             List <BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
 
-            BusSearchByIdViewModel busSearchByIdViewModel = new BusSearchByIdViewModel();
+           // BusSearchByIdViewModel busSearchByIdViewModel = new BusSearchByIdViewModel();
   
-            for (int i = 0; i < bus_lineId.Count; i++)//检查线路是否坐满
-            {
-                int b = bus_Payments.Where(c => c.Bus_LineId == bus_lineId[i]).Count();
-                busSearchByIdViewModel.Bus_LineId = bus_lineId[i];
-                busSearchByIdViewModel.carDate = DateTime.Now.AddMonths(1);
-                int a=  ByBusIdSearchNum2(busSearchByIdViewModel, b);
+            //for (int i = 0; i < bus_lineId.Count; i++)//检查线路是否坐满
+            //{
+            //    int b = bus_Payments.Where(c => c.Bus_LineId == bus_lineId[i]).Count();
+            //    busSearchByIdViewModel.Bus_LineId = bus_lineId[i];
+            //    busSearchByIdViewModel.carDate = DateTime.Now.AddMonths(1);
+            //    int a=  ByBusIdSearchNum2(busSearchByIdViewModel, b);
             
-                if (a == -1)
-                {
-                    var e = bus_Payments.Where(d => d.Bus_LineId == bus_lineId[i]).ToList();
-                    return e[0].LineName;
-                }
+            //    if (a == -1)
+            //    {
+            //        var e = bus_Payments.Where(d => d.Bus_LineId == bus_lineId[i]).ToList();
+            //        return e[0].LineName;
+            //    }
 
-            }
+            //}
             for (int j = 0; j < bus_Payments.Count; j++)
             {
               
@@ -707,5 +734,6 @@ namespace Dto.Service.IntellRegularBus
 
         }
 
+  
     }
 }

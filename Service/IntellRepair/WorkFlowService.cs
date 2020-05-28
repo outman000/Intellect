@@ -294,10 +294,14 @@ namespace Dto.Service.IntellRepair
                 _IRepairInfoRepository.SaveChanges();
 
 
-                var OrderInfo = _IBusPaymentOrderRepository.GetInfoByRepair_InfoId(flowInfoSearchViewModel.Repair_InfoId);//订单信息
-                OrderInfo.paymentStatus = "1";//待缴费
-                _IBusPaymentOrderRepository.Update(OrderInfo);
-                _IBusPaymentOrderRepository.SaveChanges();
+                var OrderInfo = _IBusPaymentOrderRepository.GetOrderInfoByRepair_InfoId(flowInfoSearchViewModel.Repair_InfoId);//订单信息
+                if(OrderInfo.Count>0)
+                {
+                    OrderInfo[0].paymentStatus = "1";//待缴费
+                    _IBusPaymentOrderRepository.Update(OrderInfo[0]);
+                    _IBusPaymentOrderRepository.SaveChanges();
+                }
+               
             }
         }
 

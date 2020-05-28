@@ -154,5 +154,7 @@ namespace Dto.IService.IntellRegularBus
         string Bus_PayMent_Update_Verification(BusPaymentUpdateViewModel busPamentUpdateViewModel);
 
         int Bus_PayMent_Single_Verification(SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel);
+
+        string Bus_PayMent_Verification(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel);
     }
 }
