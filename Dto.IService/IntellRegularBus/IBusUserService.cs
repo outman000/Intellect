@@ -37,7 +37,7 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
-        string Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel);
+        int Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel);
 
         /// <summary>
         /// 更新人员缴费表单id信息

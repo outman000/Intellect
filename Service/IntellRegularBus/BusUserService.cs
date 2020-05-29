@@ -236,14 +236,15 @@ namespace Dto.Service.IntellRegularBus
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
-        public string Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel)
+        public int Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel)
         {
-            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere(busUserSearchViewModel).ToList();
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere4(busUserSearchViewModel).ToList();
 
             for (int i = 0; i < bus_Payments.Count; i++)
             {
                 SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel = new SearchByIdCardAndCarDateViewModel();
-                searchByIdCardAndCarDateViewModel.carDate = bus_Payments[i].carDate;
+                // searchByIdCardAndCarDateViewModel.carDate = bus_Payments[i].carDate.Value.AddMonths(1); 
+                searchByIdCardAndCarDateViewModel.carDate = DateTime.Now.AddMonths(1);//当前年月
                 searchByIdCardAndCarDateViewModel.IDNumber = bus_Payments[i].IDNumber;
                var result=  _IBusUserRepository.SearchInfoByDateAndIdWhere(searchByIdCardAndCarDateViewModel);
                 if(result.Count>0)
@@ -294,8 +295,8 @@ namespace Dto.Service.IntellRegularBus
                 _IBusUserRepository.Add(Bus_Payment);
                
             }
-            _IBusUserRepository.SaveChanges();
-            return "true";
+
+            return _IBusUserRepository.SaveChanges();
         }
         /// <summary>
         ///  查询出所有时间
@@ -587,7 +588,7 @@ namespace Dto.Service.IntellRegularBus
             var list = Bus_Payment();
             if (list==null)
             {
-                bus_Payment_OrderAddViewModel.OrderId = "221338" + DateTime.Now.ToString("yyyyMM") + "000";
+                bus_Payment_OrderAddViewModel.OrderId = "190075" + DateTime.Now.ToString("yyyyMM") + "000";
             }           
             else
             {

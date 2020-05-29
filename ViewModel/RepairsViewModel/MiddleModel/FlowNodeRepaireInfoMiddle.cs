@@ -49,5 +49,11 @@ namespace ViewModel.RepairsViewModel.MiddleModel
         /// 报修状态
         /// </summary>
         public string isHandler { get; set; }
+
+
+        /// <summary>
+        /// 流程是否结束（通过，未通过）
+        /// </summary>
+        public string isEnd { get; set; }
     }
 }

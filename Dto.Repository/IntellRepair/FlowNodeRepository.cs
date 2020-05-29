@@ -172,7 +172,7 @@ namespace Dto.Repository.IntellRepair
 
             //查询条件
             var predicate = SearchByRepairWhere(flowNodeByRepairIdSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).Include(a=>a.User_Info).Include(a=>a.Parent_Flow_NodeDefine)
                 .OrderBy(o => o.StartTime).ToList();
 
             return result;

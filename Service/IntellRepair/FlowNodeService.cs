@@ -72,7 +72,11 @@ namespace Dto.Service.IntellRepair
         {
             return _IFlowNodeRepository.GetNodeAll(flowNodeSearchViewModel).Count();
         }
-
+        /// <summary>
+        /// 查询流转信息（待办、已办）
+        /// </summary>
+        /// <param name="flowNodeSearchViewModel"></param>
+        /// <returns></returns>
         public List<FlowNodeSearchMiddlecs> Node_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             FlowNodeSearchMiddlecs nodeSearchs = new FlowNodeSearchMiddlecs();
@@ -81,6 +85,28 @@ namespace Dto.Service.IntellRepair
             var nodeSearchMiddle = _IMapper.Map<List<Flow_Node>, List<FlowNodeSearchMiddlecs>>(node_Infos);
 
             return nodeSearchMiddle;
+        }
+
+        /// <summary>
+        /// 根据表单ID获取拟稿人手机号
+        /// </summary>
+        /// <param name="flowNodeByRepairIdSearchViewModel"></param>
+        /// <returns></returns>
+        public string Phone_SearchByRepair_InfoId(FlowNodeByRepairIdSearchViewModel  flowNodeByRepairIdSearchViewModel)
+        {
+   
+            List<Flow_Node> node_Infos = _IFlowNodeRepository.SearchInfoByRepariIdWhere(flowNodeByRepairIdSearchViewModel);
+            string phone = "无手机号";
+            for(int i=0;i< node_Infos.Count;i++)
+            {
+                if(node_Infos[i].Parent_Flow_NodeDefine!=null && node_Infos[i].Parent_Flow_NodeDefine.NodeType=="开始类型")
+                {
+                    phone = node_Infos[i].User_Info.PhoneCall;
+                    break;
+                }
+            }
+
+            return phone;
         }
     }
 }

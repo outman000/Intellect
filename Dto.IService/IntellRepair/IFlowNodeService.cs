@@ -46,6 +46,11 @@ namespace Dto.IService.IntellRepair
         /// <returns></returns>
         int Node_Delete(FlowNodeDelViewModel  flowNodeDelViewModel);
 
-
+        /// <summary>
+        /// 根据表单ID获取拟稿人手机号
+        /// </summary>
+        /// <param name="flowNodeByRepairIdSearchViewModel"></param>
+        /// <returns></returns>
+        string Phone_SearchByRepair_InfoId(FlowNodeByRepairIdSearchViewModel flowNodeByRepairIdSearchViewModel);
     }
 }

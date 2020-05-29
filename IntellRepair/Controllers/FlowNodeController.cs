@@ -139,5 +139,25 @@ namespace IntellRepair.Controllers
             _ILogger.Information("查询流转信息成功");
             return Ok(flowNodeSearchResModel);
         }
+
+
+        /// <summary>
+        /// 根据表单ID获取拟稿人手机号
+        /// </summary>
+        /// <param name="flowNodeByRepairIdSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<PhoneSearchResModel> Phone_SearchByRepair_InfoId(FlowNodeByRepairIdSearchViewModel flowNodeByRepairIdSearchViewModel)
+        {
+            PhoneSearchResModel  phoneSearchResModel = new PhoneSearchResModel();
+            var phone = _IFlowNodeService.Phone_SearchByRepair_InfoId(flowNodeByRepairIdSearchViewModel);
+            phoneSearchResModel.phone = phone;
+            phoneSearchResModel.isSuccess = true;
+            phoneSearchResModel.baseViewModel.Message = "查询成功";
+            phoneSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("查询拟稿人手机号成功");
+            return Ok(phoneSearchResModel);
+        }
+
     }
 }

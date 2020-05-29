@@ -106,7 +106,7 @@ namespace IntellRegularBus.Controllers
             if (BusUserSearchResult.Count == 0)
             {
                 BusUserSearchResult.Add(DateTime.Now.ToString("yyyy-MM"));
-                BusUserSearchResult.Add(DateTime.Now.AddMonths(1).ToString("yyyy-MM"));  
+             //   BusUserSearchResult.Add(DateTime.Now.AddMonths(1).ToString("yyyy-MM"));  
             }
                
             busUserTimeListSearchResModel.bus_user_time_Info = BusUserSearchResult;
@@ -146,13 +146,13 @@ namespace IntellRegularBus.Controllers
         public ActionResult<BusUserAddResModel> Bus_PayMent_Template_Add(BusUserSearchViewModel busUserSearchViewModel)
         {
 
-            string result;
+            int result;
             result = _IBusUserService.Bus_PayMent_Template(busUserSearchViewModel);
             BusUserAddResModel busUserAddResModel = new BusUserAddResModel();
-            if (result.Equals("true"))
+            if (result>0)
             {
                 busUserAddResModel.IsSuccess = true;
-             //   busUserAddResModel.AddCount = Bus_User_Add_Count;
+                busUserAddResModel.AddCount = result;
                 busUserAddResModel.baseViewModel.Message = "添加成功";
                 busUserAddResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("增加用户缴费信息成功");
@@ -161,10 +161,11 @@ namespace IntellRegularBus.Controllers
             else
             {
                 busUserAddResModel.IsSuccess = false;
-                busUserAddResModel.LineName = result;
+                // busUserAddResModel.LineName = result;
+                busUserAddResModel.AddCount = 0;
                 busUserAddResModel.baseViewModel.Message = "添加失败";
                 busUserAddResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("增加用户缴费信息失败,因为"+result+"座位已满");
+                _ILogger.Information("增加用户缴费信息失败");
                 return Ok(busUserAddResModel);
             }
         }

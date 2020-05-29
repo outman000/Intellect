@@ -126,7 +126,28 @@ namespace Dto.Repository.IntellRegularBus
 
 
         }
+        /// <summary>
+        /// 查询人员缴费信息（重载,最普通的查询）
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusWhere4(BusUserSearchViewModel busUserSearchViewModel)
+        {
+            int SkipNum = busUserSearchViewModel.pageViewModel.CurrentPageNum * busUserSearchViewModel.pageViewModel.PageSize;
 
+            var predicate = SearchBusUserWhere4(busUserSearchViewModel);
+
+
+            var result = DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(busUserSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.Id);
+
+
+            return result;
+
+
+        }
         /// <summary>
         /// 查询人员缴费信息
         /// </summary>
@@ -288,8 +309,29 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.status == "0");
             return predicate;
         }
+        #region 条件
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere4(BusUserSearchViewModel busUserSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            if (busUserSearchViewModel.Repair_InfoId != null)
+                predicate = predicate.And(a => a.Repair_InfoId == busUserSearchViewModel.Repair_InfoId);
+            if (busUserSearchViewModel.Bus_Payment_OrderId != null)
+                predicate = predicate.And(a => a.Bus_Payment_OrderId == busUserSearchViewModel.Bus_Payment_OrderId);
+            predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
+            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
+            predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId));
+            predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.Bus_StationId));
+            predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId));
+            predicate = predicate.And(a => a.status.Contains(busUserSearchViewModel.status));
+            predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
+            if (busUserSearchViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
 
-
+            return predicate;
+        }
+        #endregion
         #region 条件
         //根据条件查询班车
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere(BusUserSearchViewModel  busUserSearchViewModel)
@@ -313,6 +355,7 @@ namespace Dto.Repository.IntellRegularBus
                                  
             return predicate;
         }
+        #endregion
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere(BusPaymentUpdateViewModel  busPamentUpdateViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
@@ -325,7 +368,7 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
 
-        #endregion
+    
         #region 条件（查询模板账单的条件，根据模板账单生成新的班车账单）
         //根据条件查询班车
         private Expression<Func<Bus_Payment, bool>> SearchBusUserByIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
