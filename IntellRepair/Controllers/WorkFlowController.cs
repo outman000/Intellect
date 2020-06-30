@@ -15,6 +15,7 @@ using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.UserViewModel.ResponseModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -43,6 +44,7 @@ namespace IntellRepair.Controllers
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<UserSearchResModel> Manage_Role_By_User_Search(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
         {
             UserSearchResModel  userSearchResModel = new UserSearchResModel();
@@ -61,6 +63,7 @@ namespace IntellRepair.Controllers
         /// <param name="roleByNodeSearchSingleViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<UserSearchResModel> Manage_Role_By_Search(RoleByNodeSearchSingleViewModel roleByNodeSearchSingleViewModel)
         {
             UserSearchResModel userSearchResModel = new UserSearchResModel();
@@ -80,6 +83,7 @@ namespace IntellRepair.Controllers
         /// <param name="nodeEndSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RepairIsEndResModel> Manage_CurrentNode_Search(NodeEndSearchViewModel  nodeEndSearchViewModel)
         {
 
@@ -112,6 +116,7 @@ namespace IntellRepair.Controllers
         /// <param name="nodeEndSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RepairNoEndResModel> Manage_CurrentNodeNoEnd_Search(NodeEndSearchViewModel nodeEndSearchViewModel)
         {
 
@@ -147,6 +152,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowNodeSearchResModel> Manage_CurrentNodeOverTime_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
@@ -183,6 +189,7 @@ namespace IntellRepair.Controllers
 
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<RepairAddResModel> Manage_Repair_Add(RepairAddViewModel repairAddViewModel)
         {
             WorkFlowFistReturnIdList  workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
@@ -214,6 +221,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowInfoSearchResModel> Manage_WorkFlowInfo_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
         {
 
@@ -259,6 +267,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowInfoSearchResModel> Manage_WorkFlowInfoJump_Add(FlowInfoSearchViewModel flowInfoSearchViewModel)
         {
 

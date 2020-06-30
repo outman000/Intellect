@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -29,6 +30,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowProcedureSearchResModel> Manage_Procedure_Search(FlowProcedureSearchViewModel  flowProcedureSearchViewModel)
         {
             FlowProcedureSearchResModel  flowProcedureSearchResModel = new FlowProcedureSearchResModel();
@@ -50,6 +52,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowProcedureDelResModel> Manage_Procedure_Delete(FlowProcedureDelViewModel flowProcedureDelViewModel)
         {
             FlowProcedureDelResModel  flowProcedureDelResModel = new FlowProcedureDelResModel();
@@ -81,6 +84,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowProcedureUpdateResModel> Manage_Procedure_Update(FlowProcedureUpdateViewModel flowProcedureUpdateViewModel)
         {
             FlowProcedureUpdateResModel  flowProcedureUpdateResModel = new FlowProcedureUpdateResModel();
@@ -113,6 +117,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowProcedureAddResModel> Manage_Procedure_Add(FlowProcedureAddViewModel flowProcedureAddViewModel)
         {
             int Node_Add_Count;

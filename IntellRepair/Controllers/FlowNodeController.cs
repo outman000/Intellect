@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -31,6 +32,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowNodeAddResModel> Manage_Node_Add(FlowNodeAddViewModel flowNodeAddViewModel)
         {
             int Node_Add_Count;
@@ -63,6 +65,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowNodeUpdateResModels> Manage_Node_Update(FlowNodeUpdateViewModel flowNodeUpdateViewModel)
         {
             FlowNodeUpdateResModels  flowNodeUpdateResModels = new FlowNodeUpdateResModels();
@@ -94,6 +97,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowNodeDelResModel> Manage_Node_Delete(FlowNodeDelViewModel flowNodeDelViewModel)
         {
             FlowNodeDelResModel flowNodeDelResModel = new FlowNodeDelResModel();
@@ -125,6 +129,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowNodeSearchResModel> Manage_Node_Search(FlowNodeSearchViewModel flowNodeSearchViewModel)
         {
             FlowNodeSearchResModel flowNodeSearchResModel = new FlowNodeSearchResModel();
@@ -147,6 +152,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeByRepairIdSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<PhoneSearchResModel> Phone_SearchByRepair_InfoId(FlowNodeByRepairIdSearchViewModel flowNodeByRepairIdSearchViewModel)
         {
             PhoneSearchResModel  phoneSearchResModel = new PhoneSearchResModel();

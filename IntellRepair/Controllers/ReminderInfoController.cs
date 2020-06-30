@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.ResponseModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -31,6 +32,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<ReminderInfoAddResModel> Manage_Reminder_Add(ReminderInfoAddViewModel reminderInfoAddViewModel)
         {
             int Node_Add_Count;
@@ -62,6 +64,7 @@ namespace IntellRepair.Controllers
         /// <param name="reminderInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<ReminderInfoSearchResModel> Manage_Satisfaction_Search(ReminderInfoSearchViewModel reminderInfoSearchViewModel)
         {
             ReminderInfoSearchResModel  reminderInfoSearchResModel = new ReminderInfoSearchResModel();

@@ -10,6 +10,7 @@ using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
 using ViewModel.RepairsViewModel.MiddleModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -30,6 +31,7 @@ namespace IntellRepair.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RepairInfoSearchResModel> Repair_Search(RepairInfoSearchViewModel repairInfoSearchViewModel)
         {
             RepairInfoSearchResModel repairInfoSearchResModel = new RepairInfoSearchResModel();
@@ -48,6 +50,7 @@ namespace IntellRepair.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RepairInfoByIdSearchResModel> RepairID_Search(RepairIdSearchInfoViewModel repairIdSearchInfoViewModel)
         {
             RepairInfoByIdSearchResModel  repairInfoByIdSearchResModel = new RepairInfoByIdSearchResModel();
@@ -70,6 +73,7 @@ namespace IntellRepair.Controllers
 
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<WorkFlowFistReturnIdList> Manage_Repair_Add(RepairAddViewModel repairAddViewModel, int Flow_ProcedureDefineId)
         {
             WorkFlowFistReturnIdList workFlowFistReturnIdList = new WorkFlowFistReturnIdList();
@@ -101,6 +105,7 @@ namespace IntellRepair.Controllers
         /// <param name="repairDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RpairDelResModel> Manage_Bus_Delete(RepairDelViewModel repairDelViewModel)
         {
             RpairDelResModel rpairDelResModel = new RpairDelResModel();
@@ -132,6 +137,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<RepairUpdateResModel> Manage_Bus_Update(RepairUpdateViewModel repairUpdateViewModel)
         {
             RepairUpdateResModel repairUpdateResModel = new RepairUpdateResModel();
@@ -165,6 +171,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<RepairUpdateResModel> Manage_Repair_Update_IsPass(RepairUpdateIsPassViewModel repairUpdateIsPassViewModel)
         {
             RepairUpdateResModel repairUpdateResModel = new RepairUpdateResModel();

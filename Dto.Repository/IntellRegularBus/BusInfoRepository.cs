@@ -205,5 +205,11 @@ namespace Dto.Repository.IntellRegularBus
             var queryResult = DbSet.Single(k => k.Bus_LineId == bus_LineId && k.status == "0");
             return queryResult;
         }
+
+        public Bus_Info GetInfoByDeviceNumber(string deviceNumber)
+        {
+            Bus_Info bus_Info = DbSet.Single(uid => uid.deviceNumber.Equals(deviceNumber));
+            return bus_Info;
+        }
     }
  }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using AuthentValitor.AuthentModel;
+using AuthentValitor.AuthHelper;
 using AuthentValitor.Common;
 using Dto.IService.IntellWeChat;
 using Microsoft.AspNetCore.Authorization;
@@ -47,6 +49,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public ActionResult<WeChatInfoResModel> Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
@@ -80,7 +83,7 @@ namespace IntellWeChat.Controllers
         {
             WeChatLoginResModel  weChatLoginResModel = new WeChatLoginResModel();
             var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
-
+            string jwtStr = string.Empty;
             if (UserSearchResult == null)
             {
                 weChatLoginResModel.IsSuccess = false;
@@ -91,13 +94,17 @@ namespace IntellWeChat.Controllers
             }
             else
             {
+                TokenModelJwt tokenModel = new TokenModelJwt();
+                tokenModel.Uid = 2;
+                tokenModel.Role = "Admin";
+                jwtStr = JwtHelper.IssueJwt(tokenModel);
+                weChatLoginResModel.tokenViewModel.data = jwtStr;//token
                 weChatLoginResModel.user_session = UserSearchResult;
                 weChatLoginResModel.IsSuccess = true;
                 weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
                 weChatLoginResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
-              
-             return Ok(weChatLoginResModel);
+               return Ok(weChatLoginResModel);
 
 
             }
@@ -110,11 +117,12 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+       
         public ActionResult<WeChatLoginResModel> Manage_XuXuLogin_User(WeChatLoginViewModel weChatLoginViewModel)
         {
             WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
             var UserSearchResult = _loginService.WeChatLogin_User(weChatLoginViewModel);
-
+            string jwtStr = string.Empty;
             if (UserSearchResult == null)
             {
                 weChatLoginResModel.IsSuccess = false;
@@ -125,12 +133,17 @@ namespace IntellWeChat.Controllers
             }
             else
             {
+                TokenModelJwt tokenModel = new TokenModelJwt();
+                tokenModel.Uid = 2;
+                tokenModel.Role = "Admin";
+                jwtStr = JwtHelper.IssueJwt(tokenModel);
+                weChatLoginResModel.tokenViewModel.data = jwtStr;//token
                 weChatLoginResModel.user_session = UserSearchResult;
                 weChatLoginResModel.IsSuccess = true;
                 weChatLoginResModel.baseViewModel.Message = "存在该用户，查询成功";
                 weChatLoginResModel.baseViewModel.ResponseCode = 200;
-                weChatLoginResModel.tokenViewModel.code ="200";
-                weChatLoginResModel.tokenViewModel.data  = "2728b712288da12fffd103af3bd616ff" ;
+              //  weChatLoginResModel.tokenViewModel.code ="200";
+              //  weChatLoginResModel.tokenViewModel.data  = "2728b712288da12fffd103af3bd616ff" ;
 
                 _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
 
@@ -146,6 +159,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public ActionResult<WeChatLoginResModel> Manage_User_UpdatePassword(WeChatUpdateViewModel weChatUpdateViewModel)
         {
             WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
@@ -175,6 +189,7 @@ namespace IntellWeChat.Controllers
         /// 获取微信token
         /// </summary>
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<WeChatTokenResModel>> wechartTokenAsync()
         {
             var weChatTokenResModel =await _weChatHttpClientService.getWeChatTokenAsync();
@@ -189,6 +204,7 @@ namespace IntellWeChat.Controllers
         /// <param name="code">用户code</param>
         /// <returns></returns>
         [HttpGet("Visit/GetVisitOpenID")]
+        [Authorize]
         public ActionResult<UserBindResModel> GetVisitOpenID(string code)
         {
             try
@@ -239,6 +255,7 @@ namespace IntellWeChat.Controllers
         /// <param name="passWord">电话</param>
         /// <returns></returns>
         [HttpGet("Visit/GetVisitInfo")]
+        [Authorize]
         public ActionResult<UserBindResModel> GetVisitInfo(string openID, string userId,string passWord)
         {
             UserBindResModel result = new UserBindResModel();
@@ -285,6 +302,7 @@ namespace IntellWeChat.Controllers
         /// <param name="message"></param>
         /// <returns></returns>
         [HttpGet("Visit/SendMessage")]
+        [Authorize]
         public string Manage_SendMessage(string phone, string message)
 
         {

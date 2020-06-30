@@ -89,6 +89,8 @@ namespace Dtol.Migrations
 
                     b.Property<string>("SeatNum");
 
+                    b.Property<string>("deviceNumber");
+
                     b.Property<string>("phone");
 
                     b.Property<string>("status");
@@ -194,13 +196,11 @@ namespace Dtol.Migrations
 
                     b.Property<DateTime?>("AddDate");
 
-                    b.Property<decimal?>("Expense");
-
-                    b.Property<string>("OrderId");
-
                     b.Property<DateTime?>("PlaceAnOrderDate");
 
                     b.Property<int?>("Repair_InfoId");
+
+                    b.Property<string>("body");
 
                     b.Property<DateTime?>("confirmDate");
 
@@ -222,7 +222,15 @@ namespace Dtol.Migrations
 
                     b.Property<string>("isDelete");
 
+                    b.Property<string>("orderAmount");
+
+                    b.Property<string>("orderNo");
+
+                    b.Property<string>("orderNote");
+
                     b.Property<string>("orderTime");
+
+                    b.Property<string>("payType");
 
                     b.Property<string>("paymentStatus");
 

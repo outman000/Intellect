@@ -11,6 +11,7 @@ using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
 using ILogger = Serilog.ILogger;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -33,6 +34,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<SatisfactionInfoAddResModel> Manage_Satisfaction_Add(SatisfactionInfoAddViewModel satisfactionInfoAddViewModel)
         {
             int Node_Add_Count;
@@ -64,6 +66,7 @@ namespace IntellRepair.Controllers
         /// <param name="satisfactionInfoSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<SatisfactionInfoSearchResModel> Manage_Satisfaction_Search(SatisfactionInfoSearchViewModel satisfactionInfoSearchViewModel)
         {
             SatisfactionInfoSearchResModel  satisfactionInfoSearchResModel = new SatisfactionInfoSearchResModel();

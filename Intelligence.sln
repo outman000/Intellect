@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntellSuggest", "IntellSugg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthentValitor", "AuthentValitor\AuthentValitor.csproj", "{69AFB666-4D32-43D2-9462-D8AFCF1778A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntellBulletinBoard", "IntellBulletinBoard\IntellBulletinBoard.csproj", "{651A1CC8-1653-44D5-B70A-DC502595B14E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntellBulletinBoard", "IntellBulletinBoard\IntellBulletinBoard.csproj", "{651A1CC8-1653-44D5-B70A-DC502595B14E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -34,6 +34,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
@@ -49,6 +50,7 @@
     <ProjectReference Include="..\Dto.Repository\Dto.Repository.csproj" />
     <ProjectReference Include="..\Dtol\Dtol.csproj" />
     <ProjectReference Include="..\Service\Dto.Service.csproj" />
+    <ProjectReference Include="..\SystemFilter\SystemFilter.csproj" />
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 

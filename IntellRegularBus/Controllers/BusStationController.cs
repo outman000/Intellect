@@ -12,6 +12,7 @@ using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.StationInfoViewModel;
 using ViewModel.BusViewModel.ResponseModel.LineInforResModel;
 using ViewModel.BusViewModel.ResponseModel.StationInfoResModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRegularBus.Controllers
 {
@@ -33,6 +34,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="stationSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<StationSearchResModel> Manage_Station_Search(StationSearchViewModel stationSearchViewModel)
         {
             StationSearchResModel stationSearchResModel = new StationSearchResModel();
@@ -54,6 +56,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<StationUpdateResModel> Manage_Station_Update(StationUpdateViewModel stationeUpdateViewModel)
         {
             StationUpdateResModel stationUpdateResModel = new StationUpdateResModel();
@@ -87,6 +90,7 @@ namespace IntellRegularBus.Controllers
 
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<StationAddResModel> Manage_Station_Add(StationAddViewModel stationAddViewModel)
         {
             int Statio_Add_Count;
@@ -118,6 +122,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<BusValideResRepeat> Manage_Station_ValideRepeat(BusValideRepeat busValideRepeat)
         {
             BusValideResRepeat busValideResRepeat = new BusValideResRepeat();
@@ -147,6 +152,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="stationDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<StationDelResModel> Manage_Station_Del(StationDelViewModel stationDelViewModel)
         {
             StationDelResModel stationDelResModel = new StationDelResModel();
@@ -177,6 +183,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="stationByLineAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<StationByLineAddResMode> Manage_Line_Station(StationByLineAddViewModel stationByLineAddViewModel)
         {
             StationByLineAddResMode stationByLineAddResMode = new StationByLineAddResMode();
@@ -208,6 +215,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="lineByStationAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<LineByStationAddResModel> Manage_Station_Line(LineByStationAddViewModel lineByStationAddViewModel)
         {
             LineByStationAddResModel lineByStationAddResModel = new LineByStationAddResModel();
@@ -240,6 +248,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="lineByStationViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<LineByStationSearchResModel> Manage_Bus_Line_Search(LineByStationViewModel lineByStationViewModel)
         {
             LineByStationSearchResModel lineByStationSearchResModel = new LineByStationSearchResModel();
@@ -261,6 +270,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="stationByLineSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<StationByLineSearchResModel> Manage_Line_Bus_Search(StationByLineSearchViewModel stationByLineSearchViewModel)
         {
             StationByLineSearchResModel stationByLineSearchResModel = new StationByLineSearchResModel();

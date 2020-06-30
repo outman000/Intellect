@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -33,6 +34,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowProcedureDefineAddResModel> Manage_ProcedureDefine_Add(FlowProcedureDefineAddViewModel  flowProcedureDefineAddViewModel)
         {
             int Node_Add_Count;
@@ -63,6 +65,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureDefineSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowProcedureDefineSearchResModel> ProcedureDefine_Search(FlowProcedureDefineSearchViewModel flowProcedureDefineSearchViewModel)
         {
             FlowProcedureDefineSearchResModel  flowProcedureDefineSearchResModel = new FlowProcedureDefineSearchResModel();
@@ -83,6 +86,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureDefineDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowProcedureDefineDelResModel> Manage_ProcedureDefine_Delete(FlowProcedureDefineDelViewModel  flowProcedureDefineDelViewModel)
         {
             FlowProcedureDefineDelResModel  flowProcedureDefineDelResModel = new FlowProcedureDefineDelResModel();
@@ -115,6 +119,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowProcedureDefineUpdateResModel> Manage_ProcedureDefine_Update(FlowProcedureDefineUpdateViewModel  flowProcedureDefineUpdateViewModel)
         {
             FlowProcedureDefineUpdateResModel  flowProcedureDefineUpdateResModel = new FlowProcedureDefineUpdateResModel();
@@ -147,6 +152,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowProcedureDefineSingleResModel> Manage_ProcedureDefine_Single(FlowProcedureDefineSingleViewModel  flowProcedureDefineSingleViewModel)
         {
             FlowProcedureDefineSingleResModel  flowProcedureDefineSingleResModel = new FlowProcedureDefineSingleResModel();

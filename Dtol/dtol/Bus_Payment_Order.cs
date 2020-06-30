@@ -13,11 +13,15 @@ namespace Dtol.dtol
         public int Id { get; set; }
 
         /// <summary>
+        /// 支付类型
+        /// </summary>
+        public string payType { get; set; }
+
+        /// <summary>
         /// 订单号
         /// </summary>
-        public string OrderId { get; set; }
-
-
+        public string orderNo { get; set; }
+        
         /// <summary>
         /// 订单币种
         /// </summary>
@@ -33,6 +37,15 @@ namespace Dtol.dtol
         /// </summary>
         public string orderTime { get; set; }
 
+        /// <summary>
+        ///订单说明
+        /// </summary>
+        public string orderNote { get; set; }
+
+        /// <summary>
+        /// 商品描述
+        /// </summary>
+        public string body { get; set; }
 
         /// <summary>
         ///交易终端类型
@@ -43,8 +56,6 @@ namespace Dtol.dtol
         ///交易类型
         /// </summary>
         public string tradeType { get; set; }
-
-
 
         /// <summary>
         /// 设备号
@@ -90,14 +101,14 @@ namespace Dtol.dtol
         public string confirmStatus { get; set; }
 
         /// <summary>
-        /// 支付标识
+        /// 支付标识 0-未支付，1-已支付，2-已确认
         /// </summary>
         public string paymentStatus { get; set; }
 
         /// <summary>
         /// 缴费金额
         /// </summary>
-        public decimal? Expense { get; set; }
+        public string orderAmount { get; set; }
         /// <summary>
         /// 删除状态  0-启用 1-禁用
         /// </summary>

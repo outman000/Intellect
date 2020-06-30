@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.WeChatViewModel.RequestViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellUser.Controllers
 {
@@ -55,6 +56,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
+        [Authorize]
         public ActionResult UserLoginAbsolute()
         {
             var tk = new { token = "2728b712288da12fffd103af3bd616ff" };

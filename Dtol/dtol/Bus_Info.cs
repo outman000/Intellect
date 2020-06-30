@@ -11,6 +11,11 @@ namespace Dtol.dtol
         /// 班车id
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// 车辆设备号
+        /// </summary>
+        public string deviceNumber { get; set; }
         /// <summary>
         /// 司机姓名
         /// </summary>

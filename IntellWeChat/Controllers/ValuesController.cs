@@ -37,6 +37,9 @@ namespace IntellWeChat.Controllers
         [Authorize]
         public ActionResult Get1231232(int id,String token)
         {
+            string a = "aaa";
+
+
             TokenModelJwt aa = JwtHelper.SerializeJwt(token);
             return Ok("value");
         }
@@ -48,6 +51,7 @@ namespace IntellWeChat.Controllers
         /// <param name="pass"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public  ActionResult GetJWTToken(string name, string pass)
         {
             string jwtStr = string.Empty;
@@ -80,6 +84,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public ActionResult<WeChatLoginResModel> Manage_WeChatLogin_User123123(WeChatLoginViewModel weChatLoginViewModel)
         {
             WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();

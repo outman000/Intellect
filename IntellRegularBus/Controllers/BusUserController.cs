@@ -13,6 +13,9 @@ using ViewModel.BusViewModel.ResponseModel.BusInfoResModel;
 using Dto.IService.IntellRepair;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.MiddleModel;
+using Microsoft.AspNetCore.Authorization;
+using ViewModel.BusViewModel.RequestViewModel;
+using ViewModel.BusViewModel.MiddleModel;
 
 namespace IntellRegularBus.Controllers
 {
@@ -24,11 +27,13 @@ namespace IntellRegularBus.Controllers
 
         private readonly IBusUserService _IBusUserService;
         private readonly IRepairService _IRepairService;
+        private readonly IBusLocationInformationService _IBusLocationInformationService;
         private readonly ILogger _ILogger;
-        public BusUserController(IBusUserService lineService, IRepairService repairService,  ILogger logger)
+        public BusUserController(IBusUserService lineService, IRepairService repairService, IBusLocationInformationService busLocationInformationService, ILogger logger)
         {
             _IBusUserService = lineService;
             _IRepairService = repairService;
+            _IBusLocationInformationService = busLocationInformationService;
             _ILogger = logger;
         }
 
@@ -37,6 +42,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>       
        [HttpPost]
+
         public ActionResult<BusUserAddResModel> Bus_User_Add(BusUserAddViewModel busUserAddViewModel)
         {
        
@@ -69,6 +75,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
          [HttpPost]
+
         public ActionResult<BusUserDelResModel> Bus_User_Delete(BusUserDelViewModel busUserDelViewModel)
         {
             BusUserDelResModel busUserDelResModel = new BusUserDelResModel();
@@ -99,6 +106,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserTimeListSearchResModel> Bus_User_TimeList_Search(BusUserSearchTimeViewModel busUserSearchTimeViewModel)
         {
             BusUserTimeListSearchResModel  busUserTimeListSearchResModel = new BusUserTimeListSearchResModel();
@@ -122,11 +130,12 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserSearchResModel> Bus_User_Search(BusUserSearchViewModel busUserSearchViewModel)
         {
             BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
             var BusUserSearchResult = _IBusUserService.Bus_User_Search(busUserSearchViewModel);
-            int TotalExpen= _IBusUserService.Bus_UserExpen_Search(busUserSearchViewModel);//应缴费用总和
+            Double TotalExpen= _IBusUserService.Bus_UserExpen_Search(busUserSearchViewModel);//应缴费用总和
 
             var TotalNum = _IBusUserService.Bus_User_Get_ALLNum(busUserSearchViewModel);
             busUserSearchResModel.bus_user_Info = BusUserSearchResult;
@@ -143,6 +152,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserAddResModel> Bus_PayMent_Template_Add(BusUserSearchViewModel busUserSearchViewModel)
         {
 
@@ -175,6 +185,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusSearchByIdResModel> Bus_Id_Search(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             BusSearchByIdResModel  busSearchByIdResModel = new BusSearchByIdResModel();
@@ -206,6 +217,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusSearchByIdResModel> Bus_PayMent_Verification(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
         {
             BusSearchByIdResModel busSearchByIdResModel = new BusSearchByIdResModel();
@@ -237,6 +249,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserUpdateResModel> Bus_User_Update(BusUserUpdateViewModel busUserUpdateViewModel)
         {
             BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
@@ -268,6 +281,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserUpdateResModel> Bus_Payment_Order_UpdateExpense(Bus_Payment_OrderUpdateExpenseViewModel bus_Payment_OrderUpdateExpenseViewModel)
         {
             BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
@@ -297,6 +311,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusPaymentUpdateResModel> Bus_Payment_Add_Verification(SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel)
         {
             BusPaymentUpdateResModel busPamentUpdateResModel = new BusPaymentUpdateResModel();
@@ -326,6 +341,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusPaymentUpdateResModel> Bus_Payment_Update(BusPaymentUpdateViewModel busPamentUpdateViewModel)
         {
             BusPaymentUpdateResModel  busPamentUpdateResModel = new BusPaymentUpdateResModel();
@@ -344,6 +360,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BuUserValideResModel> Bus_Payment_Valide(BusUserValideViewModel  busUserValideViewModel)
         {
             BuUserValideResModel buUserValideResModel = new BuUserValideResModel();
@@ -375,6 +392,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>       
         [HttpPost]
+
         public ActionResult<BusUserAddResModel> Bus_Payment_Order_Add(Bus_Payment_OrderAddViewModel  bus_Payment_OrderAddViewModel)
         {
 
@@ -399,6 +417,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserUpdateResModel> Bus_Payment_Order_Update(Bus_Payment_OrderUpdateViewModel  bus_Payment_OrderUpdateViewModel)
         {
             BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
@@ -430,6 +449,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserSearchResModel> Bus_Payment_Order_Search(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel)
         {
             Bus_Payment_OrderSearchResModel  bus_Payment_OrderSearchResModel = new Bus_Payment_OrderSearchResModel();
@@ -450,6 +470,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<Bus_Payment_OrderSearchResModel> Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel bus_OrderByRepairsIdSearchViewModel)
         {
             Bus_OrderByRepairsSearchResModel  bus_OrderByRepairsSearchResModel = new Bus_OrderByRepairsSearchResModel();
@@ -469,6 +490,7 @@ namespace IntellRegularBus.Controllers
         /// <param name="bus_OrderIsPassSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<Bus_Payment_OrderSearchResModel> Bus_Payment_Order_IsPassSearch(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel)
         {
             Bus_Payment_OrderSearchResModel bus_OrderByRepairsSearchResModel = new Bus_Payment_OrderSearchResModel();
@@ -489,6 +511,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserSearchByCodeResModel> Bus_UserByCode_Search(Bus_OrderByCodeSearchViewModel bus_OrderByCodeSearchViewModel)
         {
             BusUserSearchByCodeResModel  busUserSearchByCodeResModel = new BusUserSearchByCodeResModel();
@@ -506,6 +529,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<BusUserSearchByCodeResModel> Bus_UserByIdCard_Search(Bus_OrderByIdCardSearchViewModel bus_OrderByIdCardSearchViewModel)
         {
             BusUserSearchByCodeResModel busUserSearchByCodeResModel = new BusUserSearchByCodeResModel();
@@ -518,6 +542,138 @@ namespace IntellRegularBus.Controllers
             return Ok(busUserSearchByCodeResModel);
         }
 
- 
+        /// <summary>
+        ///中行缴费
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<Bank_PaymentResModel> Bank_Payment(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
+        {
+            Bank_PaymentResModel busUserSearchByCodeResModel = new Bank_PaymentResModel();
+            var BusUserSearchResult = _IBusUserService.Bank_Payment(Bank_PaymentRequestMiddle);
+
+            busUserSearchByCodeResModel.bank_PaymentMiddle = BusUserSearchResult;
+            busUserSearchByCodeResModel.isSuccess = true;
+            busUserSearchByCodeResModel.baseViewModel.Message = "中行缴费成功";
+            busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("中行缴费成功");
+            return Ok(busUserSearchByCodeResModel);
+        }
+        /// <summary>
+        ///中行缴费查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<Bank_Payment_SearchResModel> Bank_Payment_Search(Bank_Payment_SearchViewModel bank_Payment_SearchViewModel)
+        {
+            Bank_Payment_SearchResModel busUserSearchByCodeResModel = new Bank_Payment_SearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bank_Payment_Search(bank_Payment_SearchViewModel);
+
+            busUserSearchByCodeResModel.bank_Payment_SearchMiddle = BusUserSearchResult;
+            busUserSearchByCodeResModel.isSuccess = true;
+            busUserSearchByCodeResModel.baseViewModel.Message = "中行缴费查询信息成功";
+            busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("中行缴费查询信息成功");
+            return Ok(busUserSearchByCodeResModel);
+        }
+
+
+
+
+
+        /// <summary>
+        ///校验设备码与二维码是否匹配
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<CheckCodeResModel> uploadCode(CheckCodeSearchViewModel checkCodeSearchViewModel)
+        {
+            CheckCodeResModel  checkCodeResModel = new CheckCodeResModel();
+            var Result = _IBusUserService.CheckCode(checkCodeSearchViewModel);
+            if(Result=="true")
+            {
+                checkCodeResModel.code = "0";
+                checkCodeResModel.msg = "通过";
+                _ILogger.Information("校验设备码与二维码通过");
+            }
+            else
+            {
+                checkCodeResModel.code = "1";
+                checkCodeResModel.msg = "不通过";
+                _ILogger.Information("校验设备码与二维码不通过");
+            }
+             
+            return Ok(checkCodeResModel);
+        }
+
+
+
+        /// <summary>
+        ///更新订单表支付状态
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<CheckCodeResModel> Update_Bank_Payment_Order(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
+        {
+            BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Update_Bank_Payment_Order(Bank_PaymentRequestMiddle);
+    
+            if (UpdateRowNum > 0)
+            {
+                busUserUpdateResModel.IsSuccess = true;
+                busUserUpdateResModel.AddCount = UpdateRowNum;
+                busUserUpdateResModel.baseViewModel.Message = "更新成功";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("修改订单表支付状态信息成功");
+                return Ok(busUserUpdateResModel);
+            }
+            else
+            {
+                busUserUpdateResModel.IsSuccess = false;
+                busUserUpdateResModel.AddCount = 0;
+                busUserUpdateResModel.baseViewModel.Message = "更新失败";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("修改订单表支付状态信息失败");
+                return BadRequest(busUserUpdateResModel);
+            }
+
+        }
+
+
+
+        /// <summary>
+        ///增加班车位置信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<CheckCodeResModel> BusLocationInformation_Add(BusLocationInformationAddViewModel busLocationInformationAddViewModel)
+        {
+
+            int BusLocationInformation_Add_Count;
+            BusLocationInformation_Add_Count = _IBusLocationInformationService.BusLocationInformation_Add(busLocationInformationAddViewModel);
+            CheckCodeResModel checkCodeResModel = new CheckCodeResModel();
+            if (BusLocationInformation_Add_Count > 0)
+            {
+                checkCodeResModel.code = "0";
+                checkCodeResModel.msg = "成功";
+                _ILogger.Information("增加班车位置信息成功");
+                return Ok(checkCodeResModel);
+            }
+            else
+            {
+                checkCodeResModel.code = "1";
+                checkCodeResModel.msg = "失败";
+                _ILogger.Information("增加班车位置信息失败");
+                return BadRequest(checkCodeResModel);
+            }
+
+        }
+
     }
+
 }

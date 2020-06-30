@@ -28,6 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
@@ -36,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthentValitor\AuthentValitor.csproj" />
     <ProjectReference Include="..\Dto.IRepository\Dto.IRepository.csproj" />
     <ProjectReference Include="..\Dto.IService\Dto.IService.csproj" />
     <ProjectReference Include="..\Dto.Repository\Dto.Repository.csproj" />
@@ -43,6 +45,33 @@
     <ProjectReference Include="..\Service\Dto.Service.csproj" />
     <ProjectReference Include="..\SystemFilter\SystemFilter.csproj" />
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="IKVM.OpenJDK.Charsets">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.OpenJDK.Charsets.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Security">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.OpenJDK.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.OpenJDK.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime.JNI">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\IKVM.Runtime.JNI.dll</HintPath>
+    </Reference>
+    <Reference Include="pkcs7">
+      <HintPath>..\..\..\客户临时文件\Zhonghang\Zhonghang\bin\pkcs7.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

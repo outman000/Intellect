@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
@@ -75,7 +76,7 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busUserSearchViewModel"></param>
         /// <returns></returns>
-        int Bus_UserExpen_Search(BusUserSearchViewModel busUserSearchViewModel);
+        Double Bus_UserExpen_Search(BusUserSearchViewModel busUserSearchViewModel);
 
         /// <summary>
         /// 查询所有缴费时间列表
@@ -156,5 +157,16 @@ namespace Dto.IService.IntellRegularBus
         int Bus_PayMent_Single_Verification(SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel);
 
         string Bus_PayMent_Verification(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel);
+
+        Bank_PaymentMiddle Bank_Payment(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
+
+        Bank_Payment_SearchMiddle Bank_Payment_Search(Bank_Payment_SearchViewModel bank_Payment_SearchViewModel);
+        string CheckCode(CheckCodeSearchViewModel checkCodeSearchViewModel);
+        /// <summary>
+        /// 修改支付状态
+        /// </summary>
+        /// <param name="Bank_PaymentRequestMiddle"></param>
+        /// <returns></returns>
+        int Update_Bank_Payment_Order(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
     }
 }

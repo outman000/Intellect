@@ -10,6 +10,7 @@ using SystemFilter.PublicFilter;
 using ViewModel.RepairsViewModel.MiddleModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 using ViewModel.RepairsViewModel.ResponseModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IntellRepair.Controllers
 {
@@ -31,6 +32,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeDefineSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowNodeDefineSearchResModel> Repair_Search(FlowNodeDefineSearchViewModel flowNodeDefineSearchViewModel)
         {
             FlowNodeDefineSearchResModel flowNodeDefineSearchResModel = new FlowNodeDefineSearchResModel();
@@ -51,6 +53,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowNodeDefineAddResModel> Manage_NodeDefine_Add(FlowNodeDefineAddViewModel flowNodeDefineAddViewModel)
         {
             int Node_Add_Count;
@@ -82,6 +85,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowNodeDefineDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowNodeDefineDelResModel> Manage_NodeDefine_Delete(FlowNodeDefineDelViewModel flowNodeDefineDelViewModel)
         {
             FlowNodeDefineDelResModel  flowNodeDefineDelResModel = new FlowNodeDefineDelResModel();
@@ -114,6 +118,7 @@ namespace IntellRepair.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
+
         public ActionResult<FlowNodeDefineUpdateResModel> Manage_NodeDefine_Update(FlowNodeDefineUpdateViewModel flowNodeDefineUpdateViewModel)
         {
             FlowNodeDefineUpdateResModel  flowNodeDefineUpdateResModel = new FlowNodeDefineUpdateResModel();
@@ -144,6 +149,7 @@ namespace IntellRepair.Controllers
         /// <param name="flowProcedureByNodeIdAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowProcedureByNodeIdAddResModel> Manage_ProcedureDefineByNodeId_Add(FlowProcedureByNodeIdAddViewModel flowProcedureByNodeIdAddViewModel)
         {
             FlowProcedureByNodeIdAddResModel  flowProcedureByNodeIdAddResModel = new FlowProcedureByNodeIdAddResModel();
@@ -176,6 +182,7 @@ namespace IntellRepair.Controllers
         /// <param name="relateRoleByNodeAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RelateRoleByNodeAddResModel> Manage_NodeToRole_Add(RelateRoleByNodeAddViewModel relateRoleByNodeAddViewModel)
         {
             RelateRoleByNodeAddResModel relateRoleByNodeAddResModel = new RelateRoleByNodeAddResModel();
@@ -206,6 +213,7 @@ namespace IntellRepair.Controllers
         /// <param name="relateRoleByNodeDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RelateRoleByNodeDelResModel> Manage_NodeToRole_Del(RelateRoleByNodeDelViewModel relateRoleByNodeDelViewModel)
         {
             RelateRoleByNodeDelResModel relateRoleByNodeDelResModel = new RelateRoleByNodeDelResModel();
@@ -238,6 +246,7 @@ namespace IntellRepair.Controllers
         /// <param name="roleByNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<RoleByNodeSearchResModel> Manage_Role_By_User_Search(RoleByNodeSearchViewModel  roleByNodeSearchViewModel)
         {
             RoleByNodeSearchResModel  roleByNodeSearchResModel = new RoleByNodeSearchResModel();
@@ -258,6 +267,7 @@ namespace IntellRepair.Controllers
         /// <param name="currentNodeToNextNodeAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<CurrentNodeToNextNodeAddResModel> Manage_CurrentNodeToNextNode_Add(CurrentNodeToNextNodeAddViewModel currentNodeToNextNodeAddViewModel)
         {
             CurrentNodeToNextNodeAddResModel  currentNodeToNextNodeAddResModel = new CurrentNodeToNextNodeAddResModel();
@@ -289,6 +299,7 @@ namespace IntellRepair.Controllers
         /// <param name="currentNodeToNextNodeDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<CurrentNodeToNextNodeDelResModel> Manage_CurrentNodeToNextNode_Del(CurrentNodeToNextNodeDelViewModel currentNodeToNextNodeDelViewModel)
         {
             CurrentNodeToNextNodeDelResModel   currentNodeToNextNodeDelResModel = new CurrentNodeToNextNodeDelResModel();
@@ -319,6 +330,7 @@ namespace IntellRepair.Controllers
         /// <param name="nextNodeByCurrentNodeSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
+
         public ActionResult<FlowNodeDefineSearchResModel> Manage_CurrentNodeToNextNode_Search(NextNodeByCurrentNodeSearchViewModel  nextNodeByCurrentNodeSearchViewModel)
         {
             FlowNodeDefineSearchResModel  flowNodeDefineSearchResModel = new FlowNodeDefineSearchResModel();
