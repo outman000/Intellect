@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20200701031456_jwd")]
+    partial class jwd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,29 +129,6 @@ namespace Dtol.Migrations
                     b.ToTable("bus_Line");
                 });
 
-            modelBuilder.Entity("Dtol.dtol.Bus_Location_Information", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AddDate");
-
-                    b.Property<int>("LineId");
-
-                    b.Property<string>("LineName");
-
-                    b.Property<string>("deviceNumber");
-
-                    b.Property<string>("latitude");
-
-                    b.Property<string>("longitude");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bus_Location_Information");
-                });
-
             modelBuilder.Entity("Dtol.dtol.Bus_Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -179,8 +158,6 @@ namespace Dtol.Migrations
                     b.Property<string>("Phone");
 
                     b.Property<int?>("Repair_InfoId");
-
-                    b.Property<DateTime?>("ScanCodeDate");
 
                     b.Property<string>("StationName");
 

@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20200701031644_jwd2")]
+    partial class jwd2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,10 +137,6 @@ namespace Dtol.Migrations
 
                     b.Property<DateTime>("AddDate");
 
-                    b.Property<int>("LineId");
-
-                    b.Property<string>("LineName");
-
                     b.Property<string>("deviceNumber");
 
                     b.Property<string>("latitude");
@@ -179,8 +177,6 @@ namespace Dtol.Migrations
                     b.Property<string>("Phone");
 
                     b.Property<int?>("Repair_InfoId");
-
-                    b.Property<DateTime?>("ScanCodeDate");
 
                     b.Property<string>("StationName");
 

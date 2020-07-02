@@ -16,7 +16,7 @@ namespace Dto.IRepository.IntellRegularBus
         //根据班车主键id查询
         Bus_Info GetInfoByBusId(int id);
 
-        Bus_Info GetInfoByDeviceNumber(string deviceNumber);
+        List<Bus_Info> GetInfoByDeviceNumber(string deviceNumber);
         //批量删除
         int DeleteByBusIdList(List<int> IdList);
         // 根据条件查班车

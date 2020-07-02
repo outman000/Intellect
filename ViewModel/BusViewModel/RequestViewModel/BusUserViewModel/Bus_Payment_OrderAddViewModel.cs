@@ -9,7 +9,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// <summary>
         /// 订单号
         /// </summary>
-        public string OrderId { get; set; }
+        public string orderNo { get; set; }
 
         /// <summary>
         /// 支付时间

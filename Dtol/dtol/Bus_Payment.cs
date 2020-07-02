@@ -82,6 +82,13 @@ namespace Dtol.dtol
         /// </summary>
         public DateTime? UpdateCodeDate { get; set; }
 
+
+        /// <summary>
+        /// 扫码的时间
+        /// </summary>
+        public DateTime? ScanCodeDate { get; set; }
+
+
         /// <summary>
         /// 用户照片
         /// </summary>

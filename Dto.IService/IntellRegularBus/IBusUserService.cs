@@ -160,7 +160,7 @@ namespace Dto.IService.IntellRegularBus
 
         Bank_PaymentMiddle Bank_Payment(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
 
-        Bank_Payment_SearchMiddle Bank_Payment_Search(Bank_Payment_SearchViewModel bank_Payment_SearchViewModel);
+        Bank_Payment_SearchMiddle Bank_Payment_Search(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
         string CheckCode(CheckCodeSearchViewModel checkCodeSearchViewModel);
         /// <summary>
         /// 修改支付状态
@@ -168,5 +168,7 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="Bank_PaymentRequestMiddle"></param>
         /// <returns></returns>
         int Update_Bank_Payment_Order(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
+
+
     }
 }

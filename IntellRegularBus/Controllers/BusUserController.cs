@@ -23,14 +23,20 @@ namespace IntellRegularBus.Controllers
     [ApiController]
     public class BusUserController : ControllerBase
     {
-
-
+       
+        public static IServiceProvider ServiceProvider;
         private readonly IBusUserService _IBusUserService;
         private readonly IRepairService _IRepairService;
         private readonly IBusLocationInformationService _IBusLocationInformationService;
         private readonly ILogger _ILogger;
-        public BusUserController(IBusUserService lineService, IRepairService repairService, IBusLocationInformationService busLocationInformationService, ILogger logger)
+        private readonly IHttpContextAccessor httpContextAccessor;
+      
+        public BusUserController(IBusUserService lineService, IRepairService repairService, IBusLocationInformationService busLocationInformationService,
+            IHttpContextAccessor httpContextAccessor,
+            ILogger logger)
         {
+
+            this.httpContextAccessor = httpContextAccessor;
             _IBusUserService = lineService;
             _IRepairService = repairService;
             _IBusLocationInformationService = busLocationInformationService;
@@ -45,8 +51,8 @@ namespace IntellRegularBus.Controllers
 
         public ActionResult<BusUserAddResModel> Bus_User_Add(BusUserAddViewModel busUserAddViewModel)
         {
-       
-            int Bus_User_Add_Count;
+   
+        int Bus_User_Add_Count;
             Bus_User_Add_Count = _IBusUserService.Bus_User_Add(busUserAddViewModel);
             BusUserAddResModel busUserAddResModel = new BusUserAddResModel();
             if (Bus_User_Add_Count > 0)
@@ -541,7 +547,7 @@ namespace IntellRegularBus.Controllers
             _ILogger.Information("根据身份证号查询用户缴费信息成功");
             return Ok(busUserSearchByCodeResModel);
         }
-
+      
         /// <summary>
         ///中行缴费
         /// </summary>
@@ -550,14 +556,26 @@ namespace IntellRegularBus.Controllers
 
         public ActionResult<Bank_PaymentResModel> Bank_Payment(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
-            Bank_PaymentResModel busUserSearchByCodeResModel = new Bank_PaymentResModel();
-            var BusUserSearchResult = _IBusUserService.Bank_Payment(Bank_PaymentRequestMiddle);
 
-            busUserSearchByCodeResModel.bank_PaymentMiddle = BusUserSearchResult;
-            busUserSearchByCodeResModel.isSuccess = true;
-            busUserSearchByCodeResModel.baseViewModel.Message = "中行缴费成功";
-            busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
-            _ILogger.Information("中行缴费成功");
+            Bank_PaymentResModel busUserSearchByCodeResModel = new Bank_PaymentResModel();
+            // busUserSearchByCodeResModel.ip = this.httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            var BusUserSearchResult = _IBusUserService.Bank_Payment(Bank_PaymentRequestMiddle);
+            if (BusUserSearchResult.hdlSts == "A")
+            {
+                busUserSearchByCodeResModel.baseViewModel.Message = "中行缴费成功";
+                _ILogger.Information("中行缴费成功");
+                busUserSearchByCodeResModel.bank_PaymentMiddle = BusUserSearchResult;
+                busUserSearchByCodeResModel.isSuccess = true;
+                busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
+            }
+            else
+            {
+                busUserSearchByCodeResModel.baseViewModel.Message = "中行缴费失败";
+                _ILogger.Information("中行缴费失败");
+                busUserSearchByCodeResModel.bank_PaymentMiddle = BusUserSearchResult;
+                busUserSearchByCodeResModel.isSuccess = false;
+                busUserSearchByCodeResModel.baseViewModel.ResponseCode = 400;
+            }
             return Ok(busUserSearchByCodeResModel);
         }
         /// <summary>
@@ -566,10 +584,10 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
 
-        public ActionResult<Bank_Payment_SearchResModel> Bank_Payment_Search(Bank_Payment_SearchViewModel bank_Payment_SearchViewModel)
+        public ActionResult<Bank_Payment_SearchResModel> Bank_Payment_Search(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
             Bank_Payment_SearchResModel busUserSearchByCodeResModel = new Bank_Payment_SearchResModel();
-            var BusUserSearchResult = _IBusUserService.Bank_Payment_Search(bank_Payment_SearchViewModel);
+            var BusUserSearchResult = _IBusUserService.Bank_Payment_Search(Bank_PaymentRequestMiddle);
 
             busUserSearchByCodeResModel.bank_Payment_SearchMiddle = BusUserSearchResult;
             busUserSearchByCodeResModel.isSuccess = true;
@@ -593,19 +611,37 @@ namespace IntellRegularBus.Controllers
         {
             CheckCodeResModel  checkCodeResModel = new CheckCodeResModel();
             var Result = _IBusUserService.CheckCode(checkCodeSearchViewModel);
-            if(Result=="true")
+            if(Result=="0")
             {
                 checkCodeResModel.code = "0";
                 checkCodeResModel.msg = "通过";
                 _ILogger.Information("校验设备码与二维码通过");
             }
-            else
+            else if(Result == "1")
             {
                 checkCodeResModel.code = "1";
                 checkCodeResModel.msg = "不通过";
-                _ILogger.Information("校验设备码与二维码不通过");
+                _ILogger.Information("校验设备码与二维码不通过,二维码已失效");
             }
-             
+            else if (Result == "2")
+            {
+                checkCodeResModel.code = "2";
+                checkCodeResModel.msg = "不通过";
+                _ILogger.Information("校验设备码与二维码不通过，乘车线路不符");
+            }
+            else if (Result == "3")
+            {
+                checkCodeResModel.code = "3";
+                checkCodeResModel.msg = "不通过";
+                _ILogger.Information("校验设备码与二维码不通过，二维码已使用");
+            }
+            else
+            {
+                checkCodeResModel.code = "4";
+                checkCodeResModel.msg = "不通过";
+                _ILogger.Information("校验设备码与二维码不通过，系统异常");
+            }
+
             return Ok(checkCodeResModel);
         }
 
@@ -654,25 +690,40 @@ namespace IntellRegularBus.Controllers
         public ActionResult<CheckCodeResModel> BusLocationInformation_Add(BusLocationInformationAddViewModel busLocationInformationAddViewModel)
         {
 
-            int BusLocationInformation_Add_Count;
-            BusLocationInformation_Add_Count = _IBusLocationInformationService.BusLocationInformation_Add(busLocationInformationAddViewModel);
+            
+            var temp = _IBusLocationInformationService.BusLocationInformation_Add(busLocationInformationAddViewModel);
             CheckCodeResModel checkCodeResModel = new CheckCodeResModel();
-            if (BusLocationInformation_Add_Count > 0)
+            if (temp == 0)
             {
                 checkCodeResModel.code = "0";
                 checkCodeResModel.msg = "成功";
                 _ILogger.Information("增加班车位置信息成功");
                 return Ok(checkCodeResModel);
             }
-            else
+            else if(temp ==1)
             {
                 checkCodeResModel.code = "1";
                 checkCodeResModel.msg = "失败";
-                _ILogger.Information("增加班车位置信息失败");
+                _ILogger.Information("增加班车位置信息失败,时间段不符合");
+                return BadRequest(checkCodeResModel);
+            }
+            else if (temp == 2)
+            {
+                checkCodeResModel.code = "2";
+                checkCodeResModel.msg = "失败";
+                _ILogger.Information("增加班车位置信息失败,找不到设备号");
+                return BadRequest(checkCodeResModel);
+            }
+            else
+            {
+                checkCodeResModel.code = "3";
+                checkCodeResModel.msg = "失败";
+                _ILogger.Information("增加班车位置信息失败,系统异常");
                 return BadRequest(checkCodeResModel);
             }
 
         }
+    
 
     }
 

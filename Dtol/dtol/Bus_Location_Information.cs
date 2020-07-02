@@ -22,6 +22,17 @@ namespace Dtol.dtol
         /// </summary>
         public string latitude { get; set; }
 
+        /// <summary>
+        /// 线路名
+        /// </summary>
+
+        public string LineName { get; set; }
+
+        /// <summary>
+        /// 线路主键id
+        /// </summary>
+
+        public int LineId { get; set; }
 
         /// <summary>
         /// 班车位置信息纬度

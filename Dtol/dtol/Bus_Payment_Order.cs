@@ -13,6 +13,11 @@ namespace Dtol.dtol
         public int Id { get; set; }
 
         /// <summary>
+        /// 商户号
+        /// </summary>
+
+        public string merchantNo { get; set; }
+        /// <summary>
         /// 支付类型
         /// </summary>
         public string payType { get; set; }

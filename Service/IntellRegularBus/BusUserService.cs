@@ -27,6 +27,7 @@ using System.Xml;
 using Newtonsoft.Json;
 using ViewModel.BusViewModel.RequestViewModel;
 using Microsoft.Extensions.Configuration;
+using System.Globalization;
 
 namespace Dto.Service.IntellRegularBus
 {
@@ -598,11 +599,11 @@ namespace Dto.Service.IntellRegularBus
             var list = Bus_Payment();
             if (list==null)
             {
-                bus_Payment_OrderAddViewModel.OrderId = "190075" + DateTime.Now.ToString("yyyyMM") + "000";
+                bus_Payment_OrderAddViewModel.orderNo = "510752" + DateTime.Now.ToString("yyyyMM") + "000";
             }           
             else
             {
-                bus_Payment_OrderAddViewModel.OrderId =(Convert.ToInt64(list[0].orderNo) + 1).ToString();
+                bus_Payment_OrderAddViewModel.orderNo = (Convert.ToInt64(list[0].orderNo) + 1).ToString();
             }
                
             var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
@@ -612,6 +613,7 @@ namespace Dto.Service.IntellRegularBus
             bus_Info.deviceInfo = "WEB";
             bus_Info.terminalChnl = "08";
             bus_Info.tradeType = "WXAPP";
+            bus_Info.merchantNo = "104120086510752";
             _IBusPaymentOrderRepository.Add(bus_Info);
             _IBusPaymentOrderRepository.SaveChanges();
             return bus_Info.Id;
@@ -678,8 +680,9 @@ namespace Dto.Service.IntellRegularBus
             {
                 bus_Payment[i].Code= Guid.NewGuid().ToString();
                 bus_Payment[i].UpdateCodeDate = updateDate;
-            } 
-
+                _IBusUserRepository.Update(bus_Payment[i]);
+            }
+            _IBusUserRepository.SaveChanges();
         }
 
 
@@ -758,7 +761,8 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public Bank_PaymentMiddle Bank_Payment(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
-            Bank_PaymentViewModel bank_PaymentViewModel = new Bank_PaymentViewModel();
+           // Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle
+          //  Bank_PaymentViewModel bank_PaymentViewModel = new Bank_PaymentViewModel();
             Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
             var result = _IMapper.Map<Bus_Payment_Order, Bank_PaymentViewModel>(bus_Payment_Order);
             result.orderNote = bus_Payment_Order.departName + "班车缴费金额为:" + bus_Payment_Order.orderAmount;
@@ -767,12 +771,14 @@ namespace Dto.Service.IntellRegularBus
             string orderInfor = result.orderNo + "|" + result.orderTime + "|" + result.curCode + "|" + result.orderAmount + "|" + result.merchantNo;
             try
             {
+                //  var b=  HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+   
                 string ip = "";
                 string hostInfo = Dns.GetHostName();
                 //IP地址
                 System.Net.IPAddress[] addressList = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
-                ip = addressList[1].ToString();
-                bank_PaymentViewModel.spbillCreateIp = ip;
+                ip = addressList[2].ToString();
+                result.spbillCreateIp = ip;
                 bus_Payment_Order.spbillCreateIp = ip;
                 _IBusPaymentOrderRepository.Update(bus_Payment_Order);
                 _IBusPaymentOrderRepository.SaveChanges();
@@ -782,7 +788,7 @@ namespace Dto.Service.IntellRegularBus
                 e.ToString();
             }
 
-            var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor='"+ orderInfor + "'");
+            var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor="+orderInfor);
             //var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor=510752202006210|20200622112402|001|0.10|104120086510752");
             clientsignData.Timeout = -1;
             var requestsignData = new RestRequest(Method.GET);
@@ -804,20 +810,20 @@ namespace Dto.Service.IntellRegularBus
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            request.AddParameter("merchantNo", bank_PaymentViewModel.merchantNo);
-            request.AddParameter("payType", bank_PaymentViewModel.payType);
-            request.AddParameter("orderNo", bank_PaymentViewModel.orderNo);
-            request.AddParameter("curCode", bank_PaymentViewModel.curCode);
-            request.AddParameter("orderAmount", bank_PaymentViewModel.orderAmount);
-            request.AddParameter("orderTime", bank_PaymentViewModel.orderTime);
-            request.AddParameter("orderNote", bank_PaymentViewModel.orderNote);
-            request.AddParameter("orderUrl", bank_PaymentViewModel.orderUrl);
-            request.AddParameter("terminalChnl", bank_PaymentViewModel.terminalChnl);
+            request.AddParameter("merchantNo", result.merchantNo);
+            request.AddParameter("payType", result.payType);
+            request.AddParameter("orderNo", result.orderNo);
+            request.AddParameter("curCode", result.curCode);
+            request.AddParameter("orderAmount", result.orderAmount);
+            request.AddParameter("orderTime", result.orderTime);
+            request.AddParameter("orderNote", result.orderNote);
+            request.AddParameter("orderUrl", result.orderUrl);
+            request.AddParameter("terminalChnl", result.terminalChnl);
             request.AddParameter("signData", signData);
-            request.AddParameter("tradeType", bank_PaymentViewModel.tradeType);
-            request.AddParameter("deviceInfo", bank_PaymentViewModel.deviceInfo);
-            request.AddParameter("body", bank_PaymentViewModel.body);
-            request.AddParameter("spbillCreateIp", bank_PaymentViewModel.spbillCreateIp);
+            request.AddParameter("tradeType", result.tradeType);
+            request.AddParameter("deviceInfo", result.deviceInfo);
+            request.AddParameter("body", result.body);
+            request.AddParameter("spbillCreateIp", result.spbillCreateIp);
 
             IRestResponse response = client.Execute(request);
             //5、返回结果:商户可以根据接口文档  自行处理xml报文格式的数据 如:返回结果字段多于文档则依据文档进行开发
@@ -831,9 +837,9 @@ namespace Dto.Service.IntellRegularBus
                 int d = res.IndexOf("</qrCode>");
                 bank_PaymentMiddle.qrCode = res.Substring(c + 8, d - c - 8);
                 bank_PaymentMiddle.hdlSts = uid;
-                Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel = new Bus_OrderByOrderIdSearchViewModel();
-                bus_OrderByOrderIdSearchViewModel.Bus_Payment_OrderId = Bank_PaymentRequestMiddle.OrderId;
-                Bus_PaymentSearchByOrderId(bus_OrderByOrderIdSearchViewModel);
+                //Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel = new Bus_OrderByOrderIdSearchViewModel();
+                //bus_OrderByOrderIdSearchViewModel.Bus_Payment_OrderId = Bank_PaymentRequestMiddle.OrderId;
+                //Bus_PaymentSearchByOrderId(bus_OrderByOrderIdSearchViewModel);
 
 
             }
@@ -854,10 +860,12 @@ namespace Dto.Service.IntellRegularBus
         /// <param name="phone"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public Bank_Payment_SearchMiddle Bank_Payment_Search(Bank_Payment_SearchViewModel  bank_Payment_SearchViewModel)
+        public Bank_Payment_SearchMiddle Bank_Payment_Search(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
-            string orderInfor = bank_Payment_SearchViewModel.merchantNo+":"+bank_Payment_SearchViewModel.orderNos;
-            var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor='" + orderInfor + "'");
+            Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
+
+            string orderInfor = bus_Payment_Order.merchantNo+":"+ bus_Payment_Order.orderNo;
+            var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor="+orderInfor );
             Bank_Payment_SearchMiddle bank_Payment_SearchMiddle = new Bank_Payment_SearchMiddle();
             clientsignData.Timeout = -1;
             var requestsignData = new RestRequest(Method.GET);
@@ -874,16 +882,14 @@ namespace Dto.Service.IntellRegularBus
                 bank_Payment_SearchMiddle.exception = signData.Substring(signData.IndexOf(",") + 1);
                 return bank_Payment_SearchMiddle;
             }
-            //signData= signData.Replace("\n", "");
 
-            //signData= signData.Replace("\r", "");
             //4、发送请求
             var client = new RestClient("https://ebspay.boc.cn/PGWPortal/QueryOrder.do");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            request.AddParameter("merchantNo", bank_Payment_SearchViewModel.merchantNo);
-            request.AddParameter("orderNos", bank_Payment_SearchViewModel.orderNos);
+            request.AddParameter("merchantNo", bus_Payment_Order.merchantNo);
+            request.AddParameter("orderNos", bus_Payment_Order.orderNo);
             request.AddParameter("signData", signData);
             IRestResponse response = client.Execute(request);
             string res = response.Content.ToString();
@@ -915,16 +921,49 @@ namespace Dto.Service.IntellRegularBus
 
                 a = res.IndexOf("<orderStatus>");
                 b = res.IndexOf("</orderStatus>");
-                bank_Payment_SearchMiddle.orderStatus = res.Substring(a + 13, b - a - 13);
+
+                string temp=res.Substring(a + 13, b - a - 13);
+
+                if (temp == "0")
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "未处理";
+                }
+                else if (temp == "1")
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "支付";
+                }
+                else if (temp == "2")
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "撤销";
+                }
+                else if (temp == "3")
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "退货";
+                }
+                else if (temp == "4")
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "未明";
+                }
+                else if (temp == "5")
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "失败";
+                }
+                else
+                {
+                    bank_Payment_SearchMiddle.orderStatus = "失败";
+                }
 
                 a = res.IndexOf("<cardTyp>");
                 b = res.IndexOf("</cardTyp>");
-                bank_Payment_SearchMiddle.cardTyp = res.Substring(a + 8, b - a - 8);
+                bank_Payment_SearchMiddle.cardTyp = res.Substring(a + 9, b - a - 9);
 
 
                 a = res.IndexOf("<payTime>");
                 b = res.IndexOf("</payTime>");
-                bank_Payment_SearchMiddle.payTime = res.Substring(a + 9, b - a - 9);
+
+
+                DateTime dt = DateTime.ParseExact(res.Substring(a + 9, b - a - 9), "yyyyMMddHHmmss", System.Globalization.CultureInfo.CurrentCulture);
+                bank_Payment_SearchMiddle.payTime = dt.ToString();
 
                 a = res.IndexOf("<payAmount>");
                 b = res.IndexOf("</payAmount>");
@@ -938,32 +977,130 @@ namespace Dto.Service.IntellRegularBus
             return bank_Payment_SearchMiddle;
         }
 
-
+        /// <summary>
+        /// 班车扫码
+        /// </summary>
+        /// <param name="checkCodeSearchViewModel"></param>
+        /// <returns></returns>
         public string CheckCode(CheckCodeSearchViewModel  checkCodeSearchViewModel)
         {
-       
-            var bus_Payment = _IBusUserRepository.GetInfoByCode(checkCodeSearchViewModel.qrcode);
+            try{
+                var bus_Payment = _IBusUserRepository.GetInfoByCode(checkCodeSearchViewModel.qrcode);
 
-            if (bus_Payment.Count == 0)//二维码过期，动态码已刷新
-            {
-                return null;
-            }
-            else
-            {
-                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                if (bus_Payment.Count == 0)//二维码过期，动态码已刷新
                 {
-                    Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
-                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
-                        return "true";
-                    else
-                        return null;
+                    return "1";
+                }
+                else
+                {
+                    if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                    {
 
-                }
-                else//二维码过期，但是动态码还未刷新
-                {
-                    return null;
+                        //判断当前时间是否在工作时间段内
+                        string _staWorkingDayAM = "06:00";//工作时间上午08:30
+                        string _endWorkingDayAM = "09:00";//工作时间上午08:30
+
+                        string _staWorkingDayPM = "17:00";
+                        string _endWorkingDayPM = "19:00";
+                        TimeSpan dspWorkingDayAM = DateTime.Parse(_staWorkingDayAM).TimeOfDay;
+                        TimeSpan dspWorkingDayAM2 = DateTime.Parse(_endWorkingDayAM).TimeOfDay;
+
+                        TimeSpan dspWorkingDayPM = DateTime.Parse(_staWorkingDayPM).TimeOfDay;
+                        TimeSpan dspWorkingDayPM2 = DateTime.Parse(_endWorkingDayPM).TimeOfDay;
+                        TimeSpan dspNow = DateTime.Now.TimeOfDay;
+                        if (bus_Payment[0].ScanCodeDate != null)
+                        {
+                            TimeSpan ScanCodeDate = bus_Payment[0].ScanCodeDate.Value.TimeOfDay;
+                         
+
+
+                            if (dspNow > dspWorkingDayAM && dspNow < dspWorkingDayAM2)//上午6-9点
+                            {
+                                if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2)
+                                {
+
+                                    return "3";
+                                }
+                                else
+                                {
+                                    Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
+                                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                    {
+                                        bus_Payment[0].ScanCodeDate = DateTime.Now;
+                                        _IBusUserRepository.Update(bus_Payment[0]);
+                                        _IBusUserRepository.SaveChanges();
+                                        return "0";
+                                    }
+
+                                    else
+                                        return "2";
+                                }
+
+                            }
+                            if (dspNow > dspWorkingDayPM && dspNow < dspWorkingDayPM2)//下午5-7点
+                            {
+
+                                if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2)//数据库最新扫码时间为上午6-9
+                                {
+                                    Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
+                                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                    {
+                                        bus_Payment[0].ScanCodeDate = DateTime.Now;
+                                        _IBusUserRepository.Update(bus_Payment[0]);
+                                        _IBusUserRepository.SaveChanges();
+                                        return "0";
+                                    }
+
+                                    else
+                                        return "2";
+
+                                }
+                                if (ScanCodeDate > dspWorkingDayPM && ScanCodeDate < dspWorkingDayPM2)//数据库最新扫码时间为下午5-7点
+                                {
+
+                                    return "3";
+                                }
+
+                            }
+                            return "1";
+                        }
+                        else
+                        {
+                            if ((dspNow > dspWorkingDayAM && dspNow < dspWorkingDayAM2)|| (dspNow > dspWorkingDayPM && dspNow < dspWorkingDayPM2))//上午6-9点或者下午5-7点
+                            {
+
+                                Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
+                                if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                {
+                                    bus_Payment[0].ScanCodeDate = DateTime.Now;
+                                    _IBusUserRepository.Update(bus_Payment[0]);
+                                    _IBusUserRepository.SaveChanges();
+                                    return "0";
+                                }
+
+                                else
+                                    return "2";
+                            }
+                            else
+                                return "3";
+
+                        }
+
+                    }
+                    else//二维码过期，但是动态码还未刷新
+                    {
+                        return "1";
+                    }
                 }
             }
+            catch(Exception e)
+            {
+
+                return "4";
+
+
+            }
+           
 
         }
 
@@ -977,18 +1114,37 @@ namespace Dto.Service.IntellRegularBus
         public int Update_Bank_Payment_Order(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
             Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
-            if(Bank_PaymentRequestMiddle.paymentStatus=="1")
+
+
+            var bus_Payment = _IBusUserRepository.GetInfoByBus(Bank_PaymentRequestMiddle.OrderId); //更新缴费人员的动态码
+            var updateDate = DateTime.Now;
+            for (int i = 0; i < bus_Payment.Count; i++)
             {
-                bus_Payment_Order.paymentStatus = "1";
+                bus_Payment[i].Code = Guid.NewGuid().ToString();
+                bus_Payment[i].UpdateCodeDate = updateDate;
+                _IBusUserRepository.Update(bus_Payment[i]);
+            }
+              _IBusUserRepository.SaveChanges();
+
+
+
+
+            if (Bank_PaymentRequestMiddle.paymentStatus=="2")
+            {
+                bus_Payment_Order.paymentStatus = "2";
             }
            else
            {
-                bus_Payment_Order.paymentStatus = "2";
+                bus_Payment_Order.paymentStatus = "3";
            }
             bus_Payment_Order.updateDate = DateTime.Now;
             _IBusPaymentOrderRepository.Update(bus_Payment_Order);
            return  _IBusPaymentOrderRepository.SaveChanges();
         }
+
+
+
+      
 
     }
 }

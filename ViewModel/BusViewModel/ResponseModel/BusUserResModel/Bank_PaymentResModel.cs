@@ -11,7 +11,7 @@ namespace ViewModel.BusViewModel.ResponseModel.BusUserResModel
         public bool isSuccess;
         public Bank_PaymentMiddle  bank_PaymentMiddle;
         public BaseViewModel baseViewModel;
-
+      //  public string ip;
         public Bank_PaymentResModel()
         {
             baseViewModel = new BaseViewModel();
