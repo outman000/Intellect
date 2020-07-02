@@ -761,13 +761,19 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public Bank_PaymentMiddle Bank_Payment(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
+
            // Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle
           //  Bank_PaymentViewModel bank_PaymentViewModel = new Bank_PaymentViewModel();
             Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
             var result = _IMapper.Map<Bus_Payment_Order, Bank_PaymentViewModel>(bus_Payment_Order);
+
+            OrderUrlMiddle orderUrlMiddle = new OrderUrlMiddle();//回调url中拼接参数对象
+            orderUrlMiddle.OrderId = Bank_PaymentRequestMiddle.OrderId;
+            orderUrlMiddle.orderAmount = result.orderAmount;
+
             result.orderNote = bus_Payment_Order.departName + "班车缴费金额为:" + bus_Payment_Order.orderAmount;
             result.body = "东疆智慧服务平台-费用-班车缴费";
-            result.orderUrl = "http://zhfwpt.dongjiang.gov.cn/MobileServer/PaymentSuccess.html";
+            result.orderUrl = "http://zhfwpt.dongjiang.gov.cn/MobileServer/PaymentSuccess.html?orderUrlMiddle=" + orderUrlMiddle;
             string orderInfor = result.orderNo + "|" + result.orderTime + "|" + result.curCode + "|" + result.orderAmount + "|" + result.merchantNo;
             try
             {
