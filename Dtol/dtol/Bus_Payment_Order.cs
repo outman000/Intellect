@@ -106,7 +106,7 @@ namespace Dtol.dtol
         public string confirmStatus { get; set; }
 
         /// <summary>
-        /// 支付标识 0-未支付，1-已支付，2-已确认
+        /// 支付标识 0-流程未结束，1-待支付，2-已支付，3-已确认
         /// </summary>
         public string paymentStatus { get; set; }
 

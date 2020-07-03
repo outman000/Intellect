@@ -39,7 +39,7 @@ namespace Dto.Service.IntellRegularBus
                 string _staWorkingDayAM = "06:00";//工作时间上午08:30
                 string _endWorkingDayAM = "09:00";//工作时间上午08:30
 
-                string _staWorkingDayPM = "14:00";
+                string _staWorkingDayPM = "17:00";
                 string _endWorkingDayPM = "19:00";
                 TimeSpan dspWorkingDayAM = DateTime.Parse(_staWorkingDayAM).TimeOfDay;
                 TimeSpan dspWorkingDayAM2 = DateTime.Parse(_endWorkingDayAM).TimeOfDay;
@@ -64,11 +64,11 @@ namespace Dto.Service.IntellRegularBus
                     {
                         return 2;
                     }
-                
+
                 }
                 else
                     return 1;
-            }
+        }
             catch(Exception e)
             {
 

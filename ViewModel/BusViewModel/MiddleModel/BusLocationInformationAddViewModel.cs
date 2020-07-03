@@ -11,16 +11,16 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// </summary>
         public string deviceNumber { get; set; }
 
-
-        /// <summary>
-        /// 班车位置信息经度
-        /// </summary>
-        public string latitude { get; set; }
-
-
         /// <summary>
         /// 班车位置信息纬度
         /// </summary>
+
+        public string latitude { get; set; }
+        /// <summary>
+        /// 班车位置信息经度
+        /// </summary>
+
+       
         public string longitude { get; set; }
 
 

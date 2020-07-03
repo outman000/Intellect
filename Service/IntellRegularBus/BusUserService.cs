@@ -46,7 +46,8 @@ namespace Dto.Service.IntellRegularBus
         private readonly IFlowNodeDefineInfoRepository _IFlowNodeDefineInfoRepository;
         private readonly IBusPaymentOrderRepository _IBusPaymentOrderRepository;
         private readonly IOpinionInfoRepository _IOpinionInfoRepository;
-     
+        private readonly IBusScanRecordRepository _IBusScanRecordRepository;
+
         public BusUserService(IBusUserRepository busUserRepository ,
                                 IBusInfoRepository busInfoRepository,
                                 IMapper mapper, 
@@ -58,7 +59,8 @@ namespace Dto.Service.IntellRegularBus
                                 IFlowNodeDefineInfoRepository iflowNodeDefineInfoRepository,
                                 IRepairInfoRepository irepairInfoRepository,
                                 IOpinionInfoRepository opinionInfoRepository,
-                                IBusPaymentOrderRepository ibusPaymentOrderRepository)
+                                IBusPaymentOrderRepository ibusPaymentOrderRepository,
+                                IBusScanRecordRepository busScanRecordRepository)
                              
         {
             _IBusUserRepository = busUserRepository;
@@ -74,6 +76,7 @@ namespace Dto.Service.IntellRegularBus
             _IBusPaymentOrderRepository = ibusPaymentOrderRepository;
             _IRepairInfoRepository = irepairInfoRepository;
             _IOpinionInfoRepository = opinionInfoRepository;
+            _IBusScanRecordRepository = busScanRecordRepository;
         }
 
         /// <summary>
@@ -574,6 +577,21 @@ namespace Dto.Service.IntellRegularBus
             return bus_Payment_Order;
         }
 
+
+
+
+        /// <summary>
+        /// 查询缴费订单(根据支付状态)
+        /// </summary>
+        /// <param name="bus_Payment_OrderSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Bus_Payment_Order> Bus_Payment_Order_SearchByCZ()
+        {
+            List<Bus_Payment_Order> bus_Payment_Order = _IBusPaymentOrderRepository.SearchInfoByUserIdWhereCZ();
+            return bus_Payment_Order;
+        }
+
+
         /// <summary>
         /// 查询缴费订单(根据用户ID)数量
         /// </summary>
@@ -667,11 +685,11 @@ namespace Dto.Service.IntellRegularBus
 
 
         /// <summary>
-        /// 根据订单ID 更新
+        /// 根据订单ID 更新班车动态码
         /// </summary>
         /// <param name="bus_OrderByOrderIdSearchViewModel"></param>
         /// <returns></returns>
-        public void Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel  bus_OrderByOrderIdSearchViewModel)
+        public int Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel  bus_OrderByOrderIdSearchViewModel)
         {
           
           var bus_Payment = _IBusUserRepository.GetInfoByBus(bus_OrderByOrderIdSearchViewModel.Bus_Payment_OrderId);
@@ -682,7 +700,7 @@ namespace Dto.Service.IntellRegularBus
                 bus_Payment[i].UpdateCodeDate = updateDate;
                 _IBusUserRepository.Update(bus_Payment[i]);
             }
-            _IBusUserRepository.SaveChanges();
+           return  _IBusUserRepository.SaveChanges();
         }
 
 
@@ -767,13 +785,13 @@ namespace Dto.Service.IntellRegularBus
             Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
             var result = _IMapper.Map<Bus_Payment_Order, Bank_PaymentViewModel>(bus_Payment_Order);
 
-            OrderUrlMiddle orderUrlMiddle = new OrderUrlMiddle();//回调url中拼接参数对象
-            orderUrlMiddle.OrderId = Bank_PaymentRequestMiddle.OrderId;
-            orderUrlMiddle.orderAmount = result.orderAmount;
+            //OrderUrlMiddle orderUrlMiddle = new OrderUrlMiddle();//回调url中拼接参数对象
+            //orderUrlMiddle.OrderId = Bank_PaymentRequestMiddle.OrderId;
+            //orderUrlMiddle.orderAmount = result.orderAmount;
 
             result.orderNote = bus_Payment_Order.departName + "班车缴费金额为:" + bus_Payment_Order.orderAmount;
             result.body = "东疆智慧服务平台-费用-班车缴费";
-            result.orderUrl = "http://zhfwpt.dongjiang.gov.cn/MobileServer/PaymentSuccess.html?orderUrlMiddle=" + orderUrlMiddle;
+            result.orderUrl = "http://zhfwpt.dongjiang.gov.cn/MobileServer/PaymentSuccess.html?OrderIde=" + Bank_PaymentRequestMiddle.OrderId+ "&orderAmount="+ result.orderAmount;
             string orderInfor = result.orderNo + "|" + result.orderTime + "|" + result.curCode + "|" + result.orderAmount + "|" + result.merchantNo;
             try
             {
@@ -991,15 +1009,14 @@ namespace Dto.Service.IntellRegularBus
         public string CheckCode(CheckCodeSearchViewModel  checkCodeSearchViewModel)
         {
             try{
-                var bus_Payment = _IBusUserRepository.GetInfoByCode(checkCodeSearchViewModel.qrcode);
-
+                var bus_Payment = _IBusUserRepository.GetInfoByCode(checkCodeSearchViewModel.qrcode);     
                 if (bus_Payment.Count == 0)//二维码过期，动态码已刷新
                 {
                     return "1";
                 }
                 else
                 {
-                    if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                    if (DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) <= 0)
                     {
 
                         //判断当前时间是否在工作时间段内
@@ -1017,14 +1034,11 @@ namespace Dto.Service.IntellRegularBus
                         if (bus_Payment[0].ScanCodeDate != null)
                         {
                             TimeSpan ScanCodeDate = bus_Payment[0].ScanCodeDate.Value.TimeOfDay;
-                         
-
 
                             if (dspNow > dspWorkingDayAM && dspNow < dspWorkingDayAM2)//上午6-9点
                             {
                                 if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2)
                                 {
-
                                     return "3";
                                 }
                                 else
@@ -1032,9 +1046,21 @@ namespace Dto.Service.IntellRegularBus
                                     Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
                                     if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
                                     {
-                                        bus_Payment[0].ScanCodeDate = DateTime.Now;
+                                        var data = DateTime.Now;
+                                       bus_Payment[0].ScanCodeDate = data;
                                         _IBusUserRepository.Update(bus_Payment[0]);
                                         _IBusUserRepository.SaveChanges();
+                                        //增加扫码记录
+                                        Bus_Scan_RecordAddViewModel  bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                                        bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                        bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                        bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                        bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                        bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.AddDate = data;
+                                    var bus_Scan_Record=  _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                        _IBusScanRecordRepository.SaveChanges();
                                         return "0";
                                     }
 
@@ -1051,9 +1077,22 @@ namespace Dto.Service.IntellRegularBus
                                     Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
                                     if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
                                     {
-                                        bus_Payment[0].ScanCodeDate = DateTime.Now;
+                                        var data = DateTime.Now;
+                                        bus_Payment[0].ScanCodeDate = data;
                                         _IBusUserRepository.Update(bus_Payment[0]);
                                         _IBusUserRepository.SaveChanges();
+
+                                        //增加扫码记录
+                                        Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                                        bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                        bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                        bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                        bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                        bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.AddDate = data;
+                                        var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                        _IBusScanRecordRepository.SaveChanges();
                                         return "0";
                                     }
 
@@ -1078,9 +1117,22 @@ namespace Dto.Service.IntellRegularBus
                                 Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
                                 if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
                                 {
-                                    bus_Payment[0].ScanCodeDate = DateTime.Now;
+                                    var data = DateTime.Now;
+                                    bus_Payment[0].ScanCodeDate = data;
                                     _IBusUserRepository.Update(bus_Payment[0]);
                                     _IBusUserRepository.SaveChanges();
+
+                                    //增加扫码记录
+                                    Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                                    bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                    bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                    bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                    bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                    bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                    bus_Scan_RecordAddViewModel.AddDate = data;
+                                    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                    _IBusScanRecordRepository.SaveChanges();
                                     return "0";
                                 }
 
@@ -1088,7 +1140,7 @@ namespace Dto.Service.IntellRegularBus
                                     return "2";
                             }
                             else
-                                return "3";
+                                return "1";
 
                         }
 
@@ -1103,7 +1155,6 @@ namespace Dto.Service.IntellRegularBus
             {
 
                 return "4";
-
 
             }
            

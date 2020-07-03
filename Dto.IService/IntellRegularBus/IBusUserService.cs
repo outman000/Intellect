@@ -130,7 +130,7 @@ namespace Dto.IService.IntellRegularBus
         int ByBusIdSearchNum2(BusSearchByIdViewModel busSearchByIdViewModel, int count);
 
 
-        void Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel);
+        int Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel);
         /// <summary>
         /// 根据身份证号查询人员缴费信息
         /// </summary>
@@ -168,6 +168,9 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="Bank_PaymentRequestMiddle"></param>
         /// <returns></returns>
         int Update_Bank_Payment_Order(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
+
+
+        List<Bus_Payment_Order> Bus_Payment_Order_SearchByCZ();
 
 
     }

@@ -62,6 +62,9 @@ namespace Dtol
         public DbSet<UserBind> UserBind { get; set; }
 
         public DbSet<Bus_Location_Information> Bus_Location_Information { get; set; }
+
+        public DbSet<Bus_Scan_Record> Bus_Scan_Record { get; set; }
         
+
     }
 }

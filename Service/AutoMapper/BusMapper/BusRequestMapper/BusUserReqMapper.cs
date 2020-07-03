@@ -28,6 +28,8 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap< Bus_Payment_OrderUpdateViewModel, Bus_Payment_Order > ();
             CreateMap< Bus_Payment , Bus_Payment_Search >();
             CreateMap<Bus_Payment_Order, Bank_PaymentViewModel>();
+            CreateMap<BusLocationInformationAddViewModel, Bus_Location_Information>();
+            CreateMap<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>();
         }
     }
 }

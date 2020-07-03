@@ -208,7 +208,7 @@ namespace Dto.Repository.IntellRegularBus
 
         public List<Bus_Info> GetInfoByDeviceNumber(string deviceNumber)
         {
-            List<Bus_Info> bus_Info = DbSet.Where(uid => uid.deviceNumber.Equals(deviceNumber)).ToList();
+            List<Bus_Info> bus_Info = DbSet.Where(uid => uid.deviceNumber.Equals(deviceNumber)).Include(a=>a.Bus_Line)  .ToList();
             return bus_Info;
         }
     }

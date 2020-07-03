@@ -491,7 +491,7 @@ namespace IntellRegularBus.Controllers
 
 
         /// <summary>
-        /// 根据表单ID查询订单和缴费人员信息信息（局务列表）
+        /// 根据用户ID查询订单和缴费人员信息信息（局务列表）
         /// </summary>
         /// <param name="bus_OrderIsPassSearchViewModel"></param>
         /// <returns></returns>
@@ -510,7 +510,23 @@ namespace IntellRegularBus.Controllers
             _ILogger.Information("根据表单ID查询订单和缴费人员信息信息（局务列表）成功");
             return Ok(bus_OrderByRepairsSearchResModel);
         }
+        /// <summary>
+        ///查询所有支付状态为2或者3的缴费列表（财务列表）
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
 
+        public ActionResult<Bus_Payment_OrderSearchResModel> Bus_Payment_Order_CZ()
+        {
+            Bus_Payment_OrderSearchResModel bus_OrderByRepairsSearchResModel = new Bus_Payment_OrderSearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_Payment_Order_SearchByCZ();
+            bus_OrderByRepairsSearchResModel.bus_Payment_Orders = BusUserSearchResult;
+            bus_OrderByRepairsSearchResModel.isSuccess = true;
+            bus_OrderByRepairsSearchResModel.baseViewModel.Message = "查询成功";
+            bus_OrderByRepairsSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("查询所有支付状态为2或者3的缴费列表（财务列表）");
+            return Ok(bus_OrderByRepairsSearchResModel);
+        }
 
         /// <summary>
         /// 根据动态码查询用户缴费信息
@@ -682,6 +698,41 @@ namespace IntellRegularBus.Controllers
 
 
         /// <summary>
+        ///根据订单ID 更新班车动态码
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<CheckCodeResModel> Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel)
+        {
+            BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_PaymentSearchByOrderId(bus_OrderByOrderIdSearchViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                busUserUpdateResModel.IsSuccess = true;
+                busUserUpdateResModel.AddCount = UpdateRowNum;
+                busUserUpdateResModel.baseViewModel.Message = "更新成功";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据订单ID，更新班车动态码成功");
+                return Ok(busUserUpdateResModel);
+            }
+            else
+            {
+                busUserUpdateResModel.IsSuccess = false;
+                busUserUpdateResModel.AddCount = 0;
+                busUserUpdateResModel.baseViewModel.Message = "更新失败";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据订单ID，更新班车动态码失败");
+                return BadRequest(busUserUpdateResModel);
+            }
+
+        }
+
+
+
+
+        /// <summary>
         ///增加班车位置信息
         /// </summary>
         /// <returns></returns>
@@ -703,23 +754,23 @@ namespace IntellRegularBus.Controllers
             else if(temp ==1)
             {
                 checkCodeResModel.code = "1";
-                checkCodeResModel.msg = "失败";
+                checkCodeResModel.msg = "失败,时间段不符合";
                 _ILogger.Information("增加班车位置信息失败,时间段不符合");
-                return BadRequest(checkCodeResModel);
+                return Ok(checkCodeResModel);
             }
             else if (temp == 2)
             {
                 checkCodeResModel.code = "2";
-                checkCodeResModel.msg = "失败";
+                checkCodeResModel.msg = "失败,找不到设备号";
                 _ILogger.Information("增加班车位置信息失败,找不到设备号");
-                return BadRequest(checkCodeResModel);
+                return Ok(checkCodeResModel);
             }
             else
             {
                 checkCodeResModel.code = "3";
-                checkCodeResModel.msg = "失败";
+                checkCodeResModel.msg = "失败,系统异常";
                 _ILogger.Information("增加班车位置信息失败,系统异常");
-                return BadRequest(checkCodeResModel);
+                return Ok(checkCodeResModel);
             }
 
         }
