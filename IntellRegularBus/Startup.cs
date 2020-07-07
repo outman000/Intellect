@@ -23,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using ViewModel.BusViewModel.MiddleModel;
 
 namespace IntellRegularBus
 {
@@ -50,6 +51,11 @@ namespace IntellRegularBus
             services.AddMvc();
             services.AddSingleton <IHttpContextAccessor,HttpContextAccessor >();
 
+            #region 配置文件
+            services.AddOptions();
+            services.Configure<Bus_Payment_Order_Add>(Configuration.GetSection("Bus_Payment_Order_Add"));
+            services.Configure<Bus_Payment_Date>(Configuration.GetSection("Bus_Payment_Date"));
+            #endregion
 
             #region EFCore
             var connection = Configuration.GetConnectionString("SqlServerConnection");

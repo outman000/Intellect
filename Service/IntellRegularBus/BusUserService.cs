@@ -28,6 +28,7 @@ using Newtonsoft.Json;
 using ViewModel.BusViewModel.RequestViewModel;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
+using Microsoft.Extensions.Options;
 
 namespace Dto.Service.IntellRegularBus
 {
@@ -47,7 +48,11 @@ namespace Dto.Service.IntellRegularBus
         private readonly IBusPaymentOrderRepository _IBusPaymentOrderRepository;
         private readonly IOpinionInfoRepository _IOpinionInfoRepository;
         private readonly IBusScanRecordRepository _IBusScanRecordRepository;
-
+        //  private readonly IHttpClientFactory _httpClientFactory;
+        //private IOptions<Bus_Payment_Order_Add> _IOptions;
+        //private IOptions<Bus_Payment_Date> _IOptions2;
+        private Bus_Payment_Date _IOptions2 { get; set; }
+        private Bus_Payment_Order_Add _IOptions { get; set; }
         public BusUserService(IBusUserRepository busUserRepository ,
                                 IBusInfoRepository busInfoRepository,
                                 IMapper mapper, 
@@ -60,7 +65,10 @@ namespace Dto.Service.IntellRegularBus
                                 IRepairInfoRepository irepairInfoRepository,
                                 IOpinionInfoRepository opinionInfoRepository,
                                 IBusPaymentOrderRepository ibusPaymentOrderRepository,
-                                IBusScanRecordRepository busScanRecordRepository)
+                                IBusScanRecordRepository busScanRecordRepository,
+                                IOptions<Bus_Payment_Date> settings2,
+                                IOptions<Bus_Payment_Order_Add> settings
+                              )
                              
         {
             _IBusUserRepository = busUserRepository;
@@ -77,6 +85,9 @@ namespace Dto.Service.IntellRegularBus
             _IRepairInfoRepository = irepairInfoRepository;
             _IOpinionInfoRepository = opinionInfoRepository;
             _IBusScanRecordRepository = busScanRecordRepository;
+            //  _httpClientFactory = httpClientFactory;
+            _IOptions = settings.Value;
+            _IOptions2 = settings2.Value;
         }
 
         /// <summary>
@@ -626,12 +637,20 @@ namespace Dto.Service.IntellRegularBus
                
             var bus_Info = _IMapper.Map<Bus_Payment_OrderAddViewModel, Bus_Payment_Order>(bus_Payment_OrderAddViewModel);
             bus_Info.orderTime = bus_Payment_OrderAddViewModel.AddDate.Value.ToString("yyyyMMddHHMMss");//订单时间格式
-            bus_Info.curCode = "001";//币种
-            bus_Info.payType = "1";
-            bus_Info.deviceInfo = "WEB";
-            bus_Info.terminalChnl = "08";
-            bus_Info.tradeType = "WXAPP";
-            bus_Info.merchantNo = "104120086510752";
+
+            bus_Info.curCode = _IOptions.curCode;//币种
+            bus_Info.payType = _IOptions.payType;
+            bus_Info.deviceInfo = _IOptions.deviceInfo;
+            bus_Info.terminalChnl = _IOptions.terminalChnl;
+            bus_Info.tradeType = _IOptions.tradeType;
+            bus_Info.merchantNo = _IOptions.merchantNo;
+
+            //bus_Info.curCode = "001"; ;//币种
+            //bus_Info.payType = "1"; 
+            //bus_Info.deviceInfo = "WEB"; 
+            //bus_Info.terminalChnl = "08";
+            //bus_Info.tradeType = "WXAPP"; 
+            //bus_Info.merchantNo = "104120086510752"; 
             _IBusPaymentOrderRepository.Add(bus_Info);
             _IBusPaymentOrderRepository.SaveChanges();
             return bus_Info.Id;
@@ -721,7 +740,7 @@ namespace Dto.Service.IntellRegularBus
             }
             else
             {
-                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) <= 0)
                 {
                     return bus_Payment[0];
                 }
@@ -751,7 +770,7 @@ namespace Dto.Service.IntellRegularBus
             }
             else
             {
-                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) >= 0)
+                if (DateTime.Now.Date.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) <= 0)
                 {
                     return bus_Payment[0];
                 }
@@ -1007,8 +1026,11 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public Bank_Payment_RefundMiddle Bank_Payment_Refund(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
         {
+
+       
+          
             Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
-            string mRefundSeq = "510752" + DateTime.Now.ToString("yyyyMMdd") + "7";
+            string mRefundSeq = "510752" + DateTime.Now.ToString("yyyyMMdd") + "7";//这里存在问题
             string orderInfor = bus_Payment_Order.merchantNo + "|" + mRefundSeq + "|" + bus_Payment_Order.curCode + "|" + "0.02" + "|" + bus_Payment_Order.orderNo;
       
             var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor=" + orderInfor);
@@ -1033,8 +1055,7 @@ namespace Dto.Service.IntellRegularBus
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            Random rd = new Random();
-            int i = rd.Next();
+         
           
             request.AddParameter("merchantNo", bus_Payment_Order.merchantNo);
             request.AddParameter("mRefundSeq", mRefundSeq);
@@ -1181,12 +1202,22 @@ namespace Dto.Service.IntellRegularBus
                     if (DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) <= 0)
                     {
 
-                        //判断当前时间是否在工作时间段内
-                        string _staWorkingDayAM = "06:00";//工作时间上午08:30
-                        string _endWorkingDayAM = "09:00";//工作时间上午08:30
+                   
+                        ////判断当前时间是否在工作时间段内
+                        //string _staWorkingDayAM = "06:00";//工作时间上午06:00
+                        //string _endWorkingDayAM = "09:00"; //工作时间上午09:00
 
-                        string _staWorkingDayPM = "17:00";
-                        string _endWorkingDayPM = "19:00";
+                        //string _staWorkingDayPM = "14:00"; //工作时间下午17:00
+                        //string _endWorkingDayPM = "19:00"; //工作时间上午19:00
+
+
+                        //判断当前时间是否在工作时间段内
+                        string _staWorkingDayAM = _IOptions2._staWorkingDayAM;//工作时间上午06:00
+                        string _endWorkingDayAM = _IOptions2._endWorkingDayAM; //工作时间上午09:00
+
+                        string _staWorkingDayPM = _IOptions2._staWorkingDayPM; //工作时间下午17:00
+                        string _endWorkingDayPM = _IOptions2._endWorkingDayPM; //工作时间上午19:00
+
                         TimeSpan dspWorkingDayAM = DateTime.Parse(_staWorkingDayAM).TimeOfDay;
                         TimeSpan dspWorkingDayAM2 = DateTime.Parse(_endWorkingDayAM).TimeOfDay;
 

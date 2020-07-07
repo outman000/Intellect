@@ -16,6 +16,7 @@ using ViewModel.RepairsViewModel.MiddleModel;
 using Microsoft.AspNetCore.Authorization;
 using ViewModel.BusViewModel.RequestViewModel;
 using ViewModel.BusViewModel.MiddleModel;
+using Microsoft.Extensions.Options;
 
 namespace IntellRegularBus.Controllers
 {
@@ -29,18 +30,21 @@ namespace IntellRegularBus.Controllers
         private readonly IRepairService _IRepairService;
         private readonly IBusLocationInformationService _IBusLocationInformationService;
         private readonly ILogger _ILogger;
-        private readonly IHttpContextAccessor httpContextAccessor;
-      
+       // private readonly IHttpContextAccessor httpContextAccessor;
+    
+
         public BusUserController(IBusUserService lineService, IRepairService repairService, IBusLocationInformationService busLocationInformationService,
-            IHttpContextAccessor httpContextAccessor,
+           // IHttpContextAccessor httpContextAccessor,
             ILogger logger)
         {
 
-            this.httpContextAccessor = httpContextAccessor;
+           // this.httpContextAccessor = httpContextAccessor;
             _IBusUserService = lineService;
             _IRepairService = repairService;
             _IBusLocationInformationService = busLocationInformationService;
             _ILogger = logger;
+          
+
         }
 
         /// <summary>
@@ -51,7 +55,7 @@ namespace IntellRegularBus.Controllers
 
         public ActionResult<BusUserAddResModel> Bus_User_Add(BusUserAddViewModel busUserAddViewModel)
         {
-   
+           
         int Bus_User_Add_Count;
             Bus_User_Add_Count = _IBusUserService.Bus_User_Add(busUserAddViewModel);
             BusUserAddResModel busUserAddResModel = new BusUserAddResModel();
