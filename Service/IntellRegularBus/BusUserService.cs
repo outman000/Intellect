@@ -1002,6 +1002,168 @@ namespace Dto.Service.IntellRegularBus
         }
 
         /// <summary>
+        /// 中行退款
+        /// </summary>
+        /// <returns></returns>
+        public Bank_Payment_RefundMiddle Bank_Payment_Refund(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
+        {
+            Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
+            string mRefundSeq = "510752" + DateTime.Now.ToString("yyyyMMdd") + "7";
+            string orderInfor = bus_Payment_Order.merchantNo + "|" + mRefundSeq + "|" + bus_Payment_Order.curCode + "|" + "0.02" + "|" + bus_Payment_Order.orderNo;
+      
+            var clientsignData = new RestClient("http://172.30.10.243:8011/EdayAPI/MakeSign/AdditionalSignature?orderInfor=" + orderInfor);
+            Bank_Payment_RefundMiddle  bank_Payment_RefundMiddle = new Bank_Payment_RefundMiddle();
+            clientsignData.Timeout = -1;
+            var requestsignData = new RestRequest(Method.GET);
+            IRestResponse responsesignData = clientsignData.Execute(requestsignData);
+            string signData = responsesignData.Content;
+            Bank_PaymentMiddle bank_PaymentMiddle = new Bank_PaymentMiddle();
+            var flag = signData.Substring(0, signData.IndexOf(","));
+            if (flag == "1")
+            {
+                signData = signData.Substring(signData.IndexOf(",") + 1);
+            }
+            else
+            {
+                bank_Payment_RefundMiddle.exception = signData.Substring(signData.IndexOf(",") + 1);
+                return bank_Payment_RefundMiddle;
+            }
+            //4、发送请求
+            var client = new RestClient("https://ebspay.boc.cn/PGWPortal/RefundOrder.do");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            Random rd = new Random();
+            int i = rd.Next();
+          
+            request.AddParameter("merchantNo", bus_Payment_Order.merchantNo);
+            request.AddParameter("mRefundSeq", mRefundSeq);
+            request.AddParameter("curCode", bus_Payment_Order.curCode);
+            request.AddParameter("refundAmount", 0.02);
+            request.AddParameter("orderNo", bus_Payment_Order.orderNo);
+            request.AddParameter("signData", signData);
+            IRestResponse response = client.Execute(request);
+            string res = response.Content.ToString();
+            int a = res.IndexOf("<dealStatus>");
+            int b = res.IndexOf("</dealStatus>");
+            int c = res.IndexOf("</dealStatus>");
+
+           string n= res.Substring(a + 12, b - a - 12);
+
+            if(n=="1")//失败
+            {
+                a = res.IndexOf("<merchantNo>");
+                b = res.IndexOf("</merchantNo>");
+                bank_Payment_RefundMiddle.merchantNo = res.Substring(a + 12, b - a - 12);
+
+                a = res.IndexOf("<returnActFlag>");
+                b = res.IndexOf("</returnActFlag>");
+                bank_Payment_RefundMiddle.returnActFlag = res.Substring(a + 15, b - a - 15);
+
+
+                a = res.IndexOf("<dealStatus>");
+                b = res.IndexOf("</dealStatus>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 12, b - a - 12);
+
+
+                a = res.IndexOf("<bodyFlag>");
+                b = res.IndexOf("</bodyFlag>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 10, b - a - 10);
+
+                a = res.IndexOf("<exception>");
+                b = res.IndexOf("</exception>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 11, b - a - 11);
+
+            }
+            else if(n == "0")//成功
+            {
+                a = res.IndexOf("<merchantNo>");
+                b = res.IndexOf("</merchantNo>");
+                bank_Payment_RefundMiddle.merchantNo = res.Substring(a + 12, b - a - 12);
+
+                a = res.IndexOf("<returnActFlag>");
+                b = res.IndexOf("</returnActFlag>");
+                bank_Payment_RefundMiddle.returnActFlag = res.Substring(a + 15, b - a - 15);
+
+
+                a = res.IndexOf("<dealStatus>");
+                b = res.IndexOf("</dealStatus>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 12, b - a - 12);
+
+
+                a = res.IndexOf("<bodyFlag>");
+                b = res.IndexOf("</bodyFlag>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 10, b - a - 10);
+
+                a = res.IndexOf("<exception>");
+                b = res.IndexOf("</exception>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 11, b - a - 11);
+
+
+                a = res.IndexOf("<mRefundSeq>");
+                b = res.IndexOf("</mRefundSeq>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 12, b - a - 12);
+
+                a = res.IndexOf("<curCode>");
+                b = res.IndexOf("</curCode>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 9, b - a - 9);
+
+
+                a = res.IndexOf("<refundAmount>");
+                b = res.IndexOf("</refundAmount>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 14, b - a - 14);
+
+
+                a = res.IndexOf("<orderNo>");
+                b = res.IndexOf("</orderNo>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 9, b - a - 9);
+
+                a = res.IndexOf("<orderSeq>");
+                b = res.IndexOf("</orderSeq>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 10, b - a - 10);
+
+
+
+                a = res.IndexOf("<orderAmount>");
+                b = res.IndexOf("</orderAmount>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 13, b - a - 13);
+
+
+                a = res.IndexOf("<bankTranSeq>");
+                b = res.IndexOf("</bankTranSeq>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 13, b - a - 13);
+
+                a = res.IndexOf("<tranTime>");
+                b = res.IndexOf("</tranTime>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 10, b - a - 10);
+
+
+                a = res.IndexOf("<unionPaySeq>");
+                b = res.IndexOf("</unionPaySeq>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 13, b - a - 13);
+
+
+
+                a = res.IndexOf("<signData>");
+                b = res.IndexOf("</signData>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 10, b - a - 10);
+
+
+
+            }
+            else//未明
+            {
+                a = res.IndexOf("<exception>");
+                b = res.IndexOf("</exception>");
+                bank_Payment_RefundMiddle.dealStatus = res.Substring(a + 11, b - a - 11);
+            }
+            return bank_Payment_RefundMiddle;
+        }
+
+
+
+
+        /// <summary>
         /// 班车扫码
         /// </summary>
         /// <param name="checkCodeSearchViewModel"></param>

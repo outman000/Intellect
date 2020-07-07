@@ -554,8 +554,11 @@ namespace IntellRegularBus.Controllers
 
         public ActionResult<BusUserSearchByCodeResModel> Bus_UserByIdCard_Search(Bus_OrderByIdCardSearchViewModel bus_OrderByIdCardSearchViewModel)
         {
+            string Code = "无";
             BusUserSearchByCodeResModel busUserSearchByCodeResModel = new BusUserSearchByCodeResModel();
             var BusUserSearchResult = _IBusUserService.Bus_PaymentSearchByIdCard(bus_OrderByIdCardSearchViewModel);
+            //if(BusUserSearchResult!=null)
+            //  Code = BusUserSearchResult.Code;
             busUserSearchByCodeResModel.bus_user_Info = BusUserSearchResult;
             busUserSearchByCodeResModel.isSuccess = true;
             busUserSearchByCodeResModel.baseViewModel.Message = "查询成功";
@@ -614,6 +617,24 @@ namespace IntellRegularBus.Controllers
         }
 
 
+        /// <summary>
+        ///中行退款
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<Bank_Payment_SearchResModel> Bank_Payment_Refund(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle)
+        {
+            Bank_Payment_SearchResModel busUserSearchByCodeResModel = new Bank_Payment_SearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bank_Payment_Refund(Bank_PaymentRequestMiddle);
+
+            busUserSearchByCodeResModel.bank_Payment_RefundMiddle = BusUserSearchResult;
+            busUserSearchByCodeResModel.isSuccess = true;
+            busUserSearchByCodeResModel.baseViewModel.Message = "中行缴费退款信息成功";
+            busUserSearchByCodeResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("中行缴费退款信息成功");
+            return Ok(busUserSearchByCodeResModel);
+        }
 
 
 

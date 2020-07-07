@@ -10,6 +10,7 @@ namespace ViewModel.BusViewModel.ResponseModel.BusUserResModel
     {
         public bool isSuccess;
         public Bank_Payment_SearchMiddle  bank_Payment_SearchMiddle;
+        public Bank_Payment_RefundMiddle bank_Payment_RefundMiddle;
         public BaseViewModel baseViewModel;
         public Bank_Payment_SearchResModel()
         {

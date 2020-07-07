@@ -171,7 +171,11 @@ namespace Dto.IService.IntellRegularBus
 
 
         List<Bus_Payment_Order> Bus_Payment_Order_SearchByCZ();
-
+        /// <summary>
+        /// 中行退款
+        /// </summary>
+        /// <returns></returns>
+        Bank_Payment_RefundMiddle Bank_Payment_Refund(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
 
     }
 }

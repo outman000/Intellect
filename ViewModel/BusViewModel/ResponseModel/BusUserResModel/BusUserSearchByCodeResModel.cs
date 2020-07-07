@@ -10,6 +10,7 @@ namespace ViewModel.BusViewModel.ResponseModel.BusUserResModel
     {
         public bool isSuccess;
         public Bus_Payment bus_user_Info;
+        //public string code;
         public BaseViewModel baseViewModel;
 
         public BusUserSearchByCodeResModel()
