@@ -1191,10 +1191,21 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public string CheckCode(CheckCodeSearchViewModel  checkCodeSearchViewModel)
         {
-            try{
+           
+            try
+            {
+                Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
                 var bus_Payment = _IBusUserRepository.GetInfoByCode(checkCodeSearchViewModel.qrcode);     
                 if (bus_Payment.Count == 0)//二维码过期，动态码已刷新
                 {
+                    var data = DateTime.Now;
+                 
+                    bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                    bus_Scan_RecordAddViewModel.status = "1";
+                    bus_Scan_RecordAddViewModel.AddDate = data;
+                    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                    _IBusScanRecordRepository.Add(bus_Scan_Record);
+                    _IBusScanRecordRepository.SaveChanges();
                     return "1";
                 }
                 else
@@ -1202,7 +1213,7 @@ namespace Dto.Service.IntellRegularBus
                     if (DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) <= 0)
                     {
 
-                   
+
                         ////判断当前时间是否在工作时间段内
                         //string _staWorkingDayAM = "06:00";//工作时间上午06:00
                         //string _endWorkingDayAM = "09:00"; //工作时间上午09:00
@@ -1210,7 +1221,7 @@ namespace Dto.Service.IntellRegularBus
                         //string _staWorkingDayPM = "14:00"; //工作时间下午17:00
                         //string _endWorkingDayPM = "19:00"; //工作时间上午19:00
 
-
+                     
                         //判断当前时间是否在工作时间段内
                         string _staWorkingDayAM = _IOptions2._staWorkingDayAM;//工作时间上午06:00
                         string _endWorkingDayAM = _IOptions2._endWorkingDayAM; //工作时间上午09:00
@@ -1232,6 +1243,17 @@ namespace Dto.Service.IntellRegularBus
                             {
                                 if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2)
                                 {
+                                    var data = DateTime.Now;
+                                    bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                    bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                    bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                    bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                    bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                                    bus_Scan_RecordAddViewModel.status = "3";
+                                    bus_Scan_RecordAddViewModel.AddDate = data;
+                                    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                    _IBusScanRecordRepository.SaveChanges();
                                     return "3";
                                 }
                                 else
@@ -1244,12 +1266,13 @@ namespace Dto.Service.IntellRegularBus
                                         _IBusUserRepository.Update(bus_Payment[0]);
                                         _IBusUserRepository.SaveChanges();
                                         //增加扫码记录
-                                        Bus_Scan_RecordAddViewModel  bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                                     
                                         bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
                                         bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
                                         bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
                                         bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
                                         bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.status = "0";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record=  _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
                                         _IBusScanRecordRepository.Add(bus_Scan_Record);
@@ -1258,7 +1281,22 @@ namespace Dto.Service.IntellRegularBus
                                     }
 
                                     else
+                                    {
+                                        var data = DateTime.Now;
+                                        bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                        bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                        bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                        bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                        bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.status = "2";
+                                        bus_Scan_RecordAddViewModel.AddDate = data;
+                                        var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                        _IBusScanRecordRepository.SaveChanges();
                                         return "2";
+
+                                    }
+                                       
                                 }
 
                             }
@@ -1276,12 +1314,13 @@ namespace Dto.Service.IntellRegularBus
                                         _IBusUserRepository.SaveChanges();
 
                                         //增加扫码记录
-                                        Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                                
                                         bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
                                         bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
                                         bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
                                         bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
                                         bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.status = "0";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
                                         _IBusScanRecordRepository.Add(bus_Scan_Record);
@@ -1290,16 +1329,51 @@ namespace Dto.Service.IntellRegularBus
                                     }
 
                                     else
+                                    {
+                                        var data = DateTime.Now;
+                                        bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                        bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                        bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                        bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                        bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.status = "2";
+                                        bus_Scan_RecordAddViewModel.AddDate = data;
+                                        var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                        _IBusScanRecordRepository.SaveChanges();
                                         return "2";
+                                    }
+                                       
 
                                 }
                                 if (ScanCodeDate > dspWorkingDayPM && ScanCodeDate < dspWorkingDayPM2)//数据库最新扫码时间为下午5-7点
                                 {
-
+                                    var data = DateTime.Now;
+                                    bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                    bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                    bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                    bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                    bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                                    bus_Scan_RecordAddViewModel.status = "3";
+                                    bus_Scan_RecordAddViewModel.AddDate = data;
+                                    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                    _IBusScanRecordRepository.SaveChanges();
                                     return "3";
                                 }
 
                             }
+                            var data1 = DateTime.Now;
+                            bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                            bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                            bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                            bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                            bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                            bus_Scan_RecordAddViewModel.status = "11";
+                            bus_Scan_RecordAddViewModel.AddDate = data1;
+                            var bus_Scan_Record2 = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                            _IBusScanRecordRepository.Add(bus_Scan_Record2);
+                            _IBusScanRecordRepository.SaveChanges();
                             return "1";
                         }
                         else
@@ -1316,12 +1390,13 @@ namespace Dto.Service.IntellRegularBus
                                     _IBusUserRepository.SaveChanges();
 
                                     //增加扫码记录
-                                    Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                                  
                                     bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
                                     bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
                                     bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
                                     bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
                                     bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                    bus_Scan_RecordAddViewModel.status = "0";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
@@ -1330,23 +1405,62 @@ namespace Dto.Service.IntellRegularBus
                                 }
 
                                 else
+                                {
+                                    var data = DateTime.Now;
+                                    bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                    bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                    bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                    bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                    bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                                    bus_Scan_RecordAddViewModel.status = "2";
+                                    bus_Scan_RecordAddViewModel.AddDate = data;
+                                    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                    _IBusScanRecordRepository.SaveChanges();
                                     return "2";
+                                }
+                                   
                             }
                             else
+                            {
+                                var data = DateTime.Now;
+                                bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                                bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                                bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                                bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                                bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                                bus_Scan_RecordAddViewModel.status = "12";
+                                bus_Scan_RecordAddViewModel.AddDate = data;
+                                var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                _IBusScanRecordRepository.Add(bus_Scan_Record);
+                                _IBusScanRecordRepository.SaveChanges();
                                 return "1";
+                            }
+                                
 
                         }
 
                     }
                     else//二维码过期，但是动态码还未刷新
                     {
+                        var data = DateTime.Now;
+                        bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
+                        bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
+                        bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
+                        bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
+                        bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
+                        bus_Scan_RecordAddViewModel.status = "13";
+                        bus_Scan_RecordAddViewModel.AddDate = data;
+                        var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                        _IBusScanRecordRepository.Add(bus_Scan_Record);
+                        _IBusScanRecordRepository.SaveChanges();
                         return "1";
                     }
                 }
             }
             catch(Exception e)
             {
-
+                
                 return "4";
 
             }

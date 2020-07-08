@@ -42,6 +42,11 @@ namespace Dtol.dtol
         public int LineId { get; set; }
 
 
+        /// <summary>
+        /// 扫码状态
+        /// </summary>
+
+        public string status { get; set; }
 
         /// <summary>
         /// 增加时间

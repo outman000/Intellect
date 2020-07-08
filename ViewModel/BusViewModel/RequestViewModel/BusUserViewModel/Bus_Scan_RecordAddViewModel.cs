@@ -34,6 +34,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
 
         public int LineId { get; set; }
 
+        /// <summary>
+        /// 扫码状态
+        /// </summary>
+
+        public string status { get; set; }
 
 
         /// <summary>
