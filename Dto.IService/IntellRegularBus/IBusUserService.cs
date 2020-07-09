@@ -177,5 +177,19 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
         Bank_Payment_RefundMiddle Bank_Payment_Refund(Bank_PaymentRequestMiddle Bank_PaymentRequestMiddle);
 
+
+        /// <summary>
+        /// 根据条件查询扫码记录
+        /// </summary>
+        /// <param name="busScanRecordSearchViewModel"></param>
+        /// <returns></returns>
+        List<Bus_Scan_Record> Bus_Scan_Record_Search(BusScanRecordSearchViewModel busScanRecordSearchViewModel);
+        /// <summary>
+        /// 根据条件查询扫码记录数量
+        /// </summary>
+        /// <param name="busScanRecordSearchViewModel"></param>
+        /// <returns></returns>
+      int Bus_Scan_Record_SearchNum(BusScanRecordSearchViewModel busScanRecordSearchViewModel);
+
     }
 }

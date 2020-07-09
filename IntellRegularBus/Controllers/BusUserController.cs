@@ -799,7 +799,39 @@ namespace IntellRegularBus.Controllers
             }
 
         }
-    
+
+        /// <summary>
+        /// 根据条件查询扫码记录
+        /// </summary>
+        /// <param name="busScanRecordSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusScanRecordSearchResModel> Bus_Scan_Record_Search(BusScanRecordSearchViewModel busScanRecordSearchViewModel)
+        {
+            BusScanRecordSearchResModel  busScanRecordSearchResModel = new BusScanRecordSearchResModel();
+            var Result = _IBusUserService.Bus_Scan_Record_Search(busScanRecordSearchViewModel);
+
+            int count = _IBusUserService.Bus_Scan_Record_SearchNum(busScanRecordSearchViewModel);
+            if (Result.Count!=0)
+            {
+                busScanRecordSearchResModel.count = count;
+                busScanRecordSearchResModel.bus_Scan_Record = Result;
+                busScanRecordSearchResModel.isSuccess = true;
+                busScanRecordSearchResModel.baseViewModel.Message = "根据条件查询扫码记录成功";
+                busScanRecordSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询扫码记录成功");
+            }
+            else 
+            {
+                busScanRecordSearchResModel.count = 0;
+                busScanRecordSearchResModel.isSuccess = false;
+                busScanRecordSearchResModel.baseViewModel.Message = "根据条件查询扫码记录成功";
+                busScanRecordSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("中行缴费查询信息成功");
+            }               
+            return Ok(busScanRecordSearchResModel);
+        }
 
     }
 

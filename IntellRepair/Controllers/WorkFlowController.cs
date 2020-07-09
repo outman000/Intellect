@@ -26,15 +26,17 @@ namespace IntellRepair.Controllers
         private readonly IWorkFlowService _IWorkFlowService;
         private readonly IRepairService _IRepairService;
         private readonly ILogger _ILogger;
+        private readonly IFlowNodeDefineService _IFlowNodeDefineService;
 
-
-        public WorkFlowController(IWorkFlowService workFlowService,
+        public WorkFlowController(IFlowNodeDefineService flowNodeDefineService, 
+                                  IWorkFlowService workFlowService,
                                   IRepairService repairService,     
                                   ILogger logger)
         {
             _IWorkFlowService = workFlowService;
             _IRepairService = repairService;
             _ILogger = logger;
+            _IFlowNodeDefineService = flowNodeDefineService;
 
         }
 
@@ -296,6 +298,39 @@ namespace IntellRepair.Controllers
             }
 
         }
+
+
+
+
+        /// <summary>
+        /// 根据节点查用户列表（第一步发短信用）
+        /// </summary>
+        /// <param name="roleByNodeSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<UserSearchResModel> Manage_Role_By_User_Search_First(RoleByNodeSearchViewModel roleByNodeSearchViewModel)
+        {
+            UserSearchResModel userSearchResModel = new UserSearchResModel();
+            NextNodeByCurrentNodeSearchViewModel nextNodeByCurrentNodeSearchViewModel = new NextNodeByCurrentNodeSearchViewModel();
+            nextNodeByCurrentNodeSearchViewModel.Flow_NodeDefineId = roleByNodeSearchViewModel.Flow_NextNodeDefineId;
+            nextNodeByCurrentNodeSearchViewModel.pageViewModel.PageSize = 99;
+            nextNodeByCurrentNodeSearchViewModel.pageViewModel.CurrentPageNum = 0;
+         var temp= _IFlowNodeDefineService.NextNodeDefine_Search(nextNodeByCurrentNodeSearchViewModel);
+            nextNodeByCurrentNodeSearchViewModel.Flow_NodeDefineId = temp[0].Flow_NodeDefineId;
+         var temp2 = _IFlowNodeDefineService.NextNodeDefine_Search(nextNodeByCurrentNodeSearchViewModel);
+            roleByNodeSearchViewModel.Flow_NextNodeDefineId= temp2[0].Flow_NodeDefineId;
+
+            userSearchResModel.user_Infos = _IWorkFlowService.User_By_Node_Search(roleByNodeSearchViewModel);
+            userSearchResModel.isSuccess = true;
+            userSearchResModel.TotalNum = userSearchResModel.user_Infos.Count;
+            userSearchResModel.baseViewModel.Message = "根据用户查询角色成功";
+            userSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据节点查用户列表成功");
+            return Ok(userSearchResModel);
+
+        }
+
 
     }
 }

@@ -181,5 +181,8 @@ namespace Dto.Service.IntellRegularBus
              Bus_Info Bus_Relate_Line = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_LineId);
             return Bus_Relate_Line;
         }
+
+      
+        
     }
 }

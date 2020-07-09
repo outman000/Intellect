@@ -84,8 +84,10 @@ namespace Dto.Service.IntellRepair
             /***********************查询当前节点处理人的上一步处理人**************************/
 
             FlowNodeSearchViewModel flowNodeSearchViewModel = new FlowNodeSearchViewModel();
+            if(roleByNodeSearchViewModel.Repair_InfoId!=null)
             flowNodeSearchViewModel.Repair_InfoId = roleByNodeSearchViewModel.Repair_InfoId.Value;
             flowNodeSearchViewModel.operate = "1";
+            if (roleByNodeSearchViewModel.user_InfoId != null)
             flowNodeSearchViewModel.User_InfoId= roleByNodeSearchViewModel.user_InfoId.Value;
             flowNodeSearchViewModel.status = "0";
             flowNodeSearchViewModel.isHandler = roleByNodeSearchViewModel.isHandler;

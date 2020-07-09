@@ -16,6 +16,11 @@ namespace ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel
         /// 司机姓名
         /// </summary>
         public string DriverName { get; set; }
+
+        /// <summary>
+        /// 车辆设备号
+        /// </summary>
+        public string deviceNumber { get; set; }
         /// <summary>
         /// 司机手机
         /// </summary>
