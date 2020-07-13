@@ -47,35 +47,35 @@ namespace IntellWeChat
             var Repository = Assembly.Load("Dto.Repository");
             var valitorAssembly = Assembly.Load("ViewModel");
 
-            #region 验证
-            var audienceConfig = Configuration.GetSection("Audience");
-            var symmetricKeyAsBase64 = audienceConfig["Secret"];
-            var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
-            var signingKey = new SymmetricSecurityKey(keyByteArray);
+            //#region 验证
+            //var audienceConfig = Configuration.GetSection("Audience");
+            //var symmetricKeyAsBase64 = audienceConfig["Secret"];
+            //var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
+            //var signingKey = new SymmetricSecurityKey(keyByteArray);
 
-            services.AddAuthentication(x =>
-            {
+            //services.AddAuthentication(x =>
+            //{
                 
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(o =>
-                {
-                    o.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = signingKey,//参数配置在下边
-                        ValidateIssuer = true,
-                        ValidIssuer = audienceConfig["Issuer"],//发行人
-                        ValidateAudience = true,
-                        ValidAudience = audienceConfig["Audience"],//订阅人
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero,
-                        RequireExpirationTime = true,
-                    };
+            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //    .AddJwtBearer(o =>
+            //    {
+            //        o.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuerSigningKey = true,
+            //            IssuerSigningKey = signingKey,//参数配置在下边
+            //            ValidateIssuer = true,
+            //            ValidIssuer = audienceConfig["Issuer"],//发行人
+            //            ValidateAudience = true,
+            //            ValidAudience = audienceConfig["Audience"],//订阅人
+            //            ValidateLifetime = true,
+            //            ClockSkew = TimeSpan.Zero,
+            //            RequireExpirationTime = true,
+            //        };
 
-                });
-            #endregion
+            //    });
+            //#endregion
             #region HttpClientFactory
             
             services.AddHttpClient("WeChatToken", client =>

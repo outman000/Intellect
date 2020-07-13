@@ -49,7 +49,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatInfoViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<WeChatInfoResModel> Manage_WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel)
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
@@ -159,7 +159,7 @@ namespace IntellWeChat.Controllers
         /// <param name="weChatUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<WeChatLoginResModel> Manage_User_UpdatePassword(WeChatUpdateViewModel weChatUpdateViewModel)
         {
             WeChatLoginResModel weChatLoginResModel = new WeChatLoginResModel();
@@ -189,7 +189,7 @@ namespace IntellWeChat.Controllers
         /// 获取微信token
         /// </summary>
         [HttpPost]
-        [Authorize]
+    
         public async Task<ActionResult<WeChatTokenResModel>> wechartTokenAsync()
         {
             var weChatTokenResModel =await _weChatHttpClientService.getWeChatTokenAsync();
@@ -204,7 +204,7 @@ namespace IntellWeChat.Controllers
         /// <param name="code">用户code</param>
         /// <returns></returns>
         [HttpGet("Visit/GetVisitOpenID")]
-        [Authorize]
+ 
         public ActionResult<UserBindResModel> GetVisitOpenID(string code)
         {
             try
@@ -255,7 +255,7 @@ namespace IntellWeChat.Controllers
         /// <param name="passWord">电话</param>
         /// <returns></returns>
         [HttpGet("Visit/GetVisitInfo")]
-        [Authorize]
+
         public ActionResult<UserBindResModel> GetVisitInfo(string openID, string userId,string passWord)
         {
             UserBindResModel result = new UserBindResModel();
@@ -302,9 +302,8 @@ namespace IntellWeChat.Controllers
         /// <param name="message"></param>
         /// <returns></returns>
         [HttpGet("Visit/SendMessage")]
-        [Authorize]
-        public string Manage_SendMessage(string phone, string message)
 
+        public string Manage_SendMessage(string phone, string message)
         {
             var result=_loginService.SmsMessage(phone, message);
             return result;

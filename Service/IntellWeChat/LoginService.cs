@@ -261,12 +261,12 @@ namespace Dto.Service.IntellWeChat
         /// <returns></returns>
         public string SmsMessage(string phone, string message)
         {
-            var client = new RestClient("http://172.30.10.240/SmsOutNetwork.asmx/SendMessage");
+            var client = new RestClient("http://swj.dongjiang.gov.cn/TestSMS/SmsOutNetwork.asmx/SendMessage");
+            client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            //request.AddParameter("phone", "15822059136");
-            //request.AddParameter("content", "154564452");
-            request.AddParameter("tets", "phone=" + phone + "&content=" + message, ParameterType.RequestBody);
+            request.AddParameter("phone", phone);
+            request.AddParameter("content", message);
             IRestResponse response = client.Execute(request);
             return response.StatusCode.ToString();
         }
