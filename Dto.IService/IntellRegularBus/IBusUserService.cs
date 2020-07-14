@@ -191,5 +191,8 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
       int Bus_Scan_Record_SearchNum(BusScanRecordSearchViewModel busScanRecordSearchViewModel);
 
+
+        List<BusUserSearchMiddlecs> Bus_User_Search2(BusUserSearch2ViewModel busUserSearch2ViewModel);
+        int Bus_User_Get_ALLNum2(BusUserSearch2ViewModel busUserSearch2ViewModell);
     }
 }

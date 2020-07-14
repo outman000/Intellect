@@ -349,6 +349,25 @@ namespace Dto.Service.IntellRegularBus
 
             return bus_User_Search;
         }
+
+        /// <summary>
+        ///  查询出人员缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<BusUserSearchMiddlecs> Bus_User_Search2(BusUserSearch2ViewModel  busUserSearch2ViewModel)
+        {
+            BusUserSearchMiddlecs busUserSearchMiddlecs = new BusUserSearchMiddlecs();
+
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere2(busUserSearch2ViewModel).ToList();
+
+            var bus_User_Search = _IMapper.Map<List<Bus_Payment>, List<BusUserSearchMiddlecs>>(bus_Payments);
+
+            return bus_User_Search;
+        }
+
+
+
         /// <summary>
         /// 查询当前条件下所有人的缴费总和
         /// </summary>
@@ -373,7 +392,15 @@ namespace Dto.Service.IntellRegularBus
         {
             return _IBusUserRepository.GetInfoByBusAll(busUserSearchViewModell).Count();
         }
-
+        /// <summary>
+        /// 查询班车缴费清单表
+        /// </summary>
+        /// <param name="busUserSearchViewModell"></param>
+        /// <returns></returns>
+        public int Bus_User_Get_ALLNum2(BusUserSearch2ViewModel busUserSearch2ViewModell)
+        {
+            return _IBusUserRepository.GetInfoByBusAll2(busUserSearch2ViewModell).Count();
+        }
         /// <summary>
         /// 根据当前乘车时间和线路，判断座位有没有满员
         /// </summary>

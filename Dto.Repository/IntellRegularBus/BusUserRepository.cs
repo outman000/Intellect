@@ -67,6 +67,12 @@ namespace Dto.Repository.IntellRegularBus
 
             return DbSet.Where(predicate);
         }
+        public IQueryable<Bus_Payment> GetInfoByBusAll2(BusUserSearch2ViewModel busUserSearch2ViewModel)
+        {
+            var predicate = SearchBusUser2Where(busUserSearch2ViewModel);
+
+            return DbSet.Where(predicate);
+        }
 
         public Bus_Payment GetInfoByBusUserId(int id)
         {
@@ -119,6 +125,28 @@ namespace Dto.Repository.IntellRegularBus
             var result = DbSet.Where(predicate)
                 .Skip(SkipNum)
                 .Take(busUserSearchViewModel.pageViewModel.PageSize)
+                .OrderBy(o => o.Id);
+
+
+            return result;
+
+
+        }
+
+        /// <summary>
+        /// 查询人员缴费信息（重载,最普通的查询）
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusWhere2(BusUserSearch2ViewModel busUserSearch2ViewModel)
+        {
+            int SkipNum = busUserSearch2ViewModel.pageViewModel.CurrentPageNum * busUserSearch2ViewModel.pageViewModel.PageSize;
+
+            var predicate = SearchBusUser2Where(busUserSearch2ViewModel);
+
+            var result = DbSet.Where(predicate)
+                .Skip(SkipNum)
+                .Take(busUserSearch2ViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.Id);
 
 
@@ -353,6 +381,27 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
                                      && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
                                  
+            return predicate;
+        }
+        #endregion
+
+
+        #region 条件
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> SearchBusUser2Where(BusUserSearch2ViewModel busUserSearch2ViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+
+            predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
+            predicate = predicate.And(a => a.Name.Contains(busUserSearch2ViewModel.User_DepartName));
+            predicate = predicate.And(a => a.LineName.Contains(busUserSearch2ViewModel.Bus_LineName));
+            predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
+            predicate = predicate.And(a => a.status.Contains(busUserSearch2ViewModel.status));
+            predicate = predicate.And(a => a.Expense.Contains(busUserSearch2ViewModel.Expense));
+            if (busUserSearch2ViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busUserSearch2ViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busUserSearch2ViewModel.carDate.Value.Month);
+
             return predicate;
         }
         #endregion

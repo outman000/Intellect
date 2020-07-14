@@ -157,6 +157,30 @@ namespace IntellRegularBus.Controllers
             _ILogger.Information("查询所有用户缴费信息成功");
             return Ok(busUserSearchResModel);
         }
+
+
+        /// <summary>
+        /// 查询所有用户缴费信息2
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusUserSearchResModel> Bus_User_Search2(BusUserSearch2ViewModel busUserSearch2ViewModel)
+        {
+            BusUserSearchResModel busUserSearchResModel = new BusUserSearchResModel();
+            var BusUserSearchResult = _IBusUserService.Bus_User_Search2(busUserSearch2ViewModel);       
+            var TotalNum = _IBusUserService.Bus_User_Get_ALLNum2(busUserSearch2ViewModel);
+            busUserSearchResModel.bus_user_Info = BusUserSearchResult;
+            busUserSearchResModel.isSuccess = true;
+            busUserSearchResModel.baseViewModel.Message = "查询成功";
+            busUserSearchResModel.baseViewModel.ResponseCode = 200;
+            busUserSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询所有用户缴费信息成功");
+            return Ok(busUserSearchResModel);
+        }
+
+
+
         /// <summary>
         /// 把模板月份用户缴费信息添加到数据库（参数只需要传乘车时间和部门Id,PageSize设置为999 CurrentPageNum=0）
         /// </summary>

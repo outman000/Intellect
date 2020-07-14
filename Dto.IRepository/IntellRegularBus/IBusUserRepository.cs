@@ -25,11 +25,14 @@ namespace Dto.IRepository.IntellRegularBus
         List<Bus_Payment> GetInfoByBus(int id);
         // 根据条件查人员缴费
         IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel);
+
+        // 根据条件查人员缴费
+        IQueryable<Bus_Payment> SearchInfoByBusWhere2(BusUserSearch2ViewModel busUserSearch2ViewModel);
         // 根据条件查人员缴费
         IQueryable<Bus_Payment> SearchInfoByBusWhere(BusPaymentUpdateViewModel busPamentUpdateViewModel);
         // 根据条件查人员缴费
         IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserValideViewModel  busUserValideViewModel);
-
+        IQueryable<Bus_Payment> GetInfoByBusAll2(BusUserSearch2ViewModel busUserSearch2ViewModel);
         //根据条件查人员缴费数量
         IQueryable<Bus_Payment> GetInfoByBusAll(BusUserSearchViewModel busUserSearchViewModel);
         // 根据线路Id查人员缴费数量
