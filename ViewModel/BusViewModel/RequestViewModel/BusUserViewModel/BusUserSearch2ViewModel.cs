@@ -13,16 +13,21 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public string UserName { get; set; }
 
         /// <summary>
-        /// 站点id
+        /// 订单号
+        /// </summary>
+        public string orderNo { get; set; }
+
+        /// <summary>
+        /// 站点名
         /// </summary>
         public string Bus_StationName { get; set; }
         /// <summary>
-        /// 线路id
+        /// 线路名
         /// </summary>
         public string Bus_LineName { get; set; }
 
         /// <summary>
-        /// 部门id
+        /// 部门名
         /// </summary>
         public string User_DepartName { get; set; }
 

@@ -14,6 +14,12 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// 用户名
         /// </summary>
         public string UserName { get; set; }
+
+
+        /// <summary>
+        /// 订单号
+        /// </summary>
+        public string orderNo { get; set; }
         /// <summary>
         /// 部门名称
         /// </summary>

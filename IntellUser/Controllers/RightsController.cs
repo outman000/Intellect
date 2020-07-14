@@ -34,7 +34,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<RightsAddResModel> Manage_Rights_add(RightsAddViewModel rightsAddViewModel)
         {
             int Rights_Add_Count;
@@ -68,7 +68,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<RightsValideResRepeat> Manage_Rights_ValideRepeat(RightsValideRepeat rightsValideRepeat)
         {
             RightsValideResRepeat rightsValideResRepeat = new RightsValideResRepeat();
@@ -99,7 +99,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RightsDeleteResModel> Manage_Rights_Delete(RightsDeleteViewModel rightsDeleteViewModel)
         {
             RightsDeleteResModel rightsDeleteResModel = new RightsDeleteResModel();
@@ -133,7 +133,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<RightsUpdateResModel> Manage_Rights_Update(RightsUpdateViewModel rightsUpdateViewModel)
         {
             RightsUpdateResModel rightsValideResRepeat = new RightsUpdateResModel();
@@ -164,7 +164,7 @@ namespace IntellUser.Controllers
         /// <param name="rightsSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RightsSearchResModel> Manage_Rights_Search(RightsSearchViewModel rightsSearchViewModel)
         {
             RightsSearchResModel rightsSearchResModel = new RightsSearchResModel();
@@ -186,7 +186,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<RightsByRoleSearchResModel> Manage_Rights_By_Role_Search(RightsByRoleSearchViewModel rightsByRoleSearchViewModel)
         {
             RightsByRoleSearchResModel rightsByRoleSearchResModel = new RightsByRoleSearchResModel();

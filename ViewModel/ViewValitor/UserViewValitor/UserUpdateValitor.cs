@@ -34,14 +34,14 @@ namespace ViewModel.ViewValitor.UserViewValitor
                    .EmailAddress()
                    .When(m => !string.IsNullOrWhiteSpace(m.Email)).WithMessage("邮箱格式不正确");
 
-            RuleFor(hr_info => hr_info.Levels).NotNull()
-                             .WithMessage("用户类别不能为空");
+            //RuleFor(hr_info => hr_info.Levels).NotNull()
+            //                 .WithMessage("用户类别不能为空");
 
             RuleFor(hr_info => hr_info.status).NotNull()
                              .WithMessage("账号状态不能为空");
 
-            RuleFor(hr_info => hr_info.WorkExperience).NotNull()
-                          .WithMessage("用户身份名称不能为空");
+            //RuleFor(hr_info => hr_info.WorkExperience).NotNull()
+            //              .WithMessage("用户身份名称不能为空");
 
 
         }

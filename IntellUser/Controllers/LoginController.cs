@@ -56,7 +56,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Authorize]
+
         public ActionResult UserLoginAbsolute()
         {
             var tk = new { token = "2728b712288da12fffd103af3bd616ff" };

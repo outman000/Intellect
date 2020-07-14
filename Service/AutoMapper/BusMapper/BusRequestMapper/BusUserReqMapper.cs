@@ -19,7 +19,9 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<BusUserAddViewModel, Bus_Payment>();
             CreateMap < BusUserUpdateViewModel, Bus_Payment>();
 
-            CreateMap<Bus_Payment, BusUserSearchMiddlecs>();
+            CreateMap<Bus_Payment, BusUserSearchMiddlecs>()
+           .ForMember(s => s.orderNo, sp => sp.MapFrom(src => src.Bus_Payment_Order.orderNo));
+
             CreateMap<BusPaymentUpdateViewModel, Bus_Payment>();
             CreateMap<NowDateUpdateViewModel, Bus_Payment>();
             CreateMap<NowDateUpdateViewModel, BusUserAddViewModel>();

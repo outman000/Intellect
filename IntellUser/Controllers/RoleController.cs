@@ -29,7 +29,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<UserRoleAddResModel> Manage_UserRole_add(UserRoleAddViewModel  userRoleAddViewModel)
         {
             int User_Add_Count;
@@ -63,7 +63,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<UserRoleSingleResModel> Manage_UserRole_Single(UserRoleSingleViewModel userRoleSingleViewModel)
         {
             bool IsSuccess = _roleService.User_Role_Single(userRoleSingleViewModel);
@@ -91,7 +91,7 @@ namespace IntellUser.Controllers
         /// <param name="userRoleDeleteViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<UserRoleDeleteResModel> Manage_UserRole_Delete(UserRoleDeleteViewModel  userRoleDeleteViewModel)
         {
             UserRoleDeleteResModel userRoleDeleteResModel = new UserRoleDeleteResModel();
@@ -123,7 +123,7 @@ namespace IntellUser.Controllers
         /// <param name="userRoleSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<UserRoleSearchResModel> Manage_UserRole_Search(UserRoleSearchViewModel  userRoleSearchViewModel)
         {
             UserRoleSearchResModel userRoleSearchResModel=new UserRoleSearchResModel();
@@ -147,7 +147,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<UserUpdateResModel> Manage_UserRole_Update(UserRoleUpdateViewModel  userRoleUpdateViewModel)
         {
             UserUpdateResModel userUpdateResModel = new UserUpdateResModel();
@@ -179,7 +179,7 @@ namespace IntellUser.Controllers
         /// <param name="relateRoleToUserAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RelateRoleToUserAddResModel> Manage_UserRoleToUser_Add(RelateRoleToUserAddViewModel  relateRoleToUserAddViewModel)
         {
            RelateRoleToUserAddResModel relateRoleToUserAddResModel=new RelateRoleToUserAddResModel();
@@ -211,7 +211,7 @@ namespace IntellUser.Controllers
         /// <param name="relateRoleToUserDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RelateRoleToRightDelResModel> Manage_UserRoleToUser_Del(RelateRoleToUserDelViewModel relateRoleToUserDelViewModel)
         {
             RelateRoleToRightDelResModel relateRoleToUserDelResModel = new RelateRoleToRightDelResModel();
@@ -245,7 +245,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<RelateRoleToRightAddResModel> Manage_UserRoleToRight_Add(RelateRoleToRightAddViewModel relateRoleToRightAddViewModel)
         {
             RelateRoleToRightAddResModel relateRoleToRightAddResModel = new RelateRoleToRightAddResModel();
@@ -277,7 +277,7 @@ namespace IntellUser.Controllers
         /// <param name="relateRoleToRightDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RelateRoleToRightDelResModel> Manage_UserRoleToRight_Del(RelateRoleToRightDelViewModel relateRoleToRightDelViewModel)
         {
             RelateRoleToRightDelResModel relateRoleToRightDelResModel = new RelateRoleToRightDelResModel();
@@ -310,7 +310,7 @@ namespace IntellUser.Controllers
         /// <param name="roleByUserSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RoleByUserSearchResModel> Manage_Role_By_User_Search(RoleByUserSearchViewModel roleByUserSearchViewModel)
         {
             RoleByUserSearchResModel roleByUserSearchResModel = new RoleByUserSearchResModel();
@@ -333,7 +333,7 @@ namespace IntellUser.Controllers
         /// <param name="roleByRightsSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RoleByRightsSearchResModel> Manage_Role_By_Rights_Search(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
         {
             RoleByRightsSearchResModel roleByRightsSearchResModel = new RoleByRightsSearchResModel();

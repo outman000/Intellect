@@ -144,7 +144,7 @@ namespace Dto.Repository.IntellRegularBus
 
             var predicate = SearchBusUser2Where(busUserSearch2ViewModel);
 
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).Include(b=>b.Bus_Payment_Order)
                 .Skip(SkipNum)
                 .Take(busUserSearch2ViewModel.pageViewModel.PageSize)
                 .OrderBy(o => o.Id);
@@ -391,7 +391,7 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUser2Where(BusUserSearch2ViewModel busUserSearch2ViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-
+            predicate = predicate.And(a => a.Bus_Payment_Order.orderNo.Contains(busUserSearch2ViewModel.orderNo));
             predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
             predicate = predicate.And(a => a.Name.Contains(busUserSearch2ViewModel.User_DepartName));
             predicate = predicate.And(a => a.LineName.Contains(busUserSearch2ViewModel.Bus_LineName));

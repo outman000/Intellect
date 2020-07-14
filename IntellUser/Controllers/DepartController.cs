@@ -36,7 +36,7 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<DepartAddResModel> Manage_Depart_add(DepartAddViewModel departAddViewModel)
         {
             int Depart_Add_Count;
@@ -70,7 +70,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<DepartValideResRepeat> Manage_Depart_ValideRepeat(DepartValideRepeat departValideRepeat)
         {
             DepartValideResRepeat departValideResRepeat = new DepartValideResRepeat();
@@ -100,7 +100,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Authorize]
+
         public ActionResult<DepartDeleteResModel> Manage_Depart_Delete(DepartDeleteViewModel departDeleteViewModel)
         {
             DepartDeleteResModel departDeleteResModel = new DepartDeleteResModel();
@@ -134,7 +134,7 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<DepartUpdateResModel> Manage_Depart_Update(DepartUpdateViewModel departUpdateViewModel)
         {
             DepartUpdateResModel departValideResRepeat = new DepartUpdateResModel();
@@ -165,7 +165,7 @@ namespace IntellUser.Controllers
         /// <param name="departSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<DepartSearchResModel> Manage_Depart_Search(DepartSearchViewModel departSearchViewModel)
         {
             DepartSearchResModel departSearchResModel = new DepartSearchResModel();
