@@ -47,6 +47,18 @@ namespace Dto.Repository.IntellUser
             DbSet.Update(obj);
         }
 
+        /// <summary>
+        /// 批量导入数据库（推荐目录）
+        /// </summary>
+        /// <param name="recommendedDirectories"></param>
+        public void AddRange_User_Info(List<User_Info>  user_Infos)
+        {
+            foreach (var a in user_Infos)
+            {
+                DbSet.Add(a);
+            }
+
+        }
         public virtual void Remove(Guid id)
         {
             DbSet.Remove(DbSet.Find(id));

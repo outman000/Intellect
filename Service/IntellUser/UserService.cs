@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dto.IRepository.IntellUser;
 using Dto.IService.IntellUser;
+using Dtol.Attribute;
 using Dtol.dtol;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -18,7 +19,7 @@ namespace Dto.Service.IntellUser
         private readonly IUserInfoRepository _IUserInfoRepository;
         private readonly IMapper _IMapper;
         private readonly IUserRelateInfoRoleRepository _userRelateInfoRoleRepository;
-
+        NPOIClass EP_Plus = new NPOIClass();
         public UserService(IUserInfoRepository iuserInfoRepository, IUserRelateInfoRoleRepository userRelateInfoRoleRepository, IMapper mapper)
         {
             _IUserInfoRepository = iuserInfoRepository;
@@ -49,7 +50,22 @@ namespace Dto.Service.IntellUser
             return Queryable_UserInfo;
                   
         }
-
+        //随机名称
+        public string fileRandName(string fileRealname)
+        {
+            string RandName = "";
+            string[] fileTail = fileRealname.Split('.');
+            RandName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "." + fileTail[1];
+            return RandName;
+        }
+        //导入文件并存入数据库（推荐目录）
+        public int uploadTodatabase_User_Info(string filepath, string tableName, string tag)
+        {
+            var list = EP_Plus.ExcelToList<User_Info>(filepath, tag, tableName);
+            _IUserInfoRepository.AddRange_User_Info(list);
+            _IUserInfoRepository.SaveChanges();
+            return list.Count;
+        }
 
         //删除用户（一个或者多个）
         public int User_Delete(UserDeleteViewModel userDeleteViewModel)
@@ -198,5 +214,24 @@ namespace Dto.Service.IntellUser
         {
             return _IUserInfoRepository.GetUserByDepartAll(userByDepartSearchViewModel).Count();
         }
+
+
+        //查询用户
+        public int User_SearchTest(UserSearchViewModel userSearchViewModel)
+        {
+            List<User_Info> user_Infos = _IUserInfoRepository.SearchInfoByWhere(userSearchViewModel);
+
+            User_Relate_Info_Role a = new User_Relate_Info_Role();
+            foreach (var item in user_Infos)
+            {
+                a.User_RoleId = 12;
+                a.User_InfoId = item.Id;
+                _userRelateInfoRoleRepository.Add(a);
+           
+
+            }
+            return _userRelateInfoRoleRepository.SaveChanges();
+        }
+
     }
 }

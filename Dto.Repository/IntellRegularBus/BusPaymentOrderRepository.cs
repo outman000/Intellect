@@ -98,10 +98,9 @@ namespace Dto.Repository.IntellRegularBus
             var predicate = SearchBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel);
 
 
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderByDescending(o => o.AddDate)
                 .Skip(SkipNum)
-                .Take(bus_Payment_OrderSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Id);
+                .Take(bus_Payment_OrderSearchViewModel.pageViewModel.PageSize) ;
 
 
             return result;
@@ -137,9 +136,10 @@ namespace Dto.Repository.IntellRegularBus
 
 
             var result = DbSet.Where(predicate)
+                .OrderByDescending(o => o.AddDate)
                 .Skip(SkipNum)
                 .Take(bus_OrderIsPassSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Id).ToList();
+                .ToList();
             return result;
         }
 
@@ -148,7 +148,7 @@ namespace Dto.Repository.IntellRegularBus
 
             var predicate = SearchBusPaymentWhereCZ();
             var result = DbSet.Where(predicate)
-                .OrderBy(o => o.Id).ToList();
+                 .OrderByDescending(o => o.AddDate).ToList();
             return result;
         }
 

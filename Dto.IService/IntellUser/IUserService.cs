@@ -10,12 +10,14 @@ namespace Dto.IService.IntellUser
 {
     public interface IUserService
     {
+        int User_SearchTest(UserSearchViewModel userSearchViewModel);
+        string fileRandName(string fileRealname);
         /// <summary>
         /// 添加用户
         /// </summary>
         /// <param name="userAddViewModel"></param>
         /// <returns></returns>
-          int User_Add(UserAddViewModel  userAddViewModel);
+        int User_Add(UserAddViewModel  userAddViewModel);
         /// <summary>
         /// 更新用户信息
         /// </summary>
@@ -95,6 +97,8 @@ namespace Dto.IService.IntellUser
         String GetUserHead(IFormFile iformFile);
 
        User_Info User_Single_Search(UserSearchByUserIdViewModel  userSearchByUserIdViewModel);
+
+        int uploadTodatabase_User_Info(string filepath, string tableName, string tag);
     }
 }
 

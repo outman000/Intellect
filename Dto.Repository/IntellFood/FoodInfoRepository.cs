@@ -87,10 +87,10 @@ namespace Dto.Repository.IntellFood
 
             //查询条件
             var predicate = SearchFoodWhere(foodInfoSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.AddDate).ToList()
                 .Skip(SkipNum)
                 .Take(foodInfoSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.AddDate).ToList();
+                .ToList();
 
             return result;
         }

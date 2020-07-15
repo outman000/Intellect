@@ -190,6 +190,31 @@ namespace IntellUser.Controllers
 
         }
 
+
+        /// <summary>
+        ///批量更新用户和角色
+        /// </summary>
+        /// <param name="userSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<UserSearchResModel> Manage_User_SearchTest(UserSearchViewModel userSearchViewModel)
+        {
+            UserSearchResModel userSearchResModel = new UserSearchResModel();
+            var UserSearchResult = _userService.User_SearchTest(userSearchViewModel);
+
+            //var TotalNum = _userService.User_Get_ALLNum();
+           // var TotalNum = _userService.User_Get_ALLNum(userSearchViewModel);
+          //  userSearchResModel.user_Infos = UserSearchResult;
+            userSearchResModel.isSuccess = true;
+            userSearchResModel.baseViewModel.Message = "查询成功";
+            userSearchResModel.baseViewModel.ResponseCode = 200;
+            userSearchResModel.TotalNum = UserSearchResult;
+            _ILogger.Information("查询用户信息，查询成功");
+            return Ok(userSearchResModel);
+
+        }
+
         /// <summary>
         /// 查询用户信息(根据用户)
         /// </summary>
@@ -336,5 +361,56 @@ namespace IntellUser.Controllers
             return Ok(userByDepartSearchResModel);
         }
 
+        /// <summary>
+        /// 上传文件并且得到上传文件的所有信息(导入用户信息)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<FileUploadAddResModel> Manage_uploadfileAndGetInfo_UserInfo()
+        {
+            FileUploadAddResModel fileUploadAddResModel = new FileUploadAddResModel();
+            int fileUpload_Add_Count = 0;
+            var files = Request.Form.Files;
+            string filePath = "";//上传文件的路径
+
+            if (files.Count == 0)
+            {
+                throw new ArgumentException("找不到上传的文件");
+            }
+            // full path to file in temp location
+            foreach (var formFile in files)
+            {
+                string randomname = _userService.fileRandName(formFile.FileName);
+                filePath = Directory.GetCurrentDirectory() + "\\files\\" + randomname;
+                if (formFile.Length > 0)
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        formFile.CopyTo(stream);
+                    }
+                }
+ 
+                fileUpload_Add_Count = _userService.uploadTodatabase_User_Info(filePath, Request.Form["tablename"], "1");
+            }
+
+            if (fileUpload_Add_Count > 0)
+            {
+                fileUploadAddResModel.IsSuccess = true;
+                fileUploadAddResModel.AddCount = fileUpload_Add_Count;
+                fileUploadAddResModel.baseViewModel.Message = "导入附件成功";
+                fileUploadAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("导入附件成功");
+                return Ok(fileUploadAddResModel);
+            }
+            else
+            {
+                fileUploadAddResModel.IsSuccess = false;
+                fileUploadAddResModel.AddCount = 0;
+                fileUploadAddResModel.baseViewModel.Message = "导入附件失败";
+                fileUploadAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("导入附件失败");
+                return BadRequest(fileUploadAddResModel);
+            }
+        }
     }
 }

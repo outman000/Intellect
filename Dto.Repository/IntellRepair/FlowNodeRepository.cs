@@ -103,10 +103,9 @@ namespace Dto.Repository.IntellRepair
                                                .Where(s=>s.User_Info.status!="1"&&
                                                        s.Pre_User_Info.status != "1"&&
                                                        s.Repair_Info.status!="1")
-                                           
+                .OrderByDescending(o => o.Repair_Info.repairsDate).ToList()
                 .Skip(SkipNum)
-                .Take(flowNodeSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.StartTime).ToList();
+                .Take(flowNodeSearchViewModel.pageViewModel.PageSize).ToList();
 
             return result;
         }

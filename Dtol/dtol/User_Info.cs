@@ -1,25 +1,32 @@
-﻿using System;
+﻿using Dtol.Attribute;
+using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace Dtol.dtol
 {
      public partial class User_Info
     {
         public int Id { get; set; }
+        [ExcelAttribute("账号（英文字母）")]
         public string UserId { get; set; }
+        [ExcelAttribute("密码")]
         public string UserPwd { get; set; }
         public string RoleNames { get; set; }
         public string RoleIds { get; set; }
+        [ExcelAttribute("部门/单位名称")]
         public string Dept { get; set; }
         public string DeptId { get; set; }
         public string Number { get; set; }
         public string AddInfoDate { get; set; }
+        [ExcelAttribute("姓名")]
         public string UserName { get; set; }
         public string Gender { get; set; }
         public string Birthdate { get; set; }
         public string Nation { get; set; }
         public string MaritalStatus { get; set; }
+        [ExcelAttribute("身份证号（请保证正确，以免影响相关功能的使用）")]
         public string Idcard { get; set; }
         public string NativePlace { get; set; }
         public string PoliticalBackground { get; set; }
@@ -27,6 +34,7 @@ namespace Dtol.dtol
         public string BloodType { get; set; }
         public string HomeAddress { get; set; }
         public string ZipCode { get; set; }
+        [ExcelAttribute("手机号（请确保正确，以免影响相关功能的使用）")]
         public string PhoneCall { get; set; }
         public string MobileCall { get; set; }
         public string Address { get; set; }
@@ -56,7 +64,9 @@ namespace Dtol.dtol
         public DateTime? updateDate { get; set; }
 
         public string Remark { get; set; }
+        [ExcelAttribute("邮箱")]
         public string Email { get; set; }
+ 
         public string DeptLeaderId { get; set; }
         public string DeptLeaderName { get; set; }
         public string Levels { get; set; }

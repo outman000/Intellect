@@ -103,9 +103,9 @@ namespace Dto.Repository.IntellRepair
             IQueryable<Repair_Info> repair_Infos = Db.repair_Info.Where(preciateByRepair);
 
             IQueryable<Repair_Info> SearchResultTemp = repair_Infos.Include(a => a.User_Info)
-                        .Include(a => a.User_Depart)
+                        .Include(a => a.User_Depart).OrderBy(o => o.repairsDate)
                         .Skip(SkipNum)
-                        .Take(repairInfoSearchViewModel.pageViewModel.PageSize).OrderBy(o => o.repairsDate);
+                        .Take(repairInfoSearchViewModel.pageViewModel.PageSize);
             return SearchResultTemp;
         }
 
@@ -149,9 +149,9 @@ namespace Dto.Repository.IntellRepair
                                        repairsDate = a.repairsDate
                                    };
 
-                          NotEndRepairInfo.Skip(SkipNum)
+                          NotEndRepairInfo.Skip(SkipNum).OrderBy(o => o.repairsDate).ToList()
                           .Take(nodeEndSearchViewModel.pageViewModel.PageSize)
-                          .OrderBy(o => o.repairsDate).ToList();
+                          .ToList();
             return NotEndRepairInfo;
         }
 
@@ -175,9 +175,9 @@ namespace Dto.Repository.IntellRepair
                 Pre_User_InfoId = b.Pre_User_InfoId,
                 repairsDate = a.repairsDate
             }
-            ).Where(w => w.User_InfoId == null && w.Pre_User_InfoId != null)
+            ).Where(w => w.User_InfoId == null && w.Pre_User_InfoId != null).OrderBy(o => o.repairsDate).ToList()
               .Skip(SkipNum)
-              .Take(pageView.PageSize).OrderBy(o => o.repairsDate).ToList();
+              .Take(pageView.PageSize).ToList();
             return EndRepairInfo;
         }
 

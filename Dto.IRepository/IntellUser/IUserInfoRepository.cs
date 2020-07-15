@@ -25,7 +25,7 @@ namespace Dto.IRepository.IntellUser
         List<User_Info> SearchInfoByWhere(UserSearchViewModel  userSearchViewModel);
         //查询用户数量
         IQueryable<User_Info> GetUserAll(UserSearchViewModel userSearchViewModel);
-
+        void AddRange_User_Info(List<User_Info> user_Infos);
         /// <summary>
         /// 根据部门查用户数量
         /// </summary>
