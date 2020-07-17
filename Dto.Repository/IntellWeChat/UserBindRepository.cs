@@ -69,5 +69,11 @@ namespace Dto.Repository.IntellWeChat
             List<UserBind> user_Bind = DbSet.Where(uid => uid.OpenId  == openid).ToList();
             return user_Bind;
         }
+
+        public List<UserBind> GetoUserBindStr2(string userid)
+        {
+            List<UserBind> user_Bind = DbSet.Where(uid => uid.userId == userid).ToList();
+            return user_Bind;
+        }
     }
 }

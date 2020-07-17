@@ -15,6 +15,7 @@ namespace Dto.IService.IntellWeChat
         /// <param name="weChatLoginViewModel"></param>
         /// <returns></returns>
        WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel  weChatInfoViewModel);
+        User_Info Searchpwd(string userId);
         /// <summary>
         ///根据账号和密码查询用户和部门信息
         /// </summary>
@@ -23,6 +24,7 @@ namespace Dto.IService.IntellWeChat
         WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel);
 
         List<UserBind> UserBindSearch(string openid);
+        List<UserBind> UserBindSearch2(string userId);
 
         int AddUserBind(string openid, string userId,string passWord);
 

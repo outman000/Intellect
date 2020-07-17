@@ -389,8 +389,8 @@ namespace IntellUser.Controllers
                         formFile.CopyTo(stream);
                     }
                 }
- 
-                fileUpload_Add_Count = _userService.uploadTodatabase_User_Info(filePath, Request.Form["tablename"], "1");
+                string tag = _userService.saveAttachInfo(Request.Form, randomname);
+                fileUpload_Add_Count = _userService.uploadTodatabase_User_Info(filePath, Request.Form["tablename"], tag);
             }
 
             if (fileUpload_Add_Count > 0)

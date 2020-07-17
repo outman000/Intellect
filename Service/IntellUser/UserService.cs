@@ -232,6 +232,28 @@ namespace Dto.Service.IntellUser
             }
             return _userRelateInfoRoleRepository.SaveChanges();
         }
-
+        //保存
+        public string saveAttachInfo(IFormCollection fileinfo, string randomName)
+        {
+            string attid = Guid.NewGuid().ToString();
+            var com_Attachs = new ComAttachs
+            {
+                Id = attid,
+                UploadUserId = fileinfo["UploadUserId"],
+                HrDeptId = Convert.ToInt32(fileinfo["HrDeptId"].ToString()),
+                Filename = fileinfo["FileName"],
+                FileType = fileinfo["FileType"],
+                Employeeid = fileinfo["userid"],
+                Physicsname = randomName,
+                Createdate = DateTime.Now,
+                Isdelete = "0",
+                Formtablename = fileinfo["tablename"],
+                //Filesize = fileinfo["filesize"],
+                //Remark = fileinfo["Remark"]
+            };
+            _IUserInfoRepository.Add2(com_Attachs);
+            _IUserInfoRepository.SaveChanges();
+            return attid;
+        }
     }
 }

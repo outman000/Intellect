@@ -99,6 +99,10 @@ namespace Dto.IService.IntellUser
        User_Info User_Single_Search(UserSearchByUserIdViewModel  userSearchByUserIdViewModel);
 
         int uploadTodatabase_User_Info(string filepath, string tableName, string tag);
+
+        //保存
+        string saveAttachInfo(IFormCollection fileinfo, string randomName);
+        
     }
 }
 

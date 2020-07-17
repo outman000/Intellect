@@ -18,18 +18,23 @@ namespace Dto.Repository.IntellUser
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<User_Info> DbSet;
+        protected readonly DbSet<ComAttachs> DbSet2;
 
         public UserInfoRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<User_Info>();
+            DbSet2 = Db.Set<ComAttachs>();
         }
 
         public virtual void Add(User_Info obj)
         {
             DbSet.Add(obj);
         }
-
+        public virtual void Add2(ComAttachs obj)
+        {
+            DbSet2.Add(obj);
+        }
         public virtual User_Info GetById(Guid id)
         {
             return DbSet.Find(id);
@@ -90,6 +95,12 @@ namespace Dto.Repository.IntellUser
         public User_Info GetInfoByUserid(int id)
         {
             User_Info user_Info = DbSet.Single(uid => uid.Id.Equals(id));
+            return user_Info;
+        }
+
+        public User_Info GetPwd(string userid)
+        {
+            User_Info user_Info = DbSet.Single(uid => uid.UserId.Equals(userid));
             return user_Info;
         }
 

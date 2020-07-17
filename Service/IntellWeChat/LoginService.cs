@@ -233,6 +233,31 @@ namespace Dto.Service.IntellWeChat
 
             return user_Bind;
         }
+        /// <summary>
+        /// 根据账号和密码查询用户信息（用于存储session）
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
+        public List<UserBind> UserBindSearch2(string userId)
+        {
+
+            var user_Bind = _userBindRepository.GetoUserBindStr2(userId);
+
+            return user_Bind;
+        }
+
+        /// <summary>
+        /// 根据账号和密码查询用户信息（用于存储session）
+        /// </summary>
+        /// <param name="weChatLoginViewModel"></param>
+        /// <returns></returns>
+        public User_Info Searchpwd(string userId)
+        {
+
+            var user_Bind = _IUserInfoRepository.GetPwd(userId);
+
+            return user_Bind;
+        }
 
         public int AddUserBind(string openid, string userId, string passWord)
         {

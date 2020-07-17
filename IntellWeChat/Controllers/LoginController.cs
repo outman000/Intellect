@@ -229,12 +229,13 @@ namespace IntellWeChat.Controllers
                 }
                 else
                 {
+                    
                     result.BindStatus = "1";
                     result.OpenID = openId;
                     result.RoleName = "0";
                     result.Moblie = userBind_Infos[0].Moblie;
                     result.userId = userBind_Infos[0].userId;
-                    result.passWord = userBind_Infos[0].passWord;
+                    result.passWord = _loginService.Searchpwd(userBind_Infos[0].userId).UserPwd;
                     msg += "用户已绑定；";
                     
                 }
@@ -267,30 +268,41 @@ namespace IntellWeChat.Controllers
             if (UserSearchResult == null)
             {
                 result.BindStatus = "0";
-                result.Msg = "绑定失败，账号或者密码在存问题";
+                result.Msg = "绑定失败，账号或者密码存在问题";
             }
             else
             {
-                count = _loginService.AddUserBind(openID, userId, passWord);
-            }
-              
-            string msg = string.Empty;
-            if (count > 0)
-            {
-                msg = "账号绑定成功；";
-                result.BindStatus = "1";
-                result.OpenID = openID;
-                result.RoleName = "0";
-                result.Status = "0";
 
-            
-            }
-            else
-            {
-                result.BindStatus = "0";
-                result.Msg = "绑定失败，参数存在问题";
-            }
+                var res = _loginService.UserBindSearch2(userId);
 
+                if(res.Count>0)
+                {             
+                        result.BindStatus = "2";
+                        result.Msg = "不是本人";                   
+                }
+               else
+               {
+
+                    count = _loginService.AddUserBind(openID, userId, passWord);
+                    string msg = string.Empty;
+                    if (count > 0)
+                    {
+                        msg = "账号绑定成功；";
+                        result.BindStatus = "1";
+                        result.OpenID = openID;
+                        result.RoleName = "0";
+                        result.Status = "0";
+                    }
+                    else
+                    {
+                        result.BindStatus = "0";
+                        result.Msg = "绑定失败，参数存在问题";
+                    }
+
+               }
+
+            }
+           
             return Ok(result);
         }
 
