@@ -87,10 +87,10 @@ namespace Dto.Repository.IntellBulletinBoard
 
             //查询条件
             var predicate = SearchBulletinBoardWhere(bulletinBoardSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.AddDate)
                 .Skip(SkipNum)
                 .Take(bulletinBoardSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.AddDate).ToList();
+               .ToList();
 
             return result;
         }

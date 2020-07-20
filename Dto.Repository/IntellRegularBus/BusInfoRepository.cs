@@ -87,10 +87,10 @@ namespace Dto.Repository.IntellRegularBus
 
             //查询条件
             var predicate = SearchBusWhere(busSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.AddDate)
                 .Skip(SkipNum)
                 .Take(busSearchViewModel.pageViewModel.PageSize)
-                 .OrderBy(o => o.AddDate).ToList();
+                .ToList();
 
 
             return result;

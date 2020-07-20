@@ -88,10 +88,10 @@ namespace Dto.Repository.IntellUser
             int skipNum = userRoleSearchViewModel.pageViewModel.CurrentPageNum * userRoleSearchViewModel.pageViewModel.PageSize;
             //查询条件
             var predicate = SearchUserRoleWhere(userRoleSearchViewModel);
-            return DbSet.Where(predicate)
+            return DbSet.Where(predicate).OrderBy(o => o.Createdate)
                   .Skip(skipNum)
                   .Take(userRoleSearchViewModel.pageViewModel.PageSize)
-                  .OrderBy(o => o.Createdate).ToList();
+                  .ToList();
         }
         /// <summary>
         /// 获得角色数量

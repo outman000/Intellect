@@ -95,10 +95,9 @@ namespace Dto.Repository.IntellRepair
             IQueryable<Flow_NodeDefine> NodeDefine_Infos = Db.flow_NodeDefine.Where(preciateByNodeDefine);
 
             IQueryable<Flow_NodeDefine> SearchResultTemp = NodeDefine_Infos
-                        .Include(a => a.Flow_ProcedureDefine)
+                        .Include(a => a.Flow_ProcedureDefine).OrderBy(o => o.CreateTime)
                         .Skip(SkipNum)
-                        .Take(flowNodeDefineSearchViewModel.pageViewModel.PageSize)
-                        .OrderBy(o => o.CreateTime);
+                        .Take(flowNodeDefineSearchViewModel.pageViewModel.PageSize);
             return SearchResultTemp;
         }
 
@@ -113,10 +112,9 @@ namespace Dto.Repository.IntellRepair
             int Flow_NodeDefineId = nextNodeByCurrentNodeSearchViewModel.Flow_NodeDefineId;
             var queryResult = DbSet2.Where(k => k.Flow_NodeDefineId== Flow_NodeDefineId && 
                                     k.Flow_NodeDefine.status == "0").Include(p => p.Flow_NextNodeDefine)
-                                    .ThenInclude(p => p.Flow_ProcedureDefine)
+                                    .ThenInclude(p => p.Flow_ProcedureDefine).OrderBy(o => o.Id)
                  .Skip(SkipNum)
                 .Take(nextNodeByCurrentNodeSearchViewModel.pageViewModel.PageSize)
-                 .OrderBy(o => o.Id)
                 .ToList();
             return queryResult;
         }

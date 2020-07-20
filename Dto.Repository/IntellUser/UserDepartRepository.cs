@@ -85,10 +85,10 @@ namespace Dto.Repository.IntellUser
 
             //查询条件
             var predicate = SearchDepartWhere(departSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.Sort)
                 .Skip(SkipNum)
                 .Take(departSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Sort).ToList();
+                .ToList();
           
             return result;
         }

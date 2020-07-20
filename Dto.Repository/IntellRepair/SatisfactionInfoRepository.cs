@@ -69,10 +69,9 @@ namespace Dto.Repository.IntellRepair
                                                .Include(a => a.Repair_Info)
                                                .Where(s => s.User_Info.status != "1" &&
                                                        s.Repair_Info.status != "1")
-
+                .OrderBy(o => o.AddDate)
                 .Skip(SkipNum)
-                .Take(satisfactionInfoSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.AddDate);
+                .Take(satisfactionInfoSearchViewModel.pageViewModel.PageSize);
 
             return result.ToList();
         }

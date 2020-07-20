@@ -113,10 +113,10 @@ namespace Dto.Repository.IntellUser
             //查询条件
             var predicate = SearchUserWhere(userSearchViewModel);
            
-            var result= DbSet.Where(predicate)
+            var result= DbSet.Where(predicate).OrderBy(o => o.AddDate)
                 .Skip(SkipNum)
                 .Take(userSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.AddDate).ToList();
+                .ToList();
             
 
             return result;

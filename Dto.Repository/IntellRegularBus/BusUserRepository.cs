@@ -122,10 +122,9 @@ namespace Dto.Repository.IntellRegularBus
             var predicate =   SearchBusUserWhere(busUserSearchViewModel);
          
 
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.Id)
                 .Skip(SkipNum)
-                .Take(busUserSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Id);
+                .Take(busUserSearchViewModel.pageViewModel.PageSize);
 
 
             return result;
@@ -144,10 +143,9 @@ namespace Dto.Repository.IntellRegularBus
 
             var predicate = SearchBusUser2Where(busUserSearch2ViewModel);
 
-            var result = DbSet.Where(predicate).Include(b=>b.Bus_Payment_Order)
+            var result = DbSet.Where(predicate).Include(b=>b.Bus_Payment_Order).OrderBy(o => o.Id)
                 .Skip(SkipNum)
-                .Take(busUserSearch2ViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Id);
+                .Take(busUserSearch2ViewModel.pageViewModel.PageSize);
 
 
             return result;
@@ -166,10 +164,9 @@ namespace Dto.Repository.IntellRegularBus
             var predicate = SearchBusUserWhere4(busUserSearchViewModel);
 
 
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.Id)
                 .Skip(SkipNum)
-                .Take(busUserSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Id);
+                .Take(busUserSearchViewModel.pageViewModel.PageSize);
 
 
             return result;

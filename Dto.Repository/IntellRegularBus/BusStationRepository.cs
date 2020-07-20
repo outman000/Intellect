@@ -87,10 +87,10 @@ namespace Dto.Repository.IntellRegularBus
 
             //查询条件
             var predicate = SearchStationWhere(stationSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.AddDate)
                 .Skip(SkipNum)
                 .Take(stationSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.AddDate).ToList();
+                .ToList();
 
 
             return result;
@@ -145,10 +145,9 @@ namespace Dto.Repository.IntellRegularBus
         {
             int SkipNum = lineByStationViewModel.pageViewModel.CurrentPageNum * lineByStationViewModel.pageViewModel.PageSize;
             int StationId = lineByStationViewModel.id;
-            var queryResult = DbSet.Where(k => k.Id == StationId).Include(p => p.Bus_Line)
+            var queryResult = DbSet.Where(k => k.Id == StationId).Include(p => p.Bus_Line).OrderBy(o => o.AddDate)
                         .Skip(SkipNum)
-                        .Take(lineByStationViewModel.pageViewModel.PageSize)
-                        .OrderBy(o => o.AddDate)
+                        .Take(lineByStationViewModel.pageViewModel.PageSize)           
                         .ToList();
 
             return queryResult.ToList();

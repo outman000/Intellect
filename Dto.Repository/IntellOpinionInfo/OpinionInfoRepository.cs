@@ -104,9 +104,9 @@ namespace Dto.Repository.IntellOpinionInfo
             IQueryable<Opinion_Info> OpinionInfo = Db.opinion_Infos.Where(preciateByopinionInfo);
 
             IQueryable<Opinion_Info> SearchResultTemp = OpinionInfo.Include(a => a.User_Info)
-                        .Include(a => a.Flow_NodeDefine)
+                        .Include(a => a.Flow_NodeDefine).OrderBy(o => o.AddDate)
                         .Skip(SkipNum)
-                        .Take(opinionInfoSearchViewModel.pageViewModel.PageSize).OrderBy(o => o.AddDate);
+                        .Take(opinionInfoSearchViewModel.pageViewModel.PageSize);
             return SearchResultTemp;
         }
 

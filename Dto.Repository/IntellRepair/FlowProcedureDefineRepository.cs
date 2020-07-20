@@ -94,10 +94,10 @@ namespace Dto.Repository.IntellRepair
             int skipNum = flowProcedureDefineSearchViewModel.pageViewModel.CurrentPageNum * flowProcedureDefineSearchViewModel.pageViewModel.PageSize;
             //查询条件
             var predicate = SearchProcedureDefineWhere(flowProcedureDefineSearchViewModel);
-            return DbSet.Where(predicate)
+            return DbSet.Where(predicate).OrderBy(o => o.Createtime)
                   .Skip(skipNum)
                   .Take(flowProcedureDefineSearchViewModel.pageViewModel.PageSize)
-                  .OrderBy(o => o.Createtime).ToList();
+                  .ToList();
         }
 
         //根据条件查询流程

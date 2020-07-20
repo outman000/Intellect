@@ -92,10 +92,10 @@ namespace Dto.Repository.IntellUser
 
             //查询条件
             var predicate = SearchRightsWhere(rightsSearchViewModel);
-            var result = DbSet.Where(predicate)
+            var result = DbSet.Where(predicate).OrderBy(o => o.Sort)
                 .Skip(SkipNum)
                 .Take(rightsSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Sort).ToList();
+                .ToList();
             
             return result;
         }

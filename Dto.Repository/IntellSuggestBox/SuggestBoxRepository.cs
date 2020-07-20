@@ -101,10 +101,10 @@ namespace Dto.Repository.IntellSuggestBox
             //查询条件
             var predicate = SearchSggestBoxWhere(suggestBoxSearchViewModel);
             var result = DbSet.Where(predicate).Include(a=>a.User_Info)
-                        .ThenInclude(c => c.User_Depart)
+                        .ThenInclude(c => c.User_Depart).OrderBy(o => o.SuggestDate)
                 .Skip(SkipNum)
                 .Take(suggestBoxSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.SuggestDate).ToList();
+                .ToList();
 
             return result;
         }

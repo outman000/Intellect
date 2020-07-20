@@ -98,10 +98,9 @@ namespace Dto.Repository.IntellRepair
             //查询条件
             var predicate = SearchProcedureWhere(flowProcedureSearchViewModel);
             var result = DbSet.Where(predicate)
-                .Include(a=>a.Repair_Info)
+                .Include(a=>a.Repair_Info).OrderBy(o => o.Starttime)
                 .Skip(SkipNum)
                 .Take(flowProcedureSearchViewModel.pageViewModel.PageSize)
-                .OrderBy(o => o.Starttime)
                 .ToList();
 
             return result;

@@ -85,10 +85,9 @@ namespace Dto.Repository.IntellBulletinBoard
 
             int SkipNum = roleByBulletinSearchViewModel.pageViewModel.CurrentPageNum * roleByBulletinSearchViewModel.pageViewModel.PageSize;
             int bulletinId = roleByBulletinSearchViewModel.Bulletin_BoardId;
-            var queryResult = DbSet.Where(k => k.Bulletin_BoardId == bulletinId && k.User_Role.Status=="0").Include(p => p.User_Role)
+            var queryResult = DbSet.Where(k => k.Bulletin_BoardId == bulletinId && k.User_Role.Status=="0").Include(p => p.User_Role).OrderBy(o => o.Id)
                  .Skip(SkipNum)
-                .Take(roleByBulletinSearchViewModel.pageViewModel.PageSize)
-                 .OrderBy(o => o.Id)
+                .Take(roleByBulletinSearchViewModel.pageViewModel.PageSize)  
                 .ToList();
             return queryResult;
         }

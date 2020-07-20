@@ -103,10 +103,9 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = roleByRightsSearchViewModel.pageViewModel.CurrentPageNum * roleByRightsSearchViewModel.pageViewModel.PageSize;
             int rightid = roleByRightsSearchViewModel.RightId;
-            var queryResult = DbSet.Where(k => k.User_RightsId == rightid && k.User_Role.Status == "0").Include(p => p.User_Role)
+            var queryResult = DbSet.Where(k => k.User_RightsId == rightid && k.User_Role.Status == "0").Include(p => p.User_Role).OrderBy(o => o.Id)
                             .Skip(SkipNum)
                             .Take(roleByRightsSearchViewModel.pageViewModel.PageSize)
-                              .OrderBy(o => o.Id)
                             .ToList();
             return queryResult;
 
@@ -121,10 +120,9 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = rightsByRoleSearchViewModel.pageViewModel.CurrentPageNum * rightsByRoleSearchViewModel.pageViewModel.PageSize;
             int roleid = rightsByRoleSearchViewModel.RoleId;
-            var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Rights)
+            var queryResult = DbSet.Where(k => k.User_RoleId == roleid).Include(p => p.User_Rights).OrderBy(o => o.Id)
                             .Skip(SkipNum)
-                            .Take(rightsByRoleSearchViewModel.pageViewModel.PageSize)
-                              .OrderBy(o => o.Id)
+                            .Take(rightsByRoleSearchViewModel.pageViewModel.PageSize)                       
                             .ToList();
             return queryResult;
 
