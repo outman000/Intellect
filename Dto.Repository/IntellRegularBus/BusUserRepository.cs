@@ -319,7 +319,9 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere2(BusUserSearchViewModel busUserSearchViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
+
+            if (busUserSearchViewModel.User_DepartId != "")
+                predicate = predicate.And(a => a.User_DepartId.ToString() == (busUserSearchViewModel.User_DepartId));
             if (busUserSearchViewModel.carDate != null)
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
@@ -330,7 +332,8 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere3(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchByDeaprtIdViewModel.User_DepartId));
+            if (busUserSearchByDeaprtIdViewModel.User_DepartId != "")
+                predicate = predicate.And(a => a.User_DepartId.ToString() == (busUserSearchByDeaprtIdViewModel.User_DepartId));
             if (busUserSearchByDeaprtIdViewModel.carDate != null)
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchByDeaprtIdViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearchByDeaprtIdViewModel.carDate.Value.Month);
@@ -347,12 +350,22 @@ namespace Dto.Repository.IntellRegularBus
             if (busUserSearchViewModel.Bus_Payment_OrderId != null)
                 predicate = predicate.And(a => a.Bus_Payment_OrderId == busUserSearchViewModel.Bus_Payment_OrderId);
             predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
-            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
-            predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId));
-            predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.Bus_StationId));
-            predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId));
-            predicate = predicate.And(a => a.status.Contains(busUserSearchViewModel.status));
-            predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
+            if (busUserSearchViewModel.User_DepartId != "")
+                predicate = predicate.And(a => a.User_DepartId.ToString() == (busUserSearchViewModel.User_DepartId));
+
+            if (busUserSearchViewModel.Bus_LineId != "")
+                predicate = predicate.And(a => a.Bus_LineId.ToString() == (busUserSearchViewModel.Bus_LineId));
+
+            if (busUserSearchViewModel.Bus_StationId != "")
+                predicate = predicate.And(a => a.Bus_StationId.ToString() == (busUserSearchViewModel.Bus_StationId));
+
+            if (busUserSearchViewModel.User_InfoId != "")
+                predicate = predicate.And(a => a.User_InfoId.ToString() == (busUserSearchViewModel.User_InfoId));
+
+            predicate = predicate.And(a => a.status == (busUserSearchViewModel.status));
+
+            if (busUserSearchViewModel.Expense != "")
+                predicate = predicate.And(a => a.Expense == (busUserSearchViewModel.Expense));
             if (busUserSearchViewModel.carDate != null)
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
@@ -371,12 +384,23 @@ namespace Dto.Repository.IntellRegularBus
                 predicate = predicate.And(a => a.Bus_Payment_OrderId == busUserSearchViewModel.Bus_Payment_OrderId);
             predicate = predicate.And(a => a.Bus_Payment_OrderId == null);
             predicate = predicate.And(a => a.UserName.Contains(busUserSearchViewModel.UserName));
-            predicate = predicate.And(a => a.User_DepartId.ToString().Contains(busUserSearchViewModel.User_DepartId));
-            predicate = predicate.And(a => a.Bus_LineId.ToString().Contains(busUserSearchViewModel.Bus_LineId) );
-            predicate = predicate.And(a => a.Bus_StationId.ToString().Contains(busUserSearchViewModel.Bus_StationId) );
-            predicate = predicate.And(a => a.User_InfoId.ToString().Contains(busUserSearchViewModel.User_InfoId) );
-            predicate = predicate.And(a => a.status.Contains(busUserSearchViewModel.status));
-            predicate = predicate.And(a => a.Expense.Contains(busUserSearchViewModel.Expense));
+
+            if (busUserSearchViewModel.User_DepartId !="")
+                predicate = predicate.And(a => a.User_DepartId.ToString()== busUserSearchViewModel.User_DepartId);
+
+            if (busUserSearchViewModel.Bus_LineId != "")
+                predicate = predicate.And(a => a.Bus_LineId.ToString() == (busUserSearchViewModel.Bus_LineId) );
+
+            if (busUserSearchViewModel.Bus_StationId != "")
+                predicate = predicate.And(a => a.Bus_StationId.ToString() == (busUserSearchViewModel.Bus_StationId) );
+
+            if (busUserSearchViewModel.User_InfoId != "")
+                predicate = predicate.And(a => a.User_InfoId.ToString() == (busUserSearchViewModel.User_InfoId) );
+
+            predicate = predicate.And(a => a.status == (busUserSearchViewModel.status));
+
+            if (busUserSearchViewModel.Expense != "")
+                predicate = predicate.And(a => a.Expense == (busUserSearchViewModel.Expense));
             if(busUserSearchViewModel.carDate!=null)
             predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
                                      && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
@@ -396,8 +420,10 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.Name.Contains(busUserSearch2ViewModel.User_DepartName));
             predicate = predicate.And(a => a.LineName.Contains(busUserSearch2ViewModel.Bus_LineName));
             predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
-            predicate = predicate.And(a => a.status.Contains(busUserSearch2ViewModel.status));
-            predicate = predicate.And(a => a.Expense.Contains(busUserSearch2ViewModel.Expense));
+            predicate = predicate.And(a => a.status == (busUserSearch2ViewModel.status));
+
+            if (busUserSearch2ViewModel.Expense != "")
+                predicate = predicate.And(a => a.Expense == (busUserSearch2ViewModel.Expense));
             if (busUserSearch2ViewModel.carDate != null)
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearch2ViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearch2ViewModel.carDate.Value.Month);
@@ -423,7 +449,8 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUserByIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-           
+            predicate = predicate.And(a => a.status == "0");
+
             predicate = predicate.And(a => a.Bus_LineId==busSearchByIdViewModel.Bus_LineId);
             predicate = predicate.And(a => a.carDate.Value.Year == busSearchByIdViewModel.carDate.Year
                                      && a.carDate.Value.Month == busSearchByIdViewModel.carDate.Month);
@@ -435,7 +462,7 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusValideWhere(BusUserValideViewModel  busUserValideViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-
+            predicate = predicate.And(a => a.status == "0");
             predicate = predicate.And(a => a.User_DepartId == busUserValideViewModel.User_DepartId);
             predicate = predicate.And(a => a.carDate.Value.Year == busUserValideViewModel.carDate.Value.Year
                                  && a.carDate.Value.Month == busUserValideViewModel.carDate.Value.Month);

@@ -29,6 +29,7 @@ using ViewModel.BusViewModel.RequestViewModel;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using NPOI.SS.Util;
 
 namespace Dto.Service.IntellRegularBus
 {
@@ -834,11 +835,13 @@ namespace Dto.Service.IntellRegularBus
             //OrderUrlMiddle orderUrlMiddle = new OrderUrlMiddle();//回调url中拼接参数对象
             //orderUrlMiddle.OrderId = Bank_PaymentRequestMiddle.OrderId;
             //orderUrlMiddle.orderAmount = result.orderAmount;
+            DecimalFormat df = new DecimalFormat("0.00");
+            String CNY = df.Format(result.orderAmount); //6.20 
 
             result.orderNote = bus_Payment_Order.departName + "班车缴费金额为:" + bus_Payment_Order.orderAmount;
             result.body = "东疆智慧服务平台-费用-班车缴费";
             result.orderUrl = "http://zhfwpt.dongjiang.gov.cn/MobileServer/PaymentSuccess.html?OrderIde=" + Bank_PaymentRequestMiddle.OrderId+ "&orderAmount="+ result.orderAmount;
-            string orderInfor = result.orderNo + "|" + result.orderTime + "|" + result.curCode + "|" + result.orderAmount + "|" + result.merchantNo;
+            string orderInfor = result.orderNo + "|" + result.orderTime + "|" + result.curCode + "|" + CNY + "|" + result.merchantNo;
             try
             {
                 //  var b=  HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
@@ -880,11 +883,13 @@ namespace Dto.Service.IntellRegularBus
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
+           
+
             request.AddParameter("merchantNo", result.merchantNo);
             request.AddParameter("payType", result.payType);
             request.AddParameter("orderNo", result.orderNo);
             request.AddParameter("curCode", result.curCode);
-            request.AddParameter("orderAmount", result.orderAmount);
+            request.AddParameter("orderAmount", CNY);
             request.AddParameter("orderTime", result.orderTime);
             request.AddParameter("orderNote", result.orderNote);
             request.AddParameter("orderUrl", result.orderUrl);

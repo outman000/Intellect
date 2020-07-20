@@ -38,7 +38,10 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// 车辆所属公司
         /// </summary>
         public string OwnedCompany { get; set; }
-
+        /// <summary>
+        /// 车辆设备号
+        /// </summary>
+        public string deviceNumber { get; set; }
         /// <summary>
         /// 线路Id   ---外键
         /// </summary>
