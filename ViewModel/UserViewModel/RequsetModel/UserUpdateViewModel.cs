@@ -19,7 +19,12 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 用户姓名
         /// </summary>
         public string UserName { get; set; }
-      
+
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        public string Idcard { get; set; }
+
         /// <summary>
         /// 用户密码
         /// </summary>

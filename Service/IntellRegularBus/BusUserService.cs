@@ -265,7 +265,7 @@ namespace Dto.Service.IntellRegularBus
         public int Bus_PayMent_Template(BusUserSearchViewModel busUserSearchViewModel)
         {
             List<Bus_Payment> bus_Payments = _IBusUserRepository.SearchInfoByBusWhere4(busUserSearchViewModel).ToList();
-
+            List<Bus_Payment> bus_Payments2 = new List<Bus_Payment>();
             for (int i = 0; i < bus_Payments.Count; i++)
             {
                 SearchByIdCardAndCarDateViewModel searchByIdCardAndCarDateViewModel = new SearchByIdCardAndCarDateViewModel();
@@ -275,14 +275,19 @@ namespace Dto.Service.IntellRegularBus
                var result=  _IBusUserRepository.SearchInfoByDateAndIdWhere(searchByIdCardAndCarDateViewModel);
                 if(result.Count>0)
                 {
-                    bus_Payments.Remove(bus_Payments[i]);
-
+                   // bus_Payments.Remove(bus_Payments[i]);
+                 
+                }
+                else
+                {
+                    bus_Payments2.Add(bus_Payments[i]);
                 }
 
             }
+              bus_Payments = bus_Payments2;
 
               //  List<int>   bus_lineId=_IBusUserRepository.SearchInfoByBusDistinctWhere(busUserSearchViewModel);
-            //先以之前的月份为模板进行添加
+              //先以之前的月份为模板进行添加
             List <BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
 
            // BusSearchByIdViewModel busSearchByIdViewModel = new BusSearchByIdViewModel();
