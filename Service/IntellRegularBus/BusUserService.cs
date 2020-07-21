@@ -1228,7 +1228,8 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public string CheckCode(CheckCodeSearchViewModel  checkCodeSearchViewModel)
         {
-           
+          
+
             try
             {
                 Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
@@ -1247,9 +1248,10 @@ namespace Dto.Service.IntellRegularBus
                 }
                 else
                 {
+                   
                     if (DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].UpdateCodeDate) <= 0)
                     {
-                     
+                       
                         //判断当前时间是否在工作时间段内
                         string _staWorkingDayAM = _IOptions2._staWorkingDayAM;//工作时间上午06:00
                         string _endWorkingDayAM = _IOptions2._endWorkingDayAM; //工作时间上午09:00
@@ -1265,33 +1267,17 @@ namespace Dto.Service.IntellRegularBus
                         TimeSpan dspNow = DateTime.Now.TimeOfDay;
                         if (bus_Payment[0].ScanCodeDate != null)
                         {
-                          
+                            string ScanCodeDateResult = bus_Payment[0].ScanCodeDate.Value.ToString("yyyy/MM/dd");
+                            string DateTimeResult = DateTime.Now.ToString("yyyy/MM/dd");
                             TimeSpan ScanCodeDate = bus_Payment[0].ScanCodeDate.Value.TimeOfDay;
-
                             if (dspNow > dspWorkingDayAM && dspNow < dspWorkingDayAM2)//上午6-9点
                             {
-                                //if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2  && DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].ScanCodeDate.Value) <= 0)
-                                //{
-                                //    var data = DateTime.Now;
-                                //    bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
-                                //    bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
-                                //    bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
-                                //    bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
-                                //    bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
-                                //    bus_Scan_RecordAddViewModel.status = "3";
-                                //    bus_Scan_RecordAddViewModel.AddDate = data;
-                                //    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
-                                //    _IBusScanRecordRepository.Add(bus_Scan_Record);
-                                //    _IBusScanRecordRepository.SaveChanges();
-                                //    return "3";
-                                //}
-                                //else
-                                //{
+                             
                                     Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
                                     if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
                                     {
                                        var data = DateTime.Now;
-                                       if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2 && DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].ScanCodeDate.Value) <= 0)
+                                       if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2 && DateTimeResult == ScanCodeDateResult)
                                        {
                                            
                                             bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
@@ -1307,8 +1293,8 @@ namespace Dto.Service.IntellRegularBus
                                             return "3";
                                        }
 
-                                      
-                                       bus_Payment[0].ScanCodeDate = data;
+                                
+                                        bus_Payment[0].ScanCodeDate = data;
                                         _IBusUserRepository.Update(bus_Payment[0]);
                                         _IBusUserRepository.SaveChanges();
                                         //增加扫码记录
@@ -1343,8 +1329,6 @@ namespace Dto.Service.IntellRegularBus
 
                                     }
                                        
-                               // }
-
                             }
                             if (dspNow > dspWorkingDayPM && dspNow < dspWorkingDayPM2)//下午5-7点
                             {
@@ -1392,27 +1376,12 @@ namespace Dto.Service.IntellRegularBus
                                        
 
                                 }
-                                //if (ScanCodeDate > dspWorkingDayPM && ScanCodeDate < dspWorkingDayPM2 && DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].ScanCodeDate.Value) <= 0)//数据库最新扫码时间为下午5-7点
-                                //{
-                                //    var data = DateTime.Now;
-                                //    bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;
-                                //    bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
-                                //    bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
-                                //    bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
-                                //    bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
-                                //    bus_Scan_RecordAddViewModel.status = "3";
-                                //    bus_Scan_RecordAddViewModel.AddDate = data;
-                                //    var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
-                                //    _IBusScanRecordRepository.Add(bus_Scan_Record);
-                                //    _IBusScanRecordRepository.SaveChanges();
-                                //    return "3";
-                                //}
-                              
+                            
                                     Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
                                     if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
                                     {
                                         var data = DateTime.Now;
-                                        if (ScanCodeDate > dspWorkingDayPM && ScanCodeDate < dspWorkingDayPM2 && DateTime.Now.AddHours(-24).CompareTo(bus_Payment[0].ScanCodeDate.Value) <= 0)//数据库最新扫码时间为下午5-7点
+                                        if (ScanCodeDate > dspWorkingDayPM && ScanCodeDate < dspWorkingDayPM2 && DateTimeResult == ScanCodeDateResult)//数据库最新扫码时间为下午5-7点
                                         {
                                        
                                             bus_Scan_RecordAddViewModel.DeptName = bus_Payment[0].Name;

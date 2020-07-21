@@ -91,7 +91,9 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(p => p.UserName.Contains(busScanRecordSearchViewModel.UserName));
             predicate = predicate.And(p => p.LineName.Contains(busScanRecordSearchViewModel.LineName));
             predicate = predicate.And(p => p.DeptName.Contains(busScanRecordSearchViewModel.DeptName));
-            predicate = predicate.And(p => p.status == busScanRecordSearchViewModel.status);
+
+            if (busScanRecordSearchViewModel.status !="")
+          predicate = predicate.And(p => p.status == busScanRecordSearchViewModel.status);
 
             if (busScanRecordSearchViewModel.startdate != null && busScanRecordSearchViewModel.enddate != null)
             {
