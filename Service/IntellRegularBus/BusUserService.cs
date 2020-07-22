@@ -1274,7 +1274,7 @@ namespace Dto.Service.IntellRegularBus
                             {
                              
                                     Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
-                                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber.ToLower())
                                     {
                                        var data = DateTime.Now;
                                        if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2 && DateTimeResult == ScanCodeDateResult)
@@ -1319,7 +1319,7 @@ namespace Dto.Service.IntellRegularBus
                                         bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
                                         bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
                                         bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
-                                        bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
                                         bus_Scan_RecordAddViewModel.status = "2";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
@@ -1336,7 +1336,7 @@ namespace Dto.Service.IntellRegularBus
                                 if (ScanCodeDate > dspWorkingDayAM && ScanCodeDate < dspWorkingDayAM2)//数据库最新扫码时间为上午6-9
                                 {
                                     Bus_Info bus_Info2 = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
-                                    if (bus_Info2.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                    if (bus_Info2.deviceNumber == checkCodeSearchViewModel.deviceNumber.ToLower())
                                     {
                                         var data = DateTime.Now;
                                         bus_Payment[0].ScanCodeDate = data;
@@ -1378,7 +1378,7 @@ namespace Dto.Service.IntellRegularBus
                                 }
                             
                                     Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
-                                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                    if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber.ToLower())
                                     {
                                         var data = DateTime.Now;
                                         if (ScanCodeDate > dspWorkingDayPM && ScanCodeDate < dspWorkingDayPM2 && DateTimeResult == ScanCodeDateResult)//数据库最新扫码时间为下午5-7点
@@ -1423,7 +1423,7 @@ namespace Dto.Service.IntellRegularBus
                                         bus_Scan_RecordAddViewModel.UserName = bus_Payment[0].UserName;
                                         bus_Scan_RecordAddViewModel.LineId = bus_Payment[0].Bus_LineId.Value;
                                         bus_Scan_RecordAddViewModel.LineName = bus_Payment[0].LineName;
-                                        bus_Scan_RecordAddViewModel.deviceNumber = bus_Info.deviceNumber;
+                                        bus_Scan_RecordAddViewModel.deviceNumber = checkCodeSearchViewModel.deviceNumber;
                                         bus_Scan_RecordAddViewModel.status = "2";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
@@ -1454,7 +1454,7 @@ namespace Dto.Service.IntellRegularBus
                             {
 
                                 Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(bus_Payment[0].Bus_LineId.Value);//根据线路Id查班车
-                                if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber)
+                                if (bus_Info.deviceNumber == checkCodeSearchViewModel.deviceNumber.ToLower())
                                 {
                                     var data = DateTime.Now;
                                     bus_Payment[0].ScanCodeDate = data;
