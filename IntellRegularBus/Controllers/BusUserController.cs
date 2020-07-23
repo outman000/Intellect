@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authorization;
 using ViewModel.BusViewModel.RequestViewModel;
 using ViewModel.BusViewModel.MiddleModel;
 using Microsoft.Extensions.Options;
+using ViewModel.BusViewModel.ResponseModel;
+using System.IO;
 
 namespace IntellRegularBus.Controllers
 {
@@ -855,6 +857,69 @@ namespace IntellRegularBus.Controllers
                 _ILogger.Information("中行缴费查询信息成功");
             }               
             return Ok(busScanRecordSearchResModel);
+        }
+
+
+
+        /// <summary>
+        /// 导出（月票信息）
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public string ExportToExcel(BusPaymentSearchViewModel  busPaymentSearchViewModel)
+        {
+            byte[] filecontent;
+            var busUserSearchResult = _IBusUserService.BusUserTongJiExcept_Search(busPaymentSearchViewModel);
+
+            string[] columns = { "UserName", "LineName", "StationName", "orderNo", "carDateStr", "Name", "Expense" };        
+            filecontent = _IBusUserService.ExportExcel1<BusUserTongJiExceptSearchMiddle>(busUserSearchResult, "", 1, false, columns);
+            string path = "";
+            try
+            {  //获取上传案例图片路径     
+
+                string sj = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                path = "C://SystemFormal/BusFormal/ExportExcelFiles/";   //服务器路径C:\SystemFormal\BusFormal
+                //path = "D://客户临时文件/ExportExcelFiles/";   //服务器路径C:\SystemFormal\BusFormal
+                
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                //定义实际文件对象，保存上载的文件。    
+                //文件流的写入
+                path = path + sj + "_导出月票列表.xlsx";
+                System.IO.File.WriteAllBytes(@"" + path + "", filecontent);
+                string filename = sj + "_导出月票列表.xlsx";
+                return filename;
+             
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+
+        }
+
+
+        /// <summary>
+        /// 文件下载（导出注册项目库）
+        /// </summary>
+        /// <param name="Physicsname"></param>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult downloadGetNew(string Physicsname, string filename)
+        {
+            try
+            {
+                String filePath = Directory.GetCurrentDirectory() + "\\ExportExcelFiles\\" + Physicsname;
+                FileStream fs = new FileStream(filePath, FileMode.Open);
+                return File(fs, "application/vnd.android.package-archive", filename);
+            }
+            catch (Exception ex)
+            {
+                return NotFound("文件下载错误");
+            }
         }
 
     }

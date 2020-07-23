@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
+using ViewModel.BusViewModel.ResponseModel;
 
 namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
 {
@@ -32,6 +33,9 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<Bus_Payment_Order, Bank_PaymentViewModel>();
             CreateMap<BusLocationInformationAddViewModel, Bus_Location_Information>();
             CreateMap<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>();
+
+            CreateMap<Bus_Payment, BusUserTongJiExceptSearchMiddle>()
+              .ForMember(s => s.orderNo, sp => sp.MapFrom(src => src.Bus_Payment_Order.orderNo));
         }
     }
 }

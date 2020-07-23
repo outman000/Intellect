@@ -98,6 +98,11 @@ namespace Dto.Repository.IntellUser
             return user_Info;
         }
 
+        public List<User_Info> CheckIdcard(string Idcard)
+        {
+            List<User_Info> user_Info = DbSet.Where(uid => uid.Idcard == Idcard).ToList();
+            return user_Info;
+        }
         public User_Info GetPwd(string userid)
         {
             User_Info user_Info = DbSet.Single(uid => uid.UserId.Equals(userid));

@@ -30,6 +30,8 @@ using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using NPOI.SS.Util;
+using ViewModel.BusViewModel.ResponseModel;
+using Dtol.Attribute;
 
 namespace Dto.Service.IntellRegularBus
 {
@@ -49,9 +51,7 @@ namespace Dto.Service.IntellRegularBus
         private readonly IBusPaymentOrderRepository _IBusPaymentOrderRepository;
         private readonly IOpinionInfoRepository _IOpinionInfoRepository;
         private readonly IBusScanRecordRepository _IBusScanRecordRepository;
-        //  private readonly IHttpClientFactory _httpClientFactory;
-        //private IOptions<Bus_Payment_Order_Add> _IOptions;
-        //private IOptions<Bus_Payment_Date> _IOptions2;
+        NPOIClass EP_Plus = new NPOIClass();
         private Bus_Payment_Date _IOptions2 { get; set; }
         private Bus_Payment_Order_Add _IOptions { get; set; }
         public BusUserService(IBusUserRepository busUserRepository ,
@@ -1598,6 +1598,44 @@ namespace Dto.Service.IntellRegularBus
         {
             List<Bus_Scan_Record> Bus_Scan_Record = _IBusScanRecordRepository.SearchInfoByBusScanRecordWhereNum(busScanRecordSearchViewModel);
             return Bus_Scan_Record.Count;
+        }
+
+
+        /// <summary>
+        ///  查询出人员缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public List<BusUserTongJiExceptSearchMiddle> BusUserTongJiExcept_Search(BusPaymentSearchViewModel busPaymentSearchViewModel)
+        {
+ 
+            List<Bus_Payment> bus_Payments = _IBusUserRepository.BusUserTongJiExcept_Search(busPaymentSearchViewModel).ToList();
+        
+            var bus_User_Search = _IMapper.Map<List<Bus_Payment>, List<BusUserTongJiExceptSearchMiddle>>(bus_Payments);
+            foreach (var item in bus_User_Search)
+            {
+                item.carDateStr=item.carDate.ToString("yyyy-MM");
+
+            }
+            return bus_User_Search;
+        }
+
+      
+
+
+        /// <summary>
+        /// 导出数据到Excel表格
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="heading"></param>
+        /// <param name="isShowSlNo"></param>
+        /// <param name="columnsToTake"></param>
+        /// <returns></returns>
+        public byte[] ExportExcel1<T>(List<T> data, string heading = "", int temp = 1, bool isShowSlNo = false, params string[] columnsToTake)
+        {
+
+            return EP_Plus.ExportExcel(EP_Plus.ListToDataTable<T>(data), heading, temp, isShowSlNo, columnsToTake);
         }
 
     }

@@ -137,6 +137,7 @@ namespace Dtol.dtol
         /// </summary>
         public DateTime? updateDate { get; set; }
 
+   
 
     }
 }

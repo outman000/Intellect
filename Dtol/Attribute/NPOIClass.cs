@@ -218,13 +218,15 @@ namespace Dtol.Attribute
                 }
                 else if (temp == 1)
                 {
-                    workSheet.Cells["A1"].Value = "项目名称";
-                    workSheet.Cells["B1"].Value = "项目内容";
-                    workSheet.Cells["C1"].Value = "拟投资额";
-                    workSheet.Cells["D1"].Value = "推进情况及存在问题";
-                    workSheet.Cells["E1"].Value = "成熟度";
-                    workSheet.Cells["H1"].Value = "项目负责人";
-
+                    workSheet.Cells["A1"].Value = "序号";
+                    workSheet.Cells["B1"].Value = "用户";
+                    workSheet.Cells["C1"].Value = "线路";
+                    workSheet.Cells["D1"].Value = "站点";
+                    workSheet.Cells["E1"].Value = "订单号";
+                    workSheet.Cells["F1"].Value = "乘车日期";
+                    workSheet.Cells["G1"].Value = "部门";
+                    workSheet.Cells["H1"].Value = "金额(元)";
+                   
                 }
                 else
                 {

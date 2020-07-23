@@ -152,6 +152,18 @@ namespace Dto.Service.IntellUser
         {
             return _IUserInfoRepository.GetUserAll(userSearchViewModel).Count();
         }
+
+
+        public bool CheckIdcard(string Idcard)
+        {
+            if (_IUserInfoRepository.CheckIdcard(Idcard).Count > 0)
+                return false;
+
+            else return true;
+
+        }
+
+       
         /// <summary>
         /// 根据角色查用户数量
         /// </summary>

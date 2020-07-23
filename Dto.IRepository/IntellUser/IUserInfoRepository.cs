@@ -39,5 +39,8 @@ namespace Dto.IRepository.IntellUser
         /// <param name="userByDepartSearchViewModel"></param>
         /// <returns></returns>
         List<User_Info> SearchUserInfoByDepartWhere(UserByDepartSearchViewModel  userByDepartSearchViewModel);
+
+
+        List<User_Info> CheckIdcard(string Idcard);
     }
 }

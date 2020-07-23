@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 
@@ -131,7 +132,27 @@ namespace Dto.Repository.IntellRegularBus
 
 
         }
+        /// <summary>
+        /// 查询人员缴费信息（重载,最普通的查询）
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> BusUserTongJiExcept_Search(BusPaymentSearchViewModel busPaymentSearchViewModel)
+        {
+            int SkipNum = busPaymentSearchViewModel.pageViewModel.CurrentPageNum * busPaymentSearchViewModel.pageViewModel.PageSize;
 
+            var predicate = BusUserTongJiExcept_SearchWhere(busPaymentSearchViewModel);
+
+
+            var result = DbSet.Where(predicate).Include(a=>a.Bus_Payment_Order).OrderByDescending(o => o.carDate)
+                .Skip(SkipNum)
+                .Take(busPaymentSearchViewModel.pageViewModel.PageSize);
+
+
+            return result;
+
+
+        }
         /// <summary>
         /// 查询人员缴费信息（重载,最普通的查询）
         /// </summary>
@@ -405,7 +426,29 @@ namespace Dto.Repository.IntellRegularBus
             return predicate;
         }
         #endregion
+        #region 条件
+        //根据条件查询班车
+        private Expression<Func<Bus_Payment, bool>> BusUserTongJiExcept_SearchWhere(BusPaymentSearchViewModel busPaymentSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            if (busPaymentSearchViewModel.Bus_LineId != null)          
+                predicate = predicate.And(a => a.Bus_LineId == busPaymentSearchViewModel.Bus_LineId);
 
+            predicate = predicate.And(a => a.Bus_Payment_OrderId!=null);
+            if (busPaymentSearchViewModel.User_DepartId != null)
+                predicate = predicate.And(a => a.User_DepartId == busPaymentSearchViewModel.User_DepartId);
+
+            predicate = predicate.And(a => a.Bus_Payment_Order.orderNo.Contains(busPaymentSearchViewModel.orderNo));
+            predicate = predicate.And(a => a.status == "0");
+            predicate = predicate.And(a => a.UserName.Contains(busPaymentSearchViewModel.UserName));
+
+            if (busPaymentSearchViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busPaymentSearchViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busPaymentSearchViewModel.carDate.Value.Month);
+
+            return predicate;
+        }
+        #endregion
 
         #region 条件
         //根据条件查询班车

@@ -6,6 +6,7 @@ using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
+using ViewModel.BusViewModel.ResponseModel;
 using ViewModel.BusViewModel.ResponseModel.BusUserResModel;
 using ViewModel.RepairsViewModel.RequestViewModel;
 
@@ -194,5 +195,18 @@ namespace Dto.IService.IntellRegularBus
 
         List<BusUserSearchMiddlecs> Bus_User_Search2(BusUserSearch2ViewModel busUserSearch2ViewModel);
         int Bus_User_Get_ALLNum2(BusUserSearch2ViewModel busUserSearch2ViewModell);
+
+        List<BusUserTongJiExceptSearchMiddle> BusUserTongJiExcept_Search(BusPaymentSearchViewModel busPaymentSearchViewModel);
+
+        /// <summary>
+        /// 导出数据到Excel表格
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="heading"></param>
+        /// <param name="isShowSlNo"></param>
+        /// <param name="columnsToTake"></param>
+        /// <returns></returns>
+        byte[] ExportExcel1<T>(List<T> data, string heading = "", int temp = 1, bool isShowSlNo = false, params string[] columnsToTake);
     }
 }

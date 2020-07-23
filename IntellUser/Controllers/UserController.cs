@@ -237,7 +237,38 @@ namespace IntellUser.Controllers
             return Ok(userSearchSingleResModel);
 
         }
-        
+        /// <summary>
+        /// 验证身份证号是否重复
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        [HttpGet]
+
+        public ActionResult<UserSearchResModel> Manage_CheckIdcard(string Idcard)
+        {
+            UserSearchSingleResModel userSearchSingleResModel = new UserSearchSingleResModel();
+            var result = _userService.CheckIdcard(Idcard);
+            if(result==true)
+            {
+                userSearchSingleResModel.isSuccess = true;
+                userSearchSingleResModel.baseViewModel.Message = "验证身份证号成功，没有重复";
+                userSearchSingleResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("验证身份证号成功，没有重复");
+                return Ok(userSearchSingleResModel);
+
+            }
+            else
+            {
+                userSearchSingleResModel.isSuccess = false;
+                userSearchSingleResModel.baseViewModel.Message = "验证身份证号成功，已重复";
+                userSearchSingleResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("验证身份证号成功，已重复");
+                return Ok(userSearchSingleResModel);
+            }      
+
+        }
+       
+
         /// <summary>
         /// 根据部门 添加/删除 用户
         /// </summary>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 
@@ -25,6 +26,9 @@ namespace Dto.IRepository.IntellRegularBus
         List<Bus_Payment> GetInfoByBus(int id);
         // 根据条件查人员缴费
         IQueryable<Bus_Payment> SearchInfoByBusWhere(BusUserSearchViewModel busUserSearchViewModel);
+
+        // 根据条件查人员缴费
+        IQueryable<Bus_Payment> BusUserTongJiExcept_Search(BusPaymentSearchViewModel busPaymentSearchViewModel);
 
         // 根据条件查人员缴费
         IQueryable<Bus_Payment> SearchInfoByBusWhere2(BusUserSearch2ViewModel busUserSearch2ViewModel);

@@ -102,7 +102,10 @@ namespace Dto.IService.IntellUser
 
         //保存
         string saveAttachInfo(IFormCollection fileinfo, string randomName);
-        
+
+        bool CheckIdcard(string Idcard);
+
+
     }
 }
 
