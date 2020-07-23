@@ -458,7 +458,10 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.Bus_Payment_Order.orderNo.Contains(busUserSearch2ViewModel.orderNo));
             predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
             predicate = predicate.And(a => a.Name.Contains(busUserSearch2ViewModel.User_DepartName));
-            predicate = predicate.And(a => a.LineName.Contains(busUserSearch2ViewModel.Bus_LineName));
+            if (busUserSearch2ViewModel.Bus_LineId != null)
+                predicate = predicate.And(a => a.Bus_LineId == busUserSearch2ViewModel.Bus_LineId);
+
+           // predicate = predicate.And(a => a.LineName.Contains(busUserSearch2ViewModel.Bus_LineName));
             predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
             predicate = predicate.And(a => a.status == (busUserSearch2ViewModel.status));
 

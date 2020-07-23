@@ -24,7 +24,7 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         /// <summary>
         /// 线路名
         /// </summary>
-        public string Bus_LineName { get; set; }
+        public int? Bus_LineId { get; set; }
 
         /// <summary>
         /// 部门名
