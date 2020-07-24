@@ -18,10 +18,14 @@ namespace Dto.IRepository.IntellRegularBus
         // 根据条件查人员缴费
         IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderWhere(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel);
 
+         IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderNumWhere(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel);
+
         // 根据条件查人员缴费
         List<Bus_Payment_Order> SearchInfoByUserIdWhere(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
         List<Bus_Payment_Order> SearchInfoWhere();
 
         List<Bus_Payment_Order> SearchInfoByUserIdWhereCZ();
+
+        IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderWhere2(BusOrderSearchViewModel busOrderSearchViewModel);
     }
 }

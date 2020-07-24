@@ -8,7 +8,7 @@ namespace ViewModel.BusViewModel.RequestViewModel
     public class BusPaymentSearchViewModel
     {
         /// <summary>
-        /// 线路名
+        /// 线路id
         /// </summary>
         public int? Bus_LineId { get; set; }
 

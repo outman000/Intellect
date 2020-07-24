@@ -18,6 +18,10 @@ namespace ViewModel.BusViewModel.RequestViewModel.BusUserViewModel
         public string orderNo { get; set; }
 
         /// <summary>
+        /// 部门id
+        /// </summary>
+        public int? User_DepartId { get; set; }
+        /// <summary>
         /// 站点名
         /// </summary>
         public string Bus_StationName { get; set; }

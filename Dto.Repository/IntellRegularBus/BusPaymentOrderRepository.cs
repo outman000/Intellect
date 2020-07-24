@@ -105,8 +105,29 @@ namespace Dto.Repository.IntellRegularBus
 
             return result;
         }
+        public IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderNumWhere(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel)
+        {
+      
+            var predicate = SearchBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel);
+            var result = DbSet.Where(predicate).OrderByDescending(o => o.AddDate);
+            return result;
+        }
+        public IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderWhere2(BusOrderSearchViewModel busOrderSearchViewModel)
+        {
+            int SkipNum = busOrderSearchViewModel.pageViewModel.CurrentPageNum * busOrderSearchViewModel.pageViewModel.PageSize;
+
+            var predicate = SearchBusPaymentOrderWhere2(busOrderSearchViewModel);
+
+
+            var result = DbSet.Where(predicate).OrderByDescending(o => o.AddDate)
+                .Skip(SkipNum)
+                .Take(busOrderSearchViewModel.pageViewModel.PageSize);
+
+
+            return result;
+        }
         #region 条件
-        //根据条件查询班车
+        //根据条件查询订单
         private Expression<Func<Bus_Payment_Order, bool>> SearchBusPaymentOrderWhere(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment_Order>();//初始化where表达式
@@ -116,7 +137,27 @@ namespace Dto.Repository.IntellRegularBus
             predicate = predicate.And(a => a.isDelete.Contains(bus_Payment_OrderSearchViewModel.isDelete));
             predicate = predicate.And(a => a.paymentStatus.Contains(bus_Payment_OrderSearchViewModel.paymentStatus));
             predicate = predicate.And(a => a.confirmStatus.Contains(bus_Payment_OrderSearchViewModel.confirmStatus));
-            predicate = predicate.And(a => a.paymentStatus.Contains(bus_Payment_OrderSearchViewModel.paymentStatus));
+            predicate = predicate.And(a => a.orderNo.Contains(bus_Payment_OrderSearchViewModel.OrderId));
+            if (bus_Payment_OrderSearchViewModel.AddDate != null)
+                predicate = predicate.And(a => a.AddDate.Value.Year == bus_Payment_OrderSearchViewModel.AddDate.Value.Year
+                                       && a.AddDate.Value.Month == bus_Payment_OrderSearchViewModel.AddDate.Value.Month);
+            return predicate;
+        }
+        #endregion
+
+        #region 条件
+        //根据条件查询订单信息
+        private Expression<Func<Bus_Payment_Order, bool>> SearchBusPaymentOrderWhere2(BusOrderSearchViewModel busOrderSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment_Order>();//初始化where表达式
+        
+            predicate = predicate.And(a => a.orderNo.Contains(busOrderSearchViewModel.OrderId));
+            predicate = predicate.And(a => a.paymentStatus.Contains(busOrderSearchViewModel.paymentStatus));
+            predicate = predicate.And(a => a.isDelete=="0");
+            predicate = predicate.And(a => a.departName.Contains(busOrderSearchViewModel.departName));
+            if (busOrderSearchViewModel.AddDate != null)
+                predicate = predicate.And(a => a.AddDate.Value.Year == busOrderSearchViewModel.AddDate.Value.Year
+                                       && a.AddDate.Value.Month == busOrderSearchViewModel.AddDate.Value.Month);
             return predicate;
         }
         #endregion

@@ -208,5 +208,8 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="columnsToTake"></param>
         /// <returns></returns>
         byte[] ExportExcel1<T>(List<T> data, string heading = "", int temp = 1, bool isShowSlNo = false, params string[] columnsToTake);
+        byte[] ExportExcel2<T>(List<T> data, string heading = "", int temp = 2, bool isShowSlNo = false, params string[] columnsToTake);
+
+        List<BusOrderExcelSearchMiddle> Bus_Payment_Order_SearchExcel(BusOrderSearchViewModel busOrderSearchViewModel);
     }
 }

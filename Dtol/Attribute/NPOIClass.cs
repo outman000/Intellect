@@ -207,14 +207,12 @@ namespace Dtol.Attribute
                 }
                 if (temp == 2)
                 {
-                    workSheet.Cells["A1"].Value = "地区";
-                    workSheet.Cells["B1"].Value = "拜访企业名称";
-                    workSheet.Cells["C1"].Value = "企业简介";
-                    workSheet.Cells["D1"].Value = "已落户/已在谈项目及情况";
-                    workSheet.Cells["E1"].Value = "成熟度";
-                    workSheet.Cells["F1"].Value = "请主任拜访对接洽谈的方向";
-                    workSheet.Cells["G1"].Value = "拟定时间";
-                    workSheet.Cells["H1"].Value = "项目负责人";
+                    workSheet.Cells["A1"].Value = "序号";
+                    workSheet.Cells["B1"].Value = "订单号";
+                    workSheet.Cells["C1"].Value = "部门";
+                    workSheet.Cells["D1"].Value = "订单时间";
+                    workSheet.Cells["E1"].Value = "金额(元)";
+
                 }
                 else if (temp == 1)
                 {

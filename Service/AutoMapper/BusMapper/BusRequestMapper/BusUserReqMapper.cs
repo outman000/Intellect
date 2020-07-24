@@ -36,6 +36,8 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
 
             CreateMap<Bus_Payment, BusUserTongJiExceptSearchMiddle>()
               .ForMember(s => s.orderNo, sp => sp.MapFrom(src => src.Bus_Payment_Order.orderNo));
+
+            CreateMap<Bus_Payment_Order, BusOrderExcelSearchMiddle>();
         }
     }
 }

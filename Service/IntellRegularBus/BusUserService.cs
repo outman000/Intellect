@@ -609,6 +609,27 @@ namespace Dto.Service.IntellRegularBus
             List<Bus_Payment_Order> bus_Payment_Order = _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel).ToList();
             return bus_Payment_Order;
         }
+
+        /// <summary>
+        /// 查询缴费订单(导出)
+        /// </summary>
+        /// <param name="bus_Payment_OrderSearchViewModel"></param>
+        /// <returns></returns>
+        public List<BusOrderExcelSearchMiddle> Bus_Payment_Order_SearchExcel(BusOrderSearchViewModel busOrderSearchViewModel)
+        {
+
+            List<Bus_Payment_Order> bus_Payment_Order = _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere2(busOrderSearchViewModel).ToList();
+            var SearchMiddlecs = _IMapper.Map<List<Bus_Payment_Order>, List<BusOrderExcelSearchMiddle>>(bus_Payment_Order);
+
+            foreach (var item in SearchMiddlecs)
+            {
+                item.AddDateStr = item.AddDate.Value.ToString("yyyy-MM");
+
+            }
+
+            return SearchMiddlecs;
+        }
+
         /// <summary>
         /// 查询缴费订单(根据用户ID)
         /// </summary>
@@ -696,7 +717,7 @@ namespace Dto.Service.IntellRegularBus
         /// <returns></returns>
         public int Bus_Payment_Order_Get_ALLNum(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel)
         {
-            return _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderWhere(bus_Payment_OrderSearchViewModel).ToList().Count;
+            return _IBusPaymentOrderRepository.SearchInfoByBusPaymentOrderNumWhere(bus_Payment_OrderSearchViewModel).ToList().Count;
         }
 
 
@@ -1568,12 +1589,14 @@ namespace Dto.Service.IntellRegularBus
             if (Bank_PaymentRequestMiddle.paymentStatus=="2")
             {
                 bus_Payment_Order.paymentStatus = "2";
+                bus_Payment_Order.PlaceAnOrderDate = DateTime.Now; //支付时间
             }
            else
            {
                 bus_Payment_Order.paymentStatus = "3";
+                bus_Payment_Order.confirmDate = DateTime.Now;//确认时间
            }
-            bus_Payment_Order.updateDate = DateTime.Now;
+           // bus_Payment_Order.updateDate = DateTime.Now;
             _IBusPaymentOrderRepository.Update(bus_Payment_Order);
            return  _IBusPaymentOrderRepository.SaveChanges();
         }
@@ -1637,6 +1660,19 @@ namespace Dto.Service.IntellRegularBus
 
             return EP_Plus.ExportExcel(EP_Plus.ListToDataTable<T>(data), heading, temp, isShowSlNo, columnsToTake);
         }
+        /// <summary>
+        /// 导出数据到Excel表格
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="heading"></param>
+        /// <param name="isShowSlNo"></param>
+        /// <param name="columnsToTake"></param>
+        /// <returns></returns>
+        public byte[] ExportExcel2<T>(List<T> data, string heading = "", int temp = 2, bool isShowSlNo = false, params string[] columnsToTake)
+        {
 
+            return EP_Plus.ExportExcel(EP_Plus.ListToDataTable<T>(data), heading, temp, isShowSlNo, columnsToTake);
+        }
     }
 }

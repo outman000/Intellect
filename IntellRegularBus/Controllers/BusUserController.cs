@@ -19,6 +19,7 @@ using ViewModel.BusViewModel.MiddleModel;
 using Microsoft.Extensions.Options;
 using ViewModel.BusViewModel.ResponseModel;
 using System.IO;
+using Dtol.dtol;
 
 namespace IntellRegularBus.Controllers
 {
@@ -902,7 +903,7 @@ namespace IntellRegularBus.Controllers
 
 
         /// <summary>
-        /// 文件下载（导出注册项目库）
+        /// 文件下载（导出月票信息）
         /// </summary>
         /// <param name="Physicsname"></param>
         /// <param name="filename"></param>
@@ -920,6 +921,56 @@ namespace IntellRegularBus.Controllers
             {
                 return NotFound("文件下载错误");
             }
+        }
+
+
+        /// <summary>
+        /// 导出（订单信息）
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ExportToExcel2(BusOrderSearchViewModel  busOrderSearchViewModel)
+        {
+            byte[] filecontent;
+            var busOrderSearchResult = _IBusUserService.Bus_Payment_Order_SearchExcel(busOrderSearchViewModel);
+
+            string[] columns = { "orderNo", "departName", "AddDateStr", "orderAmount" };
+            filecontent = _IBusUserService.ExportExcel2<BusOrderExcelSearchMiddle>(busOrderSearchResult, "", 2, false, columns);
+            string path = "";
+            try
+            {  //获取上传案例图片路径     
+
+                string sj = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                path = "C://SystemFormal/BusFormal/ExportExcelFiles/";   //服务器路径C:\SystemFormal\BusFormal
+               // path = "D://客户临时文件/ExportExcelFiles/";                                                          
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                //定义实际文件对象，保存上载的文件。    
+                //文件流的写入
+                path = path + sj + "_导出订单列表.xlsx";
+                System.IO.File.WriteAllBytes(@"" + path + "", filecontent);
+                string filename = sj + "_导出订单列表.xlsx";
+
+                try
+                {
+                    String filePath = Directory.GetCurrentDirectory() + "\\ExportExcelFiles\\" + filename;
+                    FileStream fs = new FileStream(filePath, FileMode.Open);
+                    return File(fs, "application/vnd.android.package-archive", filename);
+                }
+                catch (Exception ex)
+                {
+                    return NotFound("文件下载错误");
+                }
+               // return filename;
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound("文件下载错误");
+            }
+
         }
 
     }
