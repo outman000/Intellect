@@ -1596,7 +1596,7 @@ namespace Dto.Service.IntellRegularBus
                 bus_Payment_Order.paymentStatus = "3";
                 bus_Payment_Order.confirmDate = DateTime.Now;//确认时间
            }
-           // bus_Payment_Order.updateDate = DateTime.Now;
+            bus_Payment_Order.updateDate = DateTime.Now;
             _IBusPaymentOrderRepository.Update(bus_Payment_Order);
            return  _IBusPaymentOrderRepository.SaveChanges();
         }
