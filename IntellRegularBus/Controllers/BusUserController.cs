@@ -929,7 +929,7 @@ namespace IntellRegularBus.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ExportToExcel2(BusOrderSearchViewModel  busOrderSearchViewModel)
+        public string ExportToExcel2(BusOrderSearchViewModel  busOrderSearchViewModel)
         {
             byte[] filecontent;
             var busOrderSearchResult = _IBusUserService.Bus_Payment_Order_SearchExcel(busOrderSearchViewModel);
@@ -953,22 +953,13 @@ namespace IntellRegularBus.Controllers
                 System.IO.File.WriteAllBytes(@"" + path + "", filecontent);
                 string filename = sj + "_导出订单列表.xlsx";
 
-                try
-                {
-                    String filePath = Directory.GetCurrentDirectory() + "\\ExportExcelFiles\\" + filename;
-                    FileStream fs = new FileStream(filePath, FileMode.Open);
-                    return File(fs, "application/vnd.android.package-archive", filename);
-                }
-                catch (Exception ex)
-                {
-                    return NotFound("文件下载错误");
-                }
-               // return filename;
+              
+                return filename;
 
             }
             catch (Exception ex)
             {
-                return NotFound("文件下载错误");
+                return "";
             }
 
         }
