@@ -1572,22 +1572,19 @@ namespace Dto.Service.IntellRegularBus
         {
             Bus_Payment_Order bus_Payment_Order = _IBusPaymentOrderRepository.GetInfoByBusPaymentOrderId(Bank_PaymentRequestMiddle.OrderId);
 
-
-            var bus_Payment = _IBusUserRepository.GetInfoByBus(Bank_PaymentRequestMiddle.OrderId); //更新缴费人员的动态码
-            var updateDate = DateTime.Now;
-            for (int i = 0; i < bus_Payment.Count; i++)
+            if (Bank_PaymentRequestMiddle.paymentStatus == "2")
             {
-                bus_Payment[i].Code = Guid.NewGuid().ToString();
-                bus_Payment[i].UpdateCodeDate = updateDate;
-                _IBusUserRepository.Update(bus_Payment[i]);
-            }
-              _IBusUserRepository.SaveChanges();
+                    var bus_Payment = _IBusUserRepository.GetInfoByBus(Bank_PaymentRequestMiddle.OrderId); //更新缴费人员的动态码
+                    var updateDate = DateTime.Now;
+                    for (int i = 0; i < bus_Payment.Count; i++)
+                    {
+                        bus_Payment[i].Code = Guid.NewGuid().ToString();
+                        bus_Payment[i].UpdateCodeDate = updateDate;
+                        _IBusUserRepository.Update(bus_Payment[i]);
+                    }
+                      _IBusUserRepository.SaveChanges();
 
-
-
-
-            if (Bank_PaymentRequestMiddle.paymentStatus=="2")
-            {
+            
                 bus_Payment_Order.paymentStatus = "2";
                 bus_Payment_Order.PlaceAnOrderDate = DateTime.Now; //支付时间
             }
@@ -1596,7 +1593,7 @@ namespace Dto.Service.IntellRegularBus
                 bus_Payment_Order.paymentStatus = "3";
                 bus_Payment_Order.confirmDate = DateTime.Now;//确认时间
            }
-            bus_Payment_Order.updateDate = DateTime.Now;
+            bus_Payment_Order.updateDate = DateTime.Now;//更新时间
             _IBusPaymentOrderRepository.Update(bus_Payment_Order);
            return  _IBusPaymentOrderRepository.SaveChanges();
         }
