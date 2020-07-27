@@ -18,7 +18,7 @@ namespace Dtol.dtol
 
 
         /// <summary>
-        /// 班车位置信息经度
+        ///  班车位置信息纬度
         /// </summary>
         public string latitude { get; set; }
 
@@ -35,7 +35,7 @@ namespace Dtol.dtol
         public int LineId { get; set; }
 
         /// <summary>
-        /// 班车位置信息纬度
+        /// 班车位置信息经度
         /// </summary>
         public string longitude { get; set; }
 

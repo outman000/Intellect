@@ -1,11 +1,15 @@
 ﻿using Dto.IRepository.IntellRegularBus;
 using Dtol;
 using Dtol.dtol;
+using Dtol.EfCoreExtion;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel;
 
 namespace Dto.Repository.IntellRegularBus
 {
@@ -54,6 +58,29 @@ namespace Dto.Repository.IntellRegularBus
         {
             Db.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public List<Bus_Location_Information> SearchInfoByBusLocationInformationWhere(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        {
+          
+                //查询条件
+                var predicate = SearchBusWhere(busLocationInformationSearchViewModel);
+                var result = DbSet.Where(predicate)
+                     .OrderByDescending(o => o.AddDate).ToList();
+                return result;
+           
+        }
+
+        //根据条件查询班车扫码记录
+        private Expression<Func<Bus_Location_Information, bool>> SearchBusWhere(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Location_Information>();//初始化where表达式
+
+            predicate = predicate.And(p => p.LineId==busLocationInformationSearchViewModel.LineId);  
+            if (busLocationInformationSearchViewModel.AddDate != null)
+                predicate = predicate.And(a => a.AddDate.Year == busLocationInformationSearchViewModel.AddDate.Value.Year
+                                         && a.AddDate.Month == busLocationInformationSearchViewModel.AddDate.Value.Month);
+            return predicate;
         }
     }
 }

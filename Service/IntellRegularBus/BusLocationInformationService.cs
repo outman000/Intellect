@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel;
 
 namespace Dto.Service.IntellRegularBus
 {
@@ -75,7 +76,22 @@ namespace Dto.Service.IntellRegularBus
                 return 3;
             }
         }
+        /// <summary>
+        /// 根据条件查询车辆经纬度
+        /// </summary>
+        /// <param name="busLocationInformationSearchViewModel"></param>
+        /// <returns></returns>
+        public BusLocationInformationSearchMiddle BusLocationInformation_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        {
 
-       
+            List<Bus_Location_Information> bus_Location_Information = _BusLocationInformationRepository.
+                SearchInfoByBusLocationInformationWhere(busLocationInformationSearchViewModel);
+
+            var result = _IMapper.Map<List<Bus_Location_Information>, List<BusLocationInformationSearchMiddle>>(bus_Location_Information);
+            if (result.Count == 0)
+                return null;
+
+            return result[0];
+        }
     }
 }

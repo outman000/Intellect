@@ -964,6 +964,40 @@ namespace IntellRegularBus.Controllers
 
         }
 
+
+
+        /// <summary>
+        /// 根据条件查询车辆经纬度
+        /// </summary>
+        /// <param name="busLocationInformationSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusScanRecordSearchResModel> BusLocationInformation_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        {
+            BusLocationInformationSearchResModel  busLocationInformationSearchResModel = new BusLocationInformationSearchResModel();
+            var Result = _IBusLocationInformationService.BusLocationInformation_Search(busLocationInformationSearchViewModel);
+
+          
+            if (Result== null)
+            {
+              
+                busLocationInformationSearchResModel.isSuccess = false;
+                busLocationInformationSearchResModel.baseViewModel.Message = "根据条件查询车辆经纬度成功，查询结果为空";
+                busLocationInformationSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询车辆经纬度成功，查询结果为空");
+            }
+            else
+            {
+                busLocationInformationSearchResModel.busLocationInformationSearchMiddle = Result;
+                busLocationInformationSearchResModel.isSuccess = true;
+                busLocationInformationSearchResModel.baseViewModel.Message = "根据条件查询车辆经纬度成功";
+                busLocationInformationSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询车辆经纬度成功");
+            }
+            return Ok(busLocationInformationSearchResModel);
+        }
+
     }
 
 }

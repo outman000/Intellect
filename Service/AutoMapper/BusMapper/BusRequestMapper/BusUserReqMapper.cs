@@ -38,6 +38,8 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
               .ForMember(s => s.orderNo, sp => sp.MapFrom(src => src.Bus_Payment_Order.orderNo));
 
             CreateMap<Bus_Payment_Order, BusOrderExcelSearchMiddle>();
+
+            CreateMap<Bus_Location_Information ,BusLocationInformationSearchMiddle>();
         }
     }
 }
