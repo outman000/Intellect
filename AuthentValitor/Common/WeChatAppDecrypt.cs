@@ -57,25 +57,27 @@ namespace AuthentValitor.Common
         /// <param name="code"></param>
         /// <returns></returns>
         public  string GetOpenID(string code)
- 	{
- 		var openid = "";
- 		using (var wl = new WebClient())
- 		{
- 			wl.Headers.Add(HttpRequestHeader.Accept, "json");
-			wl.Headers.Add(HttpRequestHeader.ContentType, "application/json;charset=UTF-8");
-			wl.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/4.0");
- 			wl.Encoding = Encoding.UTF8;
+ 	    {
+ 		         var openid = "";
+                 //var openid1 = "";
+
+                using (var wl = new WebClient())
+ 		        {
+ 			        wl.Headers.Add(HttpRequestHeader.Accept, "json");
+			        wl.Headers.Add(HttpRequestHeader.ContentType, "application/json;charset=UTF-8");
+			        wl.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/4.0");
+ 			        wl.Encoding = Encoding.UTF8;
               
-                openid = wl.DownloadString(Web_Access_token_URL + code);
-		}
-		if (!string.IsNullOrEmpty(openid))
-		{
-			var token = JObject.Parse(openid).SelectToken("openid");
-			if (token != null)
-				openid = token.ToString();
-		}
-		return openid;
-	}
+                        openid = wl.DownloadString(Web_Access_token_URL + code);
+		        }
+		        if (!string.IsNullOrEmpty(openid))
+		        {
+			        var token = JObject.Parse(openid).SelectToken("openid");
+			        if (token != null)
+				        openid = token.ToString();
+		        }
+		        return openid;
+	    }
         public string GetPage(string posturl, string postData)
         {
             Stream outstream = null;

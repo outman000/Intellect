@@ -5,8 +5,9 @@ using System.Text;
 namespace ViewModel.BusViewModel.MiddleModel
 {
     public class BusLocationInformationSearchMiddle
-    { 
-       
+    {
+
+      
 
         /// <summary>
         /// 班车位置信息经度
@@ -21,6 +22,9 @@ namespace ViewModel.BusViewModel.MiddleModel
         public string longitude { get; set; }
 
 
-      
+        /// <summary>
+        /// 增加时间
+        /// </summary>
+        public DateTime AddDate { get; set; }
     }
 }

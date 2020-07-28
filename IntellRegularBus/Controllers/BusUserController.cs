@@ -973,7 +973,7 @@ namespace IntellRegularBus.Controllers
         /// <returns></returns>
         [HttpPost]
 
-        public ActionResult<BusScanRecordSearchResModel> BusLocationInformation_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        public ActionResult<BusLocationInformationSearchResModel> BusLocationInformation_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
         {
             BusLocationInformationSearchResModel  busLocationInformationSearchResModel = new BusLocationInformationSearchResModel();
             var Result = _IBusLocationInformationService.BusLocationInformation_Search(busLocationInformationSearchViewModel);
@@ -996,6 +996,37 @@ namespace IntellRegularBus.Controllers
                 _ILogger.Information("根据条件查询车辆经纬度成功");
             }
             return Ok(busLocationInformationSearchResModel);
+        }
+
+
+        /// <summary>
+        /// 根据条件查询车辆基本信息
+        /// </summary>
+        /// <param name="busLocationInformationSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusBasicSearchResModel> BusBasic_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        {
+            BusBasicSearchResModel  busBasicSearchResModel = new BusBasicSearchResModel();
+            var Result = _IBusLocationInformationService.BusBasic_Search(busLocationInformationSearchViewModel);
+            if (Result == null)
+            {
+
+                busBasicSearchResModel.isSuccess = false;
+                busBasicSearchResModel.baseViewModel.Message = "根据条件查询车辆基本信息成功，查询结果为空";
+                busBasicSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询车辆基本信息成功，查询结果为空");
+            }
+            else
+            {
+                busBasicSearchResModel.busBasicSearchMiddle = Result;
+                busBasicSearchResModel.isSuccess = true;
+                busBasicSearchResModel.baseViewModel.Message = "根据条件查询车辆基本信息成功";
+                busBasicSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询车辆基本信息成功");
+            }
+            return Ok(busBasicSearchResModel);
         }
 
     }

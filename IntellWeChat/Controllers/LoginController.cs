@@ -215,10 +215,19 @@ namespace IntellWeChat.Controllers
                 string openId = "";
 
                 openId = openIdAndSessionKeyString;
-      
-               var userBind_Infos = _loginService.UserBindSearch(openId); 
                 string msg = string.Empty;
                 result.Status = "0";
+
+               //if(openId=="")
+               //{
+               //     result.BindStatus = "1";
+               //     result.OpenID = openId;
+               //     msg += "获取openid失败";
+               //     result.Msg = msg;
+               //     return Ok(result);
+               //}
+               var userBind_Infos = _loginService.UserBindSearch(openId); 
+              
                
                 if (userBind_Infos.Count==0)
                 {

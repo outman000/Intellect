@@ -21,5 +21,12 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="busLocationInformationSearchViewModel"></param>
         /// <returns></returns>
        BusLocationInformationSearchMiddle BusLocationInformation_Search(BusLocationInformationSearchViewModel  busLocationInformationSearchViewModel);
+
+        /// <summary>
+        /// 根据条件查询车辆基本信息
+        /// </summary>
+        /// <param name="busLocationInformationSearchViewModel"></param>
+        /// <returns></returns>
+        BusBasicSearchMiddle BusBasic_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel);
     }
 }

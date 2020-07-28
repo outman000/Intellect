@@ -87,11 +87,28 @@ namespace Dto.Service.IntellRegularBus
             List<Bus_Location_Information> bus_Location_Information = _BusLocationInformationRepository.
                 SearchInfoByBusLocationInformationWhere(busLocationInformationSearchViewModel);
 
+        
+
             var result = _IMapper.Map<List<Bus_Location_Information>, List<BusLocationInformationSearchMiddle>>(bus_Location_Information);
             if (result.Count == 0)
                 return null;
 
             return result[0];
+        }
+
+
+        /// <summary>
+        /// 根据条件查询车辆基本信息
+        /// </summary>
+        /// <param name="busLocationInformationSearchViewModel"></param>
+        /// <returns></returns>
+        public BusBasicSearchMiddle BusBasic_Search(BusLocationInformationSearchViewModel busLocationInformationSearchViewModel)
+        {
+
+            Bus_Info bus_Info = _IBusInfoRepository.SearchBusInfoSingleByLineWhere(busLocationInformationSearchViewModel.LineId);//根据线路Id查班车
+            var result = _IMapper.Map<Bus_Info, BusBasicSearchMiddle>(bus_Info);
+
+            return result;
         }
     }
 }
