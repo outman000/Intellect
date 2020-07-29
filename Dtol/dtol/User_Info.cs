@@ -9,7 +9,7 @@ namespace Dtol.dtol
      public partial class User_Info
     {
         public int Id { get; set; }
-        [ExcelAttribute("账号（英文字母）")]
+        [ExcelAttribute("账号")]
         public string UserId { get; set; }
         [ExcelAttribute("密码")]
         public string UserPwd { get; set; }
@@ -26,7 +26,7 @@ namespace Dtol.dtol
         public string Birthdate { get; set; }
         public string Nation { get; set; }
         public string MaritalStatus { get; set; }
-        [ExcelAttribute("身份证号（请保证正确，以免影响相关功能的使用）")]
+        [ExcelAttribute("身份证号")]
         public string Idcard { get; set; }
         public string NativePlace { get; set; }
         public string PoliticalBackground { get; set; }
@@ -34,7 +34,7 @@ namespace Dtol.dtol
         public string BloodType { get; set; }
         public string HomeAddress { get; set; }
         public string ZipCode { get; set; }
-        [ExcelAttribute("手机号（请确保正确，以免影响相关功能的使用）")]
+        [ExcelAttribute("手机号")]
         public string PhoneCall { get; set; }
         public string MobileCall { get; set; }
         public string Address { get; set; }
