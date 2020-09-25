@@ -65,6 +65,197 @@ namespace IntellUser.Controllers
                 return Ok(userAddResModel);
             }
         }
+
+
+        /// <summary>
+        /// 根据用户ID查询用户积分信息
+        /// </summary>
+        /// <param name="userIntegralByUserId"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<UserIntegralResModel> Manage_IntegralSearchByUserId(UserIntegralByUserId  userIntegralByUserId)
+        {
+            UserIntegralResModel  userIntegralResModel = new UserIntegralResModel();
+            var Result = _userService.SearchByUserId(userIntegralByUserId.id);
+            userIntegralResModel.user_Integrals = Result;
+            userIntegralResModel.isSuccess = true;
+            userIntegralResModel.baseViewModel.Message = "查询成功";
+            userIntegralResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据用户ID查询用户积分信息，查询成功");
+            return Ok(userIntegralResModel);
+
+        }
+
+        /// <summary>
+        /// 根据条件查询用户积分信息
+        /// </summary>
+        /// <param name="userIntegralSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<UserIntegralResModel> Manage_IntegralSearchAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
+        {
+            UserIntegralResModel userIntegralResModel = new UserIntegralResModel();
+            var Result = _userService.SearchUserIntegralWhere(userIntegralSearchViewModel);
+            int count= _userService.SearchUserIntegralWhereNum(userIntegralSearchViewModel);
+           
+            userIntegralResModel.user_Integrals = Result;
+            userIntegralResModel.count = count;
+            userIntegralResModel.isSuccess = true;
+            userIntegralResModel.baseViewModel.Message = "查询成功";
+            userIntegralResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据条件查询用户积分信息，查询成功");
+            return Ok(userIntegralResModel);
+
+        }
+
+
+
+
+
+        /// <summary>
+        /// 增添用户积分信息
+        /// </summary>
+        /// <param name="userIntegralLogAddViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<UserAddResModel> Manage_User_Integral_Log(UserIntegralLogAddViewModel userIntegralLogAddViewModel)
+        {
+
+
+            int User_Add_Count;
+            UserAddResModel userAddResModel = new UserAddResModel();
+            User_Add_Count = _userService.User_Integral_Log_Add(userIntegralLogAddViewModel);
+            if (User_Add_Count > 0)
+            {
+                userAddResModel.IsSuccess = true;
+                userAddResModel.AddCount = User_Add_Count;
+                userAddResModel.baseViewModel.Message = "添加成功";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添用户积分信息成功");
+                return Ok(userAddResModel);
+            }
+            else
+            {
+                userAddResModel.IsSuccess = false;
+                userAddResModel.AddCount = 0;
+                userAddResModel.baseViewModel.Message = "添加失败";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("增添用户积分信息失败");
+                return Ok(userAddResModel);
+            }
+        }
+
+        /// <summary>
+        /// 扫码加积分
+        /// </summary>
+        /// <param name="userIntegralViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<AddIntegralResModel> Manage_CheckCodeAddIntegral(UserIntegralViewModel userIntegralViewModel)
+        {
+
+
+            AddIntegralResModel  addIntegralResModel = new AddIntegralResModel();
+           string n = _userService.CheckCodeAddIntegral(userIntegralViewModel);
+            if ( n == "0" )
+            {
+                addIntegralResModel.code = n;
+                addIntegralResModel.msg = "添加成功";            
+                _ILogger.Information("增添用户积分信息成功");
+                return Ok(addIntegralResModel);
+            }
+            else if( n == "1")
+            {
+                addIntegralResModel.code = n;
+                addIntegralResModel.msg = "添加失败，重复扫码";
+                _ILogger.Information("增添用户积分信息失败，重复扫码");
+                return Ok(addIntegralResModel);
+            }
+            else if (n == "2")
+            {
+                addIntegralResModel.code = n;
+                addIntegralResModel.msg = "添加失败，二维码过期，动态码已刷新";
+                _ILogger.Information("增添用户积分信息失败，二维码过期，动态码已刷新");
+                return Ok(addIntegralResModel);
+            }
+            else if (n == "3")
+            {
+                addIntegralResModel.code = n;
+                addIntegralResModel.msg = "添加失败，不符合扫码时间段";
+                _ILogger.Information("增添用户积分信息失败，不符合扫码时间段");
+                return Ok(addIntegralResModel);
+            }
+            else if (n == "4")
+            {
+                addIntegralResModel.code = n;
+                addIntegralResModel.msg = "添加失败，有电子通行证但是没有智慧后勤账户";
+                _ILogger.Information("增添用户积分信息失败，有电子通行证但是没有智慧后勤账户");
+                return Ok(addIntegralResModel);
+            }
+            else
+            {
+                addIntegralResModel.code = n;
+                addIntegralResModel.msg = "添加失败，系统异常";
+                _ILogger.Information("增添用户积分信息失败，系统异常");
+                return Ok(addIntegralResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 注册用户信息
+        /// </summary>
+        /// <param name="userRegisterViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<UserRegisterResModel> Manage_User_Register(UserRegisterViewModel userRegisterViewModel)
+        {
+
+
+
+            UserRegisterResModel  userRegisterResModel = new UserRegisterResModel();
+            int temp = _userService.User_Register(userRegisterViewModel);
+            if (temp == 0)
+            {
+                userRegisterResModel.IsSuccess = true;
+                userRegisterResModel.Status = temp;
+                userRegisterResModel.baseViewModel.Message = "注册成功";
+                userRegisterResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("注册用户信息成功");
+                return Ok(userRegisterResModel);
+            }
+            else if(temp == 1)
+            {
+                userRegisterResModel.IsSuccess = false;
+                userRegisterResModel.Status = temp;
+                userRegisterResModel.baseViewModel.Message = "注册失败,未注册过电子通行证";
+                userRegisterResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("注册用户信息失败,未注册过电子通行证");
+                return Ok(userRegisterResModel);
+            }
+            else
+            {
+                userRegisterResModel.IsSuccess = false;
+                userRegisterResModel.Status = temp;
+                userRegisterResModel.baseViewModel.Message = "注册失败,注册过电子通行证并且智慧后勤也已经有身份信息,请勿重复操作";
+                userRegisterResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("注册用户信息失败,注册过电子通行证并且智慧后勤也已经有身份信息,请勿重复操作");
+                return Ok(userRegisterResModel);
+            }
+        }
+
+
         /// <summary>
         /// 用户名id验证是否重复
         /// </summary>
@@ -248,7 +439,7 @@ namespace IntellUser.Controllers
         {
             UserSearchSingleResModel userSearchSingleResModel = new UserSearchSingleResModel();
             var result = _userService.CheckIdcard(Idcard);
-            if(result==true)
+            if(result==false)
             {
                 userSearchSingleResModel.isSuccess = true;
                 userSearchSingleResModel.baseViewModel.Message = "验证身份证号成功，没有重复";

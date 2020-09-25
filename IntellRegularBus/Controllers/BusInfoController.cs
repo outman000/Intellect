@@ -13,6 +13,7 @@ using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 using ViewModel.BusViewModel.ResponseModel.BusInfoResModel;
 using ViewModel.BusViewModel.ResponseModel.LineInforResModel;
 using Microsoft.AspNetCore.Authorization;
+using ViewModel.BusViewModel.ResponseModel;
 
 namespace IntellRegularBus.Controllers
 {
@@ -297,6 +298,78 @@ namespace IntellRegularBus.Controllers
         }
 
 
-       
+        /// <summary>
+        /// 查询加油卡账户信息成功
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<GasCardAccountSearchResModel> Manage_GasCardAccount_Search()
+        {
+            GasCardAccountSearchResModel  gasCardAccountSearchResModel = new GasCardAccountSearchResModel();       
+            int count = 0;
+            gasCardAccountSearchResModel.gas_Card_Accounts = _busService.GasCardAccount_Search();
+            if (_busService.GasCardAccount_Search().Count != 0)
+                count = _busService.GasCardAccount_Search().Count;
+            gasCardAccountSearchResModel.IsSuccess = true;
+            gasCardAccountSearchResModel.baseViewModel.Message = "查询加油卡账户信息成功";
+            gasCardAccountSearchResModel.baseViewModel.ResponseCode = 200;
+            gasCardAccountSearchResModel.TotalNum = count;
+            _ILogger.Information("查询加油卡账户信息成功");
+            return Ok(gasCardAccountSearchResModel);
+        }
+        /// <summary>
+        /// 增加改派信息并给改派前司机发短信
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<GasCardAccountSearchResModel> Car_Reassignment_Record_Add(ReassignmentRecordAddViewModel reassignmentRecordAddViewModel)
+        {
+            GasCardAccountSearchResModel gasCardAccountSearchResModel = new GasCardAccountSearchResModel();
+
+            var gas_Card_Accounts = _busService.Car_Reassignment_Record_Add(reassignmentRecordAddViewModel);
+          if(gas_Card_Accounts==1)
+          {
+                gasCardAccountSearchResModel.IsSuccess = true;
+                gasCardAccountSearchResModel.baseViewModel.Message = "增加改派信息并给改派前司机发短信,成功";
+                gasCardAccountSearchResModel.baseViewModel.ResponseCode = 200;
+                gasCardAccountSearchResModel.TotalNum = gas_Card_Accounts;
+                _ILogger.Information("增加改派信息并给改派前司机发短信,成功");
+                return Ok(gasCardAccountSearchResModel);
+          }
+          else
+          {
+                gasCardAccountSearchResModel.IsSuccess = false;
+                gasCardAccountSearchResModel.baseViewModel.Message = "增加改派信息并给改派前司机发短信，失败";
+                gasCardAccountSearchResModel.baseViewModel.ResponseCode = 400;
+                gasCardAccountSearchResModel.TotalNum = gas_Card_Accounts;
+                _ILogger.Information("增加改派信息并给改派前司机发短信，失败");
+                return Ok(gasCardAccountSearchResModel);
+          }
+        }
+
+
+
+        /// <summary>
+        /// 查询改派信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<ReassignmentRecordSearchResModel> Manage_ReassignmentRecord_Search(ReassignmentRecordSearchViewModel reassignmentRecordSearchViewMode)
+        {
+            ReassignmentRecordSearchResModel  reassignmentRecordSearchResModel = new ReassignmentRecordSearchResModel();
+            int count = 0;
+            var result = _busService.Search_ReassignmentRecord(reassignmentRecordSearchViewMode);
+            count=_busService.Search_ReassignmentRecord_Num();
+            reassignmentRecordSearchResModel.car_Reassignment_Records = result;
+            reassignmentRecordSearchResModel.IsSuccess = true;
+            reassignmentRecordSearchResModel.baseViewModel.Message = "查询改派信息成功";
+            reassignmentRecordSearchResModel.baseViewModel.ResponseCode = 200;
+            reassignmentRecordSearchResModel.TotalNum = count;
+            _ILogger.Information("查询改派信息成功");
+            return Ok(reassignmentRecordSearchResModel);
+        }
     }
 }

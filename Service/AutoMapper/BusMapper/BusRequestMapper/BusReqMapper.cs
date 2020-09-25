@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ViewModel.BusViewModel.MiddleModel;
+using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
 using ViewModel.BusViewModel.RequestViewModel.LineInfoViewModel;
 
 namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
@@ -23,6 +24,7 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<LineByBusAddViewModel, Bus_Info>();
             CreateMap<RelateBusLineAddMiddlecs, Bus_Info>();
             CreateMap<Bus_Info, BusBasicSearchMiddle>();
+            CreateMap<ReassignmentRecordAddViewModel, Car_Reassignment_Record >();
         }
     }
 }

@@ -19,6 +19,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using AutofacSerilogIntegration;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace IntellUser
 {
@@ -69,7 +70,10 @@ namespace IntellUser
             //    };
             //});
 
-
+            #region 配置文件
+            services.AddOptions();
+            services.Configure<UserIntegralDate>(Configuration.GetSection("UserIntegralDate"));
+            #endregion
 
 
             #region EFCore

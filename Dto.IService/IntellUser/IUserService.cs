@@ -18,12 +18,22 @@ namespace Dto.IService.IntellUser
         /// <param name="userAddViewModel"></param>
         /// <returns></returns>
         int User_Add(UserAddViewModel  userAddViewModel);
+
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="userRegisterViewModel"></param>
+        /// <returns></returns>
+        int User_Register(UserRegisterViewModel userRegisterViewModel);
+
+
+
         /// <summary>
         /// 更新用户信息
         /// </summary>
         /// <param name="userUpdateViewModel"></param>
         /// <returns></returns>
-          int User_Update(UserUpdateViewModel  userUpdateViewModel);
+        int User_Update(UserUpdateViewModel  userUpdateViewModel);
         /// <summary>
         /// 删除用户信息
         /// </summary>
@@ -105,7 +115,48 @@ namespace Dto.IService.IntellUser
 
         bool CheckIdcard(string Idcard);
 
+        /// <summary>
+        /// 添加用户的积分日志
+        /// </summary>
+        /// <param name="userIntegralLogAddViewModel"></param>
+        /// <returns></returns>
+        int User_Integral_Log_Add(UserIntegralLogAddViewModel userIntegralLogAddViewModel);
 
+        /// <summary>
+        /// 扫码加积分
+        /// </summary>
+        /// <param name="checkCodeSearchViewModel"></param>
+        /// <returns></returns>
+        string CheckCodeAddIntegral(UserIntegralViewModel userIntegralViewModel);
+
+        /// <summary>
+        /// 根据身份证号查询用户
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        List<User_Info> SearchByIdcard(string Idcard);
+        /// <summary>
+        /// 根据用户ID查询用户积分信息
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+
+        List<User_Integral> SearchByUserId(string Id);
+
+        /// <summary>
+        /// 根据条件查询用户积分信息
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        List<User_Integral> SearchUserIntegralWhere(UserIntegralSearchViewModel userIntegralSearchViewModel);
+        /// <summary>
+        /// 根据条件查询用户积分信息数量
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        int SearchUserIntegralWhereNum(UserIntegralSearchViewModel userIntegralSearchViewModel);
+
+ 
     }
 }
 

@@ -161,6 +161,23 @@ namespace IntellRegularBus.Controllers
             return Ok(busUserSearchResModel);
         }
 
+        /// <summary>
+        /// 更新已缴费但是没回调的订单数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusUserSearchResModel> Bus_Order_Update()
+        {
+          
+          
+           var temp = _IBusUserService.Bus_Order_Update();//应缴费用总和
+
+        
+            return Ok(temp);
+        }
+
+
 
         /// <summary>
         /// 查询所有用户缴费信息2
@@ -261,8 +278,10 @@ namespace IntellRegularBus.Controllers
             string Result = _IBusUserService.Bus_PayMent_Verification(busUserSearchByDeaprtIdViewModel);
             if (!Result.Equals("true"))
             {
+               
+                string msg= Result.Substring(0, Result.IndexOf(',')) + "，该线路已坐满人，已超员" + Result.Substring(Result.IndexOf(',')+1) + "个人；请重新选择。";
                 busSearchByIdResModel.isSuccess = false;
-                busSearchByIdResModel.baseViewModel.Message = Result + "该线路已坐满人，请重新选择";
+                busSearchByIdResModel.baseViewModel.Message = msg;
                 busSearchByIdResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information(Result+"线路已满员，请重新选择");
                 return Ok(busSearchByIdResModel);
@@ -1029,6 +1048,197 @@ namespace IntellRegularBus.Controllers
             return Ok(busBasicSearchResModel);
         }
 
+
+
+        /// <summary>
+        /// 根据条件查询扫码记录(统计)
+        /// </summary>
+        /// <param name="busScanRecordTongJiSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusScanRecordSearchResModel> Bus_Scan_Record_SearchTongJi(BusScanRecordTongJiSearchViewModel busScanRecordTongJiSearchViewModel)
+        {
+            BusScanRecordTongJiSearchResModel  busScanRecordTongJiSearchResModel = new BusScanRecordTongJiSearchResModel();
+            var Result = _IBusUserService.Bus_Scan_Record_SearchTongJi(busScanRecordTongJiSearchViewModel);
+
+            if (Result.Count != 0)
+            {
+                busScanRecordTongJiSearchResModel.bus_Scan_Record = Result;
+                busScanRecordTongJiSearchResModel.isSuccess = true;
+                busScanRecordTongJiSearchResModel.baseViewModel.Message = "根据条件查询扫码记录(统计)成功";
+                busScanRecordTongJiSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询扫码记录(统计)成功");
+            }
+            else
+            {             
+                busScanRecordTongJiSearchResModel.isSuccess = false;
+                busScanRecordTongJiSearchResModel.baseViewModel.Message = "根据条件查询扫码记录(统计)成功";
+                busScanRecordTongJiSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据条件查询扫码记录(统计)成功");
+            }
+            return Ok(busScanRecordTongJiSearchResModel);
+        }
+
+        /// <summary>
+        /// 查询16个部门的已用里程和剩余里程
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<SearchCarMileageResModel> SearchCarMileage(BusCarLiChengSearchViewModel  busCarLiChengSearchViewModel)
+        {
+            SearchCarMileageResModel  searchCarMileageResModel = new SearchCarMileageResModel();
+            var searchCarMileageMiddles = _IBusUserService.SearchCarMileage(busCarLiChengSearchViewModel.jdfs);
+            if (searchCarMileageMiddles != null)
+            {
+                searchCarMileageResModel.isSuccess = true;
+                searchCarMileageResModel.searchCarMileageMiddles = searchCarMileageMiddles;
+                searchCarMileageResModel.baseViewModel.Message = "查询16个部门的已用里程和剩余里程成功";
+                searchCarMileageResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询16个部门的已用里程和剩余里程成功");
+                return Ok(searchCarMileageResModel);
+            }
+            else
+            {
+                searchCarMileageResModel.isSuccess = false;
+                searchCarMileageResModel.baseViewModel.Message = "查询16个部门的已用里程和剩余里程失败";
+                searchCarMileageResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询16个部门的已用里程和剩余里程失败");
+                return Ok(searchCarMileageResModel);
+            }
+
+        }
+
+        /// <summary>
+        /// 查询当前年份，当前用车类型的各部门的用车趋势
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<SearchCarMileageResModel> CarTrend(CarTrendSearchViewModel  carTrendSearchViewModel)
+        {
+            SearchCarMileageResModel searchCarMileageResModel = new SearchCarMileageResModel();
+            var CarTrendMiddles = _IBusUserService.CarTrend(carTrendSearchViewModel.jdfs, carTrendSearchViewModel.docDate);
+            if (CarTrendMiddles != "异常")
+            {
+                searchCarMileageResModel.isSuccess = true;
+                searchCarMileageResModel.searchCarMileageMiddles = CarTrendMiddles;
+                searchCarMileageResModel.baseViewModel.Message = "查询当前年份，当前用车类型的各部门的用车趋势成功";
+                searchCarMileageResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询当前年份，当前用车类型的各部门的用车趋势成功");
+                return Ok(searchCarMileageResModel);
+            }
+            else
+            {
+                searchCarMileageResModel.isSuccess = false;
+                searchCarMileageResModel.baseViewModel.Message = "查询当前年份，当前用车类型的各部门的用车趋势失败";
+                searchCarMileageResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询当前年份，当前用车类型的各部门的用车趋势失败");
+                return Ok(searchCarMileageResModel);
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// 查询当前年份，当前用车类型的各部门的日均派车量
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<SearchCarMileageResModel> AverageDailyDispatch(CarTrendSearchViewModel carTrendSearchViewModel)
+        {
+            SearchCarMileageResModel searchCarMileageResModel = new SearchCarMileageResModel();
+            var CarTrendMiddles = _IBusUserService.AverageDailyDispatch(carTrendSearchViewModel.jdfs, carTrendSearchViewModel.docDate);
+            if (CarTrendMiddles != "异常")
+            {
+                searchCarMileageResModel.isSuccess = true;
+                searchCarMileageResModel.searchCarMileageMiddles = CarTrendMiddles;
+                searchCarMileageResModel.baseViewModel.Message = "查询当前年份，当前用车类型的各部门的日均派车量成功";
+                searchCarMileageResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询当前年份，当前用车类型的各部门的日均派车量成功");
+                return Ok(searchCarMileageResModel);
+            }
+            else
+            {
+                searchCarMileageResModel.isSuccess = false;
+                searchCarMileageResModel.baseViewModel.Message = "查询当前年份，当前用车类型的各部门的日均派车量失败";
+                searchCarMileageResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询当前年份，当前用车类型的各部门的日均派车量败");
+                return Ok(searchCarMileageResModel);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 修改免费坐车人员的乘车时间
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusUserUpdateResModel> Bus_User_Update_Status()
+        {
+            BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_User_Update_Status();
+
+            if (UpdateRowNum > 0)
+            {
+                busUserUpdateResModel.IsSuccess = true;
+                busUserUpdateResModel.AddCount = UpdateRowNum;
+                busUserUpdateResModel.baseViewModel.Message = "更新成功";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information(" 修改免费坐车人员的乘车时间成功");
+                return Ok(busUserUpdateResModel);
+            }
+            else
+            {
+                busUserUpdateResModel.IsSuccess = false;
+                busUserUpdateResModel.AddCount = 0;
+                busUserUpdateResModel.baseViewModel.Message = "更新失败";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information(" 修改免费坐车人员的乘车时间失败");
+                return BadRequest(busUserUpdateResModel);
+            }
+        }
+
+
+
+        /// <summary>
+        ///  查询一般公务和执法执勤车辆实时占用情况
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<BusBasicSearchResModel> CarOccupySel(CarOccupyRequestModel carOccupyRequestModel)
+        {
+            CarOccupyResModel  carOccupyResModel = new CarOccupyResModel();
+            var Result = _IBusUserService.CarOccupySel(carOccupyRequestModel);
+            if (Result.Count==0)
+            {
+                carOccupyResModel.isSuccess = false;
+                carOccupyResModel.baseViewModel.Message = " 查询一般公务和执法执勤车辆实时占用情况成功，查询结果为空";
+                carOccupyResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询一般公务和执法执勤车辆实时占用情况成功，查询结果为空");
+            }
+            else
+            {
+                carOccupyResModel.carOccupyMiddles = Result;
+                carOccupyResModel.isSuccess = true;
+                carOccupyResModel.baseViewModel.Message = " 查询一般公务和执法执勤车辆实时占用情况成功";
+                carOccupyResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询一般公务和执法执勤车辆实时占用情况成功");
+            }
+            return Ok(carOccupyResModel);
+        }
+
+
+
+
+
     }
+
 
 }

@@ -84,11 +84,11 @@ namespace Dto.Service.IntellRepair
             /***********************查询当前节点处理人的上一步处理人**************************/
 
             FlowNodeSearchViewModel flowNodeSearchViewModel = new FlowNodeSearchViewModel();
-            if(roleByNodeSearchViewModel.Repair_InfoId!=null)
-            flowNodeSearchViewModel.Repair_InfoId = roleByNodeSearchViewModel.Repair_InfoId.Value;
+            if (roleByNodeSearchViewModel.Repair_InfoId != null)
+                flowNodeSearchViewModel.Repair_InfoId = roleByNodeSearchViewModel.Repair_InfoId.Value;
             flowNodeSearchViewModel.operate = "1";
             if (roleByNodeSearchViewModel.user_InfoId != null)
-            flowNodeSearchViewModel.User_InfoId= roleByNodeSearchViewModel.user_InfoId.Value;
+                flowNodeSearchViewModel.User_InfoId = roleByNodeSearchViewModel.user_InfoId.Value;
             flowNodeSearchViewModel.status = "0";
             flowNodeSearchViewModel.isHandler = roleByNodeSearchViewModel.isHandler;
             flowNodeSearchViewModel.pageViewModel.CurrentPageNum = 0;
@@ -98,11 +98,35 @@ namespace Dto.Service.IntellRepair
             /***********************查询当前节点处理人的上一步处理人**************************/
 
 
+            //FlowNodeKeepSearchViewModel flowNodeKeepSearchViewModel = new FlowNodeKeepSearchViewModel();
+            //flowNodeKeepSearchViewModel.Repair_InfoId = roleByNodeSearchViewModel.Repair_InfoId.Value;
+            //flowNodeKeepSearchViewModel.Flow_NodeDefineId = roleByNodeSearchViewModel.Flow_NodeDefineId;
+            //flowNodeKeepSearchViewModel.Flow_NextNodeDefineId = roleByNodeSearchViewModel.Flow_NextNodeDefineId;
+            //List<Flow_Node> node_Infos4 = _IFlowNodeRepository.SearchInfoByNode2Where(flowNodeKeepSearchViewModel);
 
-            int userId = node_Infos[0].Pre_User_InfoId.Value;
-             int departId = roleByNodeSearchViewModel.departId.Value;
+
+
+
+
+
+            /***********************查询当前表单ID查询拟文处理人**************************/
+            FlowNodeNiWenSearchViewModel flowNodeNiWenSearchViewModel = new FlowNodeNiWenSearchViewModel();
+            flowNodeNiWenSearchViewModel.Repair_InfoId= roleByNodeSearchViewModel.Repair_InfoId.Value;
+            List<Flow_Node> node_Infos2=  _IFlowNodeRepository.SearchInfoNiWenWhere(flowNodeNiWenSearchViewModel);
+
+
+            flowNodeNiWenSearchViewModel.Parent_Flow_NodeDefineId = node_Infos2[0].Flow_NodeDefineId;
+            List<Flow_Node> node_Infos3 = _IFlowNodeRepository.SearchInfoNiWenWhere(flowNodeNiWenSearchViewModel);
+            /*************************查询当前表单ID查询拟文处理人************************/
+            int userId2 = node_Infos3[0].User_InfoId.Value;
+
+
+             int userId = node_Infos[0].Pre_User_InfoId.Value;
+           // int userId = node_Infos4[0].User_InfoId.Value;
+            int departId = roleByNodeSearchViewModel.departId.Value;
 
             string nodeType = roleByNodeSearchViewModel.NodeKeep;
+
 
             List<User_Info> user_Relate_Info_Users = _IUserRelateInfoRoleRepository.SearchUserInfoByListWhere(RoleList);
 
@@ -119,7 +143,7 @@ namespace Dto.Service.IntellRepair
                     }
                 }
             }
-            else if(nodeType=="用户保持") 
+            else if (nodeType == "用户保持")
             {
                 for (int i = 0; i < userLsit_Info.Count; i++)
                 {
@@ -130,7 +154,18 @@ namespace Dto.Service.IntellRepair
                     }
                 }
             }
-           else userSearchMiddlecs = userLsit_Info;//无任何保持
+            else if (nodeType == "拟文保持")
+            {
+                for (int i = 0; i < userLsit_Info.Count; i++)
+                {
+                    if (userLsit_Info[i].id == userId2)
+                    {
+                        userSearchMiddlecs.Add(userLsit_Info[i]);
+
+                    }
+                }
+            }
+            else userSearchMiddlecs = userLsit_Info;//无任何保持
             return userSearchMiddlecs;
         }
 

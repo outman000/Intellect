@@ -27,5 +27,7 @@ namespace Dto.IRepository.IntellRegularBus
         List<Bus_Payment_Order> SearchInfoByUserIdWhereCZ();
 
         IQueryable<Bus_Payment_Order> SearchInfoByBusPaymentOrderWhere2(BusOrderSearchViewModel busOrderSearchViewModel);
+
+        List<Bus_Payment_Order> GetInfoByBusPaymentOrderUpdate();
     }
 }

@@ -18,6 +18,8 @@ namespace Dto.IRepository.IntellRepair
         //// 根据条件查流转信息(重载查找上一节点id)
         List<Flow_Node> SearchInfoByNodeWhere(FlowInfoSearchViewModel fLowInfoSearchViewModel);
 
+        List<Flow_Node> SearchInfoByNode2Where(FlowNodeKeepSearchViewModel  flowNodeKeepSearchViewModel);
+
         //// 根据表单ID查流转信息
         List<Flow_Node> SearchInfoByRepariIdWhere(FlowNodeByRepairIdSearchViewModel flowNodeByRepairIdSearchViewModel);
         // 根据id查流转信息
@@ -25,5 +27,7 @@ namespace Dto.IRepository.IntellRepair
 
         //查询流转信息数量
         IQueryable<Flow_Node> GetNodeAll(FlowNodeSearchViewModel flowNodeSearchViewModel);
+
+        List<Flow_Node> SearchInfoNiWenWhere(FlowNodeNiWenSearchViewModel flowNodeNiWenSearchViewModel);
     }
 }

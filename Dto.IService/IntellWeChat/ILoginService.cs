@@ -31,5 +31,8 @@ namespace Dto.IService.IntellWeChat
         int WeChatLogin_User_Update(WeChatUpdateViewModel weChatUpdateViewModel);
 
         string SmsMessage(string phone, string message);
+
+
+     
     }
 }

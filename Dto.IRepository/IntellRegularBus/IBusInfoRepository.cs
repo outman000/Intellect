@@ -11,6 +11,7 @@ namespace Dto.IRepository.IntellRegularBus
 {
     public  interface IBusInfoRepository : IRepository<Bus_Info>
     {
+        void Add_Reassignment_Record(Car_Reassignment_Record obj);
         //根据班车标识查询
         IQueryable<Bus_Info> GetInfoByBusId(string busid);
         //根据班车主键id查询
@@ -51,5 +52,13 @@ namespace Dto.IRepository.IntellRegularBus
 
         //根据班车查询线路数量
         IQueryable<Bus_Info> GetLineInfoByBusAll(LineByBusSearchViewModel lineByBusSearchViewModel);
+
+
+        List<Gas_Card_Account> SearchGasCardAccount();
+
+
+        List<Car_Reassignment_Record> SearchReassignmentRecord(ReassignmentRecordSearchViewModel reassignmentRecordSearchViewModel);
+
+        int SearchReassignmentRecordNum();
     }
 }

@@ -18,18 +18,24 @@ namespace Dto.Repository.IntellRegularBus
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<Bus_Info> DbSet;
-
+        protected readonly DbSet<Gas_Card_Account> DbSet2;
+        protected readonly DbSet<Car_Reassignment_Record> DbSet3;
         public BusInfoRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<Bus_Info>();
+            DbSet2 = Db.Set<Gas_Card_Account>();
+            DbSet3 = Db.Set<Car_Reassignment_Record>();
         }
 
         public virtual void Add(Bus_Info obj)
         {
             DbSet.Add(obj);
         }
-
+        public virtual void Add_Reassignment_Record(Car_Reassignment_Record obj)
+        {
+            DbSet3.Add(obj);
+        }
         public  Bus_Info GetById(Guid id)
         {
             return DbSet.Find(id);
@@ -78,7 +84,20 @@ namespace Dto.Repository.IntellRegularBus
             Bus_Info bus_Info = DbSet.Single(uid => uid.Id.Equals(id));
             return bus_Info;
         }
+        public List<Car_Reassignment_Record> SearchReassignmentRecord(ReassignmentRecordSearchViewModel reassignmentRecordSearchViewModel)
+        {
+            int SkipNum = reassignmentRecordSearchViewModel.pageViewModel.CurrentPageNum * reassignmentRecordSearchViewModel.pageViewModel.PageSize;
+            return   DbSet3.Where(A => A.isdelete == "0").OrderByDescending(a=>a.AddDate)
+                      .Skip(SkipNum)
+                      .Take(reassignmentRecordSearchViewModel.pageViewModel.PageSize).ToList();
+        }
 
+
+        public int SearchReassignmentRecordNum()
+        {
+         
+            return DbSet3.Where(A => A.isdelete == "0").ToList().Count;
+        }
         //根据条件查询
 
         public List<Bus_Info> SearchInfoByBusWhere(BusSearchViewModel busSearchViewModel)
@@ -210,6 +229,11 @@ namespace Dto.Repository.IntellRegularBus
         {
             List<Bus_Info> bus_Info = DbSet.Where(uid => uid.deviceNumber.Equals(deviceNumber)).Include(a=>a.Bus_Line)  .ToList();
             return bus_Info;
+        }
+
+        public List<Gas_Card_Account> SearchGasCardAccount()
+        {
+           return DbSet2.Where(info=>info.IsDelete=="0").ToList();
         }
     }
  }

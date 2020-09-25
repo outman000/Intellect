@@ -60,7 +60,7 @@ namespace IntellWeChat.Controllers
                 weChatInfoResModel.baseViewModel.Message = "用户无权限登录";
                 weChatInfoResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("用户无权限，进入系统失败");
-                return BadRequest(weChatInfoResModel);
+                return Ok(weChatInfoResModel);
             }
             else
             {
@@ -169,9 +169,9 @@ namespace IntellWeChat.Controllers
             {
                 weChatLoginResModel.IsSuccess = false;
                 weChatLoginResModel.baseViewModel.Message = "用户名不存在或者密码错误";
-                weChatLoginResModel.baseViewModel.ResponseCode = 400;
+                weChatLoginResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("用户名不存在或者密码错误，修改密码失败");
-                return BadRequest(weChatLoginResModel);
+                return Ok(weChatLoginResModel);
             }
             else
             {
@@ -329,6 +329,8 @@ namespace IntellWeChat.Controllers
             var result=_loginService.SmsMessage(phone, message);
             return result;
         }
+
+    
 
 
     }

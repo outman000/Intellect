@@ -57,7 +57,11 @@ namespace Dto.Repository.IntellRegularBus
         {
             DbSet.Update(obj);
         }
-
+        public List<Bus_Payment_Order> GetInfoByBusPaymentOrderUpdate()
+        {
+            return DbSet.Where(a=>a.isDelete=="0" && a.paymentStatus == "1").ToList();
+            
+        }
         public Bus_Payment_Order GetInfoByBusPaymentOrderId(int id)
         {
             Bus_Payment_Order busPayment_Info = DbSet.Single(uid => uid.Id.Equals(id));
@@ -67,13 +71,15 @@ namespace Dto.Repository.IntellRegularBus
         {
 
             var predicate = SearchBusPaymentWhere();
-            if (DbSet.Where(predicate).ToList().Count == 0)
+            var temp = DbSet.Where(predicate).ToList();
+            if (temp.Count == 0)
             {
                 return null;
             }
             else
             {
-                var result = DbSet.Where(predicate).OrderByDescending(o => o.AddDate).ToList();
+               //var result = DbSet.Where(predicate).OrderByDescending(o => o.AddDate).ToList();
+                var result = DbSet.Where(predicate).OrderByDescending(o => o.orderNo).ToList();
                 return result;
             }
 

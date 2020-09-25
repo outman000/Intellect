@@ -10,8 +10,14 @@ namespace ViewModel.RepairsViewModel.RequestViewModel
     /// </summary>
     public class RoleByNodeSearchViewModel
     {
+        ///// <summary>
+        ///// 当前节点id
+        ///// </summary>
+        //public int Flow_NodeDefineId { get; set; }
+
+
         /// <summary>
-        /// 节点id
+        /// 下一节点id
         /// </summary>
         public int Flow_NextNodeDefineId { get; set; }
 

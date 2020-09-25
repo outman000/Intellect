@@ -35,6 +35,18 @@ namespace Dtol.dtol
 
         public string LineName { get; set; }
 
+
+        /// <summary>
+        /// 站点名
+        /// </summary>
+        public string StationName { get; set; }
+
+     
+        /// <summary>
+        /// 缴费主键id
+        /// </summary>
+        public int BusPaymentId { get; set; }
+
         /// <summary>
         /// 线路主键id
         /// </summary>

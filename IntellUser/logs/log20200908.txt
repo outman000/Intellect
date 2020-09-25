@@ -1,0 +1,119 @@
+2020-09-08 09:51:19.219 +08:00 [INF] host is start
+2020-09-08 10:07:55.658 +08:00 [INF] host is start
+2020-09-08 10:20:00.774 +08:00 [INF] host is start
+2020-09-08 10:33:34.820 +08:00 [INF] host is start
+2020-09-08 10:35:28.716 +08:00 [INF] host is start
+2020-09-08 10:48:43.972 +08:00 [INF] host is start
+2020-09-08 10:48:49.137 +08:00 [FTL] Host terminated unexpectedly
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use. ---> Microsoft.AspNetCore.Connections.AddressInUseException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。 ---> System.Net.Sockets.SocketException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransport.BindAsync()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransport.BindAsync()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.<>c__DisplayClass21_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(IServerAddressesFeature addresses, KestrelServerOptions serverOptions, ILogger logger, Func`2 createBinding)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellUser.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellUser\Program.cs:line 39
+2020-09-08 10:49:09.206 +08:00 [INF] host is start
+2020-09-08 10:49:14.388 +08:00 [FTL] Host terminated unexpectedly
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use. ---> Microsoft.AspNetCore.Connections.AddressInUseException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。 ---> System.Net.Sockets.SocketException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransport.BindAsync()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransport.BindAsync()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.<>c__DisplayClass21_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(IServerAddressesFeature addresses, KestrelServerOptions serverOptions, ILogger logger, Func`2 createBinding)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellUser.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellUser\Program.cs:line 39
+2020-09-08 10:49:40.865 +08:00 [INF] host is start
+2020-09-08 10:49:45.900 +08:00 [FTL] Host terminated unexpectedly
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use. ---> Microsoft.AspNetCore.Connections.AddressInUseException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。 ---> System.Net.Sockets.SocketException: 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransport.BindAsync()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransport.BindAsync()
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.<>c__DisplayClass21_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(IServerAddressesFeature addresses, KestrelServerOptions serverOptions, ILogger logger, Func`2 createBinding)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellUser.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellUser\Program.cs:line 39
+2020-09-08 10:55:23.739 +08:00 [INF] host is start
+2020-09-08 10:57:16.005 +08:00 [INF] host is start
+2020-09-08 10:57:48.524 +08:00 [INF] host is start
+2020-09-08 10:58:49.619 +08:00 [INF] host is start
+2020-09-08 11:02:08.019 +08:00 [INF] host is start
+2020-09-08 11:37:05.498 +08:00 [INF] host is start
+2020-09-08 11:39:33.111 +08:00 [INF] host is start
+2020-09-08 11:41:07.472 +08:00 [INF] host is start
+2020-09-08 11:43:38.945 +08:00 [INF] host is start
+2020-09-08 11:44:12.452 +08:00 [INF] 增添用户积分信息失败，系统异常
+2020-09-08 11:44:40.384 +08:00 [INF] 增添用户积分信息失败，系统异常
+2020-09-08 11:46:02.771 +08:00 [INF] host is start
+2020-09-08 11:47:32.225 +08:00 [INF] host is start
+2020-09-08 11:48:21.145 +08:00 [INF] host is start
+2020-09-08 11:49:10.411 +08:00 [INF] host is start
+2020-09-08 11:53:19.004 +08:00 [INF] host is start
+2020-09-08 11:54:43.434 +08:00 [INF] host is start
+2020-09-08 11:56:29.843 +08:00 [INF] host is start
+2020-09-08 11:57:34.150 +08:00 [INF] 增添用户积分信息失败，有电子通行证但是没有智慧后勤账户
+2020-09-08 12:00:42.915 +08:00 [INF] host is start
+2020-09-08 13:42:59.310 +08:00 [INF] host is start
+2020-09-08 13:47:53.763 +08:00 [INF] host is start
+2020-09-08 13:48:45.681 +08:00 [INF] host is start
+2020-09-08 13:50:11.670 +08:00 [INF] 增添用户积分信息失败，系统异常
+2020-09-08 14:01:26.353 +08:00 [INF] host is start
+2020-09-08 14:06:13.582 +08:00 [INF] host is start
+2020-09-08 14:07:19.495 +08:00 [INF] 增添用户积分信息成功
+2020-09-08 14:11:03.178 +08:00 [INF] host is start
+2020-09-08 14:12:35.882 +08:00 [INF] 增添用户积分信息失败，重复扫码
+2020-09-08 14:13:27.225 +08:00 [INF] host is start
+2020-09-08 14:18:06.439 +08:00 [INF] host is start
+2020-09-08 14:20:20.162 +08:00 [INF] host is start
+2020-09-08 14:21:52.782 +08:00 [INF] 增添用户积分信息成功
+2020-09-08 14:22:59.473 +08:00 [INF] 增添用户积分信息失败，重复扫码
+2020-09-08 14:24:01.943 +08:00 [INF] host is start
+2020-09-08 14:28:08.909 +08:00 [INF] host is start
+2020-09-08 14:28:58.565 +08:00 [INF] 增添用户积分信息失败，重复扫码
+2020-09-08 14:30:04.687 +08:00 [INF] 增添用户积分信息成功
+2020-09-08 14:31:31.588 +08:00 [INF] host is start
+2020-09-08 14:32:26.591 +08:00 [INF] 增添用户积分信息成功
+2020-09-08 16:03:38.631 +08:00 [INF] host is start
+2020-09-08 16:03:57.055 +08:00 [INF] 根据用户ID查询用户积分信息，查询成功
+2020-09-08 16:04:22.506 +08:00 [INF] host is start
+2020-09-08 16:04:37.244 +08:00 [INF] 根据用户ID查询用户积分信息，查询成功
+2020-09-08 16:04:42.850 +08:00 [INF] 根据用户ID查询用户积分信息，查询成功

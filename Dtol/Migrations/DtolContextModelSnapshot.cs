@@ -288,11 +288,15 @@ namespace Dtol.Migrations
 
                     b.Property<DateTime>("AddDate");
 
+                    b.Property<int>("BusPaymentId");
+
                     b.Property<string>("DeptName");
 
                     b.Property<int>("LineId");
 
                     b.Property<string>("LineName");
+
+                    b.Property<string>("StationName");
 
                     b.Property<string>("UserName");
 
@@ -334,6 +338,45 @@ namespace Dtol.Migrations
                     b.HasIndex("Bus_LineId");
 
                     b.ToTable("bus_Station");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.Car_Reassignment_Record", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AddDate");
+
+                    b.Property<string>("AfterCxry");
+
+                    b.Property<string>("AfterDriverName");
+
+                    b.Property<string>("Afterphone");
+
+                    b.Property<string>("BeforeCxry");
+
+                    b.Property<string>("BeforeDriverName");
+
+                    b.Property<string>("Beforephone");
+
+                    b.Property<DateTime?>("Docdate");
+
+                    b.Property<string>("GetOffLocation");
+
+                    b.Property<string>("PickUpLocation");
+
+                    b.Property<string>("Riderphone");
+
+                    b.Property<string>("isdelete");
+
+                    b.Property<string>("status");
+
+                    b.Property<string>("title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Car_Reassignment_Record");
                 });
 
             modelBuilder.Entity("Dtol.dtol.ComAttachs", b =>
@@ -393,6 +436,8 @@ namespace Dtol.Migrations
                     b.Property<int?>("Flow_NextNodeDefineId");
 
                     b.Property<int?>("Flow_NodeDefineId");
+
+                    b.Property<string>("NodeKeep");
 
                     b.HasKey("Id");
 
@@ -569,6 +614,37 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("food_Infos");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.Gas_Card_Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AddDate");
+
+                    b.Property<string>("Dept");
+
+                    b.Property<string>("IsDelete");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("UserPwd");
+
+                    b.Property<int?>("User_DepartId");
+
+                    b.Property<string>("createUser");
+
+                    b.Property<string>("status");
+
+                    b.Property<DateTime?>("updateDate");
+
+                    b.Property<string>("updateUser");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Gas_Card_Account");
                 });
 
             modelBuilder.Entity("Dtol.dtol.Opinion_Info", b =>
@@ -790,6 +866,8 @@ namespace Dtol.Migrations
 
                     b.Property<int?>("Sort");
 
+                    b.Property<string>("Type");
+
                     b.HasKey("Id");
 
                     b.ToTable("user_Depart");
@@ -928,6 +1006,78 @@ namespace Dtol.Migrations
                     b.HasIndex("User_DepartId");
 
                     b.ToTable("user_Info");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.User_Integral", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AddDate");
+
+                    b.Property<string>("Dept");
+
+                    b.Property<string>("Idcard");
+
+                    b.Property<string>("IsDelete");
+
+                    b.Property<string>("Mobile");
+
+                    b.Property<string>("TotalPoints");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<int?>("User_DepartId");
+
+                    b.Property<string>("createUser");
+
+                    b.Property<DateTime?>("updateDate");
+
+                    b.Property<string>("updateUser");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User_Integral");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.User_Integral_Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AddDate");
+
+                    b.Property<string>("Dept");
+
+                    b.Property<string>("Idcard");
+
+                    b.Property<string>("IsDelete");
+
+                    b.Property<string>("Mobile");
+
+                    b.Property<string>("Points");
+
+                    b.Property<string>("PointsLocation");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<int?>("User_DepartId");
+
+                    b.Property<string>("createUser");
+
+                    b.Property<string>("sn");
+
+                    b.Property<string>("status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User_Integral_Log");
                 });
 
             modelBuilder.Entity("Dtol.dtol.User_Relate_Food", b =>

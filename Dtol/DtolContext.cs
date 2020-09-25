@@ -66,6 +66,15 @@ namespace Dtol
         public DbSet<Bus_Scan_Record> Bus_Scan_Record { get; set; }
 
         public DbSet<ComAttachs> ComAttachs { get; set; }
+
+
+        public DbSet<User_Integral> User_Integral { get; set; }
+
+        public DbSet<User_Integral_Log> User_Integral_Log { get; set; }
+        public DbSet<Gas_Card_Account> Gas_Card_Account { get; set; }
+
+
+        public DbSet<Car_Reassignment_Record> Car_Reassignment_Record { get; set; }
         
 
     }

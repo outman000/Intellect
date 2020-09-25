@@ -94,15 +94,15 @@ namespace Dto.Repository.IntellRepair
             int SkipNum = flowNodeSearchViewModel.pageViewModel.CurrentPageNum * flowNodeSearchViewModel.pageViewModel.PageSize;
             //查询条件
             var predicate = SearchNodeWhere(flowNodeSearchViewModel);
-            var result = DbSet.Where(predicate).Include(b=>b.User_Info)
+            var result = DbSet.Where(predicate).Include(b => b.User_Info)
                                                .ThenInclude(c => c.User_Depart)
-                                               .Include(d=>d.Pre_User_Info)
-                                               .ThenInclude(c=>c.User_Depart)
-                                               .Include(a => a.Repair_Info )
+                                               .Include(d => d.Pre_User_Info)
+                                               .ThenInclude(c => c.User_Depart)
+                                               .Include(a => a.Repair_Info)
                                                .Include(a => a.Flow_NodeDefine)
-                                               .Where(s=>s.User_Info.status!="1"&&
-                                                       s.Pre_User_Info.status != "1"&&
-                                                       s.Repair_Info.status!="1")
+                                               .Where(s => s.User_Info.status != "1" &&
+                                                       s.Pre_User_Info.status != "1" &&
+                                                       s.Repair_Info.status != "1")
                 .OrderByDescending(o => o.Repair_Info.repairsDate).ToList()
                 .Skip(SkipNum)
                 .Take(flowNodeSearchViewModel.pageViewModel.PageSize).ToList();
@@ -112,7 +112,7 @@ namespace Dto.Repository.IntellRepair
         //查询流转信息（重载查找父节点id）
         public List<Flow_Node> SearchInfoByNodeWhere(FlowInfoSearchViewModel fLowInfoSearchViewModel)
         {
-     
+
 
             var predicate = SearchNodeWhere(fLowInfoSearchViewModel);
             var result = DbSet.Where(predicate)
@@ -125,13 +125,13 @@ namespace Dto.Repository.IntellRepair
         {
             var predicate = WhereExtension.True<Flow_Node>();//初始化where表达式
             predicate = predicate.And(p => p.status.Contains(flowNodeSearchViewModel.status));
-            if(flowNodeSearchViewModel.Flow_ProcedureId!=null)
-            predicate = predicate.And(p => p.Flow_ProcedureId==flowNodeSearchViewModel.Flow_ProcedureId);
-            if(flowNodeSearchViewModel.Repair_InfoId != null)
-            predicate = predicate.And(p => p.Repair_InfoId==flowNodeSearchViewModel.Repair_InfoId);
+            if (flowNodeSearchViewModel.Flow_ProcedureId != null)
+                predicate = predicate.And(p => p.Flow_ProcedureId == flowNodeSearchViewModel.Flow_ProcedureId);
+            if (flowNodeSearchViewModel.Repair_InfoId != null)
+                predicate = predicate.And(p => p.Repair_InfoId == flowNodeSearchViewModel.Repair_InfoId);
             predicate = predicate.And(p => p.operate.Contains(flowNodeSearchViewModel.operate));
             if (flowNodeSearchViewModel.User_InfoId != null)
-            predicate = predicate.And(p => p.User_InfoId==flowNodeSearchViewModel.User_InfoId);
+                predicate = predicate.And(p => p.User_InfoId == flowNodeSearchViewModel.User_InfoId);
             if (flowNodeSearchViewModel.isHandler != null)
                 predicate = predicate.And(p => p.Repair_Info.isHandler == flowNodeSearchViewModel.isHandler);
 
@@ -171,10 +171,45 @@ namespace Dto.Repository.IntellRepair
 
             //查询条件
             var predicate = SearchByRepairWhere(flowNodeByRepairIdSearchViewModel);
-            var result = DbSet.Where(predicate).Include(a=>a.User_Info).Include(a=>a.Parent_Flow_NodeDefine)
+            var result = DbSet.Where(predicate).Include(a => a.User_Info).Include(a => a.Parent_Flow_NodeDefine)
                 .OrderBy(o => o.StartTime).ToList();
 
             return result;
+        }
+
+
+        public List<Flow_Node> SearchInfoNiWenWhere(FlowNodeNiWenSearchViewModel flowNodeNiWenSearchViewModel)
+        {
+
+            //查询条件
+            var predicate = SearchNodeNiWenWhere(flowNodeNiWenSearchViewModel);
+            var result = DbSet.Where(predicate).Where(s => s.User_Info.status != "1" &&
+                                                       s.Pre_User_Info.status != "1" &&
+                                                       s.Repair_Info.status != "1")
+                .OrderByDescending(o => o.Repair_Info.repairsDate).ToList();
+
+            return result;
+        }
+        private Expression<Func<Flow_Node, bool>> SearchNodeNiWenWhere(FlowNodeNiWenSearchViewModel flowNodeNiWenSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Flow_Node>();//初始化where表达式
+            predicate = predicate.And(p => p.status == "0");
+            predicate = predicate.And(p => p.operate == "2");
+            predicate = predicate.And(p => p.Repair_InfoId == flowNodeNiWenSearchViewModel.Repair_InfoId);
+
+            if (flowNodeNiWenSearchViewModel.Parent_Flow_NodeDefineId != null)
+                predicate = predicate.And(p => p.Parent_Flow_NodeDefineId == flowNodeNiWenSearchViewModel.Parent_Flow_NodeDefineId);
+            else
+                predicate = predicate.And(p => p.Parent_Flow_NodeDefineId == null);
+            return predicate;
+        }
+
+        public List<Flow_Node> SearchInfoByNode2Where(FlowNodeKeepSearchViewModel flowNodeKeepSearchViewModel)
+        {
+            var result = DbSet.Where(a => a.Flow_NodeDefineId == flowNodeKeepSearchViewModel.Flow_NextNodeDefineId &&a.operate=="2"&& a.status=="0"&& 
+            a.Parent_Flow_NodeDefineId == flowNodeKeepSearchViewModel.Flow_NodeDefineId && a.Repair_InfoId== flowNodeKeepSearchViewModel.Repair_InfoId).ToList();
+            return result;
+
         }
     }
 }

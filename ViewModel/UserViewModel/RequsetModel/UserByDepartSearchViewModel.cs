@@ -11,6 +11,12 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 线路Id   ---外键
         /// </summary>
         public int User_DepartId { get; set; }
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string userName { get; set; }
+       
         /// <summary>
         /// 分页
         /// </summary>

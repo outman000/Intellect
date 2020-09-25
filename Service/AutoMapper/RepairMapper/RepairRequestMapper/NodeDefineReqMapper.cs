@@ -28,7 +28,7 @@ namespace Dto.Service.AutoMapper.RepairMapper.RepairRequestMapper
             CreateMap< Flow_CurrentNodeAndNextNode, FlowNodeDefineSearchMiddlecs> ()
             .ForMember(s => s.NodeName, sp => sp.MapFrom(src => src.Flow_NextNodeDefine.NodeName))
             .ForMember(s => s.FlowProcedureDefineName, sp => sp.MapFrom(src => src.Flow_NextNodeDefine.Flow_ProcedureDefine.ProcedureName))
-            .ForMember(s => s.NodeKeep, sp => sp.MapFrom(src => src.Flow_NextNodeDefine.NodeKeep))
+           // .ForMember(s => s.NodeKeep, sp => sp.MapFrom(src => src.Flow_NextNodeDefine.NodeKeep))
             .ForMember(s => s.Flow_ProcedureDefineId, sp => sp.MapFrom(src => src.Flow_NextNodeDefine.Flow_ProcedureDefineId))
             .ForMember(s => s.status, sp => sp.MapFrom(src => src.Flow_NextNodeDefine.status))
             .ForMember(s => s.Flow_NodeDefineId, sp => sp.MapFrom(src => src.Flow_NextNodeDefineId))

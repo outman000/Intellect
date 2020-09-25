@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.BusViewModel.RequestViewModel.BusInfoViewModel;
+using ViewModel.BusViewModel.RequestViewModel.BusUserViewModel;
 
 namespace Dto.Repository.IntellRegularBus
 {
@@ -68,7 +70,32 @@ namespace Dto.Repository.IntellRegularBus
 
             return result;
         }
+        public List<BusScanRecordTongjiNumMiddle> SearchInfoByBusScanRecordWhereTongji(BusScanRecordTongJiSearchViewModel busScanRecordTongJiSearchViewModel)
+        {
 
+
+            var LineId = busScanRecordTongJiSearchViewModel.LineId;
+            var AddDate = busScanRecordTongJiSearchViewModel.AddDate;
+            List<BusScanRecordTongjiNumMiddle> fpnm = new List<BusScanRecordTongjiNumMiddle>();
+            var result = DbSet.Where(b => b.LineId==(LineId) && b.AddDate.Year == AddDate.Year
+                                   && b.AddDate.Month == AddDate.Month && b.status=="0")
+            .GroupBy(m => new {
+                m.StationName             
+            })
+            .Select(k => new
+            {
+                StationName = k.Key.StationName,//站点名
+                Num = k.Count()
+
+            }).OrderByDescending(m => m.Num).ToList();
+
+            foreach (var temp in result)
+            {
+                fpnm.Add(new BusScanRecordTongjiNumMiddle() { StationName = temp.StationName, Num = temp.Num });
+            }
+            return fpnm;
+       
+        }
         public List<Bus_Scan_Record> SearchInfoByBusScanRecordWhere(BusScanRecordSearchViewModel   busScanRecordSearchViewModel)
         {
             int SkipNum = busScanRecordSearchViewModel.pageViewModel.CurrentPageNum * busScanRecordSearchViewModel.pageViewModel.PageSize;
@@ -99,6 +126,23 @@ namespace Dto.Repository.IntellRegularBus
             {
                 predicate = predicate.And(p => p.AddDate >= busScanRecordSearchViewModel.startdate);
                 predicate = predicate.And(p => p.AddDate <= busScanRecordSearchViewModel.enddate);
+            }
+            return predicate;
+        }
+
+        //根据条件查询班车扫码记录
+        private Expression<Func<Bus_Scan_Record, bool>> SearchBusTongjiWhere(BusScanRecordTongJiSearchViewModel busScanRecordTongJiSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Scan_Record>();//初始化where表达式
+          
+
+            if (busScanRecordTongJiSearchViewModel.LineId != null)
+                predicate = predicate.And(p => p.LineId == busScanRecordTongJiSearchViewModel.LineId);
+
+            if (busScanRecordTongJiSearchViewModel.AddDate != null )
+            {
+                predicate = predicate.And(p => p.AddDate.Year == busScanRecordTongJiSearchViewModel.AddDate.Year
+                                           && p.AddDate.Month == busScanRecordTongJiSearchViewModel.AddDate.Month);
             }
             return predicate;
         }

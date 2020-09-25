@@ -104,7 +104,7 @@ namespace Dto.IService.IntellRegularBus
         /// 查询所有订单信息
         /// </summary>
         /// <param name="bus_Payment_OrderSearchViewModel"></param>
-        List<Bus_Payment_Order> Bus_Payment_Order_Search(Bus_Payment_OrderSearchViewModel  bus_Payment_OrderSearchViewModel);
+        List<Bus_Payment_Order> Bus_Payment_Order_Search(Bus_Payment_OrderSearchViewModel bus_Payment_OrderSearchViewModel);
 
         /// <summary>
         /// 查询所有订单信息数量
@@ -116,7 +116,7 @@ namespace Dto.IService.IntellRegularBus
         /// 根据表单Id查询所有订单详细信息
         /// </summary>
         /// <param name="bus_OrderByRepairsIdSearchViewModel"></param>
-       Bus_Payment_OrderSearchMiddle Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel  bus_OrderByRepairsIdSearchViewModel);
+        Bus_Payment_OrderSearchMiddle Bus_Payment_Order_BySearch(Bus_OrderByRepairsIdSearchViewModel bus_OrderByRepairsIdSearchViewModel);
 
         /// <summary>
         /// 根据用户ID查询缴费详情
@@ -128,7 +128,7 @@ namespace Dto.IService.IntellRegularBus
 
         int Bus_Payment_Order_Count(Bus_OrderIsPassSearchViewModel bus_OrderIsPassSearchViewModel);
 
-        int ByBusIdSearchNum2(BusSearchByIdViewModel busSearchByIdViewModel, int count);
+        int ByBusIdSearchNum2(BusSearchByIdViewModel busSearchByIdViewModel);
 
 
         int Bus_PaymentSearchByOrderId(Bus_OrderByOrderIdSearchViewModel bus_OrderByOrderIdSearchViewModel);
@@ -190,7 +190,7 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <param name="busScanRecordSearchViewModel"></param>
         /// <returns></returns>
-      int Bus_Scan_Record_SearchNum(BusScanRecordSearchViewModel busScanRecordSearchViewModel);
+        int Bus_Scan_Record_SearchNum(BusScanRecordSearchViewModel busScanRecordSearchViewModel);
 
 
         List<BusUserSearchMiddlecs> Bus_User_Search2(BusUserSearch2ViewModel busUserSearch2ViewModel);
@@ -211,5 +211,50 @@ namespace Dto.IService.IntellRegularBus
         byte[] ExportExcel2<T>(List<T> data, string heading = "", int temp = 2, bool isShowSlNo = false, params string[] columnsToTake);
 
         List<BusOrderExcelSearchMiddle> Bus_Payment_Order_SearchExcel(BusOrderSearchViewModel busOrderSearchViewModel);
+
+        /// <summary>
+        /// 根据条件查询扫码记录（统计各站点扫码数量）
+        /// </summary>
+        /// <param name="busScanRecordTongJiSearchViewModel"></param>
+        /// <returns></returns>
+        List<BusScanRecordTongjiNumMiddle> Bus_Scan_Record_SearchTongJi(BusScanRecordTongJiSearchViewModel busScanRecordTongJiSearchViewModel);
+
+
+        /// <summary>
+        /// 查询16个部门的已用里程和剩余里程
+        /// </summary>
+        /// <returns></returns>
+        string SearchCarMileage(string jdfs);
+
+
+        /// <summary>
+        /// 查询当前年份，当前用车类型的各部门的用车趋势
+        /// </summary>
+        /// <returns></returns>
+        string CarTrend(string jdfs, string Docdate);
+
+
+        /// <summary>
+        /// 查询当前年份，当前用车类型的各部门的日均派车量
+        /// </summary>
+        /// <returns></returns>
+        string AverageDailyDispatch(string jdfs, string Docdate);
+        /// <summary>
+        /// 更新免费坐车人员乘车时间
+        /// </summary>
+        /// <returns></returns>
+        int Bus_User_Update_Status();
+
+        /// <summary>
+        /// 查询一般公务和执法执勤车辆实时占用情况
+        /// </summary>
+        /// <returns></returns>
+        List<CarOccupyMiddle> CarOccupySel(CarOccupyRequestModel carOccupyRequestModel);
+
+        /// <summary>
+        /// 更新已缴费但是没回调的订单数据
+        /// </summary>
+        /// <returns></returns>
+        int Bus_Order_Update();
     }
 }

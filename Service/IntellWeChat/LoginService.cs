@@ -188,10 +188,9 @@ namespace Dto.Service.IntellWeChat
         /// <returns></returns>
         public WeChatLoginMiddlecs WeChatLogin_User(WeChatLoginViewModel weChatLoginViewModel)
         {
-            WeChatLoginMiddlecs weChatLoginMiddlecs = new WeChatLoginMiddlecs();
+            WeChatLoginMiddlecs weChatLoginMiddlecs = new WeChatLoginMiddlecs(); 
             var user_Infos = _ILoginRepository.ValideUserInfo(weChatLoginViewModel);
-
-           var user_session=_IMapper.Map(user_Infos, weChatLoginMiddlecs);
+            var user_session = _IMapper.Map(user_Infos, weChatLoginMiddlecs);
             return user_session;
         }
 
@@ -295,5 +294,10 @@ namespace Dto.Service.IntellWeChat
             IRestResponse response = client.Execute(request);
             return response.StatusCode.ToString();
         }
+
+
+   
+
+
     }
 }

@@ -2,6 +2,7 @@
 using Dto.IRepository.IntellRegularBus;
 using Dto.IService.IntellRegularBus;
 using Dtol.dtol;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -182,7 +183,80 @@ namespace Dto.Service.IntellRegularBus
             return Bus_Relate_Line;
         }
 
-      
-        
+        /// <summary>
+        /// 查询加油卡账户
+        /// </summary>
+        /// <param name="bus_LineId"></param>
+        /// <returns></returns>
+        public List<Gas_Card_Account> GasCardAccount_Search()
+        {
+            return _IBusInfoRepository.SearchGasCardAccount();
+             
+        }
+        /// <summary>
+        /// 增加改派信息并给改派前司机发短信
+        /// </summary>
+        /// <param name="busByLineAddViewModel"></param>
+        /// <returns></returns>
+        public int Car_Reassignment_Record_Add(ReassignmentRecordAddViewModel  reassignmentRecordAddViewModel)
+        {        
+            try
+            {
+                string contentDriver = reassignmentRecordAddViewModel.Docdate +"的用车取消";
+                string contentRider = reassignmentRecordAddViewModel.Docdate + "的用车司机变更为：" + reassignmentRecordAddViewModel .AfterDriverName+ "，车辆变更为："+
+                                      reassignmentRecordAddViewModel.AfterCxry+ "，司机手机号变更为：" + reassignmentRecordAddViewModel .Afterphone;
+                var resultDriver = SmsMessage(reassignmentRecordAddViewModel.Beforephone, contentDriver);
+                var resultRider = SmsMessage(reassignmentRecordAddViewModel.Riderphone, contentRider);
+                if (resultDriver == "OK"&& resultRider == "OK")
+                {
+                    var temp = _IMapper.Map<ReassignmentRecordAddViewModel, Car_Reassignment_Record>(reassignmentRecordAddViewModel);
+                    temp.isdelete = "0";
+                    temp.AddDate = DateTime.Now;
+                    _IBusInfoRepository.Add_Reassignment_Record(temp);
+                    return _IBusInfoRepository.SaveChanges();
+                }
+                else
+                    return 0;
+
+            }          
+            catch(Exception e)
+            {
+                return 0;
+            }
+          
+        }
+        public List<Car_Reassignment_Record> Search_ReassignmentRecord(ReassignmentRecordSearchViewModel reassignmentRecordSearchViewMode)
+        {
+
+          return  _IBusInfoRepository.SearchReassignmentRecord(reassignmentRecordSearchViewMode);
+
+
+        }
+
+        public int Search_ReassignmentRecord_Num()
+        {
+
+            return _IBusInfoRepository.SearchReassignmentRecordNum();
+
+
+        }
+
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public string SmsMessage(string phone, string message)
+        {
+            var client = new RestClient("http://swj.dongjiang.gov.cn/TestSMS/SmsOutNetwork.asmx/SendMessage");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("phone", phone);
+            request.AddParameter("content", message);
+            IRestResponse response = client.Execute(request);
+            return response.StatusCode.ToString();
+        }
     }
 }

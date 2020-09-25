@@ -21,6 +21,12 @@ namespace Dtol.dtol
         public int? Flow_NextNodeDefineId { get; set; }
         public Flow_NodeDefine Flow_NextNodeDefine { get; set; }
 
+        /// <summary>
+        /// 节点保持
+        /// </summary>
+
+        public string NodeKeep { get; set; }
+
 
     }
 }

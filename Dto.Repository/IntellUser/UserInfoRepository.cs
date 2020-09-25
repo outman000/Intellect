@@ -88,8 +88,13 @@ namespace Dto.Repository.IntellUser
 
         public IQueryable<User_Info> GetInfoByUserid(string userid)
         {
-            IQueryable<User_Info> user_Infos = DbSet.Where(uid => uid.UserId.Equals(userid));
+            IQueryable<User_Info> user_Infos = DbSet.Where(uid => uid.UserId==userid);
             return user_Infos;
+        }
+
+        public List<User_Info> SearchByIdcard(string Idcard)
+        {
+            return  DbSet.Where(a => a.Idcard == Idcard).Include(a=>a.User_Depart).ToList();
         }
         //根据用户主键id查询
         public User_Info GetInfoByUserid(int id)
@@ -173,7 +178,8 @@ namespace Dto.Repository.IntellUser
         {
             int SkipNum = userByDepartSearchViewModel.pageViewModel.CurrentPageNum * userByDepartSearchViewModel.pageViewModel.PageSize;
             int lineid = userByDepartSearchViewModel.User_DepartId;
-            var queryResult = DbSet.Where(k => k.User_DepartId == lineid && k.status == "0")
+            string username = userByDepartSearchViewModel.userName;
+            var queryResult = DbSet.Where(k => k.User_DepartId == lineid && k.status == "0" && k.UserName.Contains(username))
                      .Skip(SkipNum)
                      .Take(userByDepartSearchViewModel.pageViewModel.PageSize)
                      .ToList();
@@ -187,7 +193,8 @@ namespace Dto.Repository.IntellUser
         public IQueryable<User_Info> GetUserByDepartAll(UserByDepartSearchViewModel userByDepartSearchViewModel)
         {
             int departId = userByDepartSearchViewModel.User_DepartId;
-            var queryResult = DbSet.Where(k => k.User_DepartId == departId && k.status == "0");
+            string username = userByDepartSearchViewModel.userName;
+            var queryResult = DbSet.Where(k => k.User_DepartId == departId && k.status == "0" && k.UserName.Contains(username));
             return queryResult;
         }
 

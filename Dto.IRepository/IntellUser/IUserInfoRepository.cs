@@ -42,5 +42,7 @@ namespace Dto.IRepository.IntellUser
 
 
         List<User_Info> CheckIdcard(string Idcard);
+
+        List<User_Info> SearchByIdcard(string Idcard);
     }
 }

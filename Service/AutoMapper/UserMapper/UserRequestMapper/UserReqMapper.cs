@@ -20,7 +20,18 @@ namespace Dto.Service.AutoMapper.UserMapper.UserRequestMapper
             CreateMap<User_Info, UserSearchMiddlecs>();
             CreateMap<RelateDepartUserAddMiddlecs, User_Info>();
             CreateMap<User_Info, User_Info>();
+            CreateMap<UserRegisterViewModel, User_Info>();
+            CreateMap<UserIntegralLogAddViewModel, User_Integral_Log>();
+            CreateMap<UserIntegralLogAddViewModel, User_Integral>()
+           ;
 
+            CreateMap<User_Info, UserIntegralLogAddViewModel >()
+            .ForMember(s => s.User_DepartId, sp => sp.MapFrom(src => src.User_DepartId))
+            .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.UserName))
+            .ForMember(s => s.createUser, sp => sp.MapFrom(src => src.Id))
+            .ForMember(s => s.Idcard, sp => sp.MapFrom(src => src.Idcard))
+            .ForMember(s => s.Mobile, sp => sp.MapFrom(src => src.PhoneCall))
+            .ForMember(s => s.Dept, sp => sp.MapFrom(src => src.User_Depart.Name));
         }
     }
     

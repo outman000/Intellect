@@ -94,5 +94,33 @@ namespace Dto.IService.IntellRegularBus
         /// <param name="lineByBusSearchViewModel"></param>
         /// <returns></returns>
         int Line_By_Bus_Get_ALLNum(LineByBusSearchViewModel lineByBusSearchViewModel);
+
+        /// <summary>
+        /// 查询加油卡账户
+        /// </summary>
+        /// <returns></returns>
+        List<Gas_Card_Account> GasCardAccount_Search();
+
+
+        /// <summary>
+        /// 增加改派信息并给改派前司机发短信
+        /// </summary>
+        /// <param name="reassignmentRecordAddViewModel"></param>
+        /// <returns></returns>
+        int Car_Reassignment_Record_Add(ReassignmentRecordAddViewModel reassignmentRecordAddViewModel);
+
+        /// <summary>
+        /// 查询改派记录
+        /// </summary>
+        /// <param name="reassignmentRecordSearchViewMode"></param>
+        /// <returns></returns>
+        List<Car_Reassignment_Record> Search_ReassignmentRecord(ReassignmentRecordSearchViewModel reassignmentRecordSearchViewMode);
+
+
+        /// <summary>
+        /// 改派记录数量
+        /// </summary>
+        /// <returns></returns>
+        int Search_ReassignmentRecord_Num();
     }
 }

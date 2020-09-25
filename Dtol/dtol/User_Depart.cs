@@ -11,6 +11,7 @@ namespace Dtol.dtol
         public string ParentId { get; set; }
         public string Code { get; set; }
         public string Remark { get; set; }
+        public string Type { get; set; }
         public int? Sort { get; set; }
        // public List<User_Info> User_Info { get; set; }
 

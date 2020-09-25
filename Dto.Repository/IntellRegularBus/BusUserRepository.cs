@@ -209,7 +209,21 @@ namespace Dto.Repository.IntellRegularBus
 
 
         }
+        /// <summary>
+        /// 查询人员缴费信息
+        /// </summary>
+        /// <param name="busUserSearchViewModel"></param>
+        /// <returns></returns>
+        public IQueryable<Bus_Payment> SearchInfoByBusWhereNow(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
 
+            var predicate = SearchBusUserWhereNow(busUserSearchByDeaprtIdViewModel);
+            var result = DbSet.Where(predicate);
+
+            return result;
+
+
+        }
 
 
         /// <summary>
@@ -240,7 +254,7 @@ namespace Dto.Repository.IntellRegularBus
         {
          
 
-            var predicate = SearchBusUserWhere3(busUserSearchByDeaprtIdViewModel);
+            var predicate = SearchBusUserWhere5(busUserSearchByDeaprtIdViewModel);
 
             var result = DbSet.Where(predicate).Select(a => a.Bus_LineId.Value).Distinct()
                .ToList();
@@ -343,7 +357,7 @@ namespace Dto.Repository.IntellRegularBus
             if (busUserSearchViewModel.carDate != null)
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearchViewModel.carDate.Value.Month);
-            predicate = predicate.And(a => a.status=="0");
+            predicate = predicate.And(a => a.status=="0" || a.status == "2");
             return predicate;
         }
         //根据条件查询班车
@@ -356,6 +370,31 @@ namespace Dto.Repository.IntellRegularBus
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchByDeaprtIdViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearchByDeaprtIdViewModel.carDate.Value.Month);
             predicate = predicate.And(a => a.status == "0");
+            return predicate;
+        }
+
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserWhere5(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            if (busUserSearchByDeaprtIdViewModel.User_DepartId != "")
+                predicate = predicate.And(a => a.User_DepartId.ToString() == (busUserSearchByDeaprtIdViewModel.User_DepartId));
+            if (busUserSearchByDeaprtIdViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchByDeaprtIdViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busUserSearchByDeaprtIdViewModel.carDate.Value.Month);
+            predicate = predicate.And(a => a.status == "0" || a.status == "2");
+            return predicate;
+        }
+        private Expression<Func<Bus_Payment, bool>> SearchBusUserWhereNow(BusUserSearchByDeaprtIdViewModel busUserSearchByDeaprtIdViewModel)
+        {
+            var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
+            if (busUserSearchByDeaprtIdViewModel.User_DepartId != "")
+                predicate = predicate.And(a => a.User_DepartId.ToString() == (busUserSearchByDeaprtIdViewModel.User_DepartId));
+            if (busUserSearchByDeaprtIdViewModel.carDate != null)
+                predicate = predicate.And(a => a.carDate.Value.Year == busUserSearchByDeaprtIdViewModel.carDate.Value.Year
+                                         && a.carDate.Value.Month == busUserSearchByDeaprtIdViewModel.carDate.Value.Month);
+            predicate = predicate.And(a => a.status == "0" );
+
+            predicate = predicate.And(a => a.Bus_Payment_OrderId==null);
             return predicate;
         }
         #region 条件
@@ -380,7 +419,7 @@ namespace Dto.Repository.IntellRegularBus
             if (busUserSearchViewModel.User_InfoId != "")
                 predicate = predicate.And(a => a.User_InfoId.ToString() == (busUserSearchViewModel.User_InfoId));
 
-            predicate = predicate.And(a => a.status == (busUserSearchViewModel.status));
+            predicate = predicate.And(a => a.status ==  (busUserSearchViewModel.status));
 
             if (busUserSearchViewModel.Expense != "")
                 predicate = predicate.And(a => a.Expense == (busUserSearchViewModel.Expense));
@@ -494,7 +533,7 @@ namespace Dto.Repository.IntellRegularBus
         private Expression<Func<Bus_Payment, bool>> SearchBusUserByIdWhere(BusSearchByIdViewModel busSearchByIdViewModel)
         {
             var predicate = WhereExtension.True<Bus_Payment>();//初始化where表达式
-            predicate = predicate.And(a => a.status == "0");
+            predicate = predicate.And(a => a.status == "0" || a.status=="2");
 
             predicate = predicate.And(a => a.Bus_LineId==busSearchByIdViewModel.Bus_LineId);
             predicate = predicate.And(a => a.carDate.Value.Year == busSearchByIdViewModel.carDate.Year
@@ -544,7 +583,7 @@ namespace Dto.Repository.IntellRegularBus
 
         public List<Bus_Payment> GetInfoByCode(string id)
         {
-            List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Code== id && uid.status == "0").ToList();
+            List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.Code== id &&( uid.status == "0" || uid.status == "2")).ToList();
             return busPayment_Info;
         }
 
@@ -552,8 +591,18 @@ namespace Dto.Repository.IntellRegularBus
         {
             List<Bus_Payment> busPayment_Info = DbSet.Where(uid => uid.IDNumber == bus_OrderByIdCardSearchViewModel.IDNumber &&
             uid.carDate.Value.Year == bus_OrderByIdCardSearchViewModel.CarDate.Year && uid.carDate.Value.Month == bus_OrderByIdCardSearchViewModel.CarDate.Month 
-            && uid.status == "0" && uid.Code!=null).ToList();
+            && (uid.status == "0" || uid.status == "2") && uid.Code!=null).ToList();
             return busPayment_Info;
+        }
+
+        public List<Bus_Payment> SearchInfoByStatus()
+        {       
+
+            var result = DbSet.Where(a=>a.status=="2").ToList();
+
+
+            return result;
+
         }
     }
 }
