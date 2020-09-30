@@ -75,6 +75,14 @@ namespace Dtol
 
 
         public DbSet<Car_Reassignment_Record> Car_Reassignment_Record { get; set; }
+
+        public DbSet<User_Union> User_Union { get; set; }
+
+        
+        public DbSet<User_Test> User_Test { get; set; }
+
+        public DbSet<User_Register> User_Register { get; set; }
+
         
 
     }

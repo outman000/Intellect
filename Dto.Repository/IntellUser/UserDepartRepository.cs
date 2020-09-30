@@ -17,12 +17,13 @@ namespace Dto.Repository.IntellUser
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<User_Depart> DbSet;
+        protected readonly DbSet<User_Union> DbSet2;
 
         public UserDepartRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<User_Depart>();
-
+            DbSet2 = Db.Set<User_Union>();
         }
 
         public virtual void Add(User_Depart obj)
@@ -71,6 +72,11 @@ namespace Dto.Repository.IntellUser
         {
             IQueryable<User_Depart> user_Departs = DbSet.Where(uid => uid.Code.Equals(code));
             return user_Departs;
+        }
+        public List<User_Union> GetUserUnion()
+        {
+            List<User_Union> user_Union = DbSet2.Where(uid => uid.Name!=null).ToList();
+            return user_Union;
         }
 
         public void Remove(Guid id)

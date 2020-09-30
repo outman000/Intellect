@@ -348,5 +348,37 @@ namespace IntellUser.Controllers
             return Ok(roleByRightsSearchResModel);
           
         }
+
+
+
+        /// <summary>
+        /// 给角色配置人员 / 给人员配置角色(测试)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<RelateRoleToUserAddResModel> Manage_UserRoleToUser_Add_Test()
+        {
+            RelateRoleToUserAddResModel relateRoleToUserAddResModel = new RelateRoleToUserAddResModel();
+            int UpdateRowNum = _roleService.AddUser_Role();
+            if (UpdateRowNum > 0)
+            {
+                relateRoleToUserAddResModel.IsSuccess = true;
+                relateRoleToUserAddResModel.AddCount = UpdateRowNum;
+                relateRoleToUserAddResModel.baseViewModel.Message = "角色分配用户成功";
+                relateRoleToUserAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("给角色分配用户成功");
+                return Ok(relateRoleToUserAddResModel);
+            }
+            else
+            {
+                relateRoleToUserAddResModel.IsSuccess = false;
+                relateRoleToUserAddResModel.AddCount = 0;
+                relateRoleToUserAddResModel.baseViewModel.Message = "角色分配用户失败";
+                relateRoleToUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("给角色分配用户失败");
+                return BadRequest(relateRoleToUserAddResModel);
+            }
+        }
     }
 }

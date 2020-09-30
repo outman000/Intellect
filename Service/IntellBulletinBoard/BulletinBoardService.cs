@@ -143,10 +143,14 @@ namespace Dto.Service.IntellBulletinBoard
         public BulletinBoardSearchMiddlecs Bulletin_Board_SearchSingle(BulletinBoardSearchSingleViewModel  bulletinBoardSearchSingleViewModel)
         {
            var bulletin_Board = _IBulletinBoardRepository.SearchByBulletinId(bulletinBoardSearchSingleViewModel.Id).ToList();
-           
+            if (bulletin_Board.Count > 0)
+            {
                 var BusSearchMiddlecs = _IMapper.Map<Bulletin_Board, BulletinBoardSearchMiddlecs>(bulletin_Board[0]);
-         
-            return BusSearchMiddlecs;
+                return BusSearchMiddlecs;
+            }
+              
+            else
+                return null;
         }
         /// <summary>
         /// 根据公告栏查角色总数

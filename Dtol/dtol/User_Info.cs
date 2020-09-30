@@ -7,7 +7,7 @@ using System.Text;
 namespace Dtol.dtol
 {
      public partial class User_Info
-    {
+     {
         public int Id { get; set; }
         [ExcelAttribute("账号")]
         public string UserId { get; set; }
@@ -90,5 +90,16 @@ namespace Dtol.dtol
         public virtual ICollection<User_Relate_Info_Role> User_Relate_Info_Role { get; set; }
         public int? User_DepartId { get; set; }
         public User_Depart User_Depart { get; set; }
+
+
+        /// <summary>
+        /// 工会名称
+        /// </summary>
+        public string UnionName { get; set; }
+        /// <summary>
+        /// 工会信息
+        /// </summary>
+        public int? User_UnionId { get; set; }
+        public User_Union User_Union { get; set; }
     }
 }

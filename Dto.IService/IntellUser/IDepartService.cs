@@ -5,6 +5,7 @@ using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.UserViewModel.MiddleModel;
 
 using ViewModel.UserViewModel.RequsetModel;
+using Dtol.dtol;
 
 namespace Dto.IService.IntellUser
 {
@@ -50,5 +51,10 @@ namespace Dto.IService.IntellUser
         /// </summary>
         /// <returns></returns>
         int Depart_Get_ALLNum();
+        /// <summary>
+        /// 查询工会信息
+        /// </summary>
+        /// <returns></returns>
+        List<User_Union> Union_Search();
     }
 }

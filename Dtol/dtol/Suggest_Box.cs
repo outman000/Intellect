@@ -23,7 +23,7 @@ namespace Dtol.dtol
         public string SuggestType { get; set; }
 
         /// <summary>
-        /// 建议的菜名
+        /// 具体意见内容
         /// </summary>
         public string Content { get; set; }
 

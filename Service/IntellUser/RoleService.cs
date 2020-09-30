@@ -16,17 +16,20 @@ namespace Dto.Service.IntellUser
         private readonly IUserRightsRepository _userRightsRepository;
         private readonly IMapper _IMapper;
         private readonly IUserRelateRoleRightRepository _userRelateRoleRightRepository;
+        private readonly IUserInfoRepository _userInfoRepository;
 
         public RoleService(IUserRoleRepository  userRoleRepository,
                            IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                            IUserRightsRepository userRightsRepository,
                            IUserRelateRoleRightRepository userRelateRoleRightRepository,
+                           IUserInfoRepository userInfoRepository,
                            IMapper mapper)
         {
             _IUserRoleRepository = userRoleRepository;
             _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
             _userRightsRepository = userRightsRepository;
             _userRelateRoleRightRepository=userRelateRoleRightRepository;
+            _userInfoRepository = userInfoRepository;
             _IMapper = mapper;
         }
         //给角色删除用户
@@ -181,6 +184,33 @@ namespace Dto.Service.IntellUser
         public int Role_By_Rights_Get_ALLNum(RoleByRightsSearchViewModel roleByRightsSearchViewModel)
         {
             return _userRelateRoleRightRepository.GetRoleByRightsAll(roleByRightsSearchViewModel).Count();
+        }
+
+
+
+        public int AddUser_Role()
+
+        {
+            var userList=  _userInfoRepository.GetAll().ToList();
+            RelateRoleToUserAddViewModel relateRoleToUserAddViewModel = new RelateRoleToUserAddViewModel();
+            List<RelateRoleUserAddMiddlecs> relateUserIdandRoleIdList = new List<RelateRoleUserAddMiddlecs>();
+
+            for(int i=0;i< userList.Count;i++)
+            {
+                RelateRoleUserAddMiddlecs rr = new RelateRoleUserAddMiddlecs();
+                rr.User_InfoId = userList[i].Id;
+                rr.User_RoleId = 15;
+                relateUserIdandRoleIdList.Add(rr);
+            }
+          
+            //将视图模型和转为领域模型集合
+            List<User_Relate_Info_Role> user_Relate_Role_Rights = _IMapper.Map<List<RelateRoleUserAddMiddlecs>, List<User_Relate_Info_Role>>(relateUserIdandRoleIdList);
+
+            int AddNum = _userRelateInfoRoleRepository
+                       .RelateRoleToUser(user_Relate_Role_Rights);
+
+            return AddNum;
+
         }
     }
 }

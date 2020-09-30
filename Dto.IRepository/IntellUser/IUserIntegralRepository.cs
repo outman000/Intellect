@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
 
 namespace Dto.IRepository.IntellUser
@@ -29,5 +30,12 @@ namespace Dto.IRepository.IntellUser
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
         List<User_Integral> SearchUserIntegralAllNum(UserIntegralSearchViewModel userIntegralSearchViewModel);
+        /// <summary>
+        /// 根据条件查询用户积分(最新)
+        /// </summary>
+        /// <param name="userIntegralSearchViewModel"></param>
+        /// <returns></returns>
+
+        List<UserIntegralSearchMiddle> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel);
     }
 }

@@ -101,7 +101,7 @@ namespace Dto.Repository.IntellSuggestBox
             //查询条件
             var predicate = SearchSggestBoxWhere(suggestBoxSearchViewModel);
             var result = DbSet.Where(predicate).Include(a=>a.User_Info)
-                        .ThenInclude(c => c.User_Depart).OrderBy(o => o.SuggestDate)
+                        .ThenInclude(c => c.User_Depart).OrderByDescending(o => o.SuggestDate)
                 .Skip(SkipNum)
                 .Take(suggestBoxSearchViewModel.pageViewModel.PageSize)
                 .ToList();
@@ -114,8 +114,9 @@ namespace Dto.Repository.IntellSuggestBox
         private Expression<Func<Suggest_Box, bool>> SearchSggestBoxWhere(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
         {
             var predicate = WhereExtension.True<Suggest_Box>();//初始化where表达式
-            predicate = predicate.And(p => p.SuggestDate.ToString().Contains(suggestBoxSearchViewModel.SuggestDate.ToString()));
-            predicate = predicate.And(p => p.Content.Contains(suggestBoxSearchViewModel.Content));
+            predicate = predicate.And(p => p.SuggestDate.Value >= suggestBoxSearchViewModel.strDate.Value && p.SuggestDate.Value <= suggestBoxSearchViewModel.endDate.Value);
+            predicate = predicate.And(p => p.SuggestType.Contains(suggestBoxSearchViewModel.SuggestType));
+            predicate = predicate.And(p => p.User_Info.UserName.Contains(suggestBoxSearchViewModel.userName));
 
             return predicate;
         }

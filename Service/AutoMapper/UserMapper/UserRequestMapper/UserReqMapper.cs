@@ -22,8 +22,17 @@ namespace Dto.Service.AutoMapper.UserMapper.UserRequestMapper
             CreateMap<User_Info, User_Info>();
             CreateMap<UserRegisterViewModel, User_Info>();
             CreateMap<UserIntegralLogAddViewModel, User_Integral_Log>();
-            CreateMap<UserIntegralLogAddViewModel, User_Integral>()
-           ;
+            CreateMap<UserIntegralLogAddViewModel, User_Integral>();
+            CreateMap<UserRegisterViewModel, UserRegisterMiddle>();
+            CreateMap< UserRegisterMiddle, User_Info >();
+            CreateMap< UserRegisterViewModel, User_Register >();
+            CreateMap<UserRegisterUpdateViewModel, User_Register>();
+            CreateMap<UserRegisterMiddleToUserInfo, User_Info>();
+            CreateMap<User_Register, UserRegisterMiddleToUserInfo >();
+            CreateMap< RelateUnionUserAddMiddle, User_Info >();
+            CreateMap < User_Test, User_Info > ();
+            CreateMap < User_Test, UserTestMiddle>();
+            CreateMap< UserTestMiddle, User_Info >();
 
             CreateMap<User_Info, UserIntegralLogAddViewModel >()
             .ForMember(s => s.User_DepartId, sp => sp.MapFrom(src => src.User_DepartId))

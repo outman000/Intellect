@@ -44,6 +44,8 @@ namespace Dto.Service.IntellSuggestBox
         {
 
             var suggestBox_Info = _IMapper.Map<SuggestBoxAddViewModel, Suggest_Box>(suggestBoxAddViewModel);
+            suggestBox_Info.SuggestDate = DateTime.Now;
+            suggestBox_Info.status = "0";
             _ISuggestBoxRepository.Add(suggestBox_Info);
             return _ISuggestBoxRepository.SaveChanges();
         }
@@ -74,9 +76,9 @@ namespace Dto.Service.IntellSuggestBox
         {
             SuggestInfoMiddlecs suggestInfoMiddlecs = new SuggestInfoMiddlecs();
             List<Suggest_Box> suggestBox = _ISuggestBoxRepository.SearchSuggestBoxInfoByWhere(suggestBoxSearchViewModel);
-            var nodeSearchMiddle = _IMapper.Map<List<Suggest_Box>, List<SuggestInfoMiddlecs>>(suggestBox);
+            var SuggestSearch = _IMapper.Map<List<Suggest_Box>, List<SuggestInfoMiddlecs>>(suggestBox);
 
-            return nodeSearchMiddle;
+            return SuggestSearch;
         }
 
         public int SuggestBox_Get_ALLNum(SuggestBoxSearchViewModel suggestBoxSearchViewModel)

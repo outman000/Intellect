@@ -35,7 +35,7 @@ namespace IntellBulletinBoard.Controllers
 
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<BulletinBoardAddResModel> Manage_Food_Add(BulletinBoardAddViewModel bulletinBoardAddViewModel)
         {
             int BulletinBoard_Add_Count;
@@ -66,7 +66,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinBoardSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<BulletinBoardSearchResModel> Manage_BulletinBoard_Search(BulletinBoardSearchViewModel bulletinBoardSearchViewModel)
         {
             BulletinBoardSearchResModel  bulletinBoardSearchResModel = new BulletinBoardSearchResModel();
@@ -89,7 +89,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinBoardSearchSingleViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<BulletinBoardSearchSingleResModel> Manage_BulletinBoardSingle_Search(BulletinBoardSearchSingleViewModel bulletinBoardSearchSingleViewModel)
         {
             BulletinBoardSearchSingleResModel  bulletinBoardSearchSingleResModel = new BulletinBoardSearchSingleResModel();
@@ -112,7 +112,7 @@ namespace IntellBulletinBoard.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        [Authorize]
+
         public ActionResult<BulletinBoardUpdateResModel> Manage_BulletinBoard_Update(BulletinBoardUpdateViewModel bulletinBoardUpdateViewModel)
         {
             BulletinBoardUpdateResModel  bulletinBoardUpdateResModel = new BulletinBoardUpdateResModel();
@@ -143,7 +143,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinBoardDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+     
         public ActionResult<BulletinBoardDelResModel> Manage_BulletinBoard_Delete(BulletinBoardDelViewModel  bulletinBoardDelViewModel)
         {
             BulletinBoardDelResModel  bulletinBoardDelResModel = new BulletinBoardDelResModel();
@@ -175,7 +175,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="roleByBulletinSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RoleByBulletinSearchResModel> Manage_Role_By_Bulletin_Search(RoleByBulletinSearchViewModel  roleByBulletinSearchViewModel)
         {
             RoleByBulletinSearchResModel  roleByBulletinSearchResModel = new RoleByBulletinSearchResModel();
@@ -196,7 +196,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="roleByBulletinAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RoleByBulletinAddResModel> Manage_BulletinBoardToRole_Add(RoleByBulletinAddViewModel  roleByBulletinAddViewModel)
         {
             RoleByBulletinAddResModel  roleByBulletinAddResModel = new RoleByBulletinAddResModel();
@@ -227,7 +227,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="roleByBulletinDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<RoleByBulletinDelResModel> Manage_UserRoleToUser_Del(RoleByBulletinDelViewModel  roleByBulletinDelViewModel)
         {
             RoleByBulletinDelResModel roleByBulletinDelResModel = new RoleByBulletinDelResModel();
@@ -259,7 +259,7 @@ namespace IntellBulletinBoard.Controllers
         /// <param name="bulletinByUserSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+    
         public ActionResult<BulletinByUserSearchResModel> Manage_BulletinByLogin_Search(BulletinByUserSearchViewModel bulletinByUserSearchViewModel)
         {
             BulletinByUserSearchResModel  bulletinByUserSearchResModel = new BulletinByUserSearchResModel();
@@ -270,7 +270,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinByUserSearchResModel.baseViewModel.Message = "用户无权限查看公告信息";
                 bulletinByUserSearchResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("用户无权限，查看公告失败");
-                return BadRequest(bulletinByUserSearchResModel);
+                return Ok(bulletinByUserSearchResModel);
             }
             else
             {

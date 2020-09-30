@@ -156,7 +156,45 @@ namespace Dto.IService.IntellUser
         /// <returns></returns>
         int SearchUserIntegralWhereNum(UserIntegralSearchViewModel userIntegralSearchViewModel);
 
- 
+        bool CheckIdcard2(string Idcard, string id);
+
+        int UserAddTest();
+        /// <summary>
+        /// 更新注册状态
+        /// </summary>
+        /// <param name="userRegisterUpdateViewModel"></param>
+        /// <returns></returns>
+        int UserRegister_Update(UserRegisterUpdateViewModel userRegisterUpdateViewModel);
+
+        /// <summary>
+        /// 查询注册信息
+        /// </summary>
+        /// <param name="userRegisterSearchViewModel"></param>
+        /// <returns></returns>
+        List<User_Register> SearchUserRegisterWhere(UserRegisterSearchViewModel userRegisterSearchViewModel);
+
+        /// <summary>
+        /// 注册信息数量
+        /// </summary>
+        /// <param name="userRegisterSearchViewModel"></param>
+        /// <returns></returns>
+        int SearchUserRegisterWhereNum(UserRegisterSearchViewModel userRegisterSearchViewModel);
+
+
+        /// <summary>
+        /// 根据工会添加账户
+        /// </summary>
+        /// <param name="relateUnionToUserAddViewModel"></param>
+        /// <returns></returns>
+        int Union_User_Add(RelateUnionToUserAddViewModel relateUnionToUserAddViewModel);
+
+        string UserAddTest2();
+        /// <summary>
+        /// 根据条件查询用户积分信息（最新）
+        /// </summary>
+        /// <param name="userIntegralSearchViewModel"></param>
+        /// <returns></returns>
+        List<UserIntegralSearchMiddle> SearchUserIntegralNewWhere(UserIntegralSearchViewModel userIntegralSearchViewModel);
     }
 }
 

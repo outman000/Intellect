@@ -93,6 +93,8 @@ namespace Dto.IService.IntellUser
         /// </summary>
         /// <returns></returns>
         int Role_By_Rights_Get_ALLNum(RoleByRightsSearchViewModel roleByRightsSearchViewModel);
+
+        int AddUser_Role();
     }
 }
 

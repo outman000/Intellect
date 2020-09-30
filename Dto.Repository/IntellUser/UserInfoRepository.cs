@@ -19,12 +19,15 @@ namespace Dto.Repository.IntellUser
         protected readonly DtolContext Db;
         protected readonly DbSet<User_Info> DbSet;
         protected readonly DbSet<ComAttachs> DbSet2;
-
+        protected readonly DbSet<User_Test> DbSet3;
+        protected readonly DbSet<User_Register> DbSet4;
         public UserInfoRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<User_Info>();
             DbSet2 = Db.Set<ComAttachs>();
+            DbSet3 = Db.Set<User_Test>();
+            DbSet4 = Db.Set<User_Register>();
         }
 
         public virtual void Add(User_Info obj)
@@ -34,6 +37,11 @@ namespace Dto.Repository.IntellUser
         public virtual void Add2(ComAttachs obj)
         {
             DbSet2.Add(obj);
+        }
+
+        public virtual void Add3(User_Register obj)
+        {
+            DbSet4.Add(obj);
         }
         public virtual User_Info GetById(Guid id)
         {
@@ -50,6 +58,10 @@ namespace Dto.Repository.IntellUser
         public virtual void Update(User_Info obj)
         {
             DbSet.Update(obj);
+        }
+        public  void Update3(User_Test obj)
+        {
+            DbSet3.Update(obj);
         }
 
         /// <summary>
@@ -88,29 +100,39 @@ namespace Dto.Repository.IntellUser
 
         public IQueryable<User_Info> GetInfoByUserid(string userid)
         {
-            IQueryable<User_Info> user_Infos = DbSet.Where(uid => uid.UserId==userid);
+            IQueryable<User_Info> user_Infos = DbSet.Where(uid => uid.UserId==userid && uid.status=="0");
             return user_Infos;
         }
 
         public List<User_Info> SearchByIdcard(string Idcard)
         {
-            return  DbSet.Where(a => a.Idcard == Idcard).Include(a=>a.User_Depart).ToList();
+            return  DbSet.Where(a => a.Idcard == Idcard && a.status=="0").Include(a=>a.User_Depart).ToList();
+        }
+
+        public List<User_Test> SearchUser_Test()
+        {
+            return DbSet3.Where(a => a.UserId!=null).ToList();
         }
         //根据用户主键id查询
         public User_Info GetInfoByUserid(int id)
         {
-            User_Info user_Info = DbSet.Single(uid => uid.Id.Equals(id));
+            User_Info user_Info = DbSet.Single(uid => uid.Id.Equals(id) && uid.status=="0");
             return user_Info;
         }
 
         public List<User_Info> CheckIdcard(string Idcard)
         {
-            List<User_Info> user_Info = DbSet.Where(uid => uid.Idcard == Idcard).ToList();
+            List<User_Info> user_Info = DbSet.Where(uid => uid.Idcard == Idcard && uid.status=="0").ToList();
             return user_Info;
         }
         public User_Info GetPwd(string userid)
         {
-            User_Info user_Info = DbSet.Single(uid => uid.UserId.Equals(userid));
+            User_Info user_Info = DbSet.Single(uid => uid.UserId.Equals(userid) && uid.status=="0");
+            return user_Info;
+        }
+        public List<User_Info> GetPwdByUserid(string userid)
+        {
+            List<User_Info> user_Info = DbSet.Where(uid => uid.UserId.Equals(userid) && uid.status == "0").ToList();
             return user_Info;
         }
 
@@ -159,7 +181,7 @@ namespace Dto.Repository.IntellUser
 
         public IQueryable<User_Info> GetAll()
         {
-            throw new NotImplementedException();
+            return DbSet;
         }
 
         public User_Info GetInfoAndDepartByUserid(int id)

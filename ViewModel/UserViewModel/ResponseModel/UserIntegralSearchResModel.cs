@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.PublicViewModel;
+using ViewModel.UserViewModel.MiddleModel;
 
 namespace ViewModel.UserViewModel.ResponseModel
 {
-   public class DepartSearchResModel
-   {
+    public class UserIntegralSearchResModel
+    {
         public bool isSuccess;
-        public List<DepartSearchMiddlecs> user_Departs;
+        public int count;
+        public List<UserIntegralSearchMiddle> user_Integrals;
         public BaseViewModel baseViewModel;
-        public int TotalNum;
-        public DepartSearchResModel()
+        public UserIntegralSearchResModel()
         {
             baseViewModel = new BaseViewModel();
         }
-   }
+    }
 }

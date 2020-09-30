@@ -11,7 +11,7 @@ namespace ViewModel.SuggestBoxViewModel.MiddleModel
         /// </summary>
         public int id { get; set; }
         /// <summary>
-        /// 建议的菜名
+        /// 具体意见内容
         /// </summary>
         public string Content { get; set; }
         /// <summary>
@@ -20,9 +20,9 @@ namespace ViewModel.SuggestBoxViewModel.MiddleModel
         public DateTime? SuggestDate { get; set; }
 
         /// <summary>
-        /// 意见表单修改时间
+        /// 意见箱表单分类
         /// </summary>
-        public DateTime? UpdateDate { get; set; }
+        public string SuggestType { get; set; }
 
         /// <summary>
         /// 用户名

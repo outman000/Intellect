@@ -111,6 +111,29 @@ namespace IntellUser.Controllers
         }
 
 
+        /// <summary>
+        /// 根据条件查询用户积分信息(最新)
+        /// </summary>
+        /// <param name="userIntegralSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<UserIntegralSearchResModel> Manage_IntegralSearchNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
+        {
+            UserIntegralSearchResModel userIntegralResModel = new UserIntegralSearchResModel();
+            var Result = _userService.SearchUserIntegralNewWhere(userIntegralSearchViewModel);
+            int count = _userService.SearchUserIntegralWhereNum(userIntegralSearchViewModel);
+
+            userIntegralResModel.user_Integrals = Result;
+            userIntegralResModel.count = count;
+            userIntegralResModel.isSuccess = true;
+            userIntegralResModel.baseViewModel.Message = "查询成功";
+            userIntegralResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据条件查询用户积分信息，查询成功");
+            return Ok(userIntegralResModel);
+
+        }
+
 
 
 
@@ -221,8 +244,6 @@ namespace IntellUser.Controllers
 
         public ActionResult<UserRegisterResModel> Manage_User_Register(UserRegisterViewModel userRegisterViewModel)
         {
-
-
 
             UserRegisterResModel  userRegisterResModel = new UserRegisterResModel();
             int temp = _userService.User_Register(userRegisterViewModel);
@@ -357,6 +378,7 @@ namespace IntellUser.Controllers
             }
         }
 
+
         /// <summary>
         /// 查询用户信息
         /// </summary>
@@ -432,13 +454,14 @@ namespace IntellUser.Controllers
         /// 验证身份证号是否重复
         /// </summary>
         /// <param name="Idcard"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet]
 
-        public ActionResult<UserSearchResModel> Manage_CheckIdcard(string Idcard)
+        public ActionResult<UserSearchResModel> Manage_CheckIdcard(string Idcard,string Id)
         {
             UserSearchSingleResModel userSearchSingleResModel = new UserSearchSingleResModel();
-            var result = _userService.CheckIdcard(Idcard);
+            var result = _userService.CheckIdcard2(Idcard,Id);
             if(result==false)
             {
                 userSearchSingleResModel.isSuccess = true;
@@ -502,6 +525,51 @@ namespace IntellUser.Controllers
             }
 
         }
+
+        /// <summary>
+        /// 根据工会 添加/删除 用户
+        /// </summary>
+        /// <param name="relateUnionToUserAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<RelateDepartToUserAddResModel> Manage_User_Union(RelateUnionToUserAddViewModel  relateUnionToUserAddViewModel)
+        {
+            RelateDepartToUserAddResModel relateDepartToUserAddResModel = new RelateDepartToUserAddResModel();
+            int UpdateRowNum = _userService.Union_User_Add(relateUnionToUserAddViewModel);
+            int totalnum = relateUnionToUserAddViewModel.relateUnionUserAddMiddles.Count;
+            if (UpdateRowNum == totalnum)
+            {
+                relateDepartToUserAddResModel.IsSuccess = true;
+                relateDepartToUserAddResModel.AddCount = UpdateRowNum;
+                relateDepartToUserAddResModel.baseViewModel.Message = "根据工会添加用户成功：" + UpdateRowNum + "条";
+                relateDepartToUserAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("根据工会添加用户成功，" + UpdateRowNum + "条");
+                return Ok(relateDepartToUserAddResModel);
+            }
+            else if (UpdateRowNum < totalnum)
+            {
+                relateDepartToUserAddResModel.IsSuccess = false;
+                relateDepartToUserAddResModel.AddCount = 0;
+                relateDepartToUserAddResModel.baseViewModel.Message = "根据工会添加用户失败" + (totalnum - UpdateRowNum) + "条";
+                relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据工会添加用户失败，" + (totalnum - UpdateRowNum) + "条");
+                return Ok(relateDepartToUserAddResModel);
+            }
+            else
+            {
+                relateDepartToUserAddResModel.IsSuccess = false;
+                relateDepartToUserAddResModel.AddCount = 0;
+                relateDepartToUserAddResModel.baseViewModel.Message = "根据工会添加用户失败";
+                relateDepartToUserAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("根据工会添加用户失败");
+                return Ok(relateDepartToUserAddResModel);
+
+            }
+
+        }
+
+
 
         /// <summary>
         /// 根据角色查用户
@@ -633,6 +701,108 @@ namespace IntellUser.Controllers
                 _ILogger.Information("导入附件失败");
                 return BadRequest(fileUploadAddResModel);
             }
+        }
+
+
+        /// <summary>
+        /// 批量更新用户账户和密码
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<UserByDepartSearchResModel> Manage_User_Add_Test()
+        {
+            UserByDepartSearchResModel userByDepartSearchResModel = new UserByDepartSearchResModel();
+            int a = _userService.UserAddTest();
+
+            userByDepartSearchResModel.IsSuccess = true;
+            userByDepartSearchResModel.TotalNum = a;
+            userByDepartSearchResModel.baseViewModel.Message = "批量更新用户账户和密码成功";
+            userByDepartSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("批量更新用户账户和密码成功");
+            return Ok(userByDepartSearchResModel);
+        }
+
+
+        /// <summary>
+        /// 批量更新用户账户和密码和增加用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<UserByDepartSearchResModel> Manage_User_Add_Test2()
+        {
+            UserByDepartSearchResModel userByDepartSearchResModel = new UserByDepartSearchResModel();
+            string a = _userService.UserAddTest2();
+            string re1 = a.Substring(0, a.IndexOf(","));
+            string re2 = a.Substring(a.IndexOf(",")+1);
+            userByDepartSearchResModel.IsSuccess = true;
+            userByDepartSearchResModel.TotalNum = 999;
+            userByDepartSearchResModel.baseViewModel.Message = "更新了："+re1+"个；新增了："+re2+"个";
+            userByDepartSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("批量更新用户账户和密码成功");
+            return Ok(userByDepartSearchResModel);
+        }
+
+
+
+
+        /// <summary>
+        /// 更新注册用户信息
+        /// </summary>
+        /// <param name="userRegisterUpdateViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<UserUpdateResModel> Manage_UserRegister_Update(UserRegisterUpdateViewModel userRegisterUpdateViewModel)
+        {
+            UserUpdateResModel userValideResRepeat = new UserUpdateResModel();
+            int UpdateRowNum = _userService.UserRegister_Update(userRegisterUpdateViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                userValideResRepeat.IsSuccess = true;
+                userValideResRepeat.AddCount = UpdateRowNum;
+                userValideResRepeat.baseViewModel.Message = "更新成功";
+                userValideResRepeat.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("更新注册用户信息，更新成功");
+                return Ok(userValideResRepeat);
+            }
+            else
+            {
+                userValideResRepeat.IsSuccess = false;
+                userValideResRepeat.AddCount = 0;
+                userValideResRepeat.baseViewModel.Message = "更新失败";
+                userValideResRepeat.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("更新注册用户信息，更新失败");
+                return Ok(userValideResRepeat);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// 查询注册用户信息
+        /// </summary>
+        /// <param name="userRegisterSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<UserRegisterSearchResModel> Manage_UserRegister_Search(UserRegisterSearchViewModel userRegisterSearchViewModel)
+        {
+            UserRegisterSearchResModel userRegisterSearchResModel = new UserRegisterSearchResModel();
+            var userRegister = _userService.SearchUserRegisterWhere(userRegisterSearchViewModel);
+            int count = _userService.SearchUserRegisterWhereNum(userRegisterSearchViewModel);
+            userRegisterSearchResModel.user_Registers = userRegister;
+            userRegisterSearchResModel.isSuccess = true;
+            userRegisterSearchResModel.TotalNum = count;
+            userRegisterSearchResModel.baseViewModel.Message = " 查询注册用户信息成功";
+            userRegisterSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information(" 查询注册用户信息成功");
+            return Ok(userRegisterSearchResModel);
+
+
         }
     }
 }

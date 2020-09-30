@@ -10,6 +10,7 @@ namespace Dto.IRepository.IntellUser
 {
     public interface IUserInfoRepository : IRepository<User_Info>
     {
+        void Add3(User_Register obj);
         //根据用户id查询
         IQueryable<User_Info>  GetInfoByUserid(string userid);
          void Add2(ComAttachs obj);
@@ -44,5 +45,16 @@ namespace Dto.IRepository.IntellUser
         List<User_Info> CheckIdcard(string Idcard);
 
         List<User_Info> SearchByIdcard(string Idcard);
+
+        /// <summary>
+        /// 根据账号查询
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        List<User_Info> GetPwdByUserid(string userid);
+
+        List<User_Test> SearchUser_Test();
+
+        void Update3(User_Test obj);
     }
 }

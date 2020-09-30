@@ -21,5 +21,7 @@ namespace Dto.IRepository.IntellUser
 
         //查询部门数量
         IQueryable<User_Depart> GetDepartAll(DepartSearchViewModel departSearchViewModel);
+
+        List<User_Union> GetUserUnion();
     }
 }

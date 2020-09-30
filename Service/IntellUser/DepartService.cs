@@ -63,7 +63,17 @@ namespace Dto.Service.IntellUser
             return departSearches;
         }
 
-     
+        /// <summary>
+        /// 查询工会信息
+        /// </summary>
+        /// <returns></returns>
+        public List<User_Union> Union_Search()
+        {
+            return _IUserDepartRepository.GetUserUnion();
+          
+        }
+
+
 
         //单一部门
         public bool Depart_Single(DepartValideRepeat departValideRepeat)

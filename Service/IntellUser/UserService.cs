@@ -24,14 +24,17 @@ namespace Dto.Service.IntellUser
         private readonly IMapper _IMapper;
         private readonly IUserRelateInfoRoleRepository _userRelateInfoRoleRepository;
         private readonly IUserIntegralRepository _userIntegralRepository;
+        private readonly IUserRegisterRepository _userRegisterRepository;
         private UserIntegralDate _IOptions { get; set; }
         NPOIClass EP_Plus = new NPOIClass();
         public UserService(IUserInfoRepository iuserInfoRepository, IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
-                           IUserIntegralRepository userIntegralRepository, IMapper mapper, IOptions<UserIntegralDate> settings)
+                           IUserIntegralRepository userIntegralRepository, IUserRegisterRepository userRegisterRepository, IMapper mapper, 
+                           IOptions<UserIntegralDate> settings)
         {
             _IUserInfoRepository = iuserInfoRepository;
             _userRelateInfoRoleRepository = userRelateInfoRoleRepository;
             _userIntegralRepository = userIntegralRepository;
+            _userRegisterRepository = userRegisterRepository;
             _IMapper = mapper;
             _IOptions = settings.Value;
         }
@@ -59,18 +62,37 @@ namespace Dto.Service.IntellUser
             IRestResponse response = client.Execute(request);
             if (response.Content == "true")//注册过电子通行证
             {
-                if (CheckIdcard(userRegisterViewModel.Idcard))
+                if (CheckIdcard(userRegisterViewModel.Idcard))//有智慧后勤身份证信息
                 {
-                    return 2;//注册过电子通行证并且智慧后勤也已经有身份信息
+                    var result = SearchByIdcard(userRegisterViewModel.Idcard);
+
+                    if (result[0].UserId != null && result[0].UserId != "")
+                    {
+                        return 2;//注册过电子通行证并且智慧后勤也已经有身份信息
+                    }                 
+                    else
+                    {
+                            var UserRegisterMiddle = _IMapper.Map<UserRegisterViewModel, UserRegisterMiddle>(userRegisterViewModel);
+                            var user_Info = _IMapper.Map<UserRegisterMiddle, User_Info>(UserRegisterMiddle, result[0]);
+                            user_Info.updateDate = DateTime.Now;
+                            _IUserInfoRepository.Update(user_Info);
+                            _IUserInfoRepository.SaveChanges();
+                            return 0;
+                      
+                    }
                 }
                 else
-                {
-                    var user_Info = _IMapper.Map<UserRegisterViewModel, User_Info>(userRegisterViewModel);
-                    user_Info.AddDate = DateTime.Now;
-                    user_Info.status = "0";
-                    _IUserInfoRepository.Add(user_Info);
-                    _IUserInfoRepository.SaveChanges();
-                    return 0;
+                {                   
+                        var user_Info = _IMapper.Map<UserRegisterViewModel, User_Register>(userRegisterViewModel);//加入注册表
+                        user_Info.AddDate = DateTime.Now;
+                        user_Info.updateDate = DateTime.Now;
+                        user_Info.status = "1";//待审核
+                        user_Info.createUser = user_Info.UserId;
+                        user_Info.updateUser = user_Info.UserId;
+                        _IUserInfoRepository.Add3(user_Info);
+                        _IUserInfoRepository.SaveChanges();
+                        return 0;
+               
                 }
 
             }
@@ -153,6 +175,30 @@ namespace Dto.Service.IntellUser
             return _IUserInfoRepository.SaveChanges();
         }
 
+        /// <summary>
+        /// 更新审核状态
+        /// </summary>
+        /// <param name="userRegisterUpdateViewModel"></param>
+        /// <returns></returns>
+        public int UserRegister_Update(UserRegisterUpdateViewModel  userRegisterUpdateViewModel)
+        {
+ 
+            var UserRegister = _userRegisterRepository.SearchById(userRegisterUpdateViewModel.Id);//更新注册用户审批状态
+            var UserRegister_update = _IMapper.Map<UserRegisterUpdateViewModel, User_Register>(userRegisterUpdateViewModel, UserRegister[0]);
+                UserRegister_update.updateDate = DateTime.Now;
+                _userRegisterRepository.Update(UserRegister_update);
+                _userRegisterRepository.SaveChanges();
+            if (userRegisterUpdateViewModel.status == "9")
+            {
+                var user_Info_middle = _IMapper.Map<User_Register, UserRegisterMiddleToUserInfo>(UserRegister_update);//增加用户信息
+                var user_Info = _IMapper.Map<UserRegisterMiddleToUserInfo, User_Info>(user_Info_middle);//增加用户信息
+                user_Info.AddDate = DateTime.Now;
+                user_Info.status = "0";
+                _IUserInfoRepository.Add(user_Info);
+                _IUserInfoRepository.SaveChanges();
+            }
+            return 1;
+        }
 
 
         //按部门添加用户
@@ -166,15 +212,26 @@ namespace Dto.Service.IntellUser
                 var hr_info_update = _IMapper.Map<RelateDepartUserAddMiddlecs, User_Info>(userList[i], hr_info);
                 _IUserInfoRepository.Update(hr_info_update);
             }
-            //for (int i = 0; i < userList.Count; i++)
-            //{
-            //    var user_Info = _IUserInfoRepository.GetInfoByUserid(userList[i].Id);
-            //    user_Info.User_DepartId = userList[i].User_DepartId;
-            //    _IUserInfoRepository.SaveChanges();
-            //}
-
+           
             return _IUserInfoRepository.SaveChanges();
         }
+
+        //按工会添加用户
+        public int Union_User_Add(RelateUnionToUserAddViewModel  relateUnionToUserAddViewModel)
+        {
+            var userList = relateUnionToUserAddViewModel.relateUnionUserAddMiddles;//用户id和工会id列表
+
+            for (int i = 0; i < userList.Count; i++)
+            {
+                var hr_info = _IUserInfoRepository.GetInfoByUserid(userList[i].Id);
+                var hr_info_update = _IMapper.Map<RelateUnionUserAddMiddle, User_Info>(userList[i], hr_info);
+                _IUserInfoRepository.Update(hr_info_update);
+            }
+            return _IUserInfoRepository.SaveChanges();
+        }
+
+
+
 
         //根据角色查询用户
         public List<UserSearchMiddlecs> User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
@@ -205,6 +262,16 @@ namespace Dto.Service.IntellUser
             else return false;
 
         }
+
+        public bool CheckIdcard2(string Idcard,string Id)
+        {
+            if (_IUserInfoRepository.CheckIdcard(Idcard).Count > 0 && _IUserInfoRepository.CheckIdcard(Idcard)[0].Id.ToString()!= Id)
+                return true;
+
+            else return false;
+
+        }
+
 
         /// <summary>
         /// 根据身份证号查询用户
@@ -378,6 +445,25 @@ namespace Dto.Service.IntellUser
             return _userIntegralRepository.SearchUserIntegralByUserId(Id);
         }
 
+        /// <summary>
+        /// 根据条件查询注册信息
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        public List<User_Register> SearchUserRegisterWhere(UserRegisterSearchViewModel  userRegisterSearchViewModel)
+        {
+            return _userRegisterRepository.SearchUserRegister(userRegisterSearchViewModel);
+        }
+
+        /// <summary>
+        /// 根据条件查询注册信息
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        public int SearchUserRegisterWhereNum(UserRegisterSearchViewModel userRegisterSearchViewModel)
+        {
+            return _userRegisterRepository.SearchUserRegister(userRegisterSearchViewModel).Count;
+        }
 
         /// <summary>
         /// 根据条件查询用户积分信息
@@ -387,6 +473,16 @@ namespace Dto.Service.IntellUser
         public List<User_Integral> SearchUserIntegralWhere(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
             return _userIntegralRepository.SearchUserIntegralAll(userIntegralSearchViewModel);
+        }
+
+        /// <summary>
+        /// 根据条件查询用户积分信息
+        /// </summary>
+        /// <param name="Idcard"></param>
+        /// <returns></returns>
+        public List<UserIntegralSearchMiddle> SearchUserIntegralNewWhere(UserIntegralSearchViewModel userIntegralSearchViewModel)
+        {
+            return _userIntegralRepository.SearchUserIntegralNewAll(userIntegralSearchViewModel);
         }
 
         /// <summary>
@@ -403,7 +499,7 @@ namespace Dto.Service.IntellUser
         public UserIntegralLogAddViewModel TempFunctionCorrect(User_Info  user_Info,string sn)
         {
             var add_temp = _IMapper.Map<User_Info, UserIntegralLogAddViewModel>(user_Info);
-            add_temp.Type = "剩饭剩菜";
+            add_temp.Type = "光盘行动";
             add_temp.PointsLocation = "食堂";
             add_temp.Points = "1";
             add_temp.status = "0";
@@ -413,7 +509,7 @@ namespace Dto.Service.IntellUser
         public UserIntegralLogAddViewModel TempFunctionError(User_Info user_Info, string sn)
         {
             var add_temp = _IMapper.Map<User_Info, UserIntegralLogAddViewModel>(user_Info);
-            add_temp.Type = "剩饭剩菜";
+            add_temp.Type = "光盘行动";
             add_temp.PointsLocation = "食堂";
             add_temp.status = "1";
             add_temp.sn = sn;
@@ -458,22 +554,22 @@ namespace Dto.Service.IntellUser
                                 UserIntegralLogAddViewModel ulvm = new UserIntegralLogAddViewModel();
                                 string DateTimeResult = DateTime.Now.ToString("yyyy/MM/dd");
                                 //判断当前时间是否在工作时间段内
-                                string _staMorning = _IOptions._staMorning;//工作时间上午06:00
+                                string _staMorning = _IOptions._staMorning;//工作时间上午07:00
                                 string _endMorning = _IOptions._endMorning; //工作时间上午09:00
 
-                                string _staNoon = _IOptions._staNoon; //工作时间中午17:00
-                                string _endNoon = _IOptions._endNoon; //工作时间中午19:00
+                                string _staNoon = _IOptions._staNoon; //工作时间中午11:30
+                                string _endNoon = _IOptions._endNoon; //工作时间中午13:30
 
-                                string _staNight = _IOptions._staNight; //工作时间下午17:00
-                                string _endNight = _IOptions._endNight; //工作时间上午19:00
+                                //string _staNight = _IOptions._staNight; //工作时间下午17:00
+                                //string _endNight = _IOptions._endNight; //工作时间上午19:00
                                 TimeSpan _staMorningDay = DateTime.Parse(_staMorning).TimeOfDay;
                                 TimeSpan _endMorningDay = DateTime.Parse(_endMorning).TimeOfDay;
 
                                 TimeSpan _staNoonDay = DateTime.Parse(_staNoon).TimeOfDay;
                                 TimeSpan _endNoonDay = DateTime.Parse(_endNoon).TimeOfDay;
 
-                                TimeSpan _staNightDay = DateTime.Parse(_staNight).TimeOfDay;
-                                TimeSpan _endNightgDay = DateTime.Parse(_endNight).TimeOfDay;
+                                //TimeSpan _staNightDay = DateTime.Parse(_staNight).TimeOfDay;
+                                //TimeSpan _endNightgDay = DateTime.Parse(_endNight).TimeOfDay;
 
                                 TimeSpan dspNow = DateTime.Now.TimeOfDay;
                                 if (dspNow > _staMorningDay && dspNow < _endMorningDay)//上午6-9点
@@ -538,38 +634,38 @@ namespace Dto.Service.IntellUser
                                             else return "5";
                                         }
                                     }
-                                }
-                                if (dspNow > _staNightDay && dspNow < _endNightgDay)//晚上允许扫码的时间段
-                                {
-                                    if (TempList.Count == 0)//从未扫过码
-                                    {
-                                        var add_temp = TempFunctionCorrect(UserList[0], userIntegralViewModel.sn);
-                                        if (User_Integral_Log_Add(add_temp) == 1)
-                                            return "0";
-                                        else return "5";
+                                }//中午允许扫码的时间段
+                                //if (dspNow > _staNightDay && dspNow < _endNightgDay)//晚上允许扫码的时间段
+                                //{
+                                //    if (TempList.Count == 0)//从未扫过码
+                                //    {
+                                //        var add_temp = TempFunctionCorrect(UserList[0], userIntegralViewModel.sn);
+                                //        if (User_Integral_Log_Add(add_temp) == 1)
+                                //            return "0";
+                                //        else return "5";
 
-                                    }
-                                    else
-                                    {
+                                //    }
+                                //    else
+                                //    {
 
-                                        var ScanCodeDate = TempList[0].AddDate.Value.TimeOfDay;
-                                        string ScanCodeDateResult = TempList[0].AddDate.Value.ToString("yyyy/MM/dd");
-                                        if (ScanCodeDate > _staNightDay && ScanCodeDate < _endNightgDay && DateTimeResult == ScanCodeDateResult)
-                                        {
-                                            var add_temp = TempFunctionError(UserList[0], userIntegralViewModel.sn);
-                                            if (User_Integral_Log_Add(add_temp) == 0)   //不能重复扫码
-                                                return "1";
-                                            else return "5";
-                                        }
-                                        else
-                                        {
-                                            var add_temp = TempFunctionCorrect(UserList[0], userIntegralViewModel.sn);
-                                            if (User_Integral_Log_Add(add_temp) == 1)
-                                                return "0";
-                                            else return "5";
-                                        }
-                                    }
-                                }
+                                //        var ScanCodeDate = TempList[0].AddDate.Value.TimeOfDay;
+                                //        string ScanCodeDateResult = TempList[0].AddDate.Value.ToString("yyyy/MM/dd");
+                                //        if (ScanCodeDate > _staNightDay && ScanCodeDate < _endNightgDay && DateTimeResult == ScanCodeDateResult)
+                                //        {
+                                //            var add_temp = TempFunctionError(UserList[0], userIntegralViewModel.sn);
+                                //            if (User_Integral_Log_Add(add_temp) == 0)   //不能重复扫码
+                                //                return "1";
+                                //            else return "5";
+                                //        }
+                                //        else
+                                //        {
+                                //            var add_temp = TempFunctionCorrect(UserList[0], userIntegralViewModel.sn);
+                                //            if (User_Integral_Log_Add(add_temp) == 1)
+                                //                return "0";
+                                //            else return "5";
+                                //        }
+                                //    }
+                                //}
                                 var add_temp3 = TempFunctionError(UserList[0], userIntegralViewModel.sn);
                                 User_Integral_Log_Add(add_temp3);
                                 return "3";//不符合扫码时间段
@@ -593,6 +689,104 @@ namespace Dto.Service.IntellUser
             }
         
         }
+
+
+
+
+
+
+        public int UserAddTest()
+        {
+            var n=  _IUserInfoRepository.SearchUser_Test();
+            int a = 0;
+            for(int i=0;i < n.Count;i++)
+            {
+
+                if (n[i].Idcard != null && n[i].Idcard != "" )
+                {
+                    string idc4 = n[i].Idcard.Substring(14);
+                    n[i].UserId = n[i].UserId.Replace(" ", "") + idc4;
+                    n[i].UserPwd = n[i].UserId;
+                    _IUserInfoRepository.Update3(n[i]);
+                    _IUserInfoRepository.SaveChanges();
+                    a++;
+                }
+                //if (n[i].Idcard == null || n[i].Idcard == "")
+                //{
+                //    var client = new RestClient("https://dztxz.dongjiang.gov.cn/ET_CompanyApi/api/PersonInfo/Manage/PersonInfo/Test_Search?username=" + n[i].UserName + "&dept=" + n[i].Dept);
+                //    client.Timeout = -1;
+                //    var request = new RestRequest(Method.POST);
+                //    IRestResponse response = client.Execute(request);
+                //    if (response.Content != "\"无\"")
+                //    {
+                //        string idc4 = response.Content.Substring(15, 4);
+                //        n[i].UserId = n[i].UserId.Replace(" ", "") + idc4;
+                //        n[i].UserPwd = n[i].UserId;
+                //        n[i].Idcard = response.Content.Substring(1, 18);
+                //        _IUserInfoRepository.Update3(n[i]);
+                //        _IUserInfoRepository.SaveChanges();
+                //        a++;
+                //    }
+
+                //}
+            }
+            return a;
+        }
+
+        public string UserAddTest2()
+        {
+            var userTestList = _IUserInfoRepository.SearchUser_Test();
+          
+            int a = 0;
+            int b = 0;
+            for (int i = 0; i < userTestList.Count; i++)
+            {
+
+                if(userTestList[i].Idcard!=""&& userTestList[i].Idcard !=null)
+                {
+                    var userList = _IUserInfoRepository.CheckIdcard(userTestList[i].Idcard);
+                    if (userList.Count > 0)
+                    {
+                        if (userList[0].UserId == "" || userList[0].UserId == null)
+                        {
+                            userList[0].UserId = userTestList[i].UserId;
+                            userList[0].UserPwd = userTestList[i].UserPwd;
+                        }
+                        userList[0].UnionName = userTestList[i].Union;
+                        if ("东疆海事局工会" == userTestList[i].Union)
+                            userList[0].User_UnionId = 1;
+                        if ("东疆机关工会" == userTestList[i].Union)
+                            userList[0].User_UnionId = 2;
+                        if ("东疆税务局工会" == userTestList[i].Union)
+                            userList[0].User_UnionId = 3;
+                        _IUserInfoRepository.Update(userList[0]);
+                        _IUserInfoRepository.SaveChanges();
+                        a++;
+                    }
+                    else
+                    {
+                        var UserTestMiddle = _IMapper.Map<User_Test, UserTestMiddle>(userTestList[i]);
+                        var ResultUser = _IMapper.Map<UserTestMiddle, User_Info>(UserTestMiddle);
+                        if ("东疆海事局工会" == userTestList[i].Union)
+                            ResultUser.User_UnionId = 1;
+                        if ("东疆机关工会" == userTestList[i].Union)
+                            ResultUser.User_UnionId = 2;
+                        if ("东疆税务局工会" == userTestList[i].Union)
+                            ResultUser.User_UnionId = 3;
+                        _IUserInfoRepository.Add(ResultUser);
+                        _IUserInfoRepository.SaveChanges();
+                        b++;
+                    }
+
+                }
+
+            }
+            return a+","+b;
+        }
+
+
+
+
 
     }
 }

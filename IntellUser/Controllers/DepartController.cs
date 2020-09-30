@@ -180,7 +180,26 @@ namespace IntellUser.Controllers
             return Ok(departSearchResModel);
 
         }
+        /// <summary>
+        /// 查询工会信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
 
+        public ActionResult<UnionSearchResModel> Manage_Union_Search()
+        {
+            UnionSearchResModel  unionSearchResModel = new UnionSearchResModel();
+            var UnionsSearchResult = _departService.Union_Search();
+            int TotalNum = UnionsSearchResult.Count;
+            unionSearchResModel.user_Unions = UnionsSearchResult;
+            unionSearchResModel.isSuccess = true;
+            unionSearchResModel.baseViewModel.Message = "查询成功";
+            unionSearchResModel.baseViewModel.ResponseCode = 200;
+            unionSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询工会信息成功");
+            return Ok(unionSearchResModel);
+
+        }
 
     }
 }

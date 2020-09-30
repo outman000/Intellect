@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20200927074347_testuser")]
+    partial class testuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -985,8 +987,6 @@ namespace Dtol.Migrations
 
                     b.Property<string>("TrainSituation");
 
-                    b.Property<string>("UnionName");
-
                     b.Property<string>("UserId");
 
                     b.Property<string>("UserName");
@@ -994,8 +994,6 @@ namespace Dtol.Migrations
                     b.Property<string>("UserPwd");
 
                     b.Property<int?>("User_DepartId");
-
-                    b.Property<int?>("User_UnionId");
 
                     b.Property<string>("WorkExperience");
 
@@ -1008,8 +1006,6 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("User_DepartId");
-
-                    b.HasIndex("User_UnionId");
 
                     b.ToTable("user_Info");
                 });
@@ -1084,51 +1080,6 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User_Integral_Log");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.User_Register", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("AddDate");
-
-                    b.Property<string>("Dept");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Idcard");
-
-                    b.Property<string>("PhoneCall");
-
-                    b.Property<string>("UnionName");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("UserName");
-
-                    b.Property<string>("UserPwd");
-
-                    b.Property<int?>("User_DepartId");
-
-                    b.Property<int?>("User_UnionId");
-
-                    b.Property<string>("createUser");
-
-                    b.Property<string>("status");
-
-                    b.Property<DateTime?>("updateDate");
-
-                    b.Property<string>("updateUser");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("User_DepartId");
-
-                    b.HasIndex("User_UnionId");
-
-                    b.ToTable("User_Register");
                 });
 
             modelBuilder.Entity("Dtol.dtol.User_Relate_Food", b =>
@@ -1281,29 +1232,6 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User_Test");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.User_Union", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("ParentId");
-
-                    b.Property<string>("Remark");
-
-                    b.Property<int?>("Sort");
-
-                    b.Property<string>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User_Union");
                 });
 
             modelBuilder.Entity("Dtol.dtol.Bulletin_Board", b =>
@@ -1500,21 +1428,6 @@ namespace Dtol.Migrations
                     b.HasOne("Dtol.dtol.User_Depart", "User_Depart")
                         .WithMany()
                         .HasForeignKey("User_DepartId");
-
-                    b.HasOne("Dtol.dtol.User_Union", "User_Union")
-                        .WithMany()
-                        .HasForeignKey("User_UnionId");
-                });
-
-            modelBuilder.Entity("Dtol.dtol.User_Register", b =>
-                {
-                    b.HasOne("Dtol.dtol.User_Depart", "User_Depart")
-                        .WithMany()
-                        .HasForeignKey("User_DepartId");
-
-                    b.HasOne("Dtol.dtol.User_Union", "User_Union")
-                        .WithMany()
-                        .HasForeignKey("User_UnionId");
                 });
 
             modelBuilder.Entity("Dtol.dtol.User_Relate_Food", b =>

@@ -5,21 +5,10 @@ using ViewModel.PublicViewModel;
 
 namespace ViewModel.UserViewModel.RequsetModel
 {
-    public class UserIntegralSearchViewModel
+    public class UserRegisterSearchViewModel
     {
+        public string status { get; set; }
 
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// 部门id
-        /// </summary>
-        public int? User_DepartId { get; set; }
-        public string TotalPoints { get; set; }
-        public string Mobile { get; set; }
-        /// <summary>
-        /// 工会信息
-        /// </summary>
-        public int? User_UnionId { get; set; }
         /// <summary>
         /// 开始时间
         /// </summary>
@@ -37,10 +26,9 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// <summary>
         /// 构造方法
         /// </summary>
-        UserIntegralSearchViewModel()
+        UserRegisterSearchViewModel()
         {
             pageViewModel = new PageViewModel();
         }
-
     }
 }

@@ -512,6 +512,8 @@ namespace Dto.Repository.IntellRegularBus
                 predicate = predicate.And(a => a.carDate.Value.Year == busUserSearch2ViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busUserSearch2ViewModel.carDate.Value.Month);
 
+            predicate = predicate.And(a => a.Code!=null);
+
             return predicate;
         }
         #endregion

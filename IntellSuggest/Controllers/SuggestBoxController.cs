@@ -35,7 +35,6 @@ namespace IntellSuggest.Controllers
 
         [HttpPost]
         [ValidateModel]
-        [Authorize]
         public ActionResult<SuggestBoxAddResModel> Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
         {
             int SuggestBox_Add_Count;
@@ -66,7 +65,7 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
+
         public ActionResult<SuggestBoxUpdateResModel> Manage_SuggestBox_Update(SuggestBoxUpdateViewModel suggestBoxUpdateViewModel)
         {
             SuggestBoxUpdateResModel suggestBoxUpdateResModel = new SuggestBoxUpdateResModel();
@@ -98,7 +97,6 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public ActionResult<SuggestBoxDelResModel> Manage_Food_Delete(SuggestBoxDelViewModel  suggestBoxDelViewModel)
         {
             SuggestBoxDelResModel  suggestBoxDelResModel = new SuggestBoxDelResModel();
@@ -124,18 +122,16 @@ namespace IntellSuggest.Controllers
             }
         }
         /// <summary>
-        /// 查询建议增加的菜信息
+        /// 查询意见信息
         /// </summary>
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public ActionResult<SuggestBoxSearchResModel> Manage_Food_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel)
         {
             SuggestBoxSearchResModel   suggestBoxSearchResModel = new SuggestBoxSearchResModel();
             var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);
 
-            // var TotalNum = _userService.User_Get_ALLNum();
             var TotalNum = _suggestBoxService.SuggestBox_Get_ALLNum(suggestBoxSearchViewModel);
             suggestBoxSearchResModel.suggestBoxInfo = BusSearchResult;
             suggestBoxSearchResModel.IsSuccess = true;
