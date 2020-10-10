@@ -67,6 +67,7 @@ namespace Dto.Service.IntellSuggestBox
                 return -1;
             }
         }
+
         /// <summary>
         /// 意见箱表单查询
         /// </summary>
@@ -76,6 +77,33 @@ namespace Dto.Service.IntellSuggestBox
         {
             SuggestInfoMiddlecs suggestInfoMiddlecs = new SuggestInfoMiddlecs();
             List<Suggest_Box> suggestBox = _ISuggestBoxRepository.SearchSuggestBoxInfoByWhere(suggestBoxSearchViewModel);
+            var SuggestSearch = _IMapper.Map<List<Suggest_Box>, List<SuggestInfoMiddlecs>>(suggestBox);
+
+            return SuggestSearch;
+        }
+
+
+        /// <summary>
+        /// 意见箱分类查询
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Suggest_Box_Type> SuggestBoxType_Search(SuggestBoxTypeSearchViewModel  suggestBoxTypeSearchViewModel)
+        {
+        
+            List<Suggest_Box_Type> suggestBox = _ISuggestBoxRepository.SearchSuggestBoxTypeInfoByWhere(suggestBoxTypeSearchViewModel);
+
+            return suggestBox;
+        }
+
+        /// <summary>
+        /// 根据用户主键Id查询意见箱
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        public List<SuggestInfoMiddlecs> SuggestBoxById_Search(SuggestBoxByIdSearchViewModel  suggestBoxByIdSearchViewModel)
+        {
+            List<Suggest_Box> suggestBox = _ISuggestBoxRepository.GetSuggestBoxById(suggestBoxByIdSearchViewModel.id);
             var SuggestSearch = _IMapper.Map<List<Suggest_Box>, List<SuggestInfoMiddlecs>>(suggestBox);
 
             return SuggestSearch;

@@ -106,9 +106,12 @@ namespace Dto.Repository.IntellUser
 
         public List<User_Info> SearchByIdcard(string Idcard)
         {
-            return  DbSet.Where(a => a.Idcard == Idcard && a.status=="0").Include(a=>a.User_Depart).ToList();
+            return  DbSet.Where(a => a.Idcard == Idcard && a.status=="0"  ).Include(a=>a.User_Depart).ToList();
         }
-
+        public List<User_Info> SearchByIdcardNew(string Idcard)
+        {
+            return DbSet.Where(a => a.Idcard == Idcard && a.status == "0" && (a.User_UnionId != null || a.User_UnionId.ToString() != "")).Include(a => a.User_Depart).ToList();
+        }
         public List<User_Test> SearchUser_Test()
         {
             return DbSet3.Where(a => a.UserId!=null).ToList();

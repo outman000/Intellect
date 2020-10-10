@@ -97,7 +97,7 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<SuggestBoxDelResModel> Manage_Food_Delete(SuggestBoxDelViewModel  suggestBoxDelViewModel)
+        public ActionResult<SuggestBoxDelResModel> Manage_SuggestBox_Delete(SuggestBoxDelViewModel  suggestBoxDelViewModel)
         {
             SuggestBoxDelResModel  suggestBoxDelResModel = new SuggestBoxDelResModel();
             int DeleteResult = _suggestBoxService.SuggestBox_Delete(suggestBoxDelViewModel);
@@ -127,7 +127,7 @@ namespace IntellSuggest.Controllers
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<SuggestBoxSearchResModel> Manage_Food_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel)
+        public ActionResult<SuggestBoxSearchResModel> Manage_SuggestBox_Search(SuggestBoxSearchViewModel  suggestBoxSearchViewModel)
         {
             SuggestBoxSearchResModel   suggestBoxSearchResModel = new SuggestBoxSearchResModel();
             var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);
@@ -144,6 +144,46 @@ namespace IntellSuggest.Controllers
         }
 
 
-       
+        /// <summary>
+        /// 根据用户主键Id查询意见信息
+        /// </summary>
+        /// <param name="suggestBoxByIdSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<SuggestBoxSearchResModel> Manage_SuggestBoxById_Search(SuggestBoxByIdSearchViewModel suggestBoxByIdSearchViewModel)
+        {
+            SuggestBoxSearchResModel suggestBoxSearchResModel = new SuggestBoxSearchResModel();
+            var suggestBoxSearchResult = _suggestBoxService.SuggestBoxById_Search(suggestBoxByIdSearchViewModel);
+            var TotalNum = suggestBoxSearchResult.Count;
+            suggestBoxSearchResModel.suggestBoxInfo = suggestBoxSearchResult;
+            suggestBoxSearchResModel.IsSuccess = true;
+            suggestBoxSearchResModel.baseViewModel.Message = "查询成功";
+            suggestBoxSearchResModel.baseViewModel.ResponseCode = 200;
+            suggestBoxSearchResModel.TotalNum = TotalNum;
+            _ILogger.Information("查询意见箱信息成功");
+            return Ok(suggestBoxSearchResModel);
+
+        }
+
+        /// <summary>
+        /// 查询意见分类信息
+        /// </summary>
+        /// <param name="suggestBoxTypeSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<SuggestBoxTypeSearchResModel> Manage_SuggestBoxType_Search(SuggestBoxTypeSearchViewModel  suggestBoxTypeSearchViewModel)
+        {
+            SuggestBoxTypeSearchResModel  suggestBoxTypeSearchResModel = new SuggestBoxTypeSearchResModel();
+            var suggestBoxTypeSearchResult = _suggestBoxService.SuggestBoxType_Search(suggestBoxTypeSearchViewModel);
+
+            suggestBoxTypeSearchResModel.suggestBoxTypeInfo= suggestBoxTypeSearchResult;
+            suggestBoxTypeSearchResModel.IsSuccess = true;
+            suggestBoxTypeSearchResModel.baseViewModel.Message = "查询成功";
+            suggestBoxTypeSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("查询意见箱表单信息成功");
+            return Ok(suggestBoxTypeSearchResModel);
+
+        }
+
     }
 }

@@ -22,5 +22,11 @@ namespace Dto.IRepository.IntellSuggestBox
         //IQueryable<Suggest_Box> SearchInfoBySuggestBoxWhere(SuggestBoxSearchViewModel  suggestBoxSearchViewModel);
         //根据条件查人员缴费数量
         IQueryable<Suggest_Box> GeSuggestBoxAll(SuggestBoxSearchViewModel suggestBoxSearchViewModel);
+
+
+        List<Suggest_Box_Type> SearchSuggestBoxTypeInfoByWhere(SuggestBoxTypeSearchViewModel suggestBoxTypeSearchViewModel);
+
+
+        List<Suggest_Box> GetSuggestBoxById(int id);
     }
 }

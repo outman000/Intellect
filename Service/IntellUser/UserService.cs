@@ -543,7 +543,7 @@ namespace Dto.Service.IntellUser
                         else
                         {
                             string idcard = response.Content.Substring(1, 18);
-                            var UserList = _IUserInfoRepository.SearchByIdcard(response.Content.Substring(1, 18));
+                            var UserList = _IUserInfoRepository.SearchByIdcardNew(response.Content.Substring(1, 18));
                             if (UserList.Count == 0)
                             {
                                 return "4";//有电子通行证但是没有智慧后勤账户

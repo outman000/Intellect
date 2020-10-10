@@ -32,6 +32,15 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// </summary>
         public string Dept { get; set; }
         public int? User_DepartId { get; set; }
+
+        /// <summary>
+        /// 工会名称
+        /// </summary>
+        public string UnionName { get; set; }
+        /// <summary>
+        /// 工会信息
+        /// </summary>
+        public int? User_UnionId { get; set; }
         /// <summary>
         /// 身份证号
         /// </summary>

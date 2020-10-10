@@ -17,11 +17,12 @@ namespace Dto.Repository.IntellSuggestBox
     {
         protected readonly DtolContext Db;
         protected readonly DbSet<Suggest_Box> DbSet;
-
+        protected readonly DbSet<Suggest_Box_Type> DbSet_Type;
         public SuggestBoxRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<Suggest_Box>();
+            DbSet_Type = Db.Set<Suggest_Box_Type>();
         }
 
         public void Add(Suggest_Box obj)
@@ -84,10 +85,33 @@ namespace Dto.Repository.IntellSuggestBox
             return suggestBox_Info;
         }
 
+        public List<Suggest_Box> GetSuggestBoxById(int id)
+        {
+            List<Suggest_Box> suggestBox_Info = DbSet.Where(uid => uid.User_InfoId==id).Include(a => a.User_Info).ThenInclude(c => c.User_Depart)
+                                                .OrderByDescending(uid=>uid.SuggestDate).ToList();
+            return suggestBox_Info;
+        }
+
+
         IQueryable<Suggest_Box> IRepository<Suggest_Box>.GetAll()
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 查询意见箱类型
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        public List<Suggest_Box_Type> SearchSuggestBoxTypeInfoByWhere(SuggestBoxTypeSearchViewModel  suggestBoxTypeSearchViewModel)
+        {
+
+            return DbSet_Type.Where(a => a.ParentId == suggestBoxTypeSearchViewModel.ParentId).OrderBy(a=>a.Sort).ToList();
+
+            
+        }
+
+
         /// <summary>
         /// 查询意见
         /// </summary>
@@ -114,8 +138,14 @@ namespace Dto.Repository.IntellSuggestBox
         private Expression<Func<Suggest_Box, bool>> SearchSggestBoxWhere(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
         {
             var predicate = WhereExtension.True<Suggest_Box>();//初始化where表达式
+            if(suggestBoxSearchViewModel.strDate!=null && suggestBoxSearchViewModel.endDate!=null)
             predicate = predicate.And(p => p.SuggestDate.Value >= suggestBoxSearchViewModel.strDate.Value && p.SuggestDate.Value <= suggestBoxSearchViewModel.endDate.Value);
+
+            if (suggestBoxSearchViewModel.User_DepartId!=null)
+            predicate = predicate.And(p => p.User_Info.User_DepartId == suggestBoxSearchViewModel.User_DepartId);
+
             predicate = predicate.And(p => p.SuggestType.Contains(suggestBoxSearchViewModel.SuggestType));
+            predicate = predicate.And(p => p.SuggestChildenType.Contains(suggestBoxSearchViewModel.SuggestChildenType));
             predicate = predicate.And(p => p.User_Info.UserName.Contains(suggestBoxSearchViewModel.userName));
 
             return predicate;

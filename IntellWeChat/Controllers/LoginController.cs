@@ -54,23 +54,24 @@ namespace IntellWeChat.Controllers
         {
             WeChatInfoResModel weChatInfoResModel = new WeChatInfoResModel();
             var UserSearchResult = _loginService.WeChatLogin_Search(weChatInfoViewModel);
-            if(UserSearchResult.User_Rights.Count<1)
-            {
-                weChatInfoResModel.IsSuccess = false;
-                weChatInfoResModel.baseViewModel.Message = "用户无权限登录";
-                weChatInfoResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("用户无权限，进入系统失败");
-                return Ok(weChatInfoResModel);
-            }
-            else
-            {
+            //if(UserSearchResult.User_Rights.Count<1)
+            //{
+            //    weChatInfoResModel.userInfo = UserSearchResult;
+            //    weChatInfoResModel.IsSuccess = false;
+            //    weChatInfoResModel.baseViewModel.Message = "用户无权限登录";
+            //    weChatInfoResModel.baseViewModel.ResponseCode = 400;
+            //    _ILogger.Information("用户无权限，进入系统失败");
+            //    return Ok(weChatInfoResModel);
+            //}
+            //else
+            //{
                 weChatInfoResModel.userInfo = UserSearchResult;
                 weChatInfoResModel.IsSuccess = true;
                 weChatInfoResModel.baseViewModel.Message = "存在该用户，查询成功";
                 weChatInfoResModel.baseViewModel.ResponseCode = 200;
                 _ILogger.Information("查询用户信息，存在该用户，权限查询成功");
                 return Ok(weChatInfoResModel);
-            }
+            //}
         }
 
         /// <summary>

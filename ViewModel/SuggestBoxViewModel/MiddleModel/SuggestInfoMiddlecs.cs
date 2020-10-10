@@ -23,7 +23,10 @@ namespace ViewModel.SuggestBoxViewModel.MiddleModel
         /// 意见箱表单分类
         /// </summary>
         public string SuggestType { get; set; }
-
+        /// <summary>
+        /// 意见箱表单子分类
+        /// </summary>
+        public string SuggestChildenType { get; set; }
         /// <summary>
         /// 用户名
         /// </summary>

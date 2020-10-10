@@ -56,5 +56,6 @@ namespace Dto.IRepository.IntellUser
         List<User_Test> SearchUser_Test();
 
         void Update3(User_Test obj);
+        List<User_Info> SearchByIdcardNew(string Idcard);
     }
 }

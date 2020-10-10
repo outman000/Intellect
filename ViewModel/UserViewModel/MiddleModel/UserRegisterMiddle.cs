@@ -24,5 +24,14 @@ namespace ViewModel.UserViewModel.MiddleModel
         /// </summary>
         public string Email { get; set; }
 
+        /// <summary>
+        /// 工会名称
+        /// </summary>
+        public string UnionName { get; set; }
+        /// <summary>
+        /// 工会信息
+        /// </summary>
+        public int? User_UnionId { get; set; }
+
     }
 }

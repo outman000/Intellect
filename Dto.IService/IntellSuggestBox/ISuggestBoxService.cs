@@ -40,5 +40,22 @@ namespace Dto.IService.IntellSuggestBox
         /// </summary>
         /// <returns></returns>
         int SuggestBox_Get_ALLNum(SuggestBoxSearchViewModel suggestBoxSearchViewModel);
+
+        /// <summary>
+        /// 意见类型查询
+        /// </summary>
+        /// <param name="suggestBoxTypeSearchViewModel"></param>
+        /// <returns></returns>
+
+        List<Suggest_Box_Type> SuggestBoxType_Search(SuggestBoxTypeSearchViewModel suggestBoxTypeSearchViewModel);
+
+
+
+        /// <summary>
+        /// 根据用户主键Id查询意见箱
+        /// </summary>
+        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <returns></returns>
+        List<SuggestInfoMiddlecs> SuggestBoxById_Search(SuggestBoxByIdSearchViewModel suggestBoxByIdSearchViewModel);
     }
 }

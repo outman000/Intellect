@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20201009074821_type")]
+    partial class type
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -818,8 +820,6 @@ namespace Dtol.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AddDate");
-
                     b.Property<string>("Code");
 
                     b.Property<string>("Name");
@@ -832,13 +832,7 @@ namespace Dtol.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<string>("createUser");
-
                     b.Property<string>("status");
-
-                    b.Property<DateTime?>("updateDate");
-
-                    b.Property<string>("updateUser");
 
                     b.HasKey("Id");
 

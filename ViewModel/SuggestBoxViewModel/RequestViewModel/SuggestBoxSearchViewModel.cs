@@ -17,9 +17,19 @@ namespace ViewModel.SuggestBoxViewModel.RequestViewModel
         public string SuggestType { get; set; }
 
         /// <summary>
+        /// 意见箱表单子分类
+        /// </summary>
+        public string SuggestChildenType { get; set; }
+
+        /// <summary>
         /// 人名
         /// </summary>
         public string userName { get; set; }
+
+        /// <summary>
+        /// 部门Id
+        /// </summary>
+        public int? User_DepartId { get; set; }
 
         /// <summary>
         /// 开始时间

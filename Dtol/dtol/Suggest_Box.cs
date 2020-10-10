@@ -22,6 +22,12 @@ namespace Dtol.dtol
         /// </summary>
         public string SuggestType { get; set; }
 
+
+        /// <summary>
+        /// 意见箱表单子分类
+        /// </summary>
+        public string SuggestChildenType { get; set; }
+
         /// <summary>
         /// 具体意见内容
         /// </summary>

@@ -83,6 +83,8 @@ namespace Dtol
 
         public DbSet<User_Register> User_Register { get; set; }
 
+        public DbSet<Suggest_Box_Type> Suggest_Box_Type { get; set; }
+
         
 
     }
