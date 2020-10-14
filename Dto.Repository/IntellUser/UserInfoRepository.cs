@@ -119,7 +119,7 @@ namespace Dto.Repository.IntellUser
         //根据用户主键id查询
         public User_Info GetInfoByUserid(int id)
         {
-            User_Info user_Info = DbSet.Single(uid => uid.Id.Equals(id) && uid.status=="0");
+            User_Info user_Info = DbSet.Single(uid => uid.Id==id && uid.status=="0");
             return user_Info;
         }
 

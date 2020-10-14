@@ -35,6 +35,20 @@ namespace Dto.Service.IntellSuggestBox
             return _ISuggestBoxRepository.SaveChanges();
         }
 
+
+        /// <summary>
+        /// 根据ID查看意见箱
+        /// </summary>
+        /// <param name="suggestBoxUpdateViewModel"></param>
+        /// <returns></returns>
+        public SuggestInfoMiddlecs SuggestBox_SearchById(SuggestBoxSearchByIdViewModel  suggestBoxSearchByIdViewModel)
+        {
+            var suggestBox_Info = _ISuggestBoxRepository.GetInfoBySuggestBoxId(suggestBoxSearchByIdViewModel.id);
+            var SuggestSearch = _IMapper.Map<Suggest_Box, SuggestInfoMiddlecs>(suggestBox_Info);
+            return SuggestSearch;
+        }
+
+
         /// <summary>
         /// 意见箱表单增加
         /// </summary>

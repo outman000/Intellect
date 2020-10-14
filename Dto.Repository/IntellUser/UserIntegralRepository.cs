@@ -19,22 +19,49 @@ namespace Dto.Repository.IntellUser
         protected readonly DbSet<User_Integral_Log> DbSet;
         protected readonly DbSet<User_Integral> DbSet2;
         protected readonly DbSet<User_Info> DbSet3;
-
+        protected readonly DbSet<Integral_Commodity> DbSet4;
+        protected readonly DbSet<Commodity_Attachs> DbSet5;
+        protected readonly DbSet<Product_List> DbSet6;
+        
         public UserIntegralRepository(DtolContext context)
         {
             Db = context;
             DbSet = Db.Set<User_Integral_Log>();
             DbSet2 = Db.Set<User_Integral>();
             DbSet3 = Db.Set<User_Info>();
+            DbSet4 = Db.Set<Integral_Commodity>();
+            DbSet5 = Db.Set<Commodity_Attachs>();
+            DbSet6 = Db.Set<Product_List>();
         }
-
+        public virtual void Update_Integral_Commodity(Integral_Commodity obj)
+        {
+            DbSet4.Update(obj);
+        }
+        public virtual void Update_Commodity_Attachs(Commodity_Attachs obj)
+        {
+            DbSet5.Update(obj);
+        }
         public virtual void Add(User_Integral_Log obj)
         {
             DbSet.Add(obj);
         }
+        public virtual void Add_Product_List(Product_List obj)
+        {
+            DbSet6.Add(obj);
+        }
+        public virtual void Add_Commodity_Attachs(Commodity_Attachs obj)
+        {
+            DbSet5.Add(obj);
+        }
         public virtual void Add_User_Integral(User_Integral obj)
         {
             DbSet2.Add(obj);
+        }
+
+
+        public virtual void Add_Integral_Commodity(Integral_Commodity obj)
+        {
+            DbSet4.Add(obj);
         }
         public void Dispose()
         {
@@ -61,6 +88,28 @@ namespace Dto.Repository.IntellUser
         {
             return Db.SaveChanges();
         }
+
+        /// <summary>
+        /// 删除商品信息
+        /// </summary>
+        /// <param name="IdList"></param>
+        /// <returns></returns>
+        public int DeleteByUseridList(List<string> IdList)
+        {
+            int DeleteRowNum = 1;
+            for (int i = 0; i < IdList.Count; i++)
+            {
+                var model = DbSet4.Single(w => w.Id == IdList[i]);
+                model.IsDelete = "1";
+                DbSet4.Update(model);
+                SaveChanges();
+                DeleteRowNum = i + 1;
+            }
+            return DeleteRowNum;
+
+
+        }
+
         /// <summary>
         /// 根据用户主键ID查询用户积分
         /// </summary>
@@ -111,6 +160,104 @@ namespace Dto.Repository.IntellUser
             var result = DbSet2.Where(predicate).OrderBy(o => o.AddDate) .ToList();
 
             return result;
+        }
+        public List<Commodity_Attachs> GetImageList(string formid)
+        {
+            var result = DbSet5.Where(p => p.formid == formid).OrderByDescending(info => info.createDate).ToList();
+            return result;
+        }
+        /// <summary>
+        /// 根据商品主键ID查询
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public List<Integral_Commodity> GetIntegralCommodityList(string ID)
+        {
+            return DbSet4.Where(a => a.Id == ID && a.IsDelete == "0" && a.status=="0").ToList();
+        }
+
+
+
+        public List<Integral_Commodity> GetIntegral_CommodityList(IntegralCommoditySearchViewModel  integralCommoditySearchViewModel)
+        {
+            int SkipNum = integralCommoditySearchViewModel.pageViewModel.CurrentPageNum * integralCommoditySearchViewModel.pageViewModel.PageSize;
+            var predicate = SearchIntegralCommodityWhere(integralCommoditySearchViewModel);
+            var result = DbSet4.Where(predicate).OrderByDescending(A=>A.AddDate)
+                                .Skip(SkipNum)
+                                .Take(integralCommoditySearchViewModel.pageViewModel.PageSize).ToList();
+            return result;
+        }
+
+        public List<Product_List> GetProductListList(ProductListSearchViewModel  productListSearchViewModel)
+        {
+            int SkipNum = productListSearchViewModel.pageViewModel.CurrentPageNum * productListSearchViewModel.pageViewModel.PageSize;
+            var predicate = SearchProductListWhere(productListSearchViewModel);
+            var result = DbSet6.Where(predicate).OrderByDescending(A => A.AddDate)
+                                .Skip(SkipNum)
+                                .Take(productListSearchViewModel.pageViewModel.PageSize).ToList();
+            return result;
+        }
+        /// <summary>
+        /// 根据用户主键ID查询兑换清单
+        /// </summary>
+        /// <param name="productListSearchByUserIdViewModel"></param>
+        /// <returns></returns>
+        public List<Product_List> GetProductListListByUserId(string userid)
+        {
+           
+            var result = DbSet6.Where(a=>a.userid == userid).OrderByDescending(A => A.AddDate).ToList();
+            return result;
+        }
+
+
+        public int GetProductListNum(ProductListSearchViewModel productListSearchViewModel)
+        {
+            var predicate = SearchProductListWhere(productListSearchViewModel);
+            var result = DbSet6.Where(predicate).ToList().Count;
+            return result;
+        }
+
+
+
+
+        public int GetIntegral_Commodity_Num(IntegralCommoditySearchViewModel integralCommoditySearchViewModel)
+        {
+         
+            var predicate = SearchIntegralCommodityWhere(integralCommoditySearchViewModel);
+            var result = DbSet4.Where(predicate)
+                              .ToList().Count;
+            return result;
+        }
+
+        //根据条件查询商品列表
+        private Expression<Func<Integral_Commodity, bool>> SearchIntegralCommodityWhere(IntegralCommoditySearchViewModel integralCommoditySearchViewModel)
+        {
+            var predicate = WhereExtension.True<Integral_Commodity>();//初始化where表达式
+            if(integralCommoditySearchViewModel.User_UnionId!=null)
+                predicate = predicate.And(p => p.User_UnionId == integralCommoditySearchViewModel.User_UnionId.Value);
+            predicate = predicate.And(p => p.CommodityName.Contains(integralCommoditySearchViewModel.CommodityName));
+            predicate = predicate.And(p => p.IntegralNum.Contains(integralCommoditySearchViewModel.IntegralNum));
+            predicate = predicate.And(p => p.status == integralCommoditySearchViewModel.status);
+            predicate = predicate.And(p => p.IsDelete=="0");
+
+            return predicate;
+        }
+
+        //根据条件查询商品列表
+        private Expression<Func<Product_List, bool>> SearchProductListWhere(ProductListSearchViewModel productListSearchViewModel)
+        {
+            var predicate = WhereExtension.True<Product_List>();//初始化where表达式
+            if (productListSearchViewModel.User_UnionId != null)
+                predicate = predicate.And(p => p.User_UnionId == productListSearchViewModel.User_UnionId.Value);
+            if (productListSearchViewModel.User_DepartId != null)
+                predicate = predicate.And(p => p.User_DepartId == productListSearchViewModel.User_DepartId.Value);
+            predicate = predicate.And(p => p.CommodityName.Contains(productListSearchViewModel.CommodityName));
+            predicate = predicate.And(p => p.IntegralNum.Contains(productListSearchViewModel.IntegralNum));
+            if (productListSearchViewModel.starDate != null && productListSearchViewModel.endDate!=null)
+                predicate = predicate.And(p => p.AddDate >= productListSearchViewModel.starDate && p.AddDate <= productListSearchViewModel.endDate);
+
+       
+            return predicate;
         }
 
         //根据条件查询用户

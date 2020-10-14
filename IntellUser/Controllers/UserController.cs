@@ -13,6 +13,8 @@ using ViewModel.UserViewModel.ResponseModel;
 using Serilog;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using ViewModel.UserViewModel.MiddleModel;
+using Microsoft.Extensions.Configuration;
 
 namespace IntellUser.Controllers
 {
@@ -22,12 +24,13 @@ namespace IntellUser.Controllers
     {
         private readonly IUserService  _userService;
         private readonly ILogger _ILogger;
+        private readonly IConfiguration _configuration;
 
 
-
-        public UserController(IUserService  userService, ILogger logger)
+        public UserController(IUserService  userService, IConfiguration configuration, ILogger logger)
         {
             _userService = userService;
+            _configuration = configuration;
             _ILogger = logger;
         }
         /// <summary>
@@ -804,5 +807,347 @@ namespace IntellUser.Controllers
 
 
         }
+
+
+        /// <summary>
+        /// 附件上传
+        /// </summary>
+        /// <param name="userID">登录账户</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> UploadFileNew([FromForm]string userID)
+        {
+            try
+            {
+                Commodity_AttachsMiddles model = new Commodity_AttachsMiddles();
+
+                var folderName = "UploadFile";
+                //var webRootPath = _hostingEnvironment.WebRootPath;
+                var webRootPath = _configuration["StoredFilesPath"];
+                var newPath = Path.Combine(webRootPath, folderName);
+                if (!Directory.Exists(newPath))
+                {
+                    Directory.CreateDirectory(newPath);
+                }
+                var files = Request.Form.Files;
+                if (files != null)
+                {
+                    var size = files.Sum(f => f.Length);
+                    var fileName = "";
+                    var physicsName = "";
+                    var formFile = files[0];
+                    var id = Guid.NewGuid().ToString();
+                    if (formFile.Length > 0)
+                    {
+                        fileName = formFile.FileName;
+                        var fileExt = Path.GetExtension(formFile.FileName);
+                        physicsName = id + fileExt;
+                        var filePath = Path.Combine(newPath, physicsName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await formFile.CopyToAsync(stream);
+                        }
+                        model.Catalog = DateTime.Now.ToString("yyyyMMddHHmmss");
+                        model.ImgIndex = 1;
+                        //文件名
+                        model.FileName = fileName;
+                        model.Length = formFile.Length.ToString();
+
+                        //存储时生成新文件名
+                        model.InternalName = physicsName;
+
+                        //保存文件路径
+                        string filePathName = _configuration["StoredFilesPath"];
+
+                        //相对路径
+                        string relativeUrl = _configuration["DownloadPath"]; ;
+
+                        model.Path = filePathName;
+                        //获取临时文件相对完整路径
+                        model.Url = System.IO.Path.Combine(relativeUrl, model.InternalName).Replace("\\", "/");
+
+                    }
+
+
+                    return Ok(model);
+
+                }
+                else
+                    return BadRequest("未上传任何附件");
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
+
+
+        /// <summary>
+        /// 积分商品新增
+        /// </summary>
+        /// <param name="integralCommodityAddViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<UserAddResModel> Manage_Integral_Commodity_Add(IntegralCommodityAddViewModel integralCommodityAddViewModel)
+        {
+            int User_Add_Count;
+            UserAddResModel userAddResModel = new UserAddResModel();
+            User_Add_Count = _userService.Integral_Commodity_Add(integralCommodityAddViewModel);
+            if (User_Add_Count > 0)
+            {
+                userAddResModel.IsSuccess = true;
+                userAddResModel.AddCount = User_Add_Count;
+                userAddResModel.baseViewModel.Message = "添加成功";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("积分商品新增成功");
+                return Ok(userAddResModel);
+            }
+            else
+            {
+                userAddResModel.IsSuccess = false;
+                userAddResModel.AddCount = 0;
+                userAddResModel.baseViewModel.Message = "添加失败";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("积分商品新增失败");
+                return Ok(userAddResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 积分商品修改
+        /// </summary>
+        /// <param name="integralCommodityUpdateViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<UserAddResModel> Manage_Integral_Commodity_Update(IntegralCommodityUpdateViewModel  integralCommodityUpdateViewModel)
+        {
+            int User_Add_Count;
+            UserAddResModel userAddResModel = new UserAddResModel();
+            User_Add_Count = _userService.Integral_Commodity_Update(integralCommodityUpdateViewModel);
+            if (User_Add_Count > 0)
+            {
+                userAddResModel.IsSuccess = true;
+                userAddResModel.AddCount = User_Add_Count;
+                userAddResModel.baseViewModel.Message = "修改成功";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("积分商品修改成功");
+                return Ok(userAddResModel);
+            }
+            else
+            {
+                userAddResModel.IsSuccess = false;
+                userAddResModel.AddCount = 0;
+                userAddResModel.baseViewModel.Message = "修改失败";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("积分商品修改失败");
+                return Ok(userAddResModel);
+            }
+        }
+
+        /// <summary>
+        /// 新增物品清单
+        /// </summary>
+        /// <param name="shoppingCarAddViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult<UserAddResModel> Manage_Product_List_Add(List<ShoppingCarAddViewModel> shoppingCarAddViewModel)
+        {
+            int Product_Add_Count;
+            UserAddResModel userAddResModel = new UserAddResModel();
+            Product_Add_Count = _userService.Product_List_Add(shoppingCarAddViewModel);
+            if (Product_Add_Count > 0)
+            {
+                userAddResModel.IsSuccess = true;
+                userAddResModel.AddCount = Product_Add_Count;
+                userAddResModel.baseViewModel.Message = "添加成功";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("新增物品清单成功");
+                return Ok(userAddResModel);
+            }
+            else
+            {
+                userAddResModel.IsSuccess = false;
+                userAddResModel.AddCount = 0;
+                userAddResModel.baseViewModel.Message = "添加失败";
+                userAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("新增物品清单失败");
+                return Ok(userAddResModel);
+            }
+        }
+
+
+
+        /// <summary>
+        /// 查询商品信息
+        /// </summary>
+        /// <param name="integralCommoditySearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<IntegralCommoditySearchResModel> Manage_Integral_Commodity_Search(IntegralCommoditySearchViewModel integralCommoditySearchViewModel)
+        {
+            IntegralCommoditySearchResModel  integralCommoditySearchResModel = new IntegralCommoditySearchResModel();
+            var Integral_Commodity = _userService.Integral_Commodity_Search(integralCommoditySearchViewModel);
+            int count = _userService.Integral_Commodity_Num_Search(integralCommoditySearchViewModel);
+            integralCommoditySearchResModel.integral_Commodities = Integral_Commodity;
+            integralCommoditySearchResModel.isSuccess = true;
+            integralCommoditySearchResModel.TotalNum = count;
+            integralCommoditySearchResModel.baseViewModel.Message = " 查询商品信息成功";
+            integralCommoditySearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("查询商品信息成功");
+            return Ok(integralCommoditySearchResModel);
+
+
+        }
+
+        /// <summary>
+        /// 查询兑换清单信息
+        /// </summary>
+        /// <param name="productListSearchViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<ProductListSearchResModel> Manage_Product_List_Search(ProductListSearchViewModel productListSearchViewModel)
+        {
+            ProductListSearchResModel  productListSearchResModel = new ProductListSearchResModel();
+            var Product_List = _userService.Product_List_Search(productListSearchViewModel);
+            int count = _userService.Product_List_Search_Num(productListSearchViewModel);
+            productListSearchResModel.productListMiddles = Product_List;
+            productListSearchResModel.isSuccess = true;
+            productListSearchResModel.TotalNum = count;
+            productListSearchResModel.baseViewModel.Message = "查询兑换清单信息成功";
+            productListSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("查询兑换清单信息成功");
+            return Ok(productListSearchResModel);
+        }
+
+
+        /// <summary>
+        /// 根据用户主键ID查询兑换清单信息
+        /// </summary>
+        /// <param name="productListSearchByUserIdViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+
+        public ActionResult<ProductListSearchResModel> Manage_Product_List_ByUserID_Search(ProductListSearchByUserIdViewModel productListSearchByUserIdViewModel)
+        {
+            ProductListSearchResModel productListSearchResModel = new ProductListSearchResModel();
+            var Product_List = _userService.Product_List_ByUserId_Search(productListSearchByUserIdViewModel);
+            int count = Product_List.Count;
+            productListSearchResModel.productListMiddles = Product_List;
+            productListSearchResModel.isSuccess = true;
+            productListSearchResModel.TotalNum = count;
+            productListSearchResModel.baseViewModel.Message = "查询兑换清单信息成功";
+            productListSearchResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("查询兑换清单信息成功");
+            return Ok(productListSearchResModel);
+        }
+
+
+
+
+        /// <summary>
+        /// 删除商品信息（软删除）
+        /// </summary>
+        /// <param name="integralCommodityDeleteViewModel"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+
+        public ActionResult<UserDeleteResModel> Manage_Integral_Commodity_Delete(IntegralCommodityDeleteViewModel integralCommodityDeleteViewModel)
+        {
+            UserDeleteResModel userDeleteResModel = new UserDeleteResModel();
+            int DeleteResult = _userService.IntegralCommodity_Delete(integralCommodityDeleteViewModel);
+
+            if (DeleteResult > 0)
+            {
+                userDeleteResModel.AddCount = DeleteResult;
+                userDeleteResModel.IsSuccess = true;
+                userDeleteResModel.baseViewModel.Message = "删除成功";
+                userDeleteResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("删除商品信息（软删除），删除成功");
+                return Ok(userDeleteResModel);
+            }
+            else
+            {
+                userDeleteResModel.AddCount = -1;
+                userDeleteResModel.IsSuccess = false;
+                userDeleteResModel.baseViewModel.Message = "删除失败";
+                userDeleteResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("删除商品信息（软删除），删除失败");
+                return Ok(userDeleteResModel);
+            }
+
+
+
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// 新增物品清单的分数校验
+        /// </summary>
+        /// <param name="userIntegralCheckViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateModel]
+        public ActionResult<ProductListCheckResModel> Manage_Product_List_Check(UserIntegralCheckViewModel userIntegralCheckViewModel)
+        {
+            int Temp;
+            ProductListCheckResModel  productListCheckResModel = new ProductListCheckResModel();
+            Temp = _userService.Product_List_Check(userIntegralCheckViewModel);
+            if (Temp == 0)
+            {
+                productListCheckResModel.IsSuccess = true;
+                productListCheckResModel.status = Temp;
+                productListCheckResModel.baseViewModel.Message = "添加成功";
+                productListCheckResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("新增物品清单成功");
+                return Ok(productListCheckResModel);
+            }
+            else if(Temp==1)
+            {
+                productListCheckResModel.IsSuccess = false;
+                productListCheckResModel.status = Temp;
+                productListCheckResModel.baseViewModel.Message = "添加失败,分数已超";
+                productListCheckResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("新增物品清单失败,分数已超");
+                return Ok(productListCheckResModel);
+            }
+            else if(Temp == -1)
+            {
+                productListCheckResModel.IsSuccess = false;
+                productListCheckResModel.status = Temp;
+                productListCheckResModel.baseViewModel.Message = "添加失败,未查询到积分信息";
+                productListCheckResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("新增物品清单失败,未查询到积分信息");
+                return Ok(productListCheckResModel);
+            }
+            else 
+            {
+                productListCheckResModel.IsSuccess = false;
+                productListCheckResModel.status = Temp;
+                productListCheckResModel.baseViewModel.Message = "添加失败,系统异常";
+                productListCheckResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("新增物品清单失败,系统异常");
+                return Ok(productListCheckResModel);
+            }
+        }
+
     }
 }

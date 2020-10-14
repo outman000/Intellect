@@ -195,6 +195,96 @@ namespace Dto.IService.IntellUser
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
         List<UserIntegralSearchMiddle> SearchUserIntegralNewWhere(UserIntegralSearchViewModel userIntegralSearchViewModel);
+
+
+        /// <summary>
+        /// 积分商品新增
+        /// </summary>
+        /// <param name="integralCommodityAddViewModel"></param>
+        /// <returns></returns>
+        int Integral_Commodity_Add(IntegralCommodityAddViewModel integralCommodityAddViewModel);
+
+
+
+        /// <summary>
+        /// 新增物品清单
+        /// </summary>
+        /// <param name="shoppingCarAddViewModel"></param>
+        /// <returns></returns>
+        int Product_List_Add(List<ShoppingCarAddViewModel> shoppingCarAddViewModel);
+
+
+        /// <summary>
+        /// 校验分数是否超
+        /// </summary>
+        /// <param name="userIntegralCheckViewModel"></param>
+        /// <returns></returns>
+
+        int Product_List_Check(UserIntegralCheckViewModel userIntegralCheckViewModel);
+
+
+        /// <summary>
+        /// 查询图片信息
+        /// </summary>
+        /// <param name="formid"></param>
+        /// <returns></returns>
+        Commodity_AttachsMiddles GetImageMiddleModel(string formid);
+
+
+        /// <summary>
+        /// 根据条件查询商品信息
+        /// </summary>
+        /// <param name="productListSearchViewModel"></param>
+        /// <returns></returns>
+        List<IntegralCommodityMiddle> Integral_Commodity_Search(IntegralCommoditySearchViewModel integralCommoditySearchViewModel);
+
+
+        /// <summary>
+        /// 根据条件查询商品信息数量
+        /// </summary>
+        /// <param name="productListSearchViewModel"></param>
+        /// <returns></returns>
+        int Integral_Commodity_Num_Search(IntegralCommoditySearchViewModel integralCommoditySearchViewModel);
+
+
+        /// <summary>
+        /// 积分商品修改
+        /// </summary>
+        /// <param name="integralCommodityUpdateViewModel"></param>
+        /// <returns></returns>
+        int Integral_Commodity_Update(IntegralCommodityUpdateViewModel integralCommodityUpdateViewModel);
+
+
+        /// <summary>
+        /// 根据条件查询物品清单
+        /// </summary>
+        /// <param name = "productListSearchViewModel" ></ param >
+        /// < returns ></ returns >
+        List<ProductListMiddle> Product_List_Search(ProductListSearchViewModel productListSearchViewModel);
+
+        /// <summary>
+        /// 根据条件查询物品清单数量
+        /// </summary>
+        /// <param name = "productListSearchViewModel" ></ param >
+        /// < returns ></ returns >
+        int Product_List_Search_Num(ProductListSearchViewModel productListSearchViewModel);
+
+
+        /// <summary>
+        /// 根据用户主键ID查询物品清单
+        /// </summary>
+        /// <param name = "productListSearchViewModel" ></ param >
+        /// < returns ></ returns >
+        List<ProductListMiddle> Product_List_ByUserId_Search(ProductListSearchByUserIdViewModel productListSearchByUserIdViewModel);
+
+
+
+        /// <summary>
+        /// 删除多个商品信息
+        /// </summary>
+        /// <param name="integralCommodityDeleteViewModel"></param>
+        /// <returns></returns>
+        int IntegralCommodity_Delete(IntegralCommodityDeleteViewModel integralCommodityDeleteViewModel);
     }
 }
 

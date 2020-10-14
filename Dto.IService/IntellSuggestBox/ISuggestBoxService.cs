@@ -57,5 +57,12 @@ namespace Dto.IService.IntellSuggestBox
         /// <param name="suggestBoxSearchViewModel"></param>
         /// <returns></returns>
         List<SuggestInfoMiddlecs> SuggestBoxById_Search(SuggestBoxByIdSearchViewModel suggestBoxByIdSearchViewModel);
+
+        /// <summary>
+        /// 根据主键ID查询意见箱
+        /// </summary>
+        /// <param name="suggestBoxSearchByIdViewModel"></param>
+        /// <returns></returns>
+        SuggestInfoMiddlecs SuggestBox_SearchById(SuggestBoxSearchByIdViewModel suggestBoxSearchByIdViewModel);
     }
 }

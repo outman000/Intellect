@@ -85,7 +85,10 @@ namespace Dtol
 
         public DbSet<Suggest_Box_Type> Suggest_Box_Type { get; set; }
 
-        
+        public DbSet<Commodity_Attachs> Commodity_Attachs { get; set; }
+        public DbSet<Integral_Commodity> Integral_Commodity { get; set; }
 
+        public DbSet<Product_List> Product_List { get; set; }
+        
     }
 }

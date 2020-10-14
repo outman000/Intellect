@@ -33,6 +33,15 @@ namespace Dto.Service.AutoMapper.UserMapper.UserRequestMapper
             CreateMap < User_Test, User_Info > ();
             CreateMap < User_Test, UserTestMiddle>();
             CreateMap< UserTestMiddle, User_Info >();
+            CreateMap<IntegralCommodityAddViewModel, Integral_Commodity>();
+            CreateMap< ShoppingCarAddViewModel, Product_List>();
+            CreateMap<Commodity_Attachs, Commodity_AttachsMiddles >();
+            CreateMap<Integral_Commodity, IntegralCommodityMiddle>();
+            CreateMap<Commodity_AttachsMiddles, Commodity_Attachs>();
+            CreateMap<IntegralCommodityUpdateViewModel, Integral_Commodity>();
+            CreateMap< Product_List, ProductListMiddle >();
+
+
 
             CreateMap<User_Info, UserIntegralLogAddViewModel >()
             .ForMember(s => s.User_DepartId, sp => sp.MapFrom(src => src.User_DepartId))

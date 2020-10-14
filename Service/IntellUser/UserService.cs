@@ -690,7 +690,277 @@ namespace Dto.Service.IntellUser
         
         }
 
+        /// <summary>
+        /// 附件保存
+        /// </summary>
+        /// <param name="uploadFileMiddleModel"></param>
+        /// <param name="formid"></param>
+        /// <param name="IDCard"></param>
+        /// <returns></returns>
+        private int UploadImgAdd(Commodity_AttachsMiddles  commodity_AttachsMiddles, string formid,string userId)
+        {
+            var model = _IMapper.Map<Commodity_AttachsMiddles, Commodity_Attachs>(commodity_AttachsMiddles);
+            model.id = Guid.NewGuid().ToString();
+            model.formid = formid;
+            model.creatorID = userId;
+            model.createDate = DateTime.Now;
+            _userIntegralRepository.Add_Commodity_Attachs(model);
+            return _userIntegralRepository.SaveChanges();
+        }
 
+        /// <summary>
+        /// 校验分数是否超
+        /// </summary>
+        /// <param name="userIntegralCheckViewModel"></param>
+        /// <returns></returns>
+
+        public int Product_List_Check(UserIntegralCheckViewModel userIntegralCheckViewModel)
+        {
+            try
+            {
+                int points = userIntegralCheckViewModel.points;
+                var user_info = _IUserInfoRepository.GetInfoByUserid(Convert.ToInt32(userIntegralCheckViewModel.userId));
+                string idcard = user_info.Idcard;
+                var userIntegral = _userIntegralRepository.SearchUserIntegral(idcard);
+                if (userIntegral.Count > 0)
+                {
+                    if (points > Convert.ToInt32(userIntegral[0].TotalPoints))
+                    {
+                        return 1;//分数已超
+                    }
+                    else
+                        return 0;//分数未超
+
+                }
+                else
+                    return -1;
+            }catch(Exception e)
+            {
+                return -2;
+            }
+        }
+
+
+        /// <summary>
+        /// 新增物品清单
+        /// </summary>
+        /// <param name="shoppingCarAddViewModel"></param>
+        /// <returns></returns>
+
+        public int Product_List_Add(List<ShoppingCarAddViewModel>  shoppingCarAddViewModel)
+        {
+            int result = 0;
+            int totalNum = 0;
+            for(int i=0;i< shoppingCarAddViewModel.Count;i++)
+            {
+                var model = _IMapper.Map<ShoppingCarAddViewModel, Product_List>(shoppingCarAddViewModel[i]);
+                model.Id = Guid.NewGuid().ToString();
+                model.AddDate = DateTime.Now;
+                model.createUser = shoppingCarAddViewModel[i].userId;
+                model.updateDate = DateTime.Now;
+                model.updateUser = shoppingCarAddViewModel[i].userId;
+                totalNum = totalNum + Convert.ToInt32(shoppingCarAddViewModel[i].IntegralNum);
+                _userIntegralRepository.Add_Product_List(model);
+            }
+          
+            result = _userIntegralRepository.SaveChanges();
+            if (shoppingCarAddViewModel.Count == result)
+            {
+              var user_info=  _IUserInfoRepository.GetInfoByUserid(Convert.ToInt32(shoppingCarAddViewModel[0].userId));
+              string idcard = user_info.Idcard;
+              var userIntegral=  _userIntegralRepository.SearchUserIntegral(idcard);
+                if(userIntegral.Count>0)//积分清零
+                {
+                    userIntegral[0].TotalPoints = (Convert.ToInt32(userIntegral[0].TotalPoints)-totalNum).ToString();
+                    _userIntegralRepository.Update_User_Integral(userIntegral[0]);
+                    _userIntegralRepository.SaveChanges();
+                }
+            } 
+
+            return result;
+
+        }
+
+
+
+
+        /// <summary>
+        /// 删除多个商品信息
+        /// </summary>
+        /// <param name="integralCommodityDeleteViewModel"></param>
+        /// <returns></returns>
+        public int IntegralCommodity_Delete(IntegralCommodityDeleteViewModel  integralCommodityDeleteViewModel)
+        {
+            int DeleteRowsNum = _userIntegralRepository
+                 .DeleteByUseridList(integralCommodityDeleteViewModel.DeleleIdList);
+            if (DeleteRowsNum == integralCommodityDeleteViewModel.DeleleIdList.Count)
+            {
+                return DeleteRowsNum;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+
+
+        /// <summary>
+        /// 根据条件查询商品信息
+        /// </summary>
+        /// <param name="productListSearchViewModel"></param>
+        /// <returns></returns>
+        public List<IntegralCommodityMiddle> Integral_Commodity_Search(IntegralCommoditySearchViewModel integralCommoditySearchViewModel)
+        {
+          
+              var tempList=  _userIntegralRepository.GetIntegral_CommodityList(integralCommoditySearchViewModel);
+              var result= _IMapper.Map<List<Integral_Commodity>, List<IntegralCommodityMiddle>>(tempList);
+                for(int i=0;i<tempList.Count;i++)
+                {
+
+                      var ImageInfo= GetImageMiddleModel(tempList[i].Id);
+                      result[i].Url = ImageInfo.Url;
+                }
+                          
+            return result;
+        }
+
+        /// <summary>
+        /// 根据条件查询物品清单
+        /// </summary>
+        /// <param name = "productListSearchViewModel" ></ param >
+        /// < returns ></ returns >
+        public List<ProductListMiddle> Product_List_Search(ProductListSearchViewModel productListSearchViewModel)
+        {
+
+           var tempList = _userIntegralRepository.GetProductListList(productListSearchViewModel);
+            var result = _IMapper.Map<List<Product_List>, List<ProductListMiddle>>(tempList);
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                var ImageInfo = GetImageMiddleModel(tempList[i].formid);
+                result[i].Url = ImageInfo.Url;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 根据用户主键ID查询物品清单
+        /// </summary>
+        /// <param name = "productListSearchViewModel" ></ param >
+        /// < returns ></ returns >
+        public List<ProductListMiddle> Product_List_ByUserId_Search(ProductListSearchByUserIdViewModel  productListSearchByUserIdViewModel)
+        {
+
+            var tempList = _userIntegralRepository.GetProductListListByUserId(productListSearchByUserIdViewModel.userid);
+            var result = _IMapper.Map<List<Product_List>, List<ProductListMiddle>>(tempList);
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                var ImageInfo = GetImageMiddleModel(tempList[i].formid);
+                result[i].Url = ImageInfo.Url;
+            }
+            return result;
+        }
+
+
+
+
+        /// <summary>
+        /// 根据条件查询物品清单数量
+        /// </summary>
+        /// <param name = "productListSearchViewModel" ></ param >
+        /// < returns ></ returns >
+        public int Product_List_Search_Num(ProductListSearchViewModel productListSearchViewModel)
+        {
+
+            var tempList = _userIntegralRepository.GetProductListList(productListSearchViewModel);
+
+            return tempList.Count;
+        }
+
+
+        /// <summary>
+        /// 根据条件查询商品信息数量
+        /// </summary>
+        /// <param name="productListSearchViewModel"></param>
+        /// <returns></returns>
+        public int Integral_Commodity_Num_Search(IntegralCommoditySearchViewModel integralCommoditySearchViewModel)
+        {
+            return _userIntegralRepository.GetIntegral_Commodity_Num(integralCommoditySearchViewModel);
+        }
+
+        /// <summary>
+        /// 查询图片信息
+        /// </summary>
+        /// <param name="formid"></param>
+        /// <returns></returns>
+        public Commodity_AttachsMiddles GetImageMiddleModel(string formid)
+        {
+            Commodity_AttachsMiddles result = new Commodity_AttachsMiddles();
+            var list = _userIntegralRepository.GetImageList(formid);
+            if (list.Count > 0)
+            {
+                var model = list[0];
+                result = _IMapper.Map<Commodity_Attachs, Commodity_AttachsMiddles>(model);
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        /// <summary>
+        /// 积分商品新增
+        /// </summary>
+        /// <param name="integralCommodityAddViewModel"></param>
+        /// <returns></returns>
+        public int Integral_Commodity_Add(IntegralCommodityAddViewModel integralCommodityAddViewModel)
+        {
+            int result = 0;
+            var model = _IMapper.Map<IntegralCommodityAddViewModel, Integral_Commodity>(integralCommodityAddViewModel);
+
+            model.Id = Guid.NewGuid().ToString();
+            model.AddDate = DateTime.Now;
+            model.createUser = integralCommodityAddViewModel.userId;
+            model.updateDate = DateTime.Now;
+            model.updateUser = integralCommodityAddViewModel.userId;
+            model.IsDelete = "0";
+            _userIntegralRepository.Add_Integral_Commodity(model);
+            result =  _userIntegralRepository.SaveChanges();
+            if (result > 0)
+            {
+                if (integralCommodityAddViewModel.AttachsMiddles.FileName != null && integralCommodityAddViewModel.AttachsMiddles.FileName != "")
+                {
+                    UploadImgAdd(integralCommodityAddViewModel.AttachsMiddles, model.Id,model.createUser);
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 积分商品修改
+        /// </summary>
+        /// <param name="integralCommodityUpdateViewModel"></param>
+        /// <returns></returns>
+        public int Integral_Commodity_Update(IntegralCommodityUpdateViewModel  integralCommodityUpdateViewModel)
+        {
+            int result = 0;
+            var modelTemp = _userIntegralRepository.GetIntegralCommodityList(integralCommodityUpdateViewModel.Id);
+            Integral_Commodity model = _IMapper.Map<IntegralCommodityUpdateViewModel, Integral_Commodity>(integralCommodityUpdateViewModel, modelTemp[0]);
+            model.updateDate = DateTime.Now;
+            model.updateUser = integralCommodityUpdateViewModel.userId;
+            _userIntegralRepository.Update_Integral_Commodity(model);
+            result = _userIntegralRepository.SaveChanges(); //2020年3月4日15:14:32
+            if (integralCommodityUpdateViewModel.AttachsMiddles.Url != null)
+            {
+                Commodity_Attachs com_AttachsModel = _userIntegralRepository.GetImageList(integralCommodityUpdateViewModel.Id).FirstOrDefault();
+                com_AttachsModel = _IMapper.Map<Commodity_AttachsMiddles, Commodity_Attachs>(integralCommodityUpdateViewModel.AttachsMiddles, com_AttachsModel);
+                _userIntegralRepository.Update_Commodity_Attachs(com_AttachsModel);
+                result = _userIntegralRepository.SaveChanges(); //2020年3月4日15:14:35
+            }
+            return result;
+        }
 
 
 

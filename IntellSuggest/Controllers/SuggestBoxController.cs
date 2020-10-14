@@ -46,7 +46,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxAddResModel.AddCount = SuggestBox_Add_Count;
                 suggestBoxAddResModel.baseViewModel.Message = "添加成功";
                 suggestBoxAddResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("增添意见箱表单信息成功");
+                _ILogger.Information("增添意见箱信息成功");
                 return Ok(suggestBoxAddResModel);
             }
             else
@@ -55,7 +55,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxAddResModel.AddCount = 0;
                 suggestBoxAddResModel.baseViewModel.Message = "添加失败";
                 suggestBoxAddResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("增添意见箱表单信息失败");
+                _ILogger.Information("增添意见箱信息失败");
                 return BadRequest(suggestBoxAddResModel);
             }
         }
@@ -86,7 +86,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxUpdateResModel.AddCount = 0;
                 suggestBoxUpdateResModel.baseViewModel.Message = "更新失败";
                 suggestBoxUpdateResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("更新意见箱表单信息失败");
+                _ILogger.Information("更新意见箱信息失败");
                 return BadRequest(suggestBoxUpdateResModel);
             }
         }
@@ -117,10 +117,11 @@ namespace IntellSuggest.Controllers
                 suggestBoxDelResModel.IsSuccess = false;
                 suggestBoxDelResModel.baseViewModel.Message = "删除失败";
                 suggestBoxDelResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("删除意见箱表单信息失败");
+                _ILogger.Information("删除意见箱信息失败");
                 return BadRequest(suggestBoxDelResModel);
             }
         }
+
         /// <summary>
         /// 查询意见信息
         /// </summary>
@@ -138,11 +139,30 @@ namespace IntellSuggest.Controllers
             suggestBoxSearchResModel.baseViewModel.Message = "查询成功";
             suggestBoxSearchResModel.baseViewModel.ResponseCode = 200;
             suggestBoxSearchResModel.TotalNum = TotalNum;
-            _ILogger.Information("查询意见箱表单信息成功");
+            _ILogger.Information("查询意见箱信息成功");
             return Ok(suggestBoxSearchResModel);
 
         }
 
+
+        /// <summary>
+        /// 根据主键ID查询意见箱信息
+        /// </summary>
+        /// <param name="suggestBoxSearchByIdViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<SuggestBoxSearchByIdResModel> Manage_SuggestBox_Search_ById(SuggestBoxSearchByIdViewModel suggestBoxSearchByIdViewModel)
+        {
+            SuggestBoxSearchByIdResModel  suggestBoxSearchByIdResModel = new SuggestBoxSearchByIdResModel();
+            var BusSearchResult = _suggestBoxService.SuggestBox_SearchById(suggestBoxSearchByIdViewModel);
+            suggestBoxSearchByIdResModel.suggestBoxInfo = BusSearchResult;
+            suggestBoxSearchByIdResModel.IsSuccess = true;
+            suggestBoxSearchByIdResModel.baseViewModel.Message = "查询成功";
+            suggestBoxSearchByIdResModel.baseViewModel.ResponseCode = 200;
+            _ILogger.Information("根据主键ID查询意见箱信息成功");
+            return Ok(suggestBoxSearchByIdResModel);
+
+        }
 
         /// <summary>
         /// 根据用户主键Id查询意见信息
@@ -160,7 +180,7 @@ namespace IntellSuggest.Controllers
             suggestBoxSearchResModel.baseViewModel.Message = "查询成功";
             suggestBoxSearchResModel.baseViewModel.ResponseCode = 200;
             suggestBoxSearchResModel.TotalNum = TotalNum;
-            _ILogger.Information("查询意见箱信息成功");
+            _ILogger.Information("根据用户主键Id查询意见信息成功");
             return Ok(suggestBoxSearchResModel);
 
         }
