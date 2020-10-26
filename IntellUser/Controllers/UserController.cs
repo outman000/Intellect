@@ -955,15 +955,15 @@ namespace IntellUser.Controllers
         /// <summary>
         /// 新增物品清单
         /// </summary>
-        /// <param name="shoppingCarAddViewModel"></param>
+        /// <param name="shoppingCarAddMiddleModel"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-        public ActionResult<UserAddResModel> Manage_Product_List_Add(List<ShoppingCarAddViewModel> shoppingCarAddViewModel)
+        public ActionResult<UserAddResModel> Manage_Product_List_Add(ShoppingCarAddMiddleModel  shoppingCarAddMiddleModel)
         {
             int Product_Add_Count;
             UserAddResModel userAddResModel = new UserAddResModel();
-            Product_Add_Count = _userService.Product_List_Add(shoppingCarAddViewModel);
+            Product_Add_Count = _userService.Product_List_Add(shoppingCarAddMiddleModel.shoppingCarAddViewModel);
             if (Product_Add_Count > 0)
             {
                 userAddResModel.IsSuccess = true;

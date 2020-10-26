@@ -40,7 +40,7 @@ namespace Dto.Service.AutoMapper.UserMapper.UserRequestMapper
             CreateMap<Commodity_AttachsMiddles, Commodity_Attachs>();
             CreateMap<IntegralCommodityUpdateViewModel, Integral_Commodity>();
             CreateMap< Product_List, ProductListMiddle >();
-
+            CreateMap<User_Integral, UserIntegralSearchMiddle>();
 
 
             CreateMap<User_Info, UserIntegralLogAddViewModel >()

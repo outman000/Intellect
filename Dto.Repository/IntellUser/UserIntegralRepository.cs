@@ -237,7 +237,7 @@ namespace Dto.Repository.IntellUser
                 predicate = predicate.And(p => p.User_UnionId == integralCommoditySearchViewModel.User_UnionId.Value);
             predicate = predicate.And(p => p.CommodityName.Contains(integralCommoditySearchViewModel.CommodityName));
             predicate = predicate.And(p => p.IntegralNum.Contains(integralCommoditySearchViewModel.IntegralNum));
-            predicate = predicate.And(p => p.status == integralCommoditySearchViewModel.status);
+            predicate = predicate.And(p => p.status.Contains(integralCommoditySearchViewModel.status));
             predicate = predicate.And(p => p.IsDelete=="0");
 
             return predicate;
@@ -252,6 +252,7 @@ namespace Dto.Repository.IntellUser
             if (productListSearchViewModel.User_DepartId != null)
                 predicate = predicate.And(p => p.User_DepartId == productListSearchViewModel.User_DepartId.Value);
             predicate = predicate.And(p => p.CommodityName.Contains(productListSearchViewModel.CommodityName));
+            predicate = predicate.And(p => p.userName.Contains(productListSearchViewModel.UserName));
             predicate = predicate.And(p => p.IntegralNum.Contains(productListSearchViewModel.IntegralNum));
             if (productListSearchViewModel.starDate != null && productListSearchViewModel.endDate!=null)
                 predicate = predicate.And(p => p.AddDate >= productListSearchViewModel.starDate && p.AddDate <= productListSearchViewModel.endDate);
@@ -267,78 +268,166 @@ namespace Dto.Repository.IntellUser
             if(userIntegralSearchViewModel.User_DepartId != null)
             predicate = predicate.And(p => p.User_DepartId == userIntegralSearchViewModel.User_DepartId.Value);
             predicate = predicate.And(p => p.UserName.Contains(userIntegralSearchViewModel.UserName));
-            predicate = predicate.And(p => p.TotalPoints.Contains(userIntegralSearchViewModel.TotalPoints));
-            
             predicate = predicate.And(p => p.Mobile.Contains(userIntegralSearchViewModel.Mobile));
+
+
+            if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+            predicate = predicate.And(p => Convert.ToInt64(p.TotalPoints)>= userIntegralSearchViewModel.starPoints && Convert.ToInt64(p.TotalPoints) <= userIntegralSearchViewModel.endPoints);
+     
             if(userIntegralSearchViewModel.strDate!=null && userIntegralSearchViewModel.endDate!=null)
             predicate = predicate.And(p => p.updateDate.Value >= userIntegralSearchViewModel.strDate.Value  &&  p.updateDate.Value<= userIntegralSearchViewModel.endDate.Value);
             return predicate;
         }
+
+
+        ////根据条件查询商品列表
+        //private Expression<Func<User_Integral, bool>> SearchUserIntegralNewAllWhere(UserIntegralSearchViewModel userIntegralSearchViewModel)
+        //{
+        //    var predicate = WhereExtension.True<User_Integral>();//初始化where表达式
+        //    if (userIntegralSearchViewModel.User_DepartId != null)
+        //        predicate = predicate.And(p => p.User_DepartId == userIntegralSearchViewModel.User_DepartId.Value);
+        
+        //    predicate = predicate.And(p => p.UserName.Contains(userIntegralSearchViewModel.UserName));
+
+        //    if (userIntegralSearchViewModel.strDate != null && userIntegralSearchViewModel.endDate != null)
+        //        predicate = predicate.And(p => p.AddDate >= userIntegralSearchViewModel.strDate && p.AddDate <= userIntegralSearchViewModel.endDate);
+
+        //    if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+        //        predicate = predicate.And(p => Convert.ToInt64(p.TotalPoints) >= userIntegralSearchViewModel.starPoints && Convert.ToInt64(p.TotalPoints) <= userIntegralSearchViewModel.endPoints);
+
+
+        //    return predicate;
+        //}
         /// <summary>
         /// 查询积分信息（积分表和用户表联查）
         /// </summary>
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
-        public List<UserIntegralSearchMiddle> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
+        public List<User_Integral> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
-            string deptId = "";
-            string User_UnionId = "";
-            DateTime strDate;
-            DateTime endDate;
-            int SkipNum = userIntegralSearchViewModel.pageViewModel.CurrentPageNum * userIntegralSearchViewModel.pageViewModel.PageSize;
-            if (userIntegralSearchViewModel.User_DepartId != null)
-            {
-                 deptId = userIntegralSearchViewModel.User_DepartId.Value.ToString();
-            }
-            if (userIntegralSearchViewModel.User_UnionId != null)
-            {
-                User_UnionId = userIntegralSearchViewModel.User_UnionId.Value.ToString();
-            }
-            string TotalPoints = userIntegralSearchViewModel.TotalPoints;
-            string username= userIntegralSearchViewModel.UserName;
-            string Mobile = userIntegralSearchViewModel.Mobile;
-            if (userIntegralSearchViewModel.strDate != null && userIntegralSearchViewModel.endDate != null)
-            {
-                 strDate = userIntegralSearchViewModel.strDate.Value;
-                 endDate = userIntegralSearchViewModel.endDate.Value;
-                    var result = DbSet2.Where(a => a.User_DepartId.ToString().Contains(deptId)&& a.TotalPoints.Contains(TotalPoints) && a.UserName.Contains(username)
-                    && a.Mobile.Contains(Mobile) && a.updateDate>= strDate &&a.updateDate <= endDate).Join(DbSet3.Where(D=>D.User_UnionId.ToString().Contains(User_UnionId))
-                    .Include(c=>c.User_Depart).Include(f=>f.User_Union), a => a.Idcard, D => D.Idcard, (a, D) => new UserIntegralSearchMiddle
-                    {
-                        UserName = a.UserName,
-                        Idcard=a.Idcard,
-                        Dept=D.User_Depart.Name,
-                        Type=a.Type,
-                        TotalPoints=a.TotalPoints,
-                        Mobile=a.Mobile,
-                        UnionName=D.User_Union.Name,
-                        updateDate = a.updateDate
-                    }).OrderByDescending(a=>a.TotalPoints)
-                     .Skip(SkipNum)
-                     .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
-                return result;
-            }
-            else
-            {
-                var result = DbSet2.Where(a => a.User_DepartId.ToString().Contains(deptId) && a.TotalPoints.Contains(TotalPoints) && a.UserName.Contains(username)
-                    && a.Mobile.Contains(Mobile) ).Join(DbSet3.Where(D => D.User_UnionId.ToString().Contains(User_UnionId)).Include(c => c.User_Depart).
-                    Include(f => f.User_Union), a => a.Idcard, D => D.Idcard, (a, D) =>new UserIntegralSearchMiddle
-                    {
-                        UserName = a.UserName,
-                        Idcard = a.Idcard,
-                        Dept = D.User_Depart.Name,
-                        Type = a.Type,
-                        TotalPoints = a.TotalPoints,
-                        Mobile = a.Mobile,
-                        UnionName = D.User_Union.Name,
-                        updateDate = a.updateDate
-                    }).OrderByDescending(a => a.TotalPoints)
-                       .Skip(SkipNum)
-                       .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
-                return result;
-            }
 
-           
+
+            int SkipNum = userIntegralSearchViewModel.pageViewModel.CurrentPageNum * userIntegralSearchViewModel.pageViewModel.PageSize;
+            var predicate = SearchUserIntegralWhere(userIntegralSearchViewModel);
+            var result = DbSet2.Where(predicate).OrderByDescending(A => A.AddDate)
+                                .Skip(SkipNum)
+                                .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
+            return result;
+            //string deptId = "";
+            //string User_UnionId = "";
+            //DateTime strDate;
+            //DateTime endDate;
+
+            //int starPoints;
+            //int endPoints;
+            //int SkipNum = userIntegralSearchViewModel.pageViewModel.CurrentPageNum * userIntegralSearchViewModel.pageViewModel.PageSize;
+            //if (userIntegralSearchViewModel.User_DepartId != null)
+            //{
+            //     deptId = userIntegralSearchViewModel.User_DepartId.Value.ToString();
+            //}
+            //if (userIntegralSearchViewModel.User_UnionId != null)
+            //{
+            //    User_UnionId = userIntegralSearchViewModel.User_UnionId.Value.ToString();
+            //}
+
+            //string username= userIntegralSearchViewModel.UserName;
+            //string Mobile = userIntegralSearchViewModel.Mobile;
+            //if (userIntegralSearchViewModel.strDate != null && userIntegralSearchViewModel.endDate != null)
+            //{
+            //     strDate = userIntegralSearchViewModel.strDate.Value;
+            //     endDate = userIntegralSearchViewModel.endDate.Value;
+
+            //    if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+            //    {
+            //         starPoints = userIntegralSearchViewModel.starPoints.Value;
+            //         endPoints = userIntegralSearchViewModel.endPoints.Value;
+            //      var result = DbSet2.Where(a => a.User_DepartId.ToString().Contains(deptId)&& (Convert.ToInt32(a.TotalPoints) >= starPoints && Convert.ToInt32(a.TotalPoints) <= endPoints) && a.UserName.Contains(username)
+            //        && a.Mobile.Contains(Mobile) && a.updateDate>= strDate &&a.updateDate <= endDate).Join(DbSet3.Where(D=>D.User_UnionId.ToString().Contains(User_UnionId))
+            //        .Include(c=>c.User_Depart).Include(f=>f.User_Union), a => a.Idcard, D => D.Idcard, (a, D) => new UserIntegralSearchMiddle
+            //        {
+            //            UserName = a.UserName,
+            //            Idcard=a.Idcard,
+            //            Dept=D.User_Depart.Name,
+            //            Type=a.Type,
+            //            TotalPoints=a.TotalPoints,
+            //            Mobile=a.Mobile,
+            //            UnionName=D.User_Union.Name,
+            //            updateDate = a.updateDate
+            //        }).OrderByDescending(a=>a.TotalPoints)
+            //         .Skip(SkipNum)
+            //         .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
+
+            //        return result;
+            //    }
+            //    else
+            //    {
+            //        var result = DbSet2.Where(a => a.User_DepartId.ToString()==deptId && a.UserName.Contains(username)
+            //                          && a.Mobile.Contains(Mobile) && a.updateDate >= strDate && a.updateDate <= endDate).Join(DbSet3.Where(D => D.User_UnionId.ToString().Contains(User_UnionId))
+            //                          .Include(c => c.User_Depart).Include(f => f.User_Union), a => a.Idcard, D => D.Idcard, (a, D) => new UserIntegralSearchMiddle
+            //                          {
+            //                              UserName = a.UserName,
+            //                              Idcard = a.Idcard,
+            //                              Dept = D.User_Depart.Name,
+            //                              Type = a.Type,
+            //                              TotalPoints = a.TotalPoints,
+            //                              Mobile = a.Mobile,
+            //                              UnionName = D.User_Union.Name,
+            //                              updateDate = a.updateDate
+            //                          }).OrderByDescending(a => a.TotalPoints)
+            //                           .Skip(SkipNum)
+            //                           .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
+            //        return result;
+            //    }
+
+            //}
+            //else
+            //{
+            //    if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+            //    {
+            //        starPoints = userIntegralSearchViewModel.starPoints.Value;
+            //        endPoints = userIntegralSearchViewModel.endPoints.Value;
+
+            //        var result = DbSet2.Where(a => a.User_DepartId.ToString() == deptId && (Convert.ToInt32(a.TotalPoints) >= starPoints && Convert.ToInt32(a.TotalPoints) <= endPoints)&& a.UserName.Contains(username)
+            //                            && a.Mobile.Contains(Mobile)).Join(DbSet3.Where(D => D.User_UnionId.ToString().Contains(User_UnionId)).Include(c => c.User_Depart).
+            //                            Include(f => f.User_Union), a => a.Idcard, D => D.Idcard, (a, D) => new UserIntegralSearchMiddle
+            //                            {
+            //                                UserName = a.UserName,
+            //                                Idcard = a.Idcard,
+            //                                Dept = D.User_Depart.Name,
+            //                                Type = a.Type,
+            //                                TotalPoints = a.TotalPoints,
+            //                                Mobile = a.Mobile,
+            //                                UnionName = D.User_Union.Name,
+            //                                updateDate = a.updateDate
+            //                            }).OrderByDescending(a => a.TotalPoints)
+            //                               .Skip(SkipNum)
+            //                               .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
+
+            //        return result;
+            //    }
+            //    else
+            //    {
+            //        var result = DbSet2.Where(a => a.User_DepartId.ToString() == deptId && a.UserName.Contains(username)
+            //                            && a.Mobile.Contains(Mobile)).Join(DbSet3.Where(D => D.User_UnionId.ToString().Contains(User_UnionId)).Include(c => c.User_Depart).
+            //                            Include(f => f.User_Union), a => a.Idcard, D => D.Idcard, (a, D) => new UserIntegralSearchMiddle
+            //                            {
+            //                                UserName = a.UserName,
+            //                                Idcard = a.Idcard,
+            //                                Dept = D.User_Depart.Name,
+            //                                Type = a.Type,
+            //                                TotalPoints = a.TotalPoints,
+            //                                Mobile = a.Mobile,
+            //                                UnionName = D.User_Union.Name,
+            //                                updateDate = a.updateDate
+            //                            }).OrderByDescending(a => a.TotalPoints)
+            //                               .Skip(SkipNum)
+            //                               .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
+            //        return result;
+            //    }
+
+            //}
+
+
         }
 
 

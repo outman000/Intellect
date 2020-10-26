@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using AutofacSerilogIntegration;
 using ViewModel.UserViewModel.MiddleModel;
+using Microsoft.Extensions.FileProviders;
 
 namespace IntellUser
 {
@@ -194,10 +195,16 @@ namespace IntellUser
                 c.RoutePrefix = string.Empty;
             });
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                //配置除了默认的wwwroot文件中的静态文件以外的文件夹  提供 Web 根目录外的文件  经过此配置以后，就可以访问StaticFiles文件下的文件
+                FileProvider = new PhysicalFileProvider(
+               Path.Combine(Directory.GetCurrentDirectory(), "UploadFile")),
+                RequestPath = "/UploadFile",
+            });
 
 
 
-       
             app.UseHttpsRedirection();
             app.UseMvc();
         }

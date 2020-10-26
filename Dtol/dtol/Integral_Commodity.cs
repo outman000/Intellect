@@ -37,6 +37,11 @@ namespace Dtol.dtol
         public string CommodityIntroduction { get; set; }
 
         /// <summary>
+        /// 商品单位
+        /// </summary>
+        [StringLength(50)]
+        public string CommodityUnit { get; set; }
+        /// <summary>
         /// 工会名称
         /// </summary>
         [StringLength(50)]

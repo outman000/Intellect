@@ -13,6 +13,12 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// </summary>
         public string CommodityName { get; set; }
 
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string UserName { get; set; }
+
         /// <summary>
         /// 积分数
         /// </summary>

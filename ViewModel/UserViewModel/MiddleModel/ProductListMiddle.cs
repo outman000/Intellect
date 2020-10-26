@@ -12,6 +12,10 @@ namespace ViewModel.UserViewModel.MiddleModel
         public string CommodityName { get; set; }
 
         /// <summary>
+        /// 商品单位
+        /// </summary>
+        public string CommodityUnit { get; set; }
+        /// <summary>
         /// 商品类型
         /// </summary>
         public string CommodityType { get; set; }
@@ -21,6 +25,10 @@ namespace ViewModel.UserViewModel.MiddleModel
         /// </summary>
         public string IntegralNum { get; set; }
 
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string userName { get; set; }
         /// <summary>
         /// 部门名称
         /// </summary>

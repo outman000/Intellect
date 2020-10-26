@@ -106,7 +106,7 @@ namespace Dto.Repository.IntellUser
 
         public List<User_Info> SearchByIdcard(string Idcard)
         {
-            return  DbSet.Where(a => a.Idcard == Idcard && a.status=="0"  ).Include(a=>a.User_Depart).ToList();
+            return  DbSet.Where(a => a.Idcard == Idcard && a.status=="0"  ).Include(a=>a.User_Depart).Include(a=>a.User_Union).ToList();
         }
         public List<User_Info> SearchByIdcardNew(string Idcard)
         {
@@ -189,9 +189,8 @@ namespace Dto.Repository.IntellUser
 
         public User_Info GetInfoAndDepartByUserid(int id)
         {
-            User_Info user_Info = DbSet.Include(a=>a.User_Depart)
-                                 .Single(uid => uid.Id.Equals(id))       
-                ;
+            User_Info user_Info = DbSet.Include(a=>a.User_Depart).Include(a=>a.User_Union)
+                                 .Single(uid => uid.Id.Equals(id));
             return user_Info;
         }
         /// <summary>

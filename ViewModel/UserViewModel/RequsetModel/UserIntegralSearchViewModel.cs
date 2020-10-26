@@ -14,7 +14,18 @@ namespace ViewModel.UserViewModel.RequsetModel
         /// 部门id
         /// </summary>
         public int? User_DepartId { get; set; }
-        public string TotalPoints { get; set; }
+
+
+        /// <summary>
+        /// 开始分数
+        /// </summary>
+        public int? starPoints { get; set; }
+
+        /// <summary>
+        /// 结束分数
+        /// </summary>
+        public int? endPoints { get; set; }
+
         public string Mobile { get; set; }
         /// <summary>
         /// 工会信息

@@ -7,10 +7,21 @@ namespace ViewModel.UserViewModel.MiddleModel
     public class IntegralCommodityMiddle
     {
         /// <summary>
+        /// 商品Id
+        /// </summary>
+        public string Id { get; set; }
+
+
+        /// <summary>
         /// 商品名
         /// </summary>
         public string CommodityName { get; set; }
 
+
+        /// <summary>
+        /// 商品单位
+        /// </summary>
+        public string CommodityUnit { get; set; }
 
         /// <summary>
         /// 商品分类

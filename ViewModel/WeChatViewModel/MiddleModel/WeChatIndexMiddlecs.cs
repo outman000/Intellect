@@ -41,6 +41,20 @@ namespace ViewModel.WeChatViewModel.MiddleModel
         ///  部门详细信息
         /// </summary>
         public User_Depart User_Depart { get; set; }
+
+
+
+        /// <summary>
+        /// 工会信息
+        /// </summary>
+        public int? User_UnionId { get; set; }
+
+        /// <summary>
+        /// 工会详细信息
+        /// </summary>
+        public User_Union User_Union { get; set; }
+
+
         /// <summary>
         /// 权限id
         /// </summary>

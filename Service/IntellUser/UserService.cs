@@ -482,7 +482,26 @@ namespace Dto.Service.IntellUser
         /// <returns></returns>
         public List<UserIntegralSearchMiddle> SearchUserIntegralNewWhere(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
-            return _userIntegralRepository.SearchUserIntegralNewAll(userIntegralSearchViewModel);
+            var User_Integral= _userIntegralRepository.SearchUserIntegralNewAll(userIntegralSearchViewModel);
+            UserIntegralSearchMiddle userIntegralSearchMiddle = new UserIntegralSearchMiddle();
+            var userIntegral_temp = _IMapper.Map<List<User_Integral>, List<UserIntegralSearchMiddle>>(User_Integral);
+            for (int i=0;i< User_Integral.Count;i++)
+            {
+                var user_Info = SearchByIdcard(User_Integral[i].Idcard);
+                if (userIntegralSearchViewModel.User_UnionId!=null)
+                { 
+                    if (user_Info[0].User_UnionId == userIntegralSearchViewModel.User_UnionId)
+                        userIntegral_temp[i].UnionName = user_Info[0].User_Union.Name;
+                    else
+                        userIntegral_temp.Remove(userIntegral_temp[i]);
+                }
+                else
+                {
+                    userIntegral_temp[i].UnionName = user_Info[0].User_Union.Name;
+
+                }
+            }
+            return userIntegral_temp;
         }
 
         /// <summary>
@@ -492,7 +511,21 @@ namespace Dto.Service.IntellUser
         /// <returns></returns>
         public int SearchUserIntegralWhereNum(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
-            return _userIntegralRepository.SearchUserIntegralAllNum(userIntegralSearchViewModel).Count;
+          var temp=_userIntegralRepository.SearchUserIntegralAllNum(userIntegralSearchViewModel);
+            if (userIntegralSearchViewModel.User_UnionId != null)
+            {
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    var user_Info = SearchByIdcard(temp[i].Idcard);
+                    if (user_Info[0].User_UnionId == userIntegralSearchViewModel.User_UnionId)
+                        temp.Remove(temp[i]);
+                }
+                return temp.Count;
+            }
+            else
+                return temp.Count;
+
+
         }
 
 
@@ -724,7 +757,7 @@ namespace Dto.Service.IntellUser
                 var userIntegral = _userIntegralRepository.SearchUserIntegral(idcard);
                 if (userIntegral.Count > 0)
                 {
-                    if (points > Convert.ToInt32(userIntegral[0].TotalPoints))
+                    if (points > Convert.ToInt64(userIntegral[0].TotalPoints))
                     {
                         return 1;//分数已超
                     }
@@ -759,7 +792,7 @@ namespace Dto.Service.IntellUser
                 model.createUser = shoppingCarAddViewModel[i].userId;
                 model.updateDate = DateTime.Now;
                 model.updateUser = shoppingCarAddViewModel[i].userId;
-                totalNum = totalNum + Convert.ToInt32(shoppingCarAddViewModel[i].IntegralNum);
+                totalNum = totalNum + Convert.ToInt32(shoppingCarAddViewModel[i].IntegralNum)* Convert.ToInt32(shoppingCarAddViewModel[i].CommodityNum);
                 _userIntegralRepository.Add_Product_List(model);
             }
           
@@ -819,7 +852,11 @@ namespace Dto.Service.IntellUser
                 {
 
                       var ImageInfo= GetImageMiddleModel(tempList[i].Id);
-                      result[i].Url = ImageInfo.Url;
+                    if(ImageInfo.Count>0)
+                      result[i].Url = ImageInfo[0].Url;
+           
+
+
                 }
                           
             return result;
@@ -838,7 +875,8 @@ namespace Dto.Service.IntellUser
             for (int i = 0; i < tempList.Count; i++)
             {
                 var ImageInfo = GetImageMiddleModel(tempList[i].formid);
-                result[i].Url = ImageInfo.Url;
+                if(ImageInfo.Count>0)
+                result[i].Url = ImageInfo[0].Url;
             }
             return result;
         }
@@ -856,7 +894,8 @@ namespace Dto.Service.IntellUser
             for (int i = 0; i < tempList.Count; i++)
             {
                 var ImageInfo = GetImageMiddleModel(tempList[i].formid);
-                result[i].Url = ImageInfo.Url;
+                if(ImageInfo.Count>0)
+                result[i].Url = ImageInfo[0].Url;
             }
             return result;
         }
@@ -893,20 +932,14 @@ namespace Dto.Service.IntellUser
         /// </summary>
         /// <param name="formid"></param>
         /// <returns></returns>
-        public Commodity_AttachsMiddles GetImageMiddleModel(string formid)
+        public List<Commodity_AttachsMiddles> GetImageMiddleModel(string formid)
         {
-            Commodity_AttachsMiddles result = new Commodity_AttachsMiddles();
+         
             var list = _userIntegralRepository.GetImageList(formid);
-            if (list.Count > 0)
-            {
-                var model = list[0];
-                result = _IMapper.Map<Commodity_Attachs, Commodity_AttachsMiddles>(model);
-                return result;
-            }
-            else
-            {
-                return null;
-            }
+   
+            var  result = _IMapper.Map<List<Commodity_Attachs>, List<Commodity_AttachsMiddles>>(list);
+            return result;
+      
 
         }
 
@@ -926,6 +959,7 @@ namespace Dto.Service.IntellUser
             model.updateDate = DateTime.Now;
             model.updateUser = integralCommodityAddViewModel.userId;
             model.IsDelete = "0";
+            model.status = "0";
             _userIntegralRepository.Add_Integral_Commodity(model);
             result =  _userIntegralRepository.SaveChanges();
             if (result > 0)

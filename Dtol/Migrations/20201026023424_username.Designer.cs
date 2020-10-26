@@ -4,14 +4,16 @@ using Dtol;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dtol.Migrations
 {
     [DbContext(typeof(DtolContext))]
-    partial class DtolContextModelSnapshot : ModelSnapshot
+    [Migration("20201026023424_username")]
+    partial class username
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -702,9 +704,6 @@ namespace Dtol.Migrations
                     b.Property<string>("CommodityType")
                         .HasMaxLength(50);
 
-                    b.Property<string>("CommodityUnit")
-                        .HasMaxLength(50);
-
                     b.Property<string>("IntegralNum")
                         .HasMaxLength(50);
 
@@ -781,9 +780,6 @@ namespace Dtol.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("CommodityType")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("CommodityUnit")
                         .HasMaxLength(50);
 
                     b.Property<string>("DeptName")

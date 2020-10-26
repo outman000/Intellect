@@ -14,6 +14,10 @@ namespace ViewModel.UserViewModel.RequsetModel
 
 
         /// <summary>
+        /// 商品单位
+        /// </summary>
+        public string Commodityunit { get; set; }
+        /// <summary>
         /// 用户ID
         /// </summary>
         public string userId { get; set; }

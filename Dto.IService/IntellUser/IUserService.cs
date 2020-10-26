@@ -228,7 +228,7 @@ namespace Dto.IService.IntellUser
         /// </summary>
         /// <param name="formid"></param>
         /// <returns></returns>
-        Commodity_AttachsMiddles GetImageMiddleModel(string formid);
+       List<Commodity_AttachsMiddles> GetImageMiddleModel(string formid);
 
 
         /// <summary>

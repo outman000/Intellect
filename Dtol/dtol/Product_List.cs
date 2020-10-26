@@ -23,6 +23,12 @@ namespace Dtol.dtol
         /// </summary>
         [StringLength(50)]
         public string CommodityType { get; set; }
+
+        /// <summary>
+        /// 商品单位
+        /// </summary>
+        [StringLength(50)]
+        public string CommodityUnit { get; set; }
         /// <summary>
         /// 商品id
         /// </summary>
@@ -39,6 +45,12 @@ namespace Dtol.dtol
         /// </summary>
         [StringLength(50)]
         public string userid { get; set; }
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        [StringLength(50)]
+        public string userName { get; set; }
 
         [StringLength(50)]
         public int? User_DepartId { get; set; }
