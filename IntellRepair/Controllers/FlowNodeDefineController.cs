@@ -75,7 +75,7 @@ namespace IntellRepair.Controllers
                 flowNodeDefineAddResModel.baseViewModel.Message = "添加失败";
                 flowNodeDefineAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加节点定义信息失败");
-                return BadRequest(flowNodeDefineAddResModel);
+                return Ok(flowNodeDefineAddResModel);
             }
         }
 
@@ -107,7 +107,7 @@ namespace IntellRepair.Controllers
                 flowNodeDefineDelResModel.baseViewModel.Message = "删除失败";
                 flowNodeDefineDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除节点定义信息失败");
-                return BadRequest(flowNodeDefineDelResModel);
+                return Ok(flowNodeDefineDelResModel);
             }
         }
 
@@ -140,7 +140,7 @@ namespace IntellRepair.Controllers
                 flowNodeDefineUpdateResModel.baseViewModel.Message = "更新失败";
                 flowNodeDefineUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新节点定义信息失败");
-                return BadRequest(flowNodeDefineUpdateResModel);
+                return Ok(flowNodeDefineUpdateResModel);
             }
         }
         /// <summary>
@@ -170,7 +170,7 @@ namespace IntellRepair.Controllers
                 flowProcedureByNodeIdAddResModel.baseViewModel.Message = "根据流程定义增加节点 / 根据节点定义增加流程定义，失败";
                 flowProcedureByNodeIdAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据流程定义增加节点/根据节点定义增加流程定义，失败");
-                return BadRequest(flowProcedureByNodeIdAddResModel);
+                return Ok(flowProcedureByNodeIdAddResModel);
 
             }
 
@@ -204,7 +204,7 @@ namespace IntellRepair.Controllers
                 relateRoleByNodeAddResModel.baseViewModel.Message = "节点配置角色失败";
                 relateRoleByNodeAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给节点配置角色失败");
-                return BadRequest(relateRoleByNodeAddResModel);
+                return Ok(relateRoleByNodeAddResModel);
             }
         }
         /// <summary>
@@ -235,7 +235,7 @@ namespace IntellRepair.Controllers
                 relateRoleByNodeDelResModel.baseViewModel.Message = "节点删除角色失败";
                 relateRoleByNodeDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据节点删除角色失败");
-                return BadRequest(relateRoleByNodeDelResModel);
+                return Ok(relateRoleByNodeDelResModel);
             }
         }
 
@@ -289,7 +289,7 @@ namespace IntellRepair.Controllers
                 currentNodeToNextNodeAddResModel.baseViewModel.Message = "给当前节点配下一节点失败";
                 currentNodeToNextNodeAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给当前节点配下一节点失败");
-                return BadRequest(currentNodeToNextNodeAddResModel);
+                return Ok(currentNodeToNextNodeAddResModel);
             }
         }
 
@@ -321,7 +321,7 @@ namespace IntellRepair.Controllers
                 currentNodeToNextNodeDelResModel.baseViewModel.Message = "给当前节点删除下一节点成功";
                 currentNodeToNextNodeDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给当前节点删除下一节点成功");
-                return BadRequest(currentNodeToNextNodeDelResModel);
+                return Ok(currentNodeToNextNodeDelResModel);
             }
         }
         /// <summary>

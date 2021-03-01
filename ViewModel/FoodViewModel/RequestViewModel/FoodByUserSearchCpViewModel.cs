@@ -27,6 +27,23 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         public string Content { get; set; }
 
         /// <summary>
+        /// 周数
+        /// </summary>
+        public string WeekNumber { get; set; }
+
+        /// <summary>
+        /// 年份
+        /// </summary>
+        public string Year { get; set; }
+
+
+        /// <summary>
+        /// 星期数
+        /// </summary>
+        public string Remark { get; set; }
+
+
+        /// <summary>
         /// 分页
         /// </summary>
         public PageViewModel pageViewModel { get; set; }

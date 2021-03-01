@@ -19,10 +19,10 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         /// </summary>
         public string FoodName { get; set; }
 
-        /// <summary>
-        /// 食物标识
-        /// </summary>
-        public string Code { get; set; }
+        ///// <summary>
+        ///// 食物标识
+        ///// </summary>
+        //public string Code { get; set; }
 
         /// <summary>
         /// 食物价格
@@ -37,14 +37,23 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         /// </summary>
         public string FoodType { get; set; }
         /// <summary>
-        /// 食物图片
+        /// 食物分类
         /// </summary>
         public string Picture { get; set; }
 
 
-        /// <summary>
-        /// 修改时间
+        /// 创建人
         /// </summary>
-        public DateTime? updateDate { get; set; }
+        public string createUser { get; set; }
+
+        /// 上架下架
+        /// </summary>
+        public string status { get; set; }
+
+
+        /// <summary>
+        /// 周数
+        /// </summary>
+        public string WeekNumber { get; set; }
     }
 }

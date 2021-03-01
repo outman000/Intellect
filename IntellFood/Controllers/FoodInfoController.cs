@@ -15,6 +15,9 @@ using ViewModel.SuggestBoxViewModel.RequestViewModel;
 using ViewModel.SuggestBoxViewModel.ResponseModel;
 using Dto.IService.IntellSuggestBox;
 using Microsoft.AspNetCore.Authorization;
+using ViewModel.UserViewModel.ResponseModel;
+using System.IO;
+using Dto.IService.IntellUser;
 
 namespace IntellFood.Controllers
 {
@@ -24,13 +27,15 @@ namespace IntellFood.Controllers
     {
         private readonly IFoodService _foodService;
         private readonly ISuggestBoxService _suggestBoxService;
+        private readonly IUserService _userService;
         private readonly ILogger _ILogger;
 
 
-        public FoodInfoController(IFoodService foodService, ISuggestBoxService suggestBoxService, ILogger logger)
+        public FoodInfoController(IFoodService foodService, ISuggestBoxService suggestBoxService, IUserService userService, ILogger logger)
         {
             _foodService = foodService;
             _suggestBoxService = suggestBoxService;
+            _userService = userService;
             _ILogger = logger;
 
         }
@@ -68,8 +73,6 @@ namespace IntellFood.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [ValidateModel]
-
         public ActionResult<FoodInfoAddResModel> Manage_Food_Add(FoodInfoAddViewModel foodInfoAddViewModel)
         {
             int Food_Add_Count;
@@ -91,7 +94,7 @@ namespace IntellFood.Controllers
                 foodInfoAddResModel.baseViewModel.Message = "添加失败";
                 foodInfoAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添菜单信息失败");
-                return BadRequest(foodInfoAddResModel);
+                return Ok(foodInfoAddResModel);
             }
         }
 
@@ -123,7 +126,7 @@ namespace IntellFood.Controllers
                 foodInfoDelResModel.baseViewModel.Message = "删除失败";
                 foodInfoDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除菜单信息失败");
-                return BadRequest(foodInfoDelResModel);
+                return Ok(foodInfoDelResModel);
             }
         }
 
@@ -133,7 +136,7 @@ namespace IntellFood.Controllers
         /// <param name="foodInfoUpdateViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [ValidateModel]
+
 
         public ActionResult<FoodInfoUpdateResModel> Manage_Food_Update(FoodInfoUpdateViewModel foodInfoUpdateViewModel)
         {
@@ -156,7 +159,7 @@ namespace IntellFood.Controllers
                 foodInfoUpdateResModel.baseViewModel.Message = "更新失败";
                 foodInfoUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新菜单信息失败");
-                return BadRequest(foodInfoUpdateResModel);
+                return Ok(foodInfoUpdateResModel);
             }
         }
         /// <summary>
@@ -165,7 +168,7 @@ namespace IntellFood.Controllers
         /// <param name="foodInfoValideRepeat   "></param>
         /// <returns></returns>
         [HttpPost]
-        [ValidateModel]
+
 
         public ActionResult<FoodInfoValideResRepeat> Manage_Food_ValideRepeat(FoodInfoValideRepeat foodInfoValideRepeat)
         {
@@ -186,7 +189,7 @@ namespace IntellFood.Controllers
                 foodInfoValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 foodInfoValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("验证菜单标识是否重复，此id已经存在，请更换");
-                return BadRequest(foodInfoValideResRepeat);
+                return Ok(foodInfoValideResRepeat);
             }
         }
 
@@ -320,7 +323,6 @@ namespace IntellFood.Controllers
             FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
             var BusSearchResult = _foodService.PraiseNumByFoodId(praiseNumSearchMiddlecs);
 
-
             foodIdSearchResModel.PraiseInfo = BusSearchResult;
             foodIdSearchResModel.IsSuccess = true;
             foodIdSearchResModel.baseViewModel.Message = "查询菜单点赞数量成功";
@@ -336,13 +338,10 @@ namespace IntellFood.Controllers
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<FoodByFoodIdSearchResModel> Manage_CpNum_Search(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs)
         {
             FoodByFoodIdSearchResModel foodIdSearchResModel = new FoodByFoodIdSearchResModel();
             var BusSearchResult = _foodService.CpNumByFoodId(praiseNumSearchMiddlecs);
-
-
             foodIdSearchResModel.PraiseInfo = BusSearchResult;
             foodIdSearchResModel.IsSuccess = true;
             foodIdSearchResModel.baseViewModel.Message = "查询菜单差评数量成功";
@@ -380,7 +379,7 @@ namespace IntellFood.Controllers
                 foodByUserPraiseDelResModel.baseViewModel.Message = "根据菜Id删除点赞信息失败";
                 foodByUserPraiseDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除菜单点赞信息失败");
-                return BadRequest(foodByUserPraiseDelResModel);
+                return Ok(foodByUserPraiseDelResModel);
             }
         }
         /// <summary>
@@ -410,30 +409,28 @@ namespace IntellFood.Controllers
                 foodByUserPraiseDelResModel.baseViewModel.Message = "根据菜Id删除差评信息失败";
                 foodByUserPraiseDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除菜单差评信息失败");
-                return BadRequest(foodByUserPraiseDelResModel);
+                return Ok(foodByUserPraiseDelResModel);
             }
         }
         /// <summary>
         /// 查询建议增加的菜信息
         /// </summary>
-        /// <param name="suggestBoxSearchViewModel"></param>
+        /// <param name="suggestFoodSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
 
-        public ActionResult<SuggestBoxSearchResModel> Manage_Suggest_Add_Food(SuggestBoxSearchViewModel suggestBoxSearchViewModel)
+        public ActionResult<SuggestFoodSearchResModel> Manage_Suggest_Search_Food(SuggestFoodSearchViewModel suggestFoodSearchViewModel)
         {
-            SuggestBoxSearchResModel suggestBoxSearchResModel = new SuggestBoxSearchResModel();
-            var BusSearchResult = _suggestBoxService.SuggestBox_Search(suggestBoxSearchViewModel);
-
-            // var TotalNum = _userService.User_Get_ALLNum();
-            var TotalNum = _suggestBoxService.SuggestBox_Get_ALLNum(suggestBoxSearchViewModel);
-            suggestBoxSearchResModel.suggestBoxInfo = BusSearchResult;
-            suggestBoxSearchResModel.IsSuccess = true;
-            suggestBoxSearchResModel.baseViewModel.Message = "查询成功";
-            suggestBoxSearchResModel.baseViewModel.ResponseCode = 200;
-            suggestBoxSearchResModel.TotalNum = TotalNum;
+            SuggestFoodSearchResModel  suggestFoodSearchResModel = new SuggestFoodSearchResModel();
+            var BusSearchResult = _foodService.SuggestFood_Search(suggestFoodSearchViewModel);
+            var TotalNum = _foodService.SuggesttFood_Get_ALLNum(suggestFoodSearchViewModel);
+            suggestFoodSearchResModel.suggest_Foods = BusSearchResult;
+            suggestFoodSearchResModel.IsSuccess = true;
+            suggestFoodSearchResModel.baseViewModel.Message = "查询成功";
+            suggestFoodSearchResModel.baseViewModel.ResponseCode = 200;
+            suggestFoodSearchResModel.TotalNum = TotalNum;
             _ILogger.Information("查询意见箱表单信息成功");
-            return Ok(suggestBoxSearchResModel);
+            return Ok(suggestFoodSearchResModel);
 
         }
 
@@ -441,16 +438,16 @@ namespace IntellFood.Controllers
         /// <summary>
         /// 增添建议增加的菜信息
         /// </summary>
-        /// <param name="suggestBoxAddViewModel"></param>
+        /// <param name="suggestFoodAddViewModel"></param>
         /// <returns></returns>
 
         [HttpPost]
         [ValidateModel]
 
-        public ActionResult<SuggestBoxAddResModel> Manage_SuggestBox_Add(SuggestBoxAddViewModel suggestBoxAddViewModel)
+        public ActionResult<SuggestBoxAddResModel> Manage_SuggestBox_Add(SuggestFoodAddViewModel suggestFoodAddViewModel)
         {
             int SuggestBox_Add_Count;
-            SuggestBox_Add_Count = _suggestBoxService.SuggestBox_Add(suggestBoxAddViewModel);
+            SuggestBox_Add_Count = _foodService.SuggestFood_Add(suggestFoodAddViewModel);
             SuggestBoxAddResModel suggestBoxAddResModel = new SuggestBoxAddResModel();
             if (SuggestBox_Add_Count > 0)
             {
@@ -468,40 +465,161 @@ namespace IntellFood.Controllers
                 suggestBoxAddResModel.baseViewModel.Message = "添加失败";
                 suggestBoxAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添建议增加的菜信息失败");
-                return BadRequest(suggestBoxAddResModel);
+                return Ok(suggestBoxAddResModel);
             }
         }
 
         /// <summary>
-        /// 删除建议增加的菜信息
+        /// 查询当前周和下周
         /// </summary>
-        /// <param name="suggestBoxDelViewModel"></param>
         /// <returns></returns>
         [HttpPost]
 
-        public ActionResult<SuggestBoxDelResModel> Manage_Suggest_Delete(SuggestBoxDelViewModel suggestBoxDelViewModel)
+        public ActionResult<FoodWeekOfMonthSearchResModel> Manage_WeekOfMonth_Search()
         {
-            SuggestBoxDelResModel suggestBoxDelResModel = new SuggestBoxDelResModel();
-            int DeleteResult = _suggestBoxService.SuggestBox_Delete(suggestBoxDelViewModel);
+            FoodWeekOfMonthSearchResModel  foodWeekOfMonthSearchResModel = new FoodWeekOfMonthSearchResModel();
+            var list = _foodService.WeekOfMonthSearch();
 
-            if (DeleteResult > 0)
+            if (list!=null)
             {
-                suggestBoxDelResModel.DelCount = DeleteResult;
-                suggestBoxDelResModel.IsSuccess = true;
-                suggestBoxDelResModel.baseViewModel.Message = "删除成功";
-                suggestBoxDelResModel.baseViewModel.ResponseCode = 200;
-                _ILogger.Information("删除意见箱表单信息成功");
-                return Ok(suggestBoxDelResModel);
+                foodWeekOfMonthSearchResModel.vs = list;
+  
+                foodWeekOfMonthSearchResModel.IsSuccess = true;
+                foodWeekOfMonthSearchResModel.baseViewModel.Message = "查询成功";
+                foodWeekOfMonthSearchResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("查询当前周和下周成功");
+                return Ok(foodWeekOfMonthSearchResModel);
             }
             else
             {
-                suggestBoxDelResModel.DelCount = -1;
-                suggestBoxDelResModel.IsSuccess = false;
-                suggestBoxDelResModel.baseViewModel.Message = "删除失败";
-                suggestBoxDelResModel.baseViewModel.ResponseCode = 400;
-                _ILogger.Information("删除意见箱表单信息失败");
-                return BadRequest(suggestBoxDelResModel);
+                foodWeekOfMonthSearchResModel.vs = list;
+                foodWeekOfMonthSearchResModel.IsSuccess = false;
+                foodWeekOfMonthSearchResModel.baseViewModel.Message = "查询失败";
+                foodWeekOfMonthSearchResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("查询当前周和下周失败");
+                return Ok(foodWeekOfMonthSearchResModel);
             }
         }
+
+
+        /// <summary>
+        /// 按照菜品模板生成
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+
+        public ActionResult<FoodTemplateAddResModel> Manage_Template_Add(TemplateAddViewModel templateAddViewModel)
+        {
+            FoodTemplateAddResModel  foodTemplateAddResModel = new FoodTemplateAddResModel();
+            int Template_Add_Count;
+            Template_Add_Count = _foodService.Template_Add(templateAddViewModel);
+            SuggestBoxAddResModel suggestBoxAddResModel = new SuggestBoxAddResModel();
+            if (Template_Add_Count > 0)
+            {
+                foodTemplateAddResModel.IsSuccess = true;
+                foodTemplateAddResModel.AddCount = Template_Add_Count;
+                foodTemplateAddResModel.baseViewModel.Message = "添加成功";
+                foodTemplateAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("按照菜品模板生成信息成功");
+                return Ok(foodTemplateAddResModel);
+            }
+            else
+            {
+                foodTemplateAddResModel.IsSuccess = false;
+                foodTemplateAddResModel.AddCount = 0;
+                foodTemplateAddResModel.baseViewModel.Message = "添加失败";
+                foodTemplateAddResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("按照菜品模板生成信息失败");
+                return Ok(foodTemplateAddResModel);
+            }
+        }
+
+
+        /// <summary>
+        /// 上传文件并且得到上传文件的所有信息(导入用户信息)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<FileUploadAddResModel> Manage_uploadfileAndGetInfo_UserInfo()
+        {
+            FileUploadAddResModel fileUploadAddResModel = new FileUploadAddResModel();
+            int fileUpload_Add_Count = 0;
+
+            try
+            {
+                    var files = Request.Form.Files;
+          
+                    string filePath = "";//上传文件的路径
+
+                    if (files.Count == 0)
+                    {
+                        fileUploadAddResModel.IsSuccess = true;
+                        fileUploadAddResModel.AddCount = fileUpload_Add_Count;
+                        fileUploadAddResModel.baseViewModel.Message = "找不到上传的文件";
+                        fileUploadAddResModel.baseViewModel.ResponseCode = 200;
+                        _ILogger.Information("找不到上传的文件");
+                        return Ok(fileUploadAddResModel);
+                 
+                    }
+                    // full path to file in temp location
+                    foreach (var formFile in files)
+                    {
+                        //FileInfo fi = new FileInfo(formFile.FileName);
+                        //if (fi.Extension != ".xlsx" || fi.Extension != ".xls")
+                        //{
+                        //    fileUploadAddResModel.IsSuccess = true;
+                        //    fileUploadAddResModel.AddCount = fileUpload_Add_Count;
+                        //    fileUploadAddResModel.baseViewModel.Message = "上传的文件后缀不是.xlsx或者.xls格式，请更换文件";
+                        //    fileUploadAddResModel.baseViewModel.ResponseCode = 200;
+                        //    _ILogger.Information("上传的文件后缀不是.xlsx或者.xls格式，请更换文件");
+                        //    return Ok(fileUploadAddResModel);   
+                        //}
+
+                        string randomname = _foodService.fileRandName(formFile.FileName);
+                        filePath = Directory.GetCurrentDirectory() + "\\StaticFiles\\" + randomname;
+                        if (formFile.Length > 0)
+                        {
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                formFile.CopyTo(stream);
+                            }
+                        }
+                        string tag = _foodService.saveAttachInfo(Request.Form, randomname);
+                        string userID= _foodService.getUserID(Request.Form, randomname);
+                        fileUpload_Add_Count = _foodService.uploadTodatabase_User_Info(filePath, Request.Form["tablename"], tag,userID);
+                    }
+
+                    if (fileUpload_Add_Count > 0)
+                    {
+                        fileUploadAddResModel.IsSuccess = true;
+                        fileUploadAddResModel.AddCount = fileUpload_Add_Count;
+                        fileUploadAddResModel.baseViewModel.Message = "导入附件成功";
+                        fileUploadAddResModel.baseViewModel.ResponseCode = 200;
+                        _ILogger.Information("导入附件成功");
+                        return Ok(fileUploadAddResModel);
+                    }
+                    else
+                    {
+                        fileUploadAddResModel.IsSuccess = false;
+                        fileUploadAddResModel.AddCount = 0;
+                        fileUploadAddResModel.baseViewModel.Message = "导入附件失败";
+                        fileUploadAddResModel.baseViewModel.ResponseCode = 400;
+                        _ILogger.Information("导入附件失败");
+                        return Ok(fileUploadAddResModel);
+                    }
+            }
+            catch (Exception e)
+            {
+                fileUploadAddResModel.IsSuccess = true;
+                fileUploadAddResModel.AddCount = fileUpload_Add_Count;
+                fileUploadAddResModel.baseViewModel.Message = "导入附件失败";
+                fileUploadAddResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("导入附件失败");
+                return Ok(fileUploadAddResModel);
+            }
+        }
+
+
+
     }
 }

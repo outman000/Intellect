@@ -1,4 +1,5 @@
 ﻿using Dtol.dtol;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,7 +33,7 @@ namespace Dto.IService.IntellFood
         /// 查询菜单信息
         /// </summary>
         /// <param name="foodInfoSearchViewModel"></param>
-        List<Food_Info> Food_Search(FoodInfoSearchViewModel  foodInfoSearchViewModel);
+        List<FoodInfoSearchMiddle> Food_Search(FoodInfoSearchViewModel  foodInfoSearchViewModel);
         /// <summary>
         /// 获取菜单总数
         /// </summary>
@@ -106,5 +107,62 @@ namespace Dto.IService.IntellFood
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         List<FoodPraiseNumMiddlecs> CpNumByFoodId(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
+
+        /// <summary>
+        /// 新增建议增加的菜
+        /// </summary>
+        /// <param name="suggestFoodAddViewModel"></param>
+        /// <returns></returns>
+        int SuggestFood_Add(SuggestFoodAddViewModel suggestFoodAddViewModel);
+
+
+        /// <summary>
+        /// 建议增加的菜查询
+        /// </summary>
+        /// <param name="suggestFoodSearchViewModel"></param>
+        /// <returns></returns>
+        List<SuggestFoodSearchMiddleModel> SuggestFood_Search(SuggestFoodSearchViewModel suggestFoodSearchViewModel);
+
+        /// <summary>
+        /// 查询建议增加的菜数量
+        /// </summary>
+        /// <param name="suggestFoodSearchViewModel"></param>
+        /// <returns></returns>
+        int SuggesttFood_Get_ALLNum(SuggestFoodSearchViewModel suggestFoodSearchViewModel);
+
+
+        /// <summary>
+        /// 日期转化为第几周
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="WeekStart"></param>
+        /// <returns></returns>
+        int WeekOfMonth(DateTime day, int WeekStart);
+
+        /// <summary>
+        /// 日期转化为第几周
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="WeekStart"></param>
+        /// <returns></returns>
+         List<int> WeekOfMonthSearch();
+
+        /// <summary>
+        /// 生成模板
+        /// </summary>
+        /// <param name="templateAddViewModel"></param>
+        /// <returns></returns>
+        int Template_Add(TemplateAddViewModel templateAddViewModel);
+
+
+        //随机名称
+        string fileRandName(string fileRealname);
+
+        string saveAttachInfo(IFormCollection fileinfo, string randomName);
+
+        //导入文件并存入数据库（菜单信息）
+        int uploadTodatabase_User_Info(string filepath, string tableName, string tag , string userID);
+
+        string getUserID(IFormCollection fileinfo, string randomName);
     }
 }

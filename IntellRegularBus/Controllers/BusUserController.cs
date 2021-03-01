@@ -78,7 +78,7 @@ namespace IntellRegularBus.Controllers
                 busUserAddResModel.baseViewModel.Message = "添加失败";
                 busUserAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加用户缴费信息失败");
-                return BadRequest(busUserAddResModel);
+                return Ok(busUserAddResModel);
             }
        
 
@@ -110,7 +110,7 @@ namespace IntellRegularBus.Controllers
                 busUserDelResModel.baseViewModel.Message = "删除失败";
                 busUserDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除用户缴费信息失败");
-                return BadRequest(busUserDelResModel);
+                return Ok(busUserDelResModel);
             }
         }
 
@@ -298,7 +298,36 @@ namespace IntellRegularBus.Controllers
             }
 
         }
+        /// <summary>
+        /// 修改单个用户的乘车线路以及站点信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
 
+        public ActionResult<BusUserUpdateResModel> Bus_Payment_Line_Update(BusPaymentUpdateLineViewModel busPaymentUpdateLineViewModel)
+        {
+            BusUserUpdateResModel busUserUpdateResModel = new BusUserUpdateResModel();
+            int UpdateRowNum = _IBusUserService.Bus_Payment_Line_Update(busPaymentUpdateLineViewModel);
+
+            if (UpdateRowNum > 0)
+            {
+                busUserUpdateResModel.IsSuccess = true;
+                busUserUpdateResModel.AddCount = UpdateRowNum;
+                busUserUpdateResModel.baseViewModel.Message = "更新成功";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 200;
+                _ILogger.Information("修改用户缴费信息成功");
+                return Ok(busUserUpdateResModel);
+            }
+            else
+            {
+                busUserUpdateResModel.IsSuccess = false;
+                busUserUpdateResModel.AddCount = 0;
+                busUserUpdateResModel.baseViewModel.Message = "更新失败";
+                busUserUpdateResModel.baseViewModel.ResponseCode = 400;
+                _ILogger.Information("修改用户缴费信息失败");
+                return Ok(busUserUpdateResModel);
+            }
+        }
 
         /// <summary>
         /// 修改单个用户缴费信息
@@ -327,7 +356,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("修改用户缴费信息失败");
-                return BadRequest(busUserUpdateResModel);
+                return Ok(busUserUpdateResModel);
             }
         }
 
@@ -359,7 +388,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据订单ID修改用户缴费总金额信息失败");
-                return BadRequest(busUserUpdateResModel);
+                return Ok(busUserUpdateResModel);
             }
         }
         /// <summary>
@@ -495,7 +524,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("修改用户缴费订单信息失败");
-                return BadRequest(busUserUpdateResModel);
+                return Ok(busUserUpdateResModel);
             }
         }
 
@@ -761,7 +790,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("修改订单表支付状态信息失败");
-                return BadRequest(busUserUpdateResModel);
+                return Ok(busUserUpdateResModel);
             }
 
         }
@@ -795,7 +824,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据订单ID，更新班车动态码失败");
-                return BadRequest(busUserUpdateResModel);
+                return Ok(busUserUpdateResModel);
             }
 
         }
@@ -920,6 +949,47 @@ namespace IntellRegularBus.Controllers
 
         }
 
+
+        /// <summary>
+        /// 导出（用车信息）
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public string ExportToOrderCar(UseCarSelReqViewModel  useCarSelReqViewModel)
+        {
+            byte[] filecontent;
+            var busOrderSearchResult = _IBusUserService.UserCarSel(useCarSelReqViewModel);
+          
+         
+            string[] columns = { "jdfs", "nigaodanwei", "nigaoren", "hyjylx", "djbh", "spzt","yylb","title", "docdate", "status" };
+            filecontent = _IBusUserService.ExportExcel3<UseCarSelResMiddle>(busOrderSearchResult, "", 3, false, columns);
+            string path = "";
+            try
+            {  //获取上传案例图片路径     
+
+                string sj = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                  path = "C://SystemFormal/BusFormal/ExportExcelFiles/";   //服务器路径C:\SystemFormal\BusFormal
+                 //   path = "D://客户临时文件/ExportExcelFiles/";                                                          
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                //定义实际文件对象，保存上载的文件。    
+                //文件流的写入
+                path = path + sj + "_导出订单列表.xlsx";
+                System.IO.File.WriteAllBytes(@"" + path + "", filecontent);
+                string filename = sj + "_导出订单列表.xlsx";
+
+
+                return filename;
+
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+
+        }
 
         /// <summary>
         /// 文件下载（导出月票信息）
@@ -1200,7 +1270,7 @@ namespace IntellRegularBus.Controllers
                 busUserUpdateResModel.baseViewModel.Message = "更新失败";
                 busUserUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information(" 修改免费坐车人员的乘车时间失败");
-                return BadRequest(busUserUpdateResModel);
+                return Ok(busUserUpdateResModel);
             }
         }
 

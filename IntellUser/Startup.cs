@@ -21,6 +21,8 @@ using Microsoft.IdentityModel.Tokens;
 using AutofacSerilogIntegration;
 using ViewModel.UserViewModel.MiddleModel;
 using Microsoft.Extensions.FileProviders;
+using Dto.Service.IntellUser;
+using Dto.IService.IntellUser;
 
 namespace IntellUser
 {
@@ -44,32 +46,6 @@ namespace IntellUser
             var Repository = Assembly.Load("Dto.Repository");
             var valitorAssembly = Assembly.Load("ViewModel");
 
-            #region
-
-
-
-
-
-            #endregion
-
-
-
-
-            //var jwtSettings = new JwtSettings();
-            //Configuration.Bind("JwtSettings", jwtSettings);
-
-            //services.AddAuthentication(option =>
-            //{
-            //    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(option =>
-            //{
-            //    option.TokenValidationParameters = new TokenValidationParameters
-            //    {
-
-            //    };
-            //});
 
             #region 配置文件
             services.AddOptions();
@@ -149,6 +125,10 @@ namespace IntellUser
             builder.RegisterAssemblyTypes(IService, Service)
               .Where(t => t.Name.EndsWith("Service"))
               .AsImplementedInterfaces();
+
+            //builder.Register(c => new UserService(connection))
+            //      .As<IUserService>()
+            //      .InstancePerLifetimeScope();
 
             builder.RegisterLogger(autowireProperties: true);
             //将services填充到Autofac容器生成器中

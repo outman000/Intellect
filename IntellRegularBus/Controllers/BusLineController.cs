@@ -56,7 +56,7 @@ namespace IntellRegularBus.Controllers
                 userAddResModel.baseViewModel.Message = "添加失败";
                 userAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("添加线路失败");
-                return BadRequest(userAddResModel);
+                return Ok(userAddResModel);
             }
         }
 
@@ -112,7 +112,7 @@ namespace IntellRegularBus.Controllers
                 lineDelResModel.baseViewModel.Message = "删除失败";
                 lineDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除线路失败");
-                return BadRequest(lineDelResModel);
+                return Ok(lineDelResModel);
             }
         }
 
@@ -143,7 +143,7 @@ namespace IntellRegularBus.Controllers
                 busValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 busValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("验证线路id是否重复，此id已经存在，请更换");
-                return BadRequest(busValideResRepeat);
+                return Ok(busValideResRepeat);
             }
         }
 
@@ -176,7 +176,7 @@ namespace IntellRegularBus.Controllers
                 lineUpdateResModel.baseViewModel.Message = "更新失败";
                 lineUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新线路信息失败");
-                return BadRequest(lineUpdateResModel);
+                return Ok(lineUpdateResModel);
             }
         }
 

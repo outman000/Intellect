@@ -473,7 +473,7 @@ namespace Dto.Repository.IntellRegularBus
             if (busPaymentSearchViewModel.Bus_LineId != null)          
                 predicate = predicate.And(a => a.Bus_LineId == busPaymentSearchViewModel.Bus_LineId);
 
-            predicate = predicate.And(a => a.Bus_Payment_OrderId!=null);
+           // predicate = predicate.And(a => a.Bus_Payment_OrderId!=null);
             if (busPaymentSearchViewModel.User_DepartId != null)
                 predicate = predicate.And(a => a.User_DepartId == busPaymentSearchViewModel.User_DepartId);
 
@@ -484,7 +484,7 @@ namespace Dto.Repository.IntellRegularBus
             if (busPaymentSearchViewModel.carDate != null)
                 predicate = predicate.And(a => a.carDate.Value.Year == busPaymentSearchViewModel.carDate.Value.Year
                                          && a.carDate.Value.Month == busPaymentSearchViewModel.carDate.Value.Month);
-
+            predicate = predicate.And(a => a.Code != null);
             return predicate;
         }
         #endregion
@@ -503,7 +503,7 @@ namespace Dto.Repository.IntellRegularBus
             if (busUserSearch2ViewModel.User_DepartId != null)
                 predicate = predicate.And(a => a.User_DepartId == busUserSearch2ViewModel.User_DepartId);
             // predicate = predicate.And(a => a.LineName.Contains(busUserSearch2ViewModel.Bus_LineName));
-            predicate = predicate.And(a => a.UserName.Contains(busUserSearch2ViewModel.UserName));
+         
             predicate = predicate.And(a => a.status == (busUserSearch2ViewModel.status));
 
             if (busUserSearch2ViewModel.Expense != "")

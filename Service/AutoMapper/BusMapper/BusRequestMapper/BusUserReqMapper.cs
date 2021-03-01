@@ -40,6 +40,9 @@ namespace Dto.Service.AutoMapper.BusMapper.BusRequestMapper
             CreateMap<Bus_Payment_Order, BusOrderExcelSearchMiddle>();
 
             CreateMap<Bus_Location_Information ,BusLocationInformationSearchMiddle>();
+            CreateMap < UseCarSelMiddle, UseCarSelResMiddle>();
+
+            CreateMap < BusPaymentUpdateLineViewModel, Bus_Payment>();
         }
     }
 }

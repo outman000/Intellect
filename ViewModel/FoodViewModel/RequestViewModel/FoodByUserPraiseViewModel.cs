@@ -19,6 +19,8 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         /// 菜id
         /// </summary>
         public int Food_InfoId { get; set; }
-       
+
+
+
     }
 }

@@ -57,7 +57,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardAddResModel.baseViewModel.Message = "添加失败";
                 bulletinBoardAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添公告栏信息失败");
-                return BadRequest(bulletinBoardAddResModel);
+                return Ok(bulletinBoardAddResModel);
             }
         }
         /// <summary>
@@ -134,7 +134,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardUpdateResModel.baseViewModel.Message = "更新失败";
                 bulletinBoardUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新公告栏信息失败");
-                return BadRequest(bulletinBoardUpdateResModel);
+                return Ok(bulletinBoardUpdateResModel);
             }
         }
         /// <summary>
@@ -165,7 +165,7 @@ namespace IntellBulletinBoard.Controllers
                 bulletinBoardDelResModel.baseViewModel.Message = "删除失败";
                 bulletinBoardDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除公告栏信息失败");
-                return BadRequest(bulletinBoardDelResModel);
+                return Ok(bulletinBoardDelResModel);
             }
         }
 
@@ -218,7 +218,7 @@ namespace IntellBulletinBoard.Controllers
                 roleByBulletinAddResModel.baseViewModel.Message = "公告栏信息分配角色失败";
                 roleByBulletinAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给公告栏分配角色失败");
-                return BadRequest(roleByBulletinAddResModel);
+                return Ok(roleByBulletinAddResModel);
             }
         }
         /// <summary>
@@ -249,7 +249,7 @@ namespace IntellBulletinBoard.Controllers
                 roleByBulletinDelResModel.baseViewModel.Message = "公告栏删除角色失败";
                 roleByBulletinDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据公告栏删除角色失败");
-                return BadRequest(roleByBulletinDelResModel);
+                return Ok(roleByBulletinDelResModel);
             }
         }
 

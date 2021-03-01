@@ -32,6 +32,10 @@ namespace ViewModel.SuggestBoxViewModel.MiddleModel
         /// </summary>
         public string UserName { get; set; }
 
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
 
         /// <summary>
         /// 部门名

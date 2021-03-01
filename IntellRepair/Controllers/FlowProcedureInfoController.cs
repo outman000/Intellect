@@ -74,7 +74,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDelResModel.baseViewModel.Message = "删除失败";
                 flowProcedureDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除流程信息失败");
-                return BadRequest(flowProcedureDelResModel);
+                return Ok(flowProcedureDelResModel);
             }
         }
         /// <summary>
@@ -106,7 +106,7 @@ namespace IntellRepair.Controllers
                 flowProcedureUpdateResModel.baseViewModel.Message = "更新失败";
                 flowProcedureUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新流程信息失败");
-                return BadRequest(flowProcedureUpdateResModel);
+                return Ok(flowProcedureUpdateResModel);
             }
         }
 
@@ -139,7 +139,7 @@ namespace IntellRepair.Controllers
                 flowNodeAddResModel.baseViewModel.Message = "添加失败";
                 flowNodeAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加流程信息失败");
-                return BadRequest(flowNodeAddResModel);
+                return Ok(flowNodeAddResModel);
             }
         }
     }

@@ -54,7 +54,7 @@ namespace IntellRepair.Controllers
                 flowNodeAddResModel.baseViewModel.Message = "添加失败";
                 flowNodeAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加流转信息失败");
-                return BadRequest(flowNodeAddResModel);
+                return Ok(flowNodeAddResModel);
             }
         }
 
@@ -87,7 +87,7 @@ namespace IntellRepair.Controllers
                 flowNodeUpdateResModels.baseViewModel.Message = "更新失败";
                 flowNodeUpdateResModels.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新流转信息失败");
-                return BadRequest(flowNodeUpdateResModels);
+                return Ok(flowNodeUpdateResModels);
             }
         }
 
@@ -119,7 +119,7 @@ namespace IntellRepair.Controllers
                 flowNodeDelResModel.baseViewModel.Message = "删除失败";
                 flowNodeDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除流转信息失败");
-                return BadRequest(flowNodeDelResModel);
+                return Ok(flowNodeDelResModel);
             }
         }
 

@@ -51,7 +51,7 @@ namespace IntellUser.Controllers
                 userRoleAddResModel.baseViewModel.Message = "添加失败";
                 userRoleAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("添加角色失败");
-                return BadRequest(userRoleAddResModel);
+                return Ok(userRoleAddResModel);
             }
         }
 
@@ -82,7 +82,7 @@ namespace IntellUser.Controllers
                 userRoleSingleResModel.baseViewModel.Message = "角色id重复请修改";
                 userRoleSingleResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("添加角色标识唯一性验证,角色id重复请修改");
-                return BadRequest(userRoleSingleResModel);
+                return Ok(userRoleSingleResModel);
             }
         }
         /// <summary>
@@ -113,7 +113,7 @@ namespace IntellUser.Controllers
                 userRoleDeleteResModel.baseViewModel.Message = "删除失败";
                 userRoleDeleteResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除角色失败");
-                return BadRequest(userRoleDeleteResModel);
+                return Ok(userRoleDeleteResModel);
             }
         }
 
@@ -169,7 +169,7 @@ namespace IntellUser.Controllers
                 userUpdateResModel.baseViewModel.Message = "更新失败";
                 userUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("角色更新失败");
-                return BadRequest(userUpdateResModel);
+                return Ok(userUpdateResModel);
             }
         }
 
@@ -201,7 +201,7 @@ namespace IntellUser.Controllers
                 relateRoleToUserAddResModel.baseViewModel.Message = "角色分配用户失败";
                 relateRoleToUserAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给角色分配用户失败");
-                return BadRequest(relateRoleToUserAddResModel);
+                return Ok(relateRoleToUserAddResModel);
             }
         }
 
@@ -233,7 +233,7 @@ namespace IntellUser.Controllers
                 relateRoleToUserDelResModel.baseViewModel.Message = "角色删除用户失败";
                 relateRoleToUserDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据角色删除人员失败");
-                return BadRequest(relateRoleToUserDelResModel);
+                return Ok(relateRoleToUserDelResModel);
             }
         }
 
@@ -267,7 +267,7 @@ namespace IntellUser.Controllers
                 relateRoleToRightAddResModel.baseViewModel.Message = "角色分配权限失败";
                 relateRoleToRightAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给角色配置权限失败");
-                return BadRequest(relateRoleToRightAddResModel);
+                return Ok(relateRoleToRightAddResModel);
             }
         }
 
@@ -299,7 +299,7 @@ namespace IntellUser.Controllers
                 relateRoleToRightDelResModel.baseViewModel.Message = "权限删除用户失败";
                 relateRoleToRightDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给角色删除权限失败");
-                return BadRequest(relateRoleToRightDelResModel);
+                return Ok(relateRoleToRightDelResModel);
             }
         }
 
@@ -377,7 +377,7 @@ namespace IntellUser.Controllers
                 relateRoleToUserAddResModel.baseViewModel.Message = "角色分配用户失败";
                 relateRoleToUserAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("给角色分配用户失败");
-                return BadRequest(relateRoleToUserAddResModel);
+                return Ok(relateRoleToUserAddResModel);
             }
         }
     }

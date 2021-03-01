@@ -56,7 +56,7 @@ namespace IntellUser.Controllers
                 rightsAddResModel.baseViewModel.Message = "添加失败";
                 rightsAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添权限信息失败");
-                return BadRequest(rightsAddResModel);
+                return Ok(rightsAddResModel);
             }
         }
 
@@ -88,7 +88,7 @@ namespace IntellUser.Controllers
                 rightsValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 rightsValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("权限名id验证是否重复，此id已经存在，请更换");
-                return BadRequest(rightsValideResRepeat);
+                return Ok(rightsValideResRepeat);
             }
         }
 
@@ -121,7 +121,7 @@ namespace IntellUser.Controllers
                 rightsDeleteResModel.baseViewModel.Message = "删除失败";
                 rightsDeleteResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除权限信息（直接删除），删除失败");
-                return BadRequest(rightsDeleteResModel);
+                return Ok(rightsDeleteResModel);
             }
 
         }
@@ -155,7 +155,7 @@ namespace IntellUser.Controllers
                 rightsValideResRepeat.baseViewModel.Message = "更新失败";
                 rightsValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新权限信息，更新失败");
-                return BadRequest(rightsValideResRepeat);
+                return Ok(rightsValideResRepeat);
             }
         }
         /// <summary>

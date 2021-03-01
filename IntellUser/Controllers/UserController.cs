@@ -41,7 +41,6 @@ namespace IntellUser.Controllers
        
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserAddResModel> Manage_User_add(UserAddViewModel userAddViewModel)
         {
            
@@ -76,7 +75,6 @@ namespace IntellUser.Controllers
         /// <param name="userIntegralByUserId"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<UserIntegralResModel> Manage_IntegralSearchByUserId(UserIntegralByUserId  userIntegralByUserId)
         {
             UserIntegralResModel  userIntegralResModel = new UserIntegralResModel();
@@ -96,7 +94,6 @@ namespace IntellUser.Controllers
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<UserIntegralResModel> Manage_IntegralSearchAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
             UserIntegralResModel userIntegralResModel = new UserIntegralResModel();
@@ -120,7 +117,6 @@ namespace IntellUser.Controllers
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<UserIntegralSearchResModel> Manage_IntegralSearchNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
             UserIntegralSearchResModel userIntegralResModel = new UserIntegralSearchResModel();
@@ -148,7 +144,6 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserAddResModel> Manage_User_Integral_Log(UserIntegralLogAddViewModel userIntegralLogAddViewModel)
         {
 
@@ -184,7 +179,6 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<AddIntegralResModel> Manage_CheckCodeAddIntegral(UserIntegralViewModel userIntegralViewModel)
         {
 
@@ -244,7 +238,6 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserRegisterResModel> Manage_User_Register(UserRegisterViewModel userRegisterViewModel)
         {
 
@@ -287,7 +280,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserValideResRepeat> Manage_User_ValideRepeat(UserValideRepeat userValideRepeat)
         {
             UserValideResRepeat userValideResRepeat = new UserValideResRepeat();
@@ -319,7 +311,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-
         public ActionResult<UserDeleteResModel> Manage_User_Delete(UserDeleteViewModel userDeleteViewModel)
         {
             UserDeleteResModel userDeleteResModel = new UserDeleteResModel();
@@ -355,7 +346,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserUpdateResModel> Manage_User_Update(UserUpdateViewModel userUpdateViewModel)
         {
             UserUpdateResModel userValideResRepeat = new UserUpdateResModel();
@@ -388,7 +378,6 @@ namespace IntellUser.Controllers
         /// <param name="userSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<UserSearchResModel> Manage_User_Search(UserSearchViewModel userSearchViewModel)
         {
            UserSearchResModel userSearchResModel = new UserSearchResModel();
@@ -413,7 +402,6 @@ namespace IntellUser.Controllers
         /// <param name="userSearchViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<UserSearchResModel> Manage_User_SearchTest(UserSearchViewModel userSearchViewModel)
         {
             UserSearchResModel userSearchResModel = new UserSearchResModel();
@@ -437,7 +425,6 @@ namespace IntellUser.Controllers
         /// <param name="userSearchByUserIdViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<UserSearchResModel> Manage_User_Single_Search(UserSearchByUserIdViewModel  userSearchByUserIdViewModel)
         {
             UserSearchSingleResModel  userSearchSingleResModel = new UserSearchSingleResModel();
@@ -460,7 +447,6 @@ namespace IntellUser.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet]
-
         public ActionResult<UserSearchResModel> Manage_CheckIdcard(string Idcard,string Id)
         {
             UserSearchSingleResModel userSearchSingleResModel = new UserSearchSingleResModel();
@@ -492,7 +478,6 @@ namespace IntellUser.Controllers
         /// <param name="relateDepartToUserAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<RelateDepartToUserAddResModel> Manage_User_Depart(RelateDepartToUserAddViewModel relateDepartToUserAddViewModel)
         {
             RelateDepartToUserAddResModel relateDepartToUserAddResModel = new RelateDepartToUserAddResModel();
@@ -535,7 +520,6 @@ namespace IntellUser.Controllers
         /// <param name="relateUnionToUserAddViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-
         public ActionResult<RelateDepartToUserAddResModel> Manage_User_Union(RelateUnionToUserAddViewModel  relateUnionToUserAddViewModel)
         {
             RelateDepartToUserAddResModel relateDepartToUserAddResModel = new RelateDepartToUserAddResModel();
@@ -581,7 +565,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserByRoleSearchResModel> Manage_User_By_Role_Search(UserByRoleSearchViewModel userByRoleSearchViewModel)
         {
             UserByRoleSearchResModel userByRoleSearchResModel = new UserByRoleSearchResModel();
@@ -602,7 +585,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<List<User_Info>> Manage_User_By_RoleList_Search(List<int> RoleList)
         {
             List<User_Info> ui= _userService.User_By_RoleList_Search(RoleList);
@@ -614,7 +596,6 @@ namespace IntellUser.Controllers
         /// </summary>
 
         [HttpPost]
-
         public ActionResult uploadfile()
         {
             var files = Request.Form.Files;
@@ -640,7 +621,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserByDepartSearchResModel> Manage_User_By_Depart_Search(UserByDepartSearchViewModel userByDepartSearchViewModel)
         {
             UserByDepartSearchResModel  userByDepartSearchResModel = new UserByDepartSearchResModel();
@@ -702,7 +682,7 @@ namespace IntellUser.Controllers
                 fileUploadAddResModel.baseViewModel.Message = "导入附件失败";
                 fileUploadAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("导入附件失败");
-                return BadRequest(fileUploadAddResModel);
+                return Ok(fileUploadAddResModel);
             }
         }
 
@@ -755,7 +735,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserUpdateResModel> Manage_UserRegister_Update(UserRegisterUpdateViewModel userRegisterUpdateViewModel)
         {
             UserUpdateResModel userValideResRepeat = new UserUpdateResModel();
@@ -791,7 +770,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserRegisterSearchResModel> Manage_UserRegister_Search(UserRegisterSearchViewModel userRegisterSearchViewModel)
         {
             UserRegisterSearchResModel userRegisterSearchResModel = new UserRegisterSearchResModel();
@@ -873,7 +851,7 @@ namespace IntellUser.Controllers
 
                 }
                 else
-                    return BadRequest("未上传任何附件");
+                    return Ok("未上传任何附件");
             }
             catch (Exception ex)
             {
@@ -891,7 +869,6 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserAddResModel> Manage_Integral_Commodity_Add(IntegralCommodityAddViewModel integralCommodityAddViewModel)
         {
             int User_Add_Count;
@@ -926,7 +903,6 @@ namespace IntellUser.Controllers
 
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<UserAddResModel> Manage_Integral_Commodity_Update(IntegralCommodityUpdateViewModel  integralCommodityUpdateViewModel)
         {
             int User_Add_Count;
@@ -993,7 +969,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<IntegralCommoditySearchResModel> Manage_Integral_Commodity_Search(IntegralCommoditySearchViewModel integralCommoditySearchViewModel)
         {
             IntegralCommoditySearchResModel  integralCommoditySearchResModel = new IntegralCommoditySearchResModel();
@@ -1017,7 +992,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<ProductListSearchResModel> Manage_Product_List_Search(ProductListSearchViewModel productListSearchViewModel)
         {
             ProductListSearchResModel  productListSearchResModel = new ProductListSearchResModel();
@@ -1040,7 +1014,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModel]
-
         public ActionResult<ProductListSearchResModel> Manage_Product_List_ByUserID_Search(ProductListSearchByUserIdViewModel productListSearchByUserIdViewModel)
         {
             ProductListSearchResModel productListSearchResModel = new ProductListSearchResModel();
@@ -1065,7 +1038,6 @@ namespace IntellUser.Controllers
         /// <returns></returns>
 
         [HttpPost]
-
         public ActionResult<UserDeleteResModel> Manage_Integral_Commodity_Delete(IntegralCommodityDeleteViewModel integralCommodityDeleteViewModel)
         {
             UserDeleteResModel userDeleteResModel = new UserDeleteResModel();

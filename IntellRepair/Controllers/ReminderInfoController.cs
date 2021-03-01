@@ -54,7 +54,7 @@ namespace IntellRepair.Controllers
                 reminderInfoAddResModel.baseViewModel.Message = "添加失败";
                 reminderInfoAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加催单信息失败");
-                return BadRequest(reminderInfoAddResModel);
+                return Ok(reminderInfoAddResModel);
             }
         }
 

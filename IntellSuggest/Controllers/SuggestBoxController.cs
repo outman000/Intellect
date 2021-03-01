@@ -56,7 +56,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxAddResModel.baseViewModel.Message = "添加失败";
                 suggestBoxAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添意见箱信息失败");
-                return BadRequest(suggestBoxAddResModel);
+                return Ok(suggestBoxAddResModel);
             }
         }
         /// <summary>
@@ -87,7 +87,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxUpdateResModel.baseViewModel.Message = "更新失败";
                 suggestBoxUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新意见箱信息失败");
-                return BadRequest(suggestBoxUpdateResModel);
+                return Ok(suggestBoxUpdateResModel);
             }
         }
 
@@ -118,7 +118,7 @@ namespace IntellSuggest.Controllers
                 suggestBoxDelResModel.baseViewModel.Message = "删除失败";
                 suggestBoxDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除意见箱信息失败");
-                return BadRequest(suggestBoxDelResModel);
+                return Ok(suggestBoxDelResModel);
             }
         }
 

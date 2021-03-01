@@ -15,6 +15,10 @@ using System.Xml;
 using ViewModel.BusViewModel.MiddleModel;
 using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.UserViewModel.RequsetModel;
+using Newtonsoft.Json;
+using System.Data.SqlClient;
+using System.Runtime.Serialization;
+using Dapper;
 
 namespace Dto.Service.IntellUser
 {
@@ -25,8 +29,10 @@ namespace Dto.Service.IntellUser
         private readonly IUserRelateInfoRoleRepository _userRelateInfoRoleRepository;
         private readonly IUserIntegralRepository _userIntegralRepository;
         private readonly IUserRegisterRepository _userRegisterRepository;
+    //    private string _connectionString = string.Empty;
         private UserIntegralDate _IOptions { get; set; }
         NPOIClass EP_Plus = new NPOIClass();
+
         public UserService(IUserInfoRepository iuserInfoRepository, IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                            IUserIntegralRepository userIntegralRepository, IUserRegisterRepository userRegisterRepository, IMapper mapper, 
                            IOptions<UserIntegralDate> settings)
@@ -37,7 +43,13 @@ namespace Dto.Service.IntellUser
             _userRegisterRepository = userRegisterRepository;
             _IMapper = mapper;
             _IOptions = settings.Value;
+        
         }
+
+        //public UserService(string constr)
+        //{
+        //    _connectionString = !string.IsNullOrWhiteSpace(constr) ? constr : throw new ArgumentNullException(nameof(constr));
+        //}
 
         //添加用户
         public int User_Add(UserAddViewModel userAddViewModel)
@@ -482,26 +494,39 @@ namespace Dto.Service.IntellUser
         /// <returns></returns>
         public List<UserIntegralSearchMiddle> SearchUserIntegralNewWhere(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
-            var User_Integral= _userIntegralRepository.SearchUserIntegralNewAll(userIntegralSearchViewModel);
-            UserIntegralSearchMiddle userIntegralSearchMiddle = new UserIntegralSearchMiddle();
-            var userIntegral_temp = _IMapper.Map<List<User_Integral>, List<UserIntegralSearchMiddle>>(User_Integral);
-            for (int i=0;i< User_Integral.Count;i++)
+            string _connectionString = "Server=172.30.10.243\\SQLSERVER2014,14330;Database=User_DateBase;uid=sa;pwd=Admin@123.0;";
+          // string _connectionString = "Server=192.168.168.10\\SQLEXPRESSTEST,1349;Database=User_DateBase;uid=sa;pwd=Admin@123456;";
+            string UserName = "'%" + userIntegralSearchViewModel.UserName + "%'";
+            string Mobile = "'%" + userIntegralSearchViewModel.Mobile + "%'";
+            using (var connection = new System.Data.SqlClient.SqlConnection(_connectionString))
             {
-                var user_Info = SearchByIdcard(User_Integral[i].Idcard);
-                if (userIntegralSearchViewModel.User_UnionId!=null)
-                { 
-                    if (user_Info[0].User_UnionId == userIntegralSearchViewModel.User_UnionId)
-                        userIntegral_temp[i].UnionName = user_Info[0].User_Union.Name;
-                    else
-                        userIntegral_temp.Remove(userIntegral_temp[i]);
-                }
-                else
+                string sql = "select User_Integral.UserName as UserName,User_Integral.Idcard as Idcard,User_Integral.Dept as Dept, User_Integral.Type as Type,";
+                sql += " User_Integral.TotalPoints as TotalPoints,User_Integral.Mobile as Mobile,User_Union.Name as UnionName,User_Integral.updateDate as updateDate";
+                sql += " from User_Integral inner join User_Info On User_Integral.Idcard=User_Info.Idcard left join User_Union On User_Union.Id=User_Info.User_UnionId where 1=1";
+                if (userIntegralSearchViewModel.UserName!="" && userIntegralSearchViewModel.UserName!=null)
+                sql += " and User_Integral.UserName like " + UserName;
+                if (userIntegralSearchViewModel.Mobile != "" && userIntegralSearchViewModel.Mobile != null)
+                sql += " and User_Integral.Mobile like " + Mobile;
+                if (userIntegralSearchViewModel.User_DepartId != null)
                 {
-                    userIntegral_temp[i].UnionName = user_Info[0].User_Union.Name;
-
+                    sql += " and User_Integral.User_DepartId='" + userIntegralSearchViewModel.User_DepartId + "'";
                 }
+                if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+                {
+                    sql += " and CONVERT(int,User_Integral.TotalPoints, 23)>='" + userIntegralSearchViewModel.starPoints + "' and CONVERT(int, User_Integral.TotalPoints, 23) <='" + userIntegralSearchViewModel.endPoints + "'";
+                }
+
+                if (userIntegralSearchViewModel.strDate != null && userIntegralSearchViewModel.endDate != null)
+                {
+                    sql += " and User_Integral.updateDate >='" + userIntegralSearchViewModel.strDate.Value + "' and User_Integral.updateDate <= '" + userIntegralSearchViewModel.endDate.Value + "'";
+                }
+                sql += " order by CONVERT(int,TotalPoints, 23)  desc offset @total rows fetch next @cur rows only";
+                var result = connection.Query<UserIntegralSearchMiddle>( @sql, new { total = (userIntegralSearchViewModel.pageViewModel.CurrentPageNum - 1) * userIntegralSearchViewModel.pageViewModel.PageSize,
+                                cur = userIntegralSearchViewModel.pageViewModel.PageSize}).ToList();
+
+                return result;
             }
-            return userIntegral_temp;
+   
         }
 
         /// <summary>
@@ -511,21 +536,38 @@ namespace Dto.Service.IntellUser
         /// <returns></returns>
         public int SearchUserIntegralWhereNum(UserIntegralSearchViewModel userIntegralSearchViewModel)
         {
-          var temp=_userIntegralRepository.SearchUserIntegralAllNum(userIntegralSearchViewModel);
-            if (userIntegralSearchViewModel.User_UnionId != null)
+            string _connectionString = "Server=172.30.10.243\\SQLSERVER2014,14330;Database=User_DateBase;uid=sa;pwd=Admin@123.0;";
+            // string _connectionString = "Server=192.168.168.10\\SQLEXPRESSTEST,1349;Database=User_DateBase;uid=sa;pwd=Admin@123456;";
+            string UserName = "'%" + userIntegralSearchViewModel.UserName + "%'";
+            string Mobile = "'%" + userIntegralSearchViewModel.Mobile + "%'";
+            using (var connection = new System.Data.SqlClient.SqlConnection(_connectionString))
             {
-                for (int i = 0; i < temp.Count; i++)
+                string sql = "select User_Integral.UserName as UserName,User_Integral.Idcard as Idcard,User_Integral.Dept as Dept, User_Integral.Type as Type,";
+                sql += " User_Integral.TotalPoints as TotalPoints,User_Integral.Mobile as Mobile,User_Union.Name as UnionName,User_Integral.updateDate as updateDate";
+                sql += " from User_Integral inner join User_Info On User_Integral.Idcard=User_Info.Idcard left join User_Union On User_Union.Id=User_Info.User_UnionId";
+                sql += " where 1=1";
+                if (userIntegralSearchViewModel.UserName != "" && userIntegralSearchViewModel.UserName != null)
+                    sql += " and User_Integral.UserName like " + UserName;
+                if (userIntegralSearchViewModel.Mobile != "" && userIntegralSearchViewModel.Mobile != null)
+                    sql += " and User_Integral.Mobile like " + Mobile;
+                if (userIntegralSearchViewModel.User_DepartId != null)
                 {
-                    var user_Info = SearchByIdcard(temp[i].Idcard);
-                    if (user_Info[0].User_UnionId == userIntegralSearchViewModel.User_UnionId)
-                        temp.Remove(temp[i]);
+                    sql += " and User_Integral.User_DepartId='" + userIntegralSearchViewModel.User_DepartId + "'";
                 }
-                return temp.Count;
+                if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+                {
+                    sql += " and CONVERT(int,User_Integral.TotalPoints, 23) >= '" + userIntegralSearchViewModel.starPoints + "' and CONVERT(int, User_Integral.TotalPoints, 23) <= '" + userIntegralSearchViewModel.endPoints + "'";
+                }
+
+                if (userIntegralSearchViewModel.strDate != null && userIntegralSearchViewModel.endDate != null)
+                {
+                    sql += " and User_Integral.updateDate >='" + userIntegralSearchViewModel.strDate.Value + "' and User_Integral.updateDate<= '" + userIntegralSearchViewModel.endDate.Value + "'";
+                }
+            
+
+                var result = connection.Query<UserIntegralSearchMiddle>(@sql).ToList();
+                return result.Count;
             }
-            else
-                return temp.Count;
-
-
         }
 
 
@@ -911,7 +953,7 @@ namespace Dto.Service.IntellUser
         public int Product_List_Search_Num(ProductListSearchViewModel productListSearchViewModel)
         {
 
-            var tempList = _userIntegralRepository.GetProductListList(productListSearchViewModel);
+            var tempList = _userIntegralRepository.GetProductListListNum(productListSearchViewModel);
 
             return tempList.Count;
         }

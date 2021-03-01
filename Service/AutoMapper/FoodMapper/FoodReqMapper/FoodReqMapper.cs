@@ -24,8 +24,21 @@ namespace Dto.Service.AutoMapper.FoodMapper.FoodReqMapper
             .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName))
             .ForMember(s => s.FoodName, sp => sp.MapFrom(src => src.Food_Info.FoodName))
             .ForMember(s => s.Content, sp => sp.MapFrom(src => src.Content))
+            .ForMember(s => s.WeekNumber, sp => sp.MapFrom(src => src.Food_Info.WeekNumber))
+            .ForMember(s => s.Year, sp => sp.MapFrom(src => src.Food_Info.Year))
             .ForMember(s => s.Name, sp => sp.MapFrom(src => src.User_Info.User_Depart.Name));
             CreateMap< FoodByUserCpViewModel, User_Relate_Food >();
+
+            CreateMap<SuggestFoodAddViewModel, Suggest_Food>();
+
+            CreateMap< Suggest_Food ,SuggestFoodSearchMiddleModel>()
+            .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName))
+            .ForMember(s => s.DeptName, sp => sp.MapFrom(src => src.User_Info.User_Depart.Name));
+
+            CreateMap<Food_Info, TemplateAddMiddleViewModel>();
+            CreateMap< TemplateAddMiddleViewModel, Food_Info>();
+
+            CreateMap<Food_Info,FoodInfoSearchMiddle>();
         }
     }
 }

@@ -156,6 +156,22 @@ namespace Dto.Service.IntellRegularBus
         }
 
 
+
+        /// <summary>
+        /// 更新单条人员线路以及站点信息
+        /// </summary>
+        /// <param name="busPaymentUpdateLineViewModel"></param>
+        /// <returns></returns>
+        public int Bus_Payment_Line_Update(BusPaymentUpdateLineViewModel  busPaymentUpdateLineViewModel)
+        {
+            var bus_user_Info = _IBusUserRepository.GetInfoByBusUserId(busPaymentUpdateLineViewModel.Id);
+            var bus_user_Info_update = _IMapper.Map<BusPaymentUpdateLineViewModel, Bus_Payment>(busPaymentUpdateLineViewModel, bus_user_Info);
+            _IBusUserRepository.Update(bus_user_Info_update);
+            return _IBusUserRepository.SaveChanges();
+        }
+
+
+
         /// <summary>
         /// 校验名单里是否存在已缴费人员
         /// </summary>
@@ -287,26 +303,10 @@ namespace Dto.Service.IntellRegularBus
             }
             bus_Payments = bus_Payments2;
 
-            //  List<int>   bus_lineId=_IBusUserRepository.SearchInfoByBusDistinctWhere(busUserSearchViewModel);
+          
             //先以之前的月份为模板进行添加
             List<BusUserAddViewModel> busUserAddViewModel = new List<BusUserAddViewModel>();
 
-            // BusSearchByIdViewModel busSearchByIdViewModel = new BusSearchByIdViewModel();
-
-            //for (int i = 0; i < bus_lineId.Count; i++)//检查线路是否坐满
-            //{
-            //    int b = bus_Payments.Where(c => c.Bus_LineId == bus_lineId[i]).Count();
-            //    busSearchByIdViewModel.Bus_LineId = bus_lineId[i];
-            //    busSearchByIdViewModel.carDate = DateTime.Now.AddMonths(1);
-            //    int a=  ByBusIdSearchNum2(busSearchByIdViewModel, b);
-
-            //    if (a == -1)
-            //    {
-            //        var e = bus_Payments.Where(d => d.Bus_LineId == bus_lineId[i]).ToList();
-            //        return e[0].LineName;
-            //    }
-
-            //}
             for (int j = 0; j < bus_Payments.Count; j++)
             {
 
@@ -1301,6 +1301,10 @@ namespace Dto.Service.IntellRegularBus
             try
             {
                 Bus_Scan_RecordAddViewModel bus_Scan_RecordAddViewModel = new Bus_Scan_RecordAddViewModel();
+                if(checkCodeSearchViewModel.deviceNumber == "2600ef5f")
+                {
+                    checkCodeSearchViewModel.qrcode = checkCodeSearchViewModel.qrcode.Substring(0, 36);
+                }
                 var bus_Payment = _IBusUserRepository.GetInfoByCode(checkCodeSearchViewModel.qrcode);
                 if (bus_Payment.Count == 0)//二维码过期，动态码已刷新
                 {
@@ -1310,6 +1314,7 @@ namespace Dto.Service.IntellRegularBus
                     bus_Scan_RecordAddViewModel.status = "1";
                     bus_Scan_RecordAddViewModel.AddDate = data;
                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                     _IBusScanRecordRepository.SaveChanges();
                     return "1";
@@ -1357,6 +1362,7 @@ namespace Dto.Service.IntellRegularBus
                                         bus_Scan_RecordAddViewModel.status = "3";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record3 = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        bus_Scan_Record3.code = checkCodeSearchViewModel.qrcode;
                                         _IBusScanRecordRepository.Add(bus_Scan_Record3);
                                         _IBusScanRecordRepository.SaveChanges();
                                         return "3";
@@ -1377,6 +1383,7 @@ namespace Dto.Service.IntellRegularBus
                                     bus_Scan_RecordAddViewModel.status = "0";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                                     _IBusScanRecordRepository.SaveChanges();
                                     return "0";
@@ -1395,6 +1402,7 @@ namespace Dto.Service.IntellRegularBus
                                     bus_Scan_RecordAddViewModel.status = "2";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                                     _IBusScanRecordRepository.SaveChanges();
                                     return "2";
@@ -1426,6 +1434,7 @@ namespace Dto.Service.IntellRegularBus
                                         bus_Scan_RecordAddViewModel.status = "0";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                         _IBusScanRecordRepository.Add(bus_Scan_Record);
                                         _IBusScanRecordRepository.SaveChanges();
                                         return "0";
@@ -1444,6 +1453,7 @@ namespace Dto.Service.IntellRegularBus
                                         bus_Scan_RecordAddViewModel.status = "2";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                         _IBusScanRecordRepository.Add(bus_Scan_Record);
                                         _IBusScanRecordRepository.SaveChanges();
                                         return "2";
@@ -1468,6 +1478,7 @@ namespace Dto.Service.IntellRegularBus
                                         bus_Scan_RecordAddViewModel.status = "3";
                                         bus_Scan_RecordAddViewModel.AddDate = data;
                                         var bus_Scan_Record4 = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                        bus_Scan_Record4.code = checkCodeSearchViewModel.qrcode;
                                         _IBusScanRecordRepository.Add(bus_Scan_Record4);
                                         _IBusScanRecordRepository.SaveChanges();
                                         return "3";
@@ -1488,6 +1499,7 @@ namespace Dto.Service.IntellRegularBus
                                     bus_Scan_RecordAddViewModel.status = "0";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                                     _IBusScanRecordRepository.SaveChanges();
                                     return "0";
@@ -1506,6 +1518,7 @@ namespace Dto.Service.IntellRegularBus
                                     bus_Scan_RecordAddViewModel.status = "2";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                                     _IBusScanRecordRepository.SaveChanges();
                                     return "2";
@@ -1525,6 +1538,7 @@ namespace Dto.Service.IntellRegularBus
                             bus_Scan_RecordAddViewModel.status = "11";
                             bus_Scan_RecordAddViewModel.AddDate = data1;
                             var bus_Scan_Record2 = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                            bus_Scan_Record2.code = checkCodeSearchViewModel.qrcode;
                             _IBusScanRecordRepository.Add(bus_Scan_Record2);
                             _IBusScanRecordRepository.SaveChanges();
                             return "1";
@@ -1553,6 +1567,7 @@ namespace Dto.Service.IntellRegularBus
                                     bus_Scan_RecordAddViewModel.status = "0";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                                     _IBusScanRecordRepository.SaveChanges();
                                     return "0";
@@ -1571,6 +1586,7 @@ namespace Dto.Service.IntellRegularBus
                                     bus_Scan_RecordAddViewModel.status = "2";
                                     bus_Scan_RecordAddViewModel.AddDate = data;
                                     var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                    bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                     _IBusScanRecordRepository.Add(bus_Scan_Record);
                                     _IBusScanRecordRepository.SaveChanges();
                                     return "2";
@@ -1590,6 +1606,7 @@ namespace Dto.Service.IntellRegularBus
                                 bus_Scan_RecordAddViewModel.status = "12";
                                 bus_Scan_RecordAddViewModel.AddDate = data;
                                 var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                                bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                                 _IBusScanRecordRepository.Add(bus_Scan_Record);
                                 _IBusScanRecordRepository.SaveChanges();
                                 return "1";
@@ -1612,6 +1629,7 @@ namespace Dto.Service.IntellRegularBus
                         bus_Scan_RecordAddViewModel.status = "13";
                         bus_Scan_RecordAddViewModel.AddDate = data;
                         var bus_Scan_Record = _IMapper.Map<Bus_Scan_RecordAddViewModel, Bus_Scan_Record>(bus_Scan_RecordAddViewModel);
+                        bus_Scan_Record.code = checkCodeSearchViewModel.qrcode;
                         _IBusScanRecordRepository.Add(bus_Scan_Record);
                         _IBusScanRecordRepository.SaveChanges();
                         return "1";
@@ -1849,7 +1867,19 @@ namespace Dto.Service.IntellRegularBus
             return EP_Plus.ExportExcel(EP_Plus.ListToDataTable<T>(data), heading, temp, isShowSlNo, columnsToTake);
         }
 
-
+        /// <summary>
+        /// 导出数据到Excel表格
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="heading"></param>
+        /// <param name="isShowSlNo"></param>
+        /// <param name="columnsToTake"></param>
+        /// <returns></returns>
+        public byte[] ExportExcel3<T>(List<T> data, string heading = "", int temp = 3, bool isShowSlNo = false, params string[] columnsToTake)
+        {
+            return EP_Plus.ExportExcel(EP_Plus.ListToDataTable<T>(data), heading, temp, isShowSlNo, columnsToTake);
+        }
 
         /// <summary>
         /// 更新免费坐车人员乘车时间
@@ -1900,6 +1930,95 @@ namespace Dto.Service.IntellRegularBus
 
 
 
+
+        /// <summary>
+        /// 用车查询（智慧后勤）
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public List<UseCarSelResMiddle> UserCarSel(UseCarSelReqViewModel UseCarSelReq)
+        {
+            string projectid = UseCarSelReq.projectid;
+            string dept = UseCarSelReq.dept;
+            string head = UseCarSelReq.head;
+            string total = UseCarSelReq.total;
+            string cur = UseCarSelReq.cur;
+            string staDate = UseCarSelReq.staDate;
+            string endDate = UseCarSelReq.endDate;
+            string Status = UseCarSelReq.Status;
+            string FWJG = UseCarSelReq.FWJG;
+            string hyjylx = UseCarSelReq.hyjylx;
+            string sjhyjylx = UseCarSelReq.sjhyjylx;
+            string cxry = UseCarSelReq.cxry;
+              var client = new RestClient("http://172.28.10.55:20001/OrderCarTest/Order.asmx/QueryDetails");
+            // var client = new RestClient("http://192.168.168.10:20001/OrderCar/Order.asmx/QueryDetails");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("projectid", projectid);
+            request.AddParameter("deptId", dept);
+            request.AddParameter("head", head);
+            request.AddParameter("total", total);
+            request.AddParameter("cur", cur);
+            request.AddParameter("staDate", staDate);
+            request.AddParameter("endDate", endDate);
+            request.AddParameter("Status", Status);
+            request.AddParameter("FWJG", FWJG);
+            request.AddParameter("hyjylx", hyjylx);
+            request.AddParameter("sjhyjylx", sjhyjylx);
+            request.AddParameter("cxry", cxry);
+            IRestResponse response = client.Execute(request);
+            var responseResult = response.Content;
+
+            UseCarSelRes resultuser = new UseCarSelRes();
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(responseResult);
+            XmlNodeList xmlDocList = xmlDoc.GetElementsByTagName("UseCarSelMiddle");
+            for (int i = 0; i < xmlDocList.Count; i++)
+            {
+                UseCarSelMiddle result = new UseCarSelMiddle();
+                result.title = xmlDocList[i]["title"].InnerText;
+                result.projectid = xmlDocList[i]["projectid"].InnerText;
+                result.docdate = xmlDocList[i]["docdate"].InnerText;
+                result.nigaoren = xmlDocList[i]["nigaoren"].InnerText;
+                result.nigaoren_id = xmlDocList[i]["nigaoren_id"].InnerText;
+                result.nigaodanwei = xmlDocList[i]["nigaodanwei"].InnerText;
+                result.head = xmlDocList[i]["head"].InnerText;
+                result.hdnr = xmlDocList[i]["hdnr"].InnerText;
+                result.hyjylx = xmlDocList[i]["hyjylx"].InnerText;
+                result.zjly = xmlDocList[i]["zjly"].InnerText;
+                result.djbh = xmlDocList[i]["djbh"].InnerText;
+                result.spzt = xmlDocList[i]["spzt"].InnerText;
+                result.yylb = xmlDocList[i]["yylb"].InnerText;
+                result.jdfs = xmlDocList[i]["jdfs"].InnerText;
+                result.dwmc = xmlDocList[i]["dwmc"].InnerText;
+                result.cxry = xmlDocList[i]["cxry"].InnerText;
+                result.FWJG = xmlDocList[i]["FWJG"].InnerText;
+                result.Yuanyin = xmlDocList[i]["Yuanyin"].InnerText;
+                result.Hydd = xmlDocList[i]["Hydd"].InnerText;
+                result.sfbgccr = xmlDocList[i]["sfbgccr"].InnerText;
+                result.sjhyjylx = xmlDocList[i]["sjhyjylx"].InnerText;
+                result.status = xmlDocList[i]["status"].InnerText;
+                resultuser.list.Add(result);
+            }
+            XmlNodeList xmlDocListYY = xmlDoc.GetElementsByTagName("LiCheng");
+            XmlNodeList xmlDocListYY1 = xmlDoc.GetElementsByTagName("JSyLiCheng");
+            XmlNodeList xmlDocListYY2 = xmlDoc.GetElementsByTagName("SSyLiCheng");
+            XmlNodeList xmlDocListYY3 = xmlDoc.GetElementsByTagName("SearchNum");
+            if (xmlDocList.Count > 0)
+            {
+
+                resultuser.LiCheng = xmlDocListYY[0].InnerText;
+                resultuser.JSyLiCheng = xmlDocListYY1[0].InnerText;
+                resultuser.SSyLiCheng = xmlDocListYY2[0].InnerText;
+                resultuser.SearchNum = xmlDocListYY3[0].InnerText;
+            }
+
+          var resutl=   _IMapper.Map<List<UseCarSelMiddle>, List<UseCarSelResMiddle>>(resultuser.list);
+            return resutl;
+
+        }
 
     }
 }

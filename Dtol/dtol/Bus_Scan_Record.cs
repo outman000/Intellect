@@ -66,5 +66,10 @@ namespace Dtol.dtol
         public DateTime AddDate { get; set; }
 
 
+        /// <summary>
+        /// 随机码
+        /// </summary>
+
+        public string code { get; set; }
     }
 }

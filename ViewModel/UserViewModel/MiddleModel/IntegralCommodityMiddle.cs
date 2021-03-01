@@ -43,6 +43,10 @@ namespace ViewModel.UserViewModel.MiddleModel
         public string UnionName { get; set; }
 
         /// <summary>
+        /// 工会Id
+        /// </summary>
+        public int User_UnionId { get; set; }
+        /// <summary>
         /// 状态
         /// </summary>
         public string status { get; set; }

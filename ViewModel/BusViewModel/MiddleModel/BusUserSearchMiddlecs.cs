@@ -55,5 +55,17 @@ namespace ViewModel.BusViewModel.MiddleModel
         /// 用户照片
         /// </summary>
         public string Userpicture { get; set; }
+
+
+
+        /// <summary>
+        /// 站点id
+        /// </summary>
+        public int Bus_StationId { get; set; }
+
+        /// <summary>
+        /// 线路id
+        /// </summary>
+        public int Bus_LineId { get; set; }
     }
 }

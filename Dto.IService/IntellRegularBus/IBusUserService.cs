@@ -209,6 +209,7 @@ namespace Dto.IService.IntellRegularBus
         /// <returns></returns>
         byte[] ExportExcel1<T>(List<T> data, string heading = "", int temp = 1, bool isShowSlNo = false, params string[] columnsToTake);
         byte[] ExportExcel2<T>(List<T> data, string heading = "", int temp = 2, bool isShowSlNo = false, params string[] columnsToTake);
+        byte[] ExportExcel3<T>(List<T> data, string heading = "", int temp = 3, bool isShowSlNo = false, params string[] columnsToTake);
 
         List<BusOrderExcelSearchMiddle> Bus_Payment_Order_SearchExcel(BusOrderSearchViewModel busOrderSearchViewModel);
 
@@ -256,5 +257,21 @@ namespace Dto.IService.IntellRegularBus
         /// </summary>
         /// <returns></returns>
         int Bus_Order_Update();
+
+        /// <summary>
+        /// 用车查询（智慧后勤）
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        List<UseCarSelResMiddle> UserCarSel(UseCarSelReqViewModel UseCarSelReq);
+
+
+        /// <summary>
+        /// 更新单条人员线路以及站点信息
+        /// </summary>
+        /// <param name="busPaymentUpdateLineViewModel"></param>
+        /// <returns></returns>
+        int Bus_Payment_Line_Update(BusPaymentUpdateLineViewModel busPaymentUpdateLineViewModel);
     }
 }

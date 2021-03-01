@@ -56,7 +56,7 @@ namespace IntellRepair.Controllers
                 satisfactionInfoAddResModel.baseViewModel.Message = "添加失败";
                 satisfactionInfoAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加评论信息失败");
-                return BadRequest(satisfactionInfoAddResModel);
+                return Ok(satisfactionInfoAddResModel);
             }
         }
 

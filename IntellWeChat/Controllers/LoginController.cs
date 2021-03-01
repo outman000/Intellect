@@ -91,7 +91,7 @@ namespace IntellWeChat.Controllers
                 weChatLoginResModel.baseViewModel.Message = "用户名不存在或者密码错误";
                 weChatLoginResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("用户名不存在或者密码错误，进入系统失败");
-                return BadRequest(weChatLoginResModel);
+                return Ok(weChatLoginResModel);
             }
             else
             {
@@ -130,7 +130,7 @@ namespace IntellWeChat.Controllers
                 weChatLoginResModel.baseViewModel.Message = "用户名不存在或者密码错误";
                 weChatLoginResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("用户名不存在或者密码错误，进入系统失败");
-                return BadRequest(weChatLoginResModel);
+                return Ok(weChatLoginResModel);
             }
             else
             {

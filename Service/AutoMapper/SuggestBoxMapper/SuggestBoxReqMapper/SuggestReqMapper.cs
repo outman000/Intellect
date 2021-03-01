@@ -16,6 +16,7 @@ namespace Dto.Service.AutoMapper.SuggestBoxMapper.SuggestBoxReqMapper
             CreateMap<SuggestBoxUpdateViewModel, Suggest_Box>();
             CreateMap<Suggest_Box, SuggestInfoMiddlecs > ()
             .ForMember(s => s.UserName, sp => sp.MapFrom(src => src.User_Info.UserName))
+             .ForMember(s => s.Phone, sp => sp.MapFrom(src => src.User_Info.PhoneCall))
             .ForMember(s => s.Name, sp => sp.MapFrom(src => src.User_Info.User_Depart.Name));
         }
     }

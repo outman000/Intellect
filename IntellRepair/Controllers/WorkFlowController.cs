@@ -213,7 +213,7 @@ namespace IntellRepair.Controllers
                 repairAddResModel.baseViewModel.Message = "添加失败";
                 repairAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添报修信息失败");
-                return BadRequest(repairAddResModel);
+                return Ok(repairAddResModel);
             }
         }
 
@@ -238,7 +238,7 @@ namespace IntellRepair.Controllers
                 flowInfoSearchResModel.baseViewModel.Message = "生产当前节点未办失败，当前节点的当前类型角色下配有多个人或没有配人，请检查当前类型的角色下的人";
                 flowInfoSearchResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("生产当前节点未办失败，当前节点的当前类型角色下配有多个人或没有配人，请检查当前类型的角色");
-                return BadRequest(flowInfoSearchResModel);
+                return Ok(flowInfoSearchResModel);
             }
              else if (flowNodePreMiddlecs.NodeType!="结束类型")
             {
@@ -294,7 +294,7 @@ namespace IntellRepair.Controllers
                 flowInfoSearchResModel.baseViewModel.Message = "所有流转信息增加完毕，本条流程已结束";
                 flowInfoSearchResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("所有流转信息增加完毕，本条流程已结束");
-                return BadRequest(flowInfoSearchResModel);
+                return Ok(flowInfoSearchResModel);
             }
 
         }

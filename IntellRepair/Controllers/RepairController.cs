@@ -95,7 +95,7 @@ namespace IntellRepair.Controllers
                 repairAddResModel.baseViewModel.Message = "添加失败";
                 repairAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添报修信息失败");
-                return BadRequest(repairAddResModel);
+                return Ok(repairAddResModel);
             }
         }
 
@@ -127,7 +127,7 @@ namespace IntellRepair.Controllers
                 rpairDelResModel.baseViewModel.Message = "删除失败";
                 rpairDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除报修表单失败");
-                return BadRequest(rpairDelResModel);
+                return Ok(rpairDelResModel);
             }
         }
         /// <summary>
@@ -159,7 +159,7 @@ namespace IntellRepair.Controllers
                 repairUpdateResModel.baseViewModel.Message = "更新失败";
                 repairUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新报修信息失败");
-                return BadRequest(repairUpdateResModel);
+                return Ok(repairUpdateResModel);
             }
         }
 
@@ -193,7 +193,7 @@ namespace IntellRepair.Controllers
                 repairUpdateResModel.baseViewModel.Message = "更新失败";
                 repairUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新报修信息失败");
-                return BadRequest(repairUpdateResModel);
+                return Ok(repairUpdateResModel);
             }
         }
     }

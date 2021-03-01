@@ -77,5 +77,13 @@ namespace Dto.IRepository.IntellOpinionInfo
         /// <param name="praiseNumSearchMiddlecs"></param>
         /// <returns></returns>
         List<FoodPraiseNumMiddlecs> RelateFoodToFoodIdCpSearch(PraiseNumSearchMiddlecs praiseNumSearchMiddlecs);
+
+
+        /// <summary>
+        /// 根据用户id和菜id 去关系表查
+        /// </summary>
+        /// <param name="foodByUserSearchViewModel"></param>
+        /// <returns></returns>
+        int SearchByUserAndFoodId(int foodId, int userId, string status);
     }
 }

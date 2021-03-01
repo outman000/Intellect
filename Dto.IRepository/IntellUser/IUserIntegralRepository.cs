@@ -78,6 +78,8 @@ namespace Dto.IRepository.IntellUser
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
 
-        List<User_Integral> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel);
+        //   List<User_Integral> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel);
+
+        List<Product_List> GetProductListListNum(ProductListSearchViewModel productListSearchViewModel);
     }
 }

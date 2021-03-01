@@ -56,7 +56,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineAddResModel.baseViewModel.Message = "添加失败";
                 flowProcedureDefineAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增加流程定义信息失败");
-                return BadRequest(flowProcedureDefineAddResModel);
+                return Ok(flowProcedureDefineAddResModel);
             }
         }
         /// <summary>
@@ -108,7 +108,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineDelResModel.baseViewModel.Message = "删除失败";
                 flowProcedureDefineDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除流程定义信息失败");
-                return BadRequest(flowProcedureDefineDelResModel);
+                return Ok(flowProcedureDefineDelResModel);
             }
         }
 
@@ -141,7 +141,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineUpdateResModel.baseViewModel.Message = "更新失败";
                 flowProcedureDefineUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新流程定义信息失败");
-                return BadRequest(flowProcedureDefineUpdateResModel);
+                return Ok(flowProcedureDefineUpdateResModel);
             }
         }
 
@@ -172,7 +172,7 @@ namespace IntellRepair.Controllers
                 flowProcedureDefineSingleResModel.baseViewModel.Message = "此标识已经存在，请更换";
                 flowProcedureDefineSingleResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("流程标识验证是否重复，此标识已经存在，请更换");
-                return BadRequest(flowProcedureDefineSingleResModel);
+                return Ok(flowProcedureDefineSingleResModel);
             }
         }
     }

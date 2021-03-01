@@ -23,6 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using ViewModel.UserViewModel.MiddleModel;
 using ViewModel.WeChatViewModel.MiddleModel;
 
 namespace IntellWeChat
@@ -89,6 +90,11 @@ namespace IntellWeChat
             #region 配置文件
             services.AddOptions();
             services.Configure<WeChartTokenMiddles>(Configuration.GetSection("WeChatToken"));
+            #endregion
+
+            #region 配置文件
+            services.AddOptions();
+            services.Configure<IntegralCommodityDate>(Configuration.GetSection("IntegralCommodityDate"));
             #endregion
 
             #region EFCore

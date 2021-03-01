@@ -62,7 +62,7 @@ namespace IntellRegularBus.Controllers
                 userAddResModel.baseViewModel.Message = "添加失败";
                 userAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添班车信息失败");
-                return BadRequest(userAddResModel);
+                return Ok(userAddResModel);
             }
         }
 
@@ -93,7 +93,7 @@ namespace IntellRegularBus.Controllers
                 busValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 busValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("验证班车标识是否重复，此id已经存在，请更换");
-                return BadRequest(busValideResRepeat);
+                return Ok(busValideResRepeat);
             }
         }
         /// <summary>
@@ -148,7 +148,7 @@ namespace IntellRegularBus.Controllers
                 busUpdateResModel.baseViewModel.Message = "更新失败";
                 busUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新班车信息失败");
-                return BadRequest(busUpdateResModel);
+                return Ok(busUpdateResModel);
             }
         }
 
@@ -180,7 +180,7 @@ namespace IntellRegularBus.Controllers
                 busDelResModel.baseViewModel.Message = "删除失败";
                 busDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除班车失败");
-                return BadRequest(busDelResModel);
+                return Ok(busDelResModel);
             }
         }
 
@@ -211,7 +211,7 @@ namespace IntellRegularBus.Controllers
                 lineByBusAddResModel.baseViewModel.Message = "根据班车添加/取消线路失败";
                 lineByBusAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据班车添加/取消线路失败");
-                return BadRequest(lineByBusAddResModel);
+                return Ok(lineByBusAddResModel);
 
             }
 
@@ -244,7 +244,7 @@ namespace IntellRegularBus.Controllers
                 busByLineAddResModel.baseViewModel.Message = "根据线路添加/取消班车失败";
                 busByLineAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据线路添加/取消班车失败");
-                return BadRequest(busByLineAddResModel);
+                return Ok(busByLineAddResModel);
 
             }
 

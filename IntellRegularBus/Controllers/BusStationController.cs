@@ -78,7 +78,7 @@ namespace IntellRegularBus.Controllers
                 stationUpdateResModel.baseViewModel.Message = "更新失败";
                 stationUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新站点信息失败");
-                return BadRequest(stationUpdateResModel);
+                return Ok(stationUpdateResModel);
             }
         }
 
@@ -112,7 +112,7 @@ namespace IntellRegularBus.Controllers
                 stationAddResModel.baseViewModel.Message = "添加失败";
                 stationAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("添加站点失败");
-                return BadRequest(stationAddResModel);
+                return Ok(stationAddResModel);
             }
         }
         /// <summary>
@@ -142,7 +142,7 @@ namespace IntellRegularBus.Controllers
                 busValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 busValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("验证站点id是否重复，此id已经存在，请更换");
-                return BadRequest(busValideResRepeat);
+                return Ok(busValideResRepeat);
             }
         }
 
@@ -174,7 +174,7 @@ namespace IntellRegularBus.Controllers
                 stationDelResModel.baseViewModel.Message = "删除失败";
                 stationDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除站点失败");
-                return BadRequest(stationDelResModel);
+                return Ok(stationDelResModel);
             }
         }
         /// <summary>
@@ -204,7 +204,7 @@ namespace IntellRegularBus.Controllers
                 stationByLineAddResMode.baseViewModel.Message = "根据线路添加/取消站点失败";
                 stationByLineAddResMode.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据线路添加/取消站点失败");
-                return BadRequest(stationByLineAddResMode);
+                return Ok(stationByLineAddResMode);
 
             }
 
@@ -236,7 +236,7 @@ namespace IntellRegularBus.Controllers
                 lineByStationAddResModel.baseViewModel.Message = "根据站点添加/取消线路失败";
                 lineByStationAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("根据站点添加/取消线路失败");
-                return BadRequest(lineByStationAddResModel);
+                return Ok(lineByStationAddResModel);
 
             }
 

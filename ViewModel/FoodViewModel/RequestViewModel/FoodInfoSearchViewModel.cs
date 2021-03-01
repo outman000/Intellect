@@ -26,6 +26,26 @@ namespace ViewModel.FoodViewModel.RequestViewModel
         /// 食物地点分类
         /// </summary>
         public string FoodType { get; set; }
+
+
+        /// <summary>
+        /// 标识 0-代表手机，PC传实际周数
+        /// </summary>
+        public string flag { get; set; }
+
+        /// <summary>
+        /// 年份
+        /// </summary>
+        public string Year { get; set; }
+
+
+        /// <summary>
+        /// 用户的主键ID  手机必须传，PC端传"0"
+        /// </summary>
+        public string userId { get; set; }
+
+
+
         /// <summary>
         /// 分页
         /// </summary>

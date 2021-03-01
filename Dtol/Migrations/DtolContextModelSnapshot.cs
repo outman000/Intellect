@@ -464,6 +464,59 @@ namespace Dtol.Migrations
                     b.ToTable("Commodity_Attachs");
                 });
 
+            modelBuilder.Entity("Dtol.dtol.DataBase_Type", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("CreateUser")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("IsDelete")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Parentid")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Property")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("PropertyPhone")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Purview")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Sort")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("TypeCode")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("TypeName")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DataBase_Type");
+                });
+
             modelBuilder.Entity("Dtol.dtol.Flow_CurrentNodeAndNextNode", b =>
                 {
                     b.Property<int>("Id")
@@ -646,7 +699,19 @@ namespace Dtol.Migrations
 
                     b.Property<string>("Remark");
 
+                    b.Property<string>("WeekNumber");
+
+                    b.Property<string>("Year");
+
+                    b.Property<string>("createUser");
+
+                    b.Property<string>("isDelete");
+
+                    b.Property<string>("status");
+
                     b.Property<DateTime?>("updateDate");
+
+                    b.Property<string>("updateUser");
 
                     b.HasKey("Id");
 
@@ -732,6 +797,126 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Integral_Commodity");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.MeetingRoom_Information", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("CreateUser")
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("DataBase_TypeId");
+
+                    b.Property<string>("IsDelete")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomCapacity")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomDescription")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("RoomEquipmentCode")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomEquipmentName")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomNum")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomStatus")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Sort")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DataBase_TypeId");
+
+                    b.ToTable("MeetingRoom_Information");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.MeetingRoom_Reservation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Area")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("CreateUser")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("DepartName")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Departid")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("Endingtime")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("Floor")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Idcard")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("IsDelete")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("MeetingContent")
+                        .HasMaxLength(500);
+
+                    b.Property<Guid>("MeetingRoom_InformationId");
+
+                    b.Property<DateTime>("Meetingtime")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomStatus")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Username")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MeetingRoom_InformationId");
+
+                    b.ToTable("MeetingRoom_Reservation");
                 });
 
             modelBuilder.Entity("Dtol.dtol.Opinion_Info", b =>
@@ -995,6 +1180,39 @@ namespace Dtol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suggest_Box_Type");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.Suggest_Food", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AddDate");
+
+                    b.Property<string>("Anonymous");
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("SuggestType");
+
+                    b.Property<int?>("User_InfoId");
+
+                    b.Property<string>("createUser");
+
+                    b.Property<string>("isDelete");
+
+                    b.Property<string>("status");
+
+                    b.Property<DateTime?>("updateDate");
+
+                    b.Property<string>("updateUser");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("User_InfoId");
+
+                    b.ToTable("Suggest_Food");
                 });
 
             modelBuilder.Entity("Dtol.dtol.UserBind", b =>
@@ -1625,6 +1843,22 @@ namespace Dtol.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Dtol.dtol.MeetingRoom_Information", b =>
+                {
+                    b.HasOne("Dtol.dtol.DataBase_Type", "DataBase_Type")
+                        .WithMany()
+                        .HasForeignKey("DataBase_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Dtol.dtol.MeetingRoom_Reservation", b =>
+                {
+                    b.HasOne("Dtol.dtol.MeetingRoom_Information", "MeetingRoom_Information")
+                        .WithMany()
+                        .HasForeignKey("MeetingRoom_InformationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Dtol.dtol.Opinion_Info", b =>
                 {
                     b.HasOne("Dtol.dtol.Flow_NodeDefine", "Flow_NodeDefine")
@@ -1676,6 +1910,13 @@ namespace Dtol.Migrations
                 });
 
             modelBuilder.Entity("Dtol.dtol.Suggest_Box", b =>
+                {
+                    b.HasOne("Dtol.dtol.User_Info", "User_Info")
+                        .WithMany()
+                        .HasForeignKey("User_InfoId");
+                });
+
+            modelBuilder.Entity("Dtol.dtol.Suggest_Food", b =>
                 {
                     b.HasOne("Dtol.dtol.User_Info", "User_Info")
                         .WithMany()

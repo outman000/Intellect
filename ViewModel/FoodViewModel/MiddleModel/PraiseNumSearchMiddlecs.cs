@@ -5,7 +5,18 @@ using System.Text;
 namespace ViewModel.FoodViewModel.MiddleModel
 {
     public class PraiseNumSearchMiddlecs
-    {
+    {  
+        
+        /// <summary>
+        /// 周数
+        /// </summary>
+        public string WeekNumber { get; set; }
+
+        /// <summary>
+        /// 年份
+        /// </summary>
+        public string Year { get; set; }
+
         /// <summary>
         /// 星期数
         /// </summary>

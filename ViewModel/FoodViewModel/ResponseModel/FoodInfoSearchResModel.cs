@@ -11,7 +11,7 @@ namespace ViewModel.FoodViewModel.ResponseModel
     {
         public bool IsSuccess;
         public List<string> foodType;
-        public List<Food_Info> foodInfo;
+        public List<FoodInfoSearchMiddle> foodInfo;
         public BaseViewModel baseViewModel;
         public int TotalNum;
         public FoodInfoSearchResModel()

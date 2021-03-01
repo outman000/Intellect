@@ -13,6 +13,7 @@ using ViewModel.UserViewModel.RequsetModel;
 using ViewModel.WeChatViewModel.MiddleModel;
 using ViewModel.WeChatViewModel.RequestViewModel;
 using RestSharp;
+using Microsoft.Extensions.Options;
 
 namespace Dto.Service.IntellWeChat
 {
@@ -24,13 +25,13 @@ namespace Dto.Service.IntellWeChat
         private readonly IUserRelateRoleRightRepository _userRelateRoleRightRepository;
         private readonly IUserBindRepository _userBindRepository;
         private readonly IMapper _IMapper;
-
+        private IntegralCommodityDate _IOptions { get; set; }
         public LoginService(ILoginRepository loginRepository,
                             IUserInfoRepository userInfoRepository,
                             IUserRelateInfoRoleRepository userRelateInfoRoleRepository,
                             IUserRelateRoleRightRepository userRelateRoleRightRepository,
                             IUserBindRepository userBindRepository,
-                            IMapper mapper)
+                            IMapper mapper, IOptions<IntegralCommodityDate> settings)
         {
             _ILoginRepository = loginRepository;
             _IUserInfoRepository = userInfoRepository;
@@ -38,6 +39,7 @@ namespace Dto.Service.IntellWeChat
             _userRelateRoleRightRepository = userRelateRoleRightRepository;
             _userBindRepository = userBindRepository;
             _IMapper = mapper;
+            _IOptions = settings.Value;
         }
         /// <summary>
         /// 查询一个用户所拥有的权限
@@ -47,6 +49,7 @@ namespace Dto.Service.IntellWeChat
         public WeChatIndexMiddlecs WeChatLogin_Search(WeChatInfoViewModel weChatInfoViewModel)
         {
             WeChatIndexMiddlecs weChatIndexMiddlecs = new WeChatIndexMiddlecs();
+            weChatIndexMiddlecs.FoodStatus = "0";
             //用户权限集合
             List<User_Rights> user_Rights = new List<User_Rights>();
             List<User_Rights> user_RightsQc = new List<User_Rights>();
@@ -61,6 +64,19 @@ namespace Dto.Service.IntellWeChat
             //建有层级关系的权限扁平化
             for (int i = 0; i < user_Infos_All.Count; i++)
             {
+
+               if(user_Infos_All[i].User_Role.Id == 34)
+               {
+                    weChatIndexMiddlecs.FoodStatus = "3";
+               }
+               if (user_Infos_All[i].User_Role.Id == 35 && weChatIndexMiddlecs.FoodStatus != "3")
+               {
+                    weChatIndexMiddlecs.FoodStatus = "1";
+               }
+               if (user_Infos_All[i].User_Role.Id == 36 && weChatIndexMiddlecs.FoodStatus != "3")
+               {
+                    weChatIndexMiddlecs.FoodStatus = "2";
+               }
                 int rightNum = user_Infos_All[i].User_Role.User_Relate_Role_Right.Count;
                 for (int j = 0; j < rightNum; j++)
                 {
@@ -85,8 +101,21 @@ namespace Dto.Service.IntellWeChat
             foreach (var el in result)
             {
                 AddPermission(user_All, el);
-            }     
+            }
+
+            //判断当前时间是否在工作时间段内
+            DateTime _staDate = DateTime.Parse(_IOptions._staDate);//工作时间上午06:00
+            DateTime _endDate = DateTime.Parse(_IOptions._endDate); //工作时间上午09:00
+            DateTime now = DateTime.Now;
+            if (now >= _staDate && now <= _endDate)
+                weChatIndexMiddlecs.status = "0";//符合兑换时间段
+            else
+                weChatIndexMiddlecs.status = "1";//不符合兑换时间段
             weChatIndexMiddlecs.User_Rights = result;
+
+
+          
+
             return weChatIndexMiddlecs;
         }
 

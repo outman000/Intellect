@@ -89,6 +89,12 @@ namespace Dtol
         public DbSet<Integral_Commodity> Integral_Commodity { get; set; }
 
         public DbSet<Product_List> Product_List { get; set; }
-        
+
+        public DbSet<Suggest_Food> Suggest_Food { get; set; }
+
+        public DbSet<DataBase_Type> DataBase_Type { get; set; }
+        public DbSet<MeetingRoom_Reservation> MeetingRoom_Reservation { get; set; }
+        public DbSet<MeetingRoom_Information> MeetingRoom_Information { get; set; }
+
     }
 }

@@ -57,7 +57,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoAddResModel.baseViewModel.Message = "添加失败";
                 opinionInfoAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添领导回复意见信息失败");
-                return BadRequest(opinionInfoAddResModel);
+                return Ok(opinionInfoAddResModel);
             }
         }
 
@@ -90,7 +90,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoDelResModel.baseViewModel.Message = "删除失败";
                 opinionInfoDelResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除领导回复意见信息失败");
-                return BadRequest(opinionInfoDelResModel);
+                return Ok(opinionInfoDelResModel);
             }
         }
         /// <summary>
@@ -121,7 +121,7 @@ namespace IntellSuggest.Controllers
                 opinionInfoUpdateResModel.baseViewModel.Message = "更新失败";
                 opinionInfoUpdateResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新领导回复意见信息失败");
-                return BadRequest(opinionInfoUpdateResModel);
+                return Ok(opinionInfoUpdateResModel);
             }
         }
 

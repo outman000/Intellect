@@ -58,7 +58,7 @@ namespace IntellUser.Controllers
                 userAddResModel.baseViewModel.Message = "添加失败";
                 userAddResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("增添部门信息失败");
-                return BadRequest(userAddResModel);
+                return Ok(userAddResModel);
             }
         }
 
@@ -90,7 +90,7 @@ namespace IntellUser.Controllers
                 departValideResRepeat.baseViewModel.Message = "此id已经存在，请更换";
                 departValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("部门名id验证是否重复，此id已经存在，请更换");
-                return BadRequest(departValideResRepeat);
+                return Ok(departValideResRepeat);
             }
         }
         /// <summary>
@@ -122,7 +122,7 @@ namespace IntellUser.Controllers
                 departDeleteResModel.baseViewModel.Message = "删除失败";
                 departDeleteResModel.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("删除部门信息（直接删除），删除失败");
-                return BadRequest(departDeleteResModel);
+                return Ok(departDeleteResModel);
             }
 
         }
@@ -156,7 +156,7 @@ namespace IntellUser.Controllers
                 departValideResRepeat.baseViewModel.Message = "更新失败";
                 departValideResRepeat.baseViewModel.ResponseCode = 400;
                 _ILogger.Information("更新部门信息失败");
-                return BadRequest(departValideResRepeat);
+                return Ok(departValideResRepeat);
             }
         }
         /// <summary>

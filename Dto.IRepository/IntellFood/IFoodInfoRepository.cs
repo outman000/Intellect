@@ -28,6 +28,48 @@ namespace Dto.IRepository.IntellOpinionInfo
         IQueryable<Food_Info> GetFoodAll(FoodInfoSearchViewModel foodInfoSearchViewModel);
         List<string> SearchFoodTypeInfoByWhere(FoodInfoSearchViewModel foodInfoSearchViewModel);
 
+        void Add_Suggest_Food(Suggest_Food obj);
+        /// <summary>
+        /// 查询建议新增的菜
+        /// </summary>
+        /// <param name="suggestFoodSearchViewModel"></param>
+        /// <returns></returns>
+        List<Suggest_Food> SearchSuggestFoodInfoByWhere(SuggestFoodSearchViewModel suggestFoodSearchViewModel);
 
+        /// <summary>
+        /// 查询建议新增的菜数量
+        /// </summary>
+        /// <param name="suggestFoodSearchViewModel"></param>
+        /// <returns></returns>
+        List<Suggest_Food> SearchSuggestFoodInfoByWhereNum(SuggestFoodSearchViewModel suggestFoodSearchViewModel);
+
+        /// <summary>
+        /// 根据周数查询食品信息
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        List<Food_Info> GetInfoByWeekNumber(string y ,string wn, string FoodType);
+
+        /// <summary>
+        /// 获取数据库最大周数
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        int GetMaxWeekNumber();
+
+        /// <summary>
+        /// 检查是否已存在数据
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        List<Food_Info> CheckTemplateAdd(string year, string zhou, string xq, string fn, string foodtype);
+
+        void Add2(ComAttachs obj);
+
+        /// <summary>
+        /// 批量导入数据库（菜单信息）
+        /// </summary>
+        /// <param name="recommendedDirectories"></param>
+        void AddRange_User_Info(List<Food_Info> user_Infos,string userID);
     }
 }

@@ -228,13 +228,17 @@ namespace Dtol.Attribute
                 }
                 else
                 {
-                    workSheet.Cells["B1"].Value = "注册时间";
-                    workSheet.Cells["C1"].Value = "注册资本";
-                    workSheet.Cells["D1"].Value = "负责人";
-                    workSheet.Cells["E1"].Value = "企业名称";
-                    workSheet.Cells["F1"].Value = "投资方及项目情况 ";
-                    workSheet.Cells["G1"].Value = "主要指标贡献";
-                    workSheet.Cells["H1"].Value = "所属产业门类";
+                    workSheet.Cells["A1"].Value = "序号";
+                    workSheet.Cells["B1"].Value = "用车类型";
+                    workSheet.Cells["C1"].Value = "部门名称";
+                    workSheet.Cells["D1"].Value = "申请人";
+                    workSheet.Cells["E1"].Value = "乘车人";
+                    workSheet.Cells["F1"].Value = "乘车人数";
+                    workSheet.Cells["G1"].Value = "出发地点";
+                    workSheet.Cells["H1"].Value = "目的单位";
+                    workSheet.Cells["I1"].Value = "用车事由";
+                    workSheet.Cells["J1"].Value = "日期";
+                    workSheet.Cells["K1"].Value = "状态";
 
                 }
                 if (!string.IsNullOrEmpty(heading))

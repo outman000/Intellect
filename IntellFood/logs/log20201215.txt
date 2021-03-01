@@ -1,0 +1,72 @@
+2020-12-15 15:06:05.341 +08:00 [INF] host is start
+2020-12-15 15:06:08.954 +08:00 [FTL] Host terminated unexpectedly
+System.IO.DirectoryNotFoundException: D:\公司项目\东疆智慧后勤\IntellFood\StaticFiles\
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at IntellFood.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env) in D:\公司项目\东疆智慧后勤\IntellFood\Startup.cs:line 179
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Internal.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellFood.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellFood\Program.cs:line 40
+2020-12-15 15:10:20.104 +08:00 [INF] host is start
+2020-12-15 15:10:22.487 +08:00 [FTL] Host terminated unexpectedly
+System.IO.DirectoryNotFoundException: D:\公司项目\东疆智慧后勤\IntellFood\StaticFiles\
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at IntellFood.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env) in D:\公司项目\东疆智慧后勤\IntellFood\Startup.cs:line 179
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Internal.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellFood.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellFood\Program.cs:line 40
+2020-12-15 15:10:41.955 +08:00 [INF] host is start
+2020-12-15 15:10:44.573 +08:00 [FTL] Host terminated unexpectedly
+System.IO.DirectoryNotFoundException: D:\公司项目\东疆智慧后勤\IntellFood\StaticFiles\
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at IntellFood.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env) in D:\公司项目\东疆智慧后勤\IntellFood\Startup.cs:line 179
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Internal.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellFood.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellFood\Program.cs:line 40
+2020-12-15 15:11:41.321 +08:00 [INF] host is start
+2020-12-15 15:11:43.866 +08:00 [FTL] Host terminated unexpectedly
+System.IO.DirectoryNotFoundException: D:\公司项目\东疆智慧后勤\IntellFood\StaticFiles\
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at IntellFood.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env) in D:\公司项目\东疆智慧后勤\IntellFood\Startup.cs:line 179
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Internal.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token, String shutdownMessage)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.RunAsync(IWebHost host, CancellationToken token)
+   at Microsoft.AspNetCore.Hosting.WebHostExtensions.Run(IWebHost host)
+   at IntellFood.Program.Main(String[] args) in D:\公司项目\东疆智慧后勤\IntellFood\Program.cs:line 40
+2020-12-15 15:14:26.529 +08:00 [INF] host is start
+2020-12-15 15:26:29.381 +08:00 [INF] host is start
+2020-12-15 15:26:57.035 +08:00 [INF] 增添建议增加的菜信息成功
+2020-12-15 15:27:09.367 +08:00 [INF] 查询意见箱表单信息成功

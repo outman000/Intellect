@@ -173,7 +173,7 @@ namespace Dto.Repository.IntellUser
         /// <returns></returns>
         public List<Integral_Commodity> GetIntegralCommodityList(string ID)
         {
-            return DbSet4.Where(a => a.Id == ID && a.IsDelete == "0" && a.status=="0").ToList();
+            return DbSet4.Where(a => a.Id == ID && a.IsDelete == "0").ToList();
         }
 
 
@@ -195,6 +195,13 @@ namespace Dto.Repository.IntellUser
             var result = DbSet6.Where(predicate).OrderByDescending(A => A.AddDate)
                                 .Skip(SkipNum)
                                 .Take(productListSearchViewModel.pageViewModel.PageSize).ToList();
+            return result;
+        }
+
+        public List<Product_List> GetProductListListNum(ProductListSearchViewModel productListSearchViewModel)
+        {    int SkipNum = productListSearchViewModel.pageViewModel.CurrentPageNum * productListSearchViewModel.pageViewModel.PageSize;
+            var predicate = SearchProductListWhere(productListSearchViewModel);
+            var result = DbSet6.Where(predicate).ToList();
             return result;
         }
         /// <summary>
@@ -303,16 +310,33 @@ namespace Dto.Repository.IntellUser
         /// </summary>
         /// <param name="userIntegralSearchViewModel"></param>
         /// <returns></returns>
-        public List<User_Integral> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
-        {
+        //public List<User_Integral> SearchUserIntegralNewAll(UserIntegralSearchViewModel userIntegralSearchViewModel)
+        //{
 
 
-            int SkipNum = userIntegralSearchViewModel.pageViewModel.CurrentPageNum * userIntegralSearchViewModel.pageViewModel.PageSize;
-            var predicate = SearchUserIntegralWhere(userIntegralSearchViewModel);
-            var result = DbSet2.Where(predicate).OrderByDescending(A => A.AddDate)
-                                .Skip(SkipNum)
-                                .Take(userIntegralSearchViewModel.pageViewModel.PageSize).ToList();
-            return result;
+        //    int SkipNum = userIntegralSearchViewModel.pageViewModel.CurrentPageNum * userIntegralSearchViewModel.pageViewModel.PageSize;
+        //    var predicate = SearchUserIntegralWhere(userIntegralSearchViewModel);
+            // var result = DbSet2.Where(predicate).OrderByDescending(a => a.TotalPoints)
+            //                    .ToList();
+
+           // string sql = "select * from User_Integral inner join User_Union On User_Integral.idcard=User_Union.idcard where 1=1";
+           //if (userIntegralSearchViewModel.User_DepartId != null)
+           //{
+           //     sql += " and User_Integral.User_DepartId='" + userIntegralSearchViewModel.User_DepartId + "'";
+           //}
+           // if (userIntegralSearchViewModel.starPoints != null && userIntegralSearchViewModel.endPoints != null)
+           // {
+           //     sql += " and CONVERT(int, User_Integral.TotalPoints, 23)>='" + userIntegralSearchViewModel.starPoints + "' and CONVERT(int, User_Integral.TotalPoints, 23) <='" + userIntegralSearchViewModel.endPoints + "'";
+           // }
+             
+           // if (userIntegralSearchViewModel.strDate != null && userIntegralSearchViewModel.endDate != null)
+           // {
+           //     sql += " and User_Integral.updateDate.Value ";
+           // }
+           //     var result = DbSet2.Where(predicate).FromSql()
+           //                  .ToList();
+
+           // return result;
             //string deptId = "";
             //string User_UnionId = "";
             //DateTime strDate;
@@ -428,7 +452,7 @@ namespace Dto.Repository.IntellUser
             //}
 
 
-        }
+       // }
 
 
     }

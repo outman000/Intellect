@@ -31,6 +31,15 @@ namespace ViewModel.FoodViewModel.MiddleModel
         public string Content { get; set; }
 
         /// <summary>
+        /// 周数
+        /// </summary>
+        public string WeekNumber { get; set; }
+
+        /// <summary>
+        /// 年份
+        /// </summary>
+        public string Year { get; set; }
+        /// <summary>
         /// 增加时间
         /// </summary>
         public DateTime? AddDate { get; set; }
